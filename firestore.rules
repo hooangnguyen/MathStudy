@@ -1,0 +1,133 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    // Check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if the user is the owner of the document (based on uid field)
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Check if the user is a teacher
+    // In a real app, this should be a custom claim or a secure lookup.
+    // For this prototype, we trust the 'role' field on the user document,
+    // BUT we must ensure a user cannot just set their role to 'teacher' arbitrarily during creation/update if they are not authorized.
+    // However, for simplicity in this MVP, we will allow users to choose their role on sign-up.
+    function isTeacher() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'teacher';
+    }
+
+    // Check if the user is a student
+    function isStudent() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'student';
+    }
+
+    // Check if the user is the teacher of a specific class
+    function isClassTeacher(classId) {
+      return isAuthenticated() && get(/databases/$(database)/documents/classes/$(classId)).data.teacherId == request.auth.uid;
+    }
+
+    // Check if the user is a student in a specific class
+    function isClassStudent(classId) {
+      let classData = get(/databases/$(database)/documents/classes/$(classId)).data;
+      return isAuthenticated() && (request.auth.uid in classData.studentIds);
+    }
+
+    // Validate string length
+    function validStringLength(field, minLen, maxLen) {
+      return request.resource.data[field] is string &&
+             request.resource.data[field].size() >= minLen &&
+             request.resource.data[field].size() <= maxLen;
+    }
+
+    // Validate required fields
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    // ===============================================================
+    // Collection Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      // Allow users to read other users' profiles (needed for class rosters, etc.)
+      // In a stricter app, this would be limited to public profiles.
+      allow read: if isAuthenticated();
+
+      // Users can create/update their own profile
+      allow create, update: if isOwner(userId) &&
+                               hasRequiredFields(['uid', 'email', 'displayName', 'role', 'createdAt']) &&
+                               request.resource.data.uid == userId &&
+                               validStringLength('displayName', 1, 100) &&
+                               (request.resource.data.role == 'teacher' || request.resource.data.role == 'student');
+    }
+
+    match /classes/{classId} {
+      // Allow reading if user is the teacher or a student in the class
+      // Also allow reading if the user is just checking the class code (might need a separate query or collection for code lookup to be secure)
+      // For simplicity, allow authenticated users to read classes (to join them).
+      // A better approach for "joining" is to have a separate function or open read for specific fields.
+      // Let's restrict read to members, but allow "get" if you know the ID (which might be the code in some designs, but here ID is auto-gen).
+      // Actually, to join a class by code, you need to query by code. So we need to allow list/read on classes if you are searching.
+      allow read: if isAuthenticated();
+
+      // Only teachers can create classes
+      allow create: if isTeacher() &&
+                       hasRequiredFields(['name', 'teacherId', 'code', 'createdAt']) &&
+                       request.resource.data.teacherId == request.auth.uid &&
+                       validStringLength('name', 1, 100);
+
+      // Only the class teacher can update the class (e.g., add students, change description)
+      // Students need to update the class to "join" (add their ID to studentIds)?
+      // NO. That's insecure. Students should call a function or the teacher adds them.
+      // OR: We allow students to update `studentIds` ONLY if they are adding themselves.
+      // Let's stick to: Teacher updates. If student joins, maybe they create a "JoinRequest" or we trust the client to update `studentIds` via a secure transaction?
+      // For this MVP: Allow update if teacher OR if it's a student joining (adding self to studentIds).
+      allow update: if isAuthenticated() && (
+        resource.data.teacherId == request.auth.uid ||
+        (
+          // Allow student to add THEMSELVES to studentIds
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['studentIds']) &&
+          request.resource.data.studentIds.size() == resource.data.studentIds.size() + 1 &&
+          request.resource.data.studentIds.hasAll(resource.data.studentIds) &&
+          request.resource.data.studentIds.hasAny([request.auth.uid])
+        )
+      );
+    }
+
+    match /classes/{classId}/assignments/{assignmentId} {
+      // Teacher and students of the class can read assignments
+      allow read: if isAuthenticated(); // Simplified for MVP
+
+      // Only the teacher can create/update assignments
+      allow create, update: if isClassTeacher(classId) &&
+                               hasRequiredFields(['title', 'dueDate', 'classId', 'teacherId', 'createdAt']);
+    }
+
+    match /classes/{classId}/assignments/{assignmentId}/submissions/{submissionId} {
+      // Teacher can read all submissions. Student can read their own.
+      allow read: if isAuthenticated() && (isClassTeacher(classId) || isOwner(submissionId)); // Assuming submissionId is studentId or linked
+
+      // Student can create/update their own submission
+      // Teacher can update (grade) the submission
+      allow create: if isAuthenticated() &&
+                       request.resource.data.studentId == request.auth.uid &&
+                       hasRequiredFields(['assignmentId', 'studentId', 'content', 'status', 'submittedAt']);
+
+      allow update: if isAuthenticated() && (
+        // Student updating their own submission
+        (request.resource.data.studentId == request.auth.uid) ||
+        // Teacher grading the submission
+        isClassTeacher(classId)
+      );
+    }
+  }
+}

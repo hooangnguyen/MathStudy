@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the LMS application (teacher or student).",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The Firebase Auth UID of the user." },
+        "email": { "type": "string", "format": "email", "description": "The email address of the user." },
+        "displayName": { "type": "string", "description": "The full name of the user." },
+        "role": { "type": "string", "enum": ["teacher", "student"], "description": "The role of the user." },
+        "avatarUrl": { "type": "string", "description": "URL to the user's avatar image." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when the user was created." }
+      },
+      "required": ["uid", "email", "displayName", "role", "createdAt"]
+    },
+    "Class": {
+      "title": "Class",
+      "description": "A class or course managed by a teacher.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the class." },
+        "description": { "type": "string", "description": "A brief description of the class." },
+        "teacherId": { "type": "string", "description": "The UID of the teacher who owns the class." },
+        "studentIds": { "type": "array", "items": { "type": "string" }, "description": "List of UIDs of students enrolled in the class." },
+        "code": { "type": "string", "description": "A unique code for students to join the class." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when the class was created." }
+      },
+      "required": ["name", "teacherId", "code", "createdAt"]
+    },
+    "Assignment": {
+      "title": "Assignment",
+      "description": "An assignment or task for students in a class.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the assignment." },
+        "description": { "type": "string", "description": "Detailed instructions for the assignment." },
+        "dueDate": { "type": "string", "format": "date-time", "description": "The deadline for the assignment." },
+        "classId": { "type": "string", "description": "The ID of the class this assignment belongs to." },
+        "teacherId": { "type": "string", "description": "The UID of the teacher who created the assignment." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when the assignment was created." }
+      },
+      "required": ["title", "dueDate", "classId", "teacherId", "createdAt"]
+    },
+    "Submission": {
+      "title": "Submission",
+      "description": "A student's submission for an assignment.",
+      "type": "object",
+      "properties": {
+        "assignmentId": { "type": "string", "description": "The ID of the assignment being submitted." },
+        "studentId": { "type": "string", "description": "The UID of the student submitting the work." },
+        "content": { "type": "string", "description": "The content of the submission (text, link, etc.)." },
+        "score": { "type": "number", "description": "The grade given by the teacher." },
+        "feedback": { "type": "string", "description": "Feedback from the teacher." },
+        "status": { "type": "string", "enum": ["submitted", "graded", "late"], "description": "The status of the submission." },
+        "submittedAt": { "type": "string", "format": "date-time", "description": "Timestamp when the submission was made." }
+      },
+      "required": ["assignmentId", "studentId", "content", "status", "submittedAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "Stores user profiles."
+    },
+    "classes/{classId}": {
+      "schema": "Class",
+      "description": "Stores class details."
+    },
+    "classes/{classId}/assignments/{assignmentId}": {
+      "schema": "Assignment",
+      "description": "Stores assignments within a class."
+    },
+    "classes/{classId}/assignments/{assignmentId}/submissions/{submissionId}": {
+      "schema": "Submission",
+      "description": "Stores student submissions for an assignment."
+    }
+  }
+}
