@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  ChevronLeft, 
-  User, 
-  Bell, 
-  Volume2, 
-  Moon, 
-  Globe, 
-  HelpCircle, 
-  Info, 
+import {
+  ChevronLeft,
+  User,
+  Bell,
+  Volume2,
+  Moon,
+  Globe,
+  HelpCircle,
+  Info,
   ChevronRight,
   Smartphone,
   Type,
@@ -23,48 +23,50 @@ interface SettingsProps {
   onBack: () => void;
   onLogout: () => void;
   onEditProfile: () => void;
+  userName?: string;
 }
 
-export const Settings: React.FC<SettingsProps> = ({ 
-  onBack, 
+export const Settings: React.FC<SettingsProps> = ({
+  onBack,
   onLogout,
-  onEditProfile
+  onEditProfile,
+  userName = 'Người dùng'
 }) => {
   const [notifications, setNotifications] = useState(true);
   const [soundEffects, setSoundEffects] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
 
   const Toggle = ({ active, onToggle }: { active: boolean, onToggle: () => void }) => (
-    <button 
+    <button
       onClick={onToggle}
       className={cn(
         "w-12 h-6 rounded-full transition-colors relative",
         active ? "bg-primary" : "bg-slate-200"
       )}
     >
-      <motion.div 
+      <motion.div
         animate={{ x: active ? 24 : 2 }}
         className="absolute top-1 left-0 w-4 h-4 bg-white rounded-full shadow-sm"
       />
     </button>
   );
 
-  const SettingItem = ({ 
-    icon: Icon, 
-    label, 
-    value, 
-    onClick, 
-    toggle, 
-    color = "text-slate-600" 
-  }: { 
-    icon: any, 
-    label: string, 
-    value?: string, 
-    onClick?: () => void, 
+  const SettingItem = ({
+    icon: Icon,
+    label,
+    value,
+    onClick,
+    toggle,
+    color = "text-slate-600"
+  }: {
+    icon: any,
+    label: string,
+    value?: string,
+    onClick?: () => void,
     toggle?: { active: boolean, onToggle: () => void },
     color?: string
   }) => (
-    <div 
+    <div
       onClick={onClick}
       className={cn(
         "flex items-center justify-between p-4 hover:bg-slate-50 transition-colors cursor-pointer",
@@ -92,7 +94,7 @@ export const Settings: React.FC<SettingsProps> = ({
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
       <div className="p-6 bg-white border-b border-slate-100 flex items-center gap-4 shrink-0">
-        <button 
+        <button
           onClick={onBack}
           className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 active:scale-90 transition-transform"
         >
@@ -107,11 +109,11 @@ export const Settings: React.FC<SettingsProps> = ({
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Tài khoản</h2>
         </div>
         <div className="border-y border-slate-50">
-          <SettingItem 
-            icon={User} 
-            label="Thông tin cá nhân" 
-            value="Nguyễn Văn Minh" 
-            color="text-blue-500" 
+          <SettingItem
+            icon={User}
+            label="Thông tin cá nhân"
+            value={userName}
+            color="text-blue-500"
             onClick={onEditProfile}
           />
           <SettingItem icon={Globe} label="Ngôn ngữ" value="Tiếng Việt" color="text-emerald-500" />
@@ -123,9 +125,9 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
         <div className="border-y border-slate-50">
           <SettingItem icon={Type} label="Cỡ chữ" value="Mặc định" color="text-indigo-500" />
-          <SettingItem 
-            icon={Bell} 
-            label="Thông báo nhắc học" 
+          <SettingItem
+            icon={Bell}
+            label="Thông báo nhắc học"
             toggle={{ active: notifications, onToggle: () => setNotifications(!notifications) }}
             color="text-rose-500"
           />
@@ -136,15 +138,15 @@ export const Settings: React.FC<SettingsProps> = ({
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Âm thanh & Hiển thị</h2>
         </div>
         <div className="border-y border-slate-50">
-          <SettingItem 
-            icon={Volume2} 
-            label="Hiệu ứng âm thanh" 
+          <SettingItem
+            icon={Volume2}
+            label="Hiệu ứng âm thanh"
             toggle={{ active: soundEffects, onToggle: () => setSoundEffects(!soundEffects) }}
             color="text-cyan-500"
           />
-          <SettingItem 
-            icon={Moon} 
-            label="Chế độ tối" 
+          <SettingItem
+            icon={Moon}
+            label="Chế độ tối"
             toggle={{ active: darkMode, onToggle: () => setDarkMode(!darkMode) }}
             color="text-slate-800"
           />
@@ -161,7 +163,7 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
 
         <div className="p-6 mt-4">
-          <button 
+          <button
             onClick={onLogout}
             className="w-full p-5 bg-rose-50 rounded-[2rem] flex items-center justify-center gap-2 text-rose-600 font-bold hover:bg-rose-100 transition-colors"
           >

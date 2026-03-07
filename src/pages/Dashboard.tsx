@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { Bell, Flame, Star, Trophy, List, ArrowDown, Heart, Hexagon, MessageSquare } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Bell, Flame, Star, Trophy, List, ArrowDown, Heart, Hexagon, MessageSquare, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../utils/utils';
 import { Chat } from '../features/chat/Chat';
+import { getCurriculum, Lesson } from '../services/dataService';
 
 interface DashboardProps {
   onShowNotifications?: () => void;
-  onStartLesson?: () => void;
+  onStartLesson?: (title: string) => void;
+  grade?: number;
+  points?: number;
+  streak?: number;
 }
 
 const pathData = {
@@ -37,8 +41,26 @@ const pathData = {
   ]
 };
 
-export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onStartLesson }) => {
+export const Dashboard: React.FC<DashboardProps> = ({
+  onShowNotifications,
+  onStartLesson,
+  grade = 5,
+  points = 0,
+  streak = 0
+}) => {
   const [showChat, setShowChat] = useState(false);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCurriculum = async () => {
+      setLoading(true);
+      const data = await getCurriculum(grade);
+      setLessons(data);
+      setLoading(false);
+    };
+    fetchCurriculum();
+  }, [grade]);
 
   return (
     <div className="flex flex-col h-full bg-[#f7f7f7] relative font-sans">
@@ -48,16 +70,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onSta
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5">
               <Flame size={20} className="text-orange-500 fill-orange-500" />
-              <span className="font-bold text-slate-400">142</span>
+              <span className="font-bold text-slate-400">{streak}</span>
             </div>
-            
+
             <div className="flex items-center gap-1.5">
               <Star size={20} className="text-yellow-400 fill-yellow-400" />
-              <span className="font-bold text-yellow-500">2,450</span>
+              <span className="font-bold text-yellow-500">{points.toLocaleString()}</span>
             </div>
           </div>
 
-          <button 
+          <button
             onClick={() => onShowNotifications?.()}
             className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors relative"
           >
@@ -70,7 +92,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onSta
       {/* Main Scrollable Area */}
       <div className="flex-1 overflow-y-auto pb-32 relative no-scrollbar">
         <div className="max-w-md mx-auto relative pt-4 px-4">
-          
+
           {/* Unit Header Banner (Sticky below top bar) */}
           <div className="sticky top-4 z-40 mb-8">
             <div className={cn(
@@ -80,10 +102,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onSta
             )}>
               <div className="flex-1 p-4">
                 <h2 className="text-sm font-bold opacity-90 uppercase tracking-wider mb-1">
-                  {pathData.header.part}
+                  CHƯƠNG TRÌNH LỚP {grade}
                 </h2>
                 <h1 className="text-xl font-black leading-tight">
-                  {pathData.header.title}
+                  {lessons.length > 0 ? lessons[0].title : 'Đang tải lộ trình...'}
                 </h1>
               </div>
               <div className="w-16 bg-black/10 flex items-center justify-center cursor-pointer active:bg-black/20 transition-colors">
@@ -113,8 +135,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onSta
                     const isCompleted = node.status === 'completed';
 
                     return (
-                      <div 
-                        key={node.id} 
+                      <div
+                        key={node.id}
                         className="relative flex justify-center w-full"
                       >
                         {/* Character Illustration (Placeholder) */}
@@ -130,7 +152,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onSta
                           </div>
                         )}
 
-                        <div 
+                        <div
                           className="relative"
                           style={{ transform: `translateX(${node.offset}px)` }}
                         >
@@ -145,8 +167,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onSta
                           )}
 
                           {/* Node Button */}
-                          <button 
-                            onClick={!isLocked ? onStartLesson : undefined}
+                          <button
+                            onClick={!isLocked ? () => onStartLesson?.('Bài học mới') : undefined}
                             className={cn(
                               "w-[80px] h-[80px] rounded-full flex items-center justify-center relative transition-transform z-10",
                               !isLocked && "active:scale-95 cursor-pointer",
@@ -166,7 +188,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onSta
                                 <span className="text-4xl text-white drop-shadow-md">{node.icon}</span>
                               )}
                             </div>
-                            
+
                             {/* Inner highlight for 3D effect */}
                             <div className="absolute inset-0 rounded-full border-[3px] border-white/20 pointer-events-none" />
                           </button>
@@ -189,8 +211,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onShowNotifications, onSta
       {/* Overlays */}
       <AnimatePresence>
         {showChat && (
-          <Chat 
-            onClose={() => setShowChat(false)} 
+          <Chat
+            onClose={() => setShowChat(false)}
             studentName="Cô Thu Hương"
             isTeacherView={false}
           />

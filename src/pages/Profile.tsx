@@ -1,19 +1,45 @@
 import React from 'react';
 import { Settings as SettingsIcon, Edit2, Award, History, Heart, Shield, LogOut, Zap, Trophy, Star, ChevronRight, BookOpen, Flame, Target } from 'lucide-react';
 import { cn } from '../utils/utils';
+import { Achievement } from '../services/userService';
 
 interface ProfileProps {
   onSettings: () => void;
   onEditProfile: () => void;
+  userData?: {
+    role?: 'student' | 'teacher';
+    name?: string;
+    grade?: number;
+    avatar?: string;
+    points?: number;
+    streak?: number;
+    achievements?: Achievement[];
+    school?: string;
+    subject?: string;
+  };
 }
 
-export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile }) => {
-  const achievements = [
-    { title: 'Thợ săn sao', icon: '⭐', level: 3, color: 'from-amber-300 to-orange-500', label: 'Bạc', shadow: 'shadow-orange-500/30' },
-    { title: 'Chuyên gia số học', icon: '🧮', level: 1, color: 'from-slate-300 to-slate-500', label: 'Đồng', shadow: 'shadow-slate-500/30' },
-    { title: 'Kiên trì', icon: '🔥', level: 5, color: 'from-rose-400 to-red-600', label: 'Vàng', shadow: 'shadow-red-500/30' },
-    { title: 'Chiến thần', icon: '⚔️', level: 2, color: 'from-indigo-400 to-purple-600', label: 'Bạc', shadow: 'shadow-purple-500/30' },
-  ];
+export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile, userData }) => {
+  // Achievement visual styles mapping
+  const getAchievementStyle = (id: string) => {
+    const styles: Record<string, { color: string, shadow: string }> = {
+      'star_hunter': { color: 'from-amber-300 to-orange-500', shadow: 'shadow-orange-500/30' },
+      'math_expert': { color: 'from-slate-300 to-slate-500', shadow: 'shadow-slate-500/30' },
+      'perseverance': { color: 'from-rose-400 to-red-600', shadow: 'shadow-red-500/30' },
+      'warrior': { color: 'from-indigo-400 to-purple-600', shadow: 'shadow-purple-500/30' },
+    };
+    return styles[id] || { color: 'from-blue-400 to-indigo-600', shadow: 'shadow-indigo-500/30' };
+  };
+
+  const displayAchievements = userData?.achievements?.length
+    ? userData.achievements.map(ach => ({
+      ...ach,
+      ...getAchievementStyle(ach.id)
+    }))
+    : [
+      { id: 'star_hunter', title: 'Thợ săn sao', icon: '⭐', level: 3, label: 'Bạc', ...getAchievementStyle('star_hunter') },
+      { id: 'math_expert', title: 'Chuyên gia số học', icon: '🧮', level: 1, label: 'Đồng', ...getAchievementStyle('math_expert') },
+    ];
 
   const duelHistory = [
     { id: 1, opponent: 'Hoàng Nam', result: 'win', score: '100 - 80', time: '10 phút trước', xp: 25 },
@@ -28,11 +54,11 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile }) =
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-400/20 rounded-full -ml-10 -mb-10 blur-2xl" />
-        
+
         {/* Top Bar */}
         <div className="flex items-center justify-between relative z-10 mb-8">
           <h1 className="text-xl font-black text-white tracking-wide">Hồ sơ của tôi</h1>
-          <button 
+          <button
             onClick={onSettings}
             className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 active:scale-90 transition-all border border-white/20"
           >
@@ -44,14 +70,14 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile }) =
         <div className="flex items-center gap-6 relative z-10">
           <div className="relative">
             <div className="w-24 h-24 rounded-full bg-white p-1 shadow-xl shadow-black/10">
-              <img 
-                src="https://picsum.photos/seed/student/200" 
-                alt="Avatar" 
+              <img
+                src={userData?.avatar || "https://picsum.photos/seed/student/200"}
+                alt="Avatar"
                 className="w-full h-full rounded-full object-cover border-2 border-slate-50"
                 referrerPolicy="no-referrer"
               />
             </div>
-            <button 
+            <button
               onClick={onEditProfile}
               className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white shadow-lg border border-slate-100 flex items-center justify-center text-indigo-600 hover:bg-indigo-50 active:scale-90 transition-all"
             >
@@ -59,76 +85,95 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile }) =
             </button>
           </div>
           <div className="space-y-1.5">
-            <h2 className="text-2xl font-black text-white drop-shadow-sm">Nguyễn Văn Minh</h2>
+            <h2 className="text-2xl font-black text-white drop-shadow-sm">{userData?.name || 'Người dùng'}</h2>
             <div className="flex items-center gap-3">
-              <span className="px-2.5 py-1 rounded-lg bg-white/20 backdrop-blur-sm text-[10px] font-bold text-white uppercase tracking-widest border border-white/10">
-                Lớp 5A
-              </span>
-              <span className="text-xs text-indigo-100 font-medium">ID: 889922</span>
+              {userData?.role === 'teacher' ? (
+                <span className="px-2.5 py-1 rounded-lg bg-white/20 backdrop-blur-sm text-[10px] font-bold text-white uppercase tracking-widest border border-white/10">
+                  {userData?.subject || 'Giáo viên'}
+                </span>
+              ) : (
+                <span className="px-2.5 py-1 rounded-lg bg-white/20 backdrop-blur-sm text-[10px] font-bold text-white uppercase tracking-widest border border-white/10">
+                  Lớp {userData?.grade || '5'}
+                </span>
+              )}
+              <span className="text-xs text-indigo-100 font-medium">ID: {Math.floor(Math.random() * 1000000)}</span>
             </div>
-            <div className="flex items-center gap-1.5 mt-1 text-amber-300">
-              <Trophy size={14} className="fill-amber-300" />
-              <span className="text-xs font-black uppercase tracking-wider drop-shadow-sm">Kim Cương III</span>
-            </div>
+            {userData?.role === 'teacher' ? (
+              <div className="flex items-center gap-1.5 mt-1 text-indigo-100">
+                <Shield size={14} className="fill-white/20" />
+                <span className="text-xs font-black uppercase tracking-wider drop-shadow-sm">{userData?.school || 'Chưa cập nhật trường'}</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5 mt-1 text-amber-300">
+                <Trophy size={14} className="fill-amber-300" />
+                <span className="text-xs font-black uppercase tracking-wider drop-shadow-sm">Kim Cương III</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Floating Stats Grid */}
-      <div className="px-6 -mt-12 relative z-20 shrink-0">
-        <div className="bg-white rounded-3xl p-4 shadow-xl shadow-slate-200/50 border border-slate-100 grid grid-cols-4 gap-2 divide-x divide-slate-100">
-          {[
-            { label: 'Bài học', value: '42', icon: BookOpen, color: 'text-indigo-500' },
-            { label: 'Chuỗi', value: '12', icon: Flame, color: 'text-orange-500' },
-            { label: 'Kỷ lục', value: '#1', icon: Target, color: 'text-emerald-500' },
-            { label: 'Điểm', value: '8.5k', icon: Star, color: 'text-amber-500' },
-          ].map((stat, i) => (
-            <div key={i} className="flex flex-col items-center justify-center space-y-1.5 px-2">
-              <stat.icon size={16} className={stat.color} />
-              <p className="text-lg font-black text-slate-800">{stat.value}</p>
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-8 no-scrollbar pb-24">
-        {/* Achievements */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-black text-slate-800">Huy chương</h3>
-            <span className="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-black uppercase tracking-widest">4 / 12</span>
-          </div>
-          <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-6 px-6">
-            {achievements.map((ach, i) => (
-              <div key={i} className="flex flex-col items-center space-y-3 min-w-[110px] bg-white p-4 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className={cn(
-                  "w-16 h-16 rounded-3xl bg-gradient-to-br flex items-center justify-center text-2xl shadow-lg relative",
-                  ach.color,
-                  ach.shadow
-                )}>
-                  <div className="absolute inset-1 rounded-[1.3rem] border border-white/30" />
-                  {ach.icon}
-                  <div className="absolute -bottom-2.5 bg-white px-2.5 py-0.5 rounded-full shadow-sm border border-slate-100">
-                    <span className="text-[9px] font-black text-slate-700 uppercase tracking-widest">{ach.label}</span>
-                  </div>
-                </div>
-                <div className="text-center pt-2">
-                  <h4 className="text-xs font-black text-slate-800">{ach.title}</h4>
-                  <div className="flex justify-center gap-1 mt-1.5">
-                    {[...Array(5)].map((_, j) => (
-                      <div key={j} className={cn(
-                        "w-1.5 h-1.5 rounded-full",
-                        j < ach.level ? 'bg-amber-400' : 'bg-slate-100'
-                      )} />
-                    ))}
-                  </div>
-                </div>
+      {userData?.role !== 'teacher' && (
+        <div className="px-6 -mt-12 relative z-20 shrink-0">
+          <div className="bg-white rounded-3xl p-4 shadow-xl shadow-slate-200/50 border border-slate-100 grid grid-cols-4 gap-2 divide-x divide-slate-100">
+            {[
+              { label: 'Bài học', value: '42', icon: BookOpen, color: 'text-indigo-500' },
+              { label: 'Chuỗi', value: userData?.streak || '0', icon: Flame, color: 'text-orange-500' },
+              { label: 'Kỷ lục', value: '#1', icon: Target, color: 'text-emerald-500' },
+              { label: 'Điểm', value: (userData?.points || 0).toLocaleString(), icon: Star, color: 'text-amber-500' },
+            ].map((stat, i) => (
+              <div key={i} className="flex flex-col items-center justify-center space-y-1.5 px-2">
+                <stat.icon size={16} className={stat.color} />
+                <p className="text-lg font-black text-slate-800">{stat.value}</p>
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
+      )}
+
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto p-6 space-y-8 no-scrollbar pb-24">
+        {userData?.role !== 'teacher' && (
+          /* Achievements */
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-black text-slate-800">Huy chương</h3>
+              <span className="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-black uppercase tracking-widest">
+                {userData?.achievements?.length || 0} / 12
+              </span>
+            </div>
+            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-6 px-6">
+              {displayAchievements.map((ach, i) => (
+                <div key={i} className="flex flex-col items-center space-y-3 min-w-[110px] bg-white p-4 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                  <div className={cn(
+                    "w-16 h-16 rounded-3xl bg-gradient-to-br flex items-center justify-center text-2xl shadow-lg relative",
+                    ach.color,
+                    ach.shadow
+                  )}>
+                    <div className="absolute inset-1 rounded-[1.3rem] border border-white/30" />
+                    {ach.icon}
+                    <div className="absolute -bottom-2.5 bg-white px-2.5 py-0.5 rounded-full shadow-sm border border-slate-100">
+                      <span className="text-[9px] font-black text-slate-700 uppercase tracking-widest">{ach.label}</span>
+                    </div>
+                  </div>
+                  <div className="text-center pt-2">
+                    <h4 className="text-xs font-black text-slate-800">{ach.title}</h4>
+                    <div className="flex justify-center gap-1 mt-1.5">
+                      {[...Array(5)].map((_, j) => (
+                        <div key={j} className={cn(
+                          "w-1.5 h-1.5 rounded-full",
+                          j < ach.level ? 'bg-amber-400' : 'bg-slate-100'
+                        )} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Duel History */}
         <div className="space-y-4">

@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import { createServer as createViteServer } from "vite";
 import path from "path";
+import nodemailer from "nodemailer";
 
 async function startServer() {
   const app = express();
@@ -14,6 +15,20 @@ async function startServer() {
   });
 
   const PORT = 3000;
+
+  app.use(express.json());
+
+  // OTP Store (In-memory for simplicity)
+  const otpStore = new Map<string, { otp: string, expires: number }>();
+
+  // Nodemailer transporter (Placeholder - User should configure in .env)
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.VITE_GMAIL_USER || 'hoangvn950@gmail.com',
+      pass: process.env.VITE_GMAIL_PASS || 'nvayftaxxogeczfx'
+    }
+  });
 
   // In-memory state for demo
   let waitingPlayer: { id: string; name: string } | null = null;
@@ -29,7 +44,7 @@ async function startServer() {
 
     socket.on("join_queue", (data) => {
       const playerName = data.name || "Người chơi ẩn danh";
-      
+
       if (waitingPlayer && waitingPlayer.id !== socket.id) {
         // Match found!
         const duelId = `duel_${Date.now()}`;
@@ -37,18 +52,18 @@ async function startServer() {
         waitingPlayer = null;
 
         const problems = generateProblems(10);
-        
+
         socket.join(duelId);
-        io.to(opponent.id).emit("match_found", { 
-          duelId, 
+        io.to(opponent.id).emit("match_found", {
+          duelId,
           opponent: { name: playerName },
-          problems 
+          problems
         });
-        
-        socket.emit("match_found", { 
-          duelId, 
+
+        socket.emit("match_found", {
+          duelId,
           opponent: { name: opponent.name },
-          problems 
+          problems
         });
 
         activeDuels.set(duelId, {
@@ -66,18 +81,18 @@ async function startServer() {
     socket.on("submit_answer", (data) => {
       const { duelId, score, finished } = data;
       const duel = activeDuels.get(duelId);
-      
+
       if (duel) {
         const player = duel.players.find((p: any) => p.id === socket.id);
         if (player) {
           player.score = score;
           player.finished = finished;
-          
+
           // Broadcast update to the other player
           socket.to(duelId).emit("opponent_update", { score, finished });
 
           if (duel.players.every((p: any) => p.finished)) {
-            const winner = duel.players.reduce((prev: any, current: any) => 
+            const winner = duel.players.reduce((prev: any, current: any) =>
               (prev.score > current.score) ? prev : current
             );
             io.to(duelId).emit("duel_end", { winner: winner.name });
@@ -110,6 +125,50 @@ async function startServer() {
     return problems;
   }
 
+  // OTP Endpoints
+  app.post("/api/send-otp", async (req, res) => {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: "Email is required" });
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expires = Date.now() + 5 * 60 * 1000; // 5 minutes
+
+    otpStore.set(email, { otp, expires });
+
+    try {
+      await transporter.sendMail({
+        from: '"MathStudy" <noreply@mathstudy.edu>',
+        to: email,
+        subject: "Mã xác thực đăng ký MathStudy",
+        text: `Mã OTP của bạn là: ${otp}. Mã này có hiệu lực trong 5 phút.`,
+        html: `<div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+          <h2 style="color: #4f46e5;">Chào mừng bạn đến với MathStudy!</h2>
+          <p>Mã xác thực OTP của bạn là:</p>
+          <div style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #4f46e5; margin: 20px 0;">${otp}</div>
+          <p style="color: #666; font-size: 12px;">Mã này sẽ hết hạn trong 5 phút. Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email.</p>
+        </div>`
+      });
+      res.json({ message: "OTP sent successfully" });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      // For development, we return success but log the OTP
+      console.log(`[DEV] OTP for ${email}: ${otp}`);
+      res.json({ message: "OTP generated (see server logs in dev mode)", dev: true });
+    }
+  });
+
+  app.post("/api/verify-otp", (req, res) => {
+    const { email, otp } = req.body;
+    const stored = otpStore.get(email);
+
+    if (!stored || stored.otp !== otp || Date.now() > stored.expires) {
+      return res.status(400).json({ error: "Mã OTP không hợp lệ hoặc đã hết hạn" });
+    }
+
+    otpStore.delete(email);
+    res.json({ success: true });
+  });
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
@@ -125,7 +184,7 @@ async function startServer() {
   }
 
   httpServer.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://0.0.0.0:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}/`);
   });
 }
 

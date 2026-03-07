@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Camera, Save, User, Mail, Phone, Calendar, X, Check } from 'lucide-react';
+import { ChevronLeft, Camera, Save, User, Mail, Phone, Calendar, X, Check, Shield, Book } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { cn } from '../utils/utils';
 
 interface EditProfileProps {
   onBack: () => void;
-  onSave: (data: any) => void;
+  onSave: (data: any) => Promise<void>;
+  initialData?: {
+    name: string;
+    email: string;
+    avatar?: string;
+    grade?: number;
+    role?: 'student' | 'teacher';
+    school?: string;
+    subject?: string;
+  };
 }
 
 const PRESET_AVATARS = [
@@ -16,25 +26,33 @@ const PRESET_AVATARS = [
   { id: 'brain', url: 'https://picsum.photos/seed/brain/200', label: 'Trí tuệ' },
 ];
 
-export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
+export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave, initialData }) => {
   const [formData, setFormData] = useState({
-    name: 'Nguyễn Văn Minh',
-    email: 'minh.nguyen@example.com',
-    phone: '0987654321',
-    dob: '2012-05-15',
-    avatar: 'https://picsum.photos/seed/student/200',
+    name: initialData?.name || '',
+    email: initialData?.email || '',
+    avatar: initialData?.avatar || 'https://picsum.photos/seed/student/200',
+    grade: initialData?.grade || 5,
+    role: initialData?.role || 'student',
+    school: initialData?.school || '',
+    subject: initialData?.subject || '',
   });
 
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [tempAvatar, setTempAvatar] = useState(formData.avatar);
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+    setIsSaving(true);
+    try {
+      await onSave(formData);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleSelectAvatar = (url: string) => {
@@ -51,7 +69,7 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
       {/* Header */}
       <div className="p-6 bg-white border-b border-slate-100 flex items-center justify-between shrink-0 shadow-sm relative z-10">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={onBack}
             className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-600 hover:bg-slate-100 active:scale-90 transition-all"
           >
@@ -59,12 +77,13 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
           </button>
           <h1 className="text-xl font-black text-slate-900">Sửa hồ sơ</h1>
         </div>
-        <button 
+        <button
           onClick={handleSubmit}
-          className="px-4 py-2 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex items-center gap-2 shadow-lg shadow-primary/20"
+          disabled={isSaving}
+          className="px-4 py-2 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex items-center gap-2 shadow-lg shadow-primary/20 disabled:opacity-50"
         >
           <Save size={18} />
-          <span className="hidden sm:inline">Lưu</span>
+          <span className="hidden sm:inline">{isSaving ? 'Đang lưu...' : 'Lưu'}</span>
         </button>
       </div>
 
@@ -77,9 +96,9 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
               setIsPickerOpen(true);
             }}>
               <div className="w-32 h-32 rounded-[2.5rem] bg-gradient-to-tr from-primary to-secondary p-1 shadow-xl shadow-primary/20 group-hover:scale-105 transition-transform duration-300">
-                <img 
-                  src={formData.avatar} 
-                  alt="Avatar" 
+                <img
+                  src={formData.avatar}
+                  alt="Avatar"
                   className="w-full h-full rounded-[2.2rem] object-cover border-4 border-white"
                   referrerPolicy="no-referrer"
                 />
@@ -89,7 +108,7 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
                   <Camera size={20} />
                 </div>
               </div>
-              <button 
+              <button
                 className="absolute -bottom-2 -right-2 w-12 h-12 rounded-2xl bg-white shadow-xl border border-slate-100 flex items-center justify-center text-primary hover:bg-slate-50 active:scale-90 transition-all z-10"
               >
                 <Camera size={20} />
@@ -134,38 +153,64 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Số điện thoại</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                  <Phone size={20} />
+            {formData.role === 'teacher' ? (
+              <div className="grid grid-cols-1 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Trường học</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                      <Shield size={20} />
+                    </div>
+                    <input
+                      type="text"
+                      name="school"
+                      value={formData.school}
+                      onChange={handleChange}
+                      className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                      placeholder="Nhập tên trường học"
+                    />
+                  </div>
                 </div>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                  placeholder="Nhập số điện thoại"
-                />
-              </div>
-            </div>
 
-            <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Ngày sinh</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                  <Calendar size={20} />
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Môn học</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                      <Book size={20} />
+                    </div>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                      placeholder="Nhập môn học (ví dụ: Toán học)"
+                    />
+                  </div>
                 </div>
-                <input
-                  type="date"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleChange}
-                  className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                />
               </div>
-            </div>
+            ) : (
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Khối lớp</label>
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((g) => (
+                    <button
+                      key={g}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, grade: g })}
+                      className={cn(
+                        "py-3 rounded-xl text-sm font-black transition-all border-2",
+                        formData.grade === g
+                          ? "bg-primary border-primary text-white shadow-lg shadow-primary/20"
+                          : "bg-slate-50 border-slate-100 text-slate-400 hover:border-slate-200"
+                      )}
+                    >
+                      Lớp {g}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </div>
@@ -174,14 +219,14 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
       <AnimatePresence>
         {isPickerOpen && (
           <>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsPickerOpen(false)}
               className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100]"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -189,26 +234,25 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
             >
               <div className="p-6 border-b border-slate-100 flex items-center justify-between">
                 <h2 className="text-lg font-black text-slate-900">Chọn ảnh đại diện</h2>
-                <button 
+                <button
                   onClick={() => setIsPickerOpen(false)}
                   className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-slate-100 transition-all"
                 >
                   <X size={20} />
                 </button>
               </div>
-              
+
               <div className="p-6 space-y-6">
                 <div className="grid grid-cols-3 gap-4">
                   {PRESET_AVATARS.map((avatar) => (
                     <button
                       key={avatar.id}
                       onClick={() => handleSelectAvatar(avatar.url)}
-                      className={`relative aspect-square rounded-2xl overflow-hidden border-2 transition-all ${
-                        tempAvatar === avatar.url ? 'border-primary ring-4 ring-primary/10' : 'border-transparent'
-                      }`}
+                      className={`relative aspect-square rounded-2xl overflow-hidden border-2 transition-all ${tempAvatar === avatar.url ? 'border-primary ring-4 ring-primary/10' : 'border-transparent'
+                        }`}
                     >
-                      <img 
-                        src={avatar.url} 
+                      <img
+                        src={avatar.url}
                         alt={avatar.label}
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
@@ -228,16 +272,16 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave }) => {
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Hoặc tải ảnh lên</label>
                     <div className="flex gap-3">
-                      <button 
+                      <button
                         onClick={() => document.getElementById('avatar-upload')?.click()}
                         className="flex-1 py-3 px-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl text-xs font-bold text-slate-500 hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2"
                       >
                         <Camera size={16} />
                         Chọn từ máy
                       </button>
-                      <input 
+                      <input
                         id="avatar-upload"
-                        type="file" 
+                        type="file"
                         accept="image/*"
                         className="hidden"
                         onChange={(e) => {
