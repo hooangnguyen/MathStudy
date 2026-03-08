@@ -10,6 +10,12 @@ export interface Achievement {
     unlockedAt?: any;
 }
 
+export interface UserPreferences {
+    darkMode: boolean;
+    soundEffects: boolean;
+    notifications: boolean;
+}
+
 export interface UserProfile {
     uid: string;
     name: string;
@@ -22,6 +28,8 @@ export interface UserProfile {
     achievements?: Achievement[];
     school?: string;
     subject?: string;
+    enrolledClasses?: string[];
+    preferences?: UserPreferences;
     lastActive: any;
     createdAt: any;
 }
@@ -30,12 +38,26 @@ export const getUserProfile = async (uid: string): Promise<UserProfile | null> =
     try {
         const userDoc = await getDoc(doc(db, 'users', uid));
         if (userDoc.exists()) {
-            return userDoc.data() as UserProfile;
+            return { uid: userDoc.id, ...userDoc.data() } as UserProfile;
         }
         return null;
     } catch (error) {
         console.error('Error fetching user profile:', error);
         return null;
+    }
+};
+
+export const getUsersByIds = async (uids: string[]): Promise<UserProfile[]> => {
+    if (!uids || uids.length === 0) return [];
+    try {
+        const promises = uids.map(uid => getDoc(doc(db, 'users', uid)));
+        const userDocs = await Promise.all(promises);
+        return userDocs
+            .filter(doc => doc.exists())
+            .map(doc => ({ uid: doc.id, ...doc.data() } as UserProfile));
+    } catch (error) {
+        console.error('Error fetching multiple users:', error);
+        return [];
     }
 };
 
@@ -92,5 +114,33 @@ export const awardAchievement = async (uid: string, achievement: Omit<Achievemen
     } catch (error) {
         console.error('Error awarding achievement:', error);
         throw error;
+    }
+};
+
+export const getTopUsers = async (limitCount: number = 50, type: 'solo' | 'multiplayer' = 'solo'): Promise<UserProfile[]> => {
+    try {
+        const usersRef = collection(db, 'users');
+        // Both types will just sort by points for now as duelWins doesn't exist yet,
+        // but this allows easy expansion later.
+        const q = query(
+            usersRef,
+            orderBy('points', 'desc'),
+            orderBy('lastActive', 'desc'), // Tie-breaker
+        );
+
+        // Note: In a real prod app with millions of users, we'd need better pagination
+        // or a dedicated leaderboard collection updated via cloud functions.
+        const querySnapshot = await getDocs(q);
+
+        // Filter in memory for role student since compound index role+points is needed otherwise
+        const students = querySnapshot.docs
+            .map(doc => ({ uid: doc.id, ...doc.data() } as UserProfile))
+            .filter(user => user.role === 'student')
+            .slice(0, limitCount);
+
+        return students;
+    } catch (error) {
+        console.error('Error fetching top users:', error);
+        return [];
     }
 };

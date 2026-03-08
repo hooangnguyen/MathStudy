@@ -19,22 +19,53 @@ import {
 import { motion } from 'motion/react';
 import { cn } from '../utils/utils';
 
+import { UserPreferences, saveUserProfile } from '../services/userService';
+
 interface SettingsProps {
+  uid?: string;
+  preferences?: UserPreferences;
   onBack: () => void;
   onLogout: () => void;
   onEditProfile: () => void;
   userName?: string;
+  onPreferencesChanged?: (newPrefs: UserPreferences) => void;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
+  uid,
+  preferences,
   onBack,
   onLogout,
   onEditProfile,
-  userName = 'Người dùng'
+  userName = 'Người dùng',
+  onPreferencesChanged
 }) => {
-  const [notifications, setNotifications] = useState(true);
-  const [soundEffects, setSoundEffects] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const [notifications, setNotifications] = useState(preferences?.notifications ?? true);
+  const [soundEffects, setSoundEffects] = useState(preferences?.soundEffects ?? true);
+  const [darkMode, setDarkMode] = useState(preferences?.darkMode ?? false);
+
+  const saveSetting = async (key: keyof UserPreferences, value: boolean) => {
+    if (!uid) return;
+    try {
+      const newPrefs = {
+        notifications,
+        soundEffects,
+        darkMode,
+        ...preferences,
+        [key]: value
+      };
+      // We do not wait for the API call to finish to keep UI snappy
+      saveUserProfile(uid, { preferences: newPrefs });
+      if (onPreferencesChanged) onPreferencesChanged(newPrefs);
+    } catch (err) {
+      console.error("Failed to save preference", err);
+    }
+  };
+
+  const handleToggle = (key: keyof UserPreferences, value: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
+    setter(value);
+    saveSetting(key, value);
+  };
 
   const Toggle = ({ active, onToggle }: { active: boolean, onToggle: () => void }) => (
     <button
@@ -128,7 +159,7 @@ export const Settings: React.FC<SettingsProps> = ({
           <SettingItem
             icon={Bell}
             label="Thông báo nhắc học"
-            toggle={{ active: notifications, onToggle: () => setNotifications(!notifications) }}
+            toggle={{ active: notifications, onToggle: () => handleToggle('notifications', !notifications, setNotifications) }}
             color="text-rose-500"
           />
         </div>
@@ -141,13 +172,13 @@ export const Settings: React.FC<SettingsProps> = ({
           <SettingItem
             icon={Volume2}
             label="Hiệu ứng âm thanh"
-            toggle={{ active: soundEffects, onToggle: () => setSoundEffects(!soundEffects) }}
+            toggle={{ active: soundEffects, onToggle: () => handleToggle('soundEffects', !soundEffects, setSoundEffects) }}
             color="text-cyan-500"
           />
           <SettingItem
             icon={Moon}
             label="Chế độ tối"
-            toggle={{ active: darkMode, onToggle: () => setDarkMode(!darkMode) }}
+            toggle={{ active: darkMode, onToggle: () => handleToggle('darkMode', !darkMode, setDarkMode) }}
             color="text-slate-800"
           />
           <SettingItem icon={Eye} label="Chế độ bảo vệ mắt" value="Tắt" color="text-amber-500" />

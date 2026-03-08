@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, CheckCircle2, XCircle, AlertCircle, FileText, Send, User, CheckSquare, Type } from 'lucide-react';
 import { cn } from '../../utils/utils';
+import { subscribeToSubmissions, updateSubmissionGrade, SubmissionData } from '../../services/assignmentService';
+import { subscribeToStudentClass, ClassData } from '../../services/classService';
+import { getUsersByIds, UserProfile } from '../../services/userService';
 
 interface AssignmentGraderProps {
   onClose: () => void;
   assignmentTitle: string;
   className: string;
+  classId: string;
+  assignmentId: string;
 }
 
 interface Answer {
@@ -19,110 +24,74 @@ interface Answer {
 }
 
 interface StudentSubmission {
-  id: number;
+  id: string;
   name: string;
   status: 'submitted' | 'late' | 'not_submitted';
-  submittedAt?: string;
+  submittedAt?: any;
   score?: number;
-  answers: Answer[];
+  feedback?: string;
+  answers: any[];
 }
 
-const MOCK_SUBMISSIONS: StudentSubmission[] = [
-  {
-    id: 1,
-    name: 'Nguyễn Văn Minh',
-    status: 'submitted',
-    submittedAt: '10:30 AM, 03/03/2026',
-    score: undefined,
-    answers: [
-      {
-        questionId: 1,
-        questionText: 'Tính diện tích hình chữ nhật có chiều dài 5cm, chiều rộng 3cm.',
-        studentAnswer: '15 cm2',
-        correctAnswer: '15 cm2',
-        isCorrect: true,
-        type: 'multiple_choice'
-      },
-      {
-        questionId: 2,
-        questionText: 'Chọn các số nguyên tố nhỏ hơn 10.',
-        studentAnswer: '2, 3, 5, 9',
-        correctAnswer: '2, 3, 5, 7',
-        isCorrect: false,
-        type: 'checkbox'
-      },
-      {
-        questionId: 3,
-        questionText: 'Thủ đô của Việt Nam là gì?',
-        studentAnswer: 'Hà Nội',
-        correctAnswer: 'Hà Nội',
-        isCorrect: null, // Short answer needs manual confirmation despite exact match
-        type: 'short_answer'
-      },
-      {
-        questionId: 4,
-        questionText: 'Hãy giải thích vì sao diện tích hình tam giác bằng nửa tích đáy và chiều cao.',
-        studentAnswer: 'Vì hình tam giác bằng một nửa hình chữ nhật có cùng đáy và chiều cao.',
-        correctAnswer: 'Vì có thể ghép 2 hình tam giác bằng nhau thành 1 hình bình hành có cùng đáy và chiều cao.',
-        isCorrect: null,
-        type: 'essay'
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Lê Bảo Ngọc',
-    status: 'submitted',
-    submittedAt: '11:15 AM, 03/03/2026',
-    score: 8.5,
-    answers: [
-      {
-        questionId: 1,
-        questionText: 'Tính diện tích hình chữ nhật có chiều dài 5cm, chiều rộng 3cm.',
-        studentAnswer: '15 cm2',
-        correctAnswer: '15 cm2',
-        isCorrect: true,
-        type: 'multiple_choice'
-      },
-      {
-        questionId: 2,
-        questionText: 'Chọn các số nguyên tố nhỏ hơn 10.',
-        studentAnswer: '2, 3, 5, 7',
-        correctAnswer: '2, 3, 5, 7',
-        isCorrect: true,
-        type: 'checkbox'
-      },
-      {
-        questionId: 3,
-        questionText: 'Thủ đô của Việt Nam là gì?',
-        studentAnswer: 'TP. Hồ Chí Minh',
-        correctAnswer: 'Hà Nội',
-        isCorrect: false,
-        type: 'short_answer'
-      },
-      {
-        questionId: 4,
-        questionText: 'Hãy giải thích vì sao diện tích hình tam giác bằng nửa tích đáy và chiều cao.',
-        studentAnswer: 'Em không biết ạ.',
-        correctAnswer: 'Vì có thể ghép 2 hình tam giác bằng nhau thành 1 hình bình hành có cùng đáy và chiều cao.',
-        isCorrect: false,
-        type: 'essay'
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: 'Trần Đức Anh',
-    status: 'not_submitted',
-    answers: []
-  }
-];
 
-export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, assignmentTitle, className }) => {
+
+export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, assignmentTitle, className, classId, assignmentId }) => {
   const [selectedStudent, setSelectedStudent] = useState<StudentSubmission | null>(null);
   const [feedback, setFeedback] = useState('');
   const [score, setScore] = useState<string>('');
-  const [submissions, setSubmissions] = useState(MOCK_SUBMISSIONS);
+  const [submissions, setSubmissions] = useState<StudentSubmission[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Real-time fetching of submissions and class students
+  useEffect(() => {
+    if (!classId || !assignmentId) return;
+
+    let classUnsubscribe: () => void;
+    const submissionsUnsubscribe = subscribeToSubmissions(classId, assignmentId, async (realSubmissions) => {
+      // Get class data to know all students
+      classUnsubscribe = subscribeToStudentClass(classId, async (classData) => {
+        if (!classData || !classData.studentIds) return;
+
+        const profiles = await getUsersByIds(classData.studentIds);
+
+        const fullList: StudentSubmission[] = profiles.map(profile => {
+          const sub = realSubmissions.find(s => s.id === profile.uid);
+          if (sub) {
+            return {
+              id: profile.uid,
+              name: profile.name,
+              status: 'submitted',
+              submittedAt: sub.submittedAt,
+              score: sub.score,
+              feedback: (sub as any).feedback,
+              answers: sub.answers || []
+            };
+          } else {
+            return {
+              id: profile.uid,
+              name: profile.name,
+              status: 'not_submitted',
+              answers: []
+            };
+          }
+        });
+
+        setSubmissions(fullList);
+        setIsLoading(false);
+
+        // Update selected student if they are in the list
+        if (selectedStudent) {
+          const updatedCurrent = fullList.find(s => s.id === selectedStudent.id);
+          if (updatedCurrent) setSelectedStudent(updatedCurrent);
+        }
+      });
+    });
+
+    return () => {
+      submissionsUnsubscribe();
+      if (classUnsubscribe) classUnsubscribe();
+    };
+  }, [classId, assignmentId]);
 
   // Auto-calculate score when answers change
   useEffect(() => {
@@ -133,7 +102,7 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
       const correctCount = selectedStudent.answers.filter(a => a.isCorrect === true).length;
       // Calculate score on 10-point scale
       const calculatedScore = (correctCount / totalQuestions) * 10;
-      
+
       // Only update score if it hasn't been manually edited (or we can just overwrite it as a suggestion)
       // The requirement says "auto add points... after teacher completes". 
       // We'll update the suggested score in real-time.
@@ -141,25 +110,36 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
     }
   }, [selectedStudent]);
 
-  const handleSaveGrade = () => {
-    if (!selectedStudent) return;
-    
-    setSubmissions(prev => prev.map(sub => 
-      sub.id === selectedStudent.id 
-        ? { ...selectedStudent, score: parseFloat(score) || 0 } 
-        : sub
-    ));
-    
-    alert('Đã lưu điểm thành công!');
-    setSelectedStudent(null);
-    setScore('');
-    setFeedback('');
+  const handleSaveGrade = async () => {
+    if (!selectedStudent || !classId || !assignmentId) return;
+
+    try {
+      const finalScore = parseFloat(score);
+      if (isNaN(finalScore)) {
+        alert('Vui lòng nhập điểm hợp lệ');
+        return;
+      }
+
+      await updateSubmissionGrade(classId, assignmentId, selectedStudent.id, {
+        score: finalScore,
+        feedback,
+        answers: selectedStudent.answers
+      });
+
+      alert('Đã lưu điểm thành công!');
+      setSelectedStudent(null);
+      setScore('');
+      setFeedback('');
+    } catch (error) {
+      console.error('Error saving grade:', error);
+      alert('Lỗi khi lưu điểm.');
+    }
   };
 
   const handleMarkQuestion = (questionId: number, isCorrect: boolean) => {
     if (!selectedStudent) return;
 
-    const updatedAnswers = selectedStudent.answers.map(a => 
+    const updatedAnswers = selectedStudent.answers.map(a =>
       a.questionId === questionId ? { ...a, isCorrect } : a
     );
 
@@ -189,7 +169,7 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: '100%' }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: '100%' }}
@@ -199,8 +179,8 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
       <div className="p-4 lg:p-6 border-b border-slate-200 flex flex-col lg:flex-row lg:items-center justify-between shrink-0 bg-white shadow-sm z-10 gap-4">
         <div className="flex items-center gap-3 lg:gap-4">
           {/* Mobile Back Button (when student selected) */}
-          <button 
-            onClick={() => setSelectedStudent(null)} 
+          <button
+            onClick={() => setSelectedStudent(null)}
             className={cn(
               "w-10 h-10 shrink-0 items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-colors lg:hidden",
               selectedStudent ? "flex" : "hidden"
@@ -208,10 +188,10 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
           >
             <ChevronLeft size={24} />
           </button>
-          
+
           {/* Main Close Button (hidden on mobile when student selected) */}
-          <button 
-            onClick={onClose} 
+          <button
+            onClick={onClose}
             className={cn(
               "w-10 h-10 shrink-0 items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-colors",
               selectedStudent ? "hidden lg:flex" : "flex"
@@ -219,7 +199,7 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
           >
             <ChevronLeft size={24} />
           </button>
-          
+
           <div className="min-w-0">
             <h3 className="text-lg lg:text-xl font-black text-slate-900 truncate">{assignmentTitle}</h3>
             <p className="text-xs lg:text-sm font-bold text-slate-500">Lớp {className}</p>
@@ -234,7 +214,7 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
           </div>
         </div>
       </div>
-      
+
       <div className="flex-1 flex overflow-hidden relative">
         {/* Student List Sidebar */}
         <div className={cn(
@@ -255,8 +235,8 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
                 }}
                 className={cn(
                   "w-full text-left p-4 rounded-2xl transition-all flex items-center justify-between group",
-                  selectedStudent?.id === student.id 
-                    ? "bg-indigo-50 border border-indigo-100" 
+                  selectedStudent?.id === student.id
+                    ? "bg-indigo-50 border border-indigo-100"
                     : "hover:bg-slate-50 border border-transparent"
                 )}
               >
@@ -264,8 +244,8 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
                   <div className={cn(
                     "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0",
                     student.status === 'not_submitted' ? "bg-slate-100 text-slate-400" :
-                    student.score !== undefined ? "bg-emerald-100 text-emerald-600" :
-                    "bg-amber-100 text-amber-600"
+                      student.score !== undefined ? "bg-emerald-100 text-emerald-600" :
+                        "bg-amber-100 text-amber-600"
                   )}>
                     {student.name.charAt(0)}
                   </div>
@@ -275,8 +255,8 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
                       selectedStudent?.id === student.id ? "text-indigo-900" : "text-slate-700"
                     )}>{student.name}</p>
                     <p className="text-[10px] font-bold text-slate-400 mt-0.5">
-                      {student.status === 'not_submitted' ? 'Chưa nộp' : 
-                       student.score !== undefined ? `Điểm: ${student.score}` : 'Cần chấm'}
+                      {student.status === 'not_submitted' ? 'Chưa nộp' :
+                        student.score !== undefined ? `Điểm: ${student.score}` : 'Cần chấm'}
                     </p>
                   </div>
                 </div>
@@ -304,13 +284,15 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
                 <div className="bg-white p-4 md:p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <h2 className="text-xl md:text-2xl font-black text-slate-900">{selectedStudent.name}</h2>
-                    <p className="text-xs md:text-sm font-bold text-slate-500 mt-1">Nộp lúc: {selectedStudent.submittedAt}</p>
+                    <p className="text-xs md:text-sm font-bold text-slate-500 mt-1">
+                      Nộp lúc: {selectedStudent.submittedAt ? new Date(selectedStudent.submittedAt.toMillis()).toLocaleString('vi-VN') : '--'}
+                    </p>
                   </div>
                   <div className="flex items-center justify-between sm:justify-end gap-4">
                     <div className="text-left sm:text-right">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Điểm số (Gợi ý)</label>
-                      <input 
-                        type="number" 
+                      <input
+                        type="number"
                         min="0" max="10" step="0.1"
                         value={score}
                         onChange={(e) => setScore(e.target.value)}
@@ -318,7 +300,7 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
                         placeholder="--"
                       />
                     </div>
-                    <button 
+                    <button
                       onClick={handleSaveGrade}
                       className="h-full px-4 md:px-6 py-3 md:py-4 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200"
                     >
@@ -348,34 +330,65 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
 
                       <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
                         <p className="text-xs font-black text-slate-400 uppercase tracking-wider">Bài làm của học sinh:</p>
-                        <p className="font-medium text-slate-700 whitespace-pre-wrap">{answer.studentAnswer}</p>
+                        <div className="font-medium text-slate-700 whitespace-pre-wrap text-lg">
+                          {answer.type === 'checkbox' && Array.isArray(answer.answer) ? (
+                            <div className="space-y-1">
+                              {answer.answer.map((idx: number) => (
+                                <div key={idx} className="flex items-center gap-2">
+                                  <div className="w-2 h-2 rounded-full bg-indigo-500" />
+                                  <span>{answer.options?.[idx] || `Tùy chọn ${idx + 1}`}</span>
+                                </div>
+                              ))}
+                              {answer.answer.length === 0 && <span className="text-slate-400">(Không chọn đáp án nào)</span>}
+                            </div>
+                          ) : answer.type === 'multiple_choice' ? (
+                            <span>{answer.options?.[answer.answer] || `Tùy chọn ${Number(answer.answer) + 1}`}</span>
+                          ) : (
+                            <span>{answer.answer || <small className="text-slate-400 italic">(Chưa nhập câu trả lời)</small>}</span>
+                          )}
+                        </div>
                       </div>
 
                       {/* Always show suggested answer for grading context */}
                       <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 space-y-2">
-                        <p className="text-xs font-black text-emerald-600 uppercase tracking-wider">Đáp án / Gợi ý:</p>
-                        <p className="font-medium text-emerald-800 whitespace-pre-wrap">{answer.correctAnswer}</p>
+                        <p className="text-xs font-black text-emerald-600 uppercase tracking-wider">Đáp án đúng:</p>
+                        <div className="font-medium text-emerald-800 whitespace-pre-wrap">
+                          {answer.type === 'multiple_choice' ? (
+                            <span>{answer.options?.[answer.correctAnswer] || `Tùy chọn ${Number(answer.correctAnswer) + 1}`}</span>
+                          ) : answer.type === 'checkbox' && Array.isArray(answer.correctAnswer) ? (
+                            <div className="space-y-1">
+                              {answer.correctAnswer.map((idx: number) => (
+                                <div key={idx} className="flex items-center gap-2">
+                                  <CheckSquare size={14} className="text-emerald-500" />
+                                  <span>{answer.options?.[idx] || `Tùy chọn ${idx + 1}`}</span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <span>{answer.correctAnswer}</span>
+                          )}
+                        </div>
                       </div>
 
                       {/* Grading Controls */}
                       <div className="flex gap-2 pt-2">
-                        <button 
+                        <button
                           onClick={() => handleMarkQuestion(answer.questionId, true)}
                           className={cn(
                             "flex-1 py-3 font-bold rounded-xl transition-all flex items-center justify-center gap-2",
-                            answer.isCorrect === true 
-                              ? "bg-emerald-500 text-white shadow-lg shadow-emerald-200" 
+                            answer.isCorrect === true
+                              ? "bg-emerald-500 text-white shadow-lg shadow-emerald-200"
                               : "bg-emerald-50 text-emerald-600 hover:bg-emerald-100"
                           )}
                         >
                           <CheckCircle2 size={18} /> Đúng
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleMarkQuestion(answer.questionId, false)}
                           className={cn(
                             "flex-1 py-3 font-bold rounded-xl transition-all flex items-center justify-center gap-2",
-                            answer.isCorrect === false 
-                              ? "bg-rose-500 text-white shadow-lg shadow-rose-200" 
+                            answer.isCorrect === false
+                              ? "bg-rose-500 text-white shadow-lg shadow-rose-200"
                               : "bg-rose-50 text-rose-600 hover:bg-rose-100"
                           )}
                         >
@@ -388,7 +401,7 @@ export const AssignmentGrader: React.FC<AssignmentGraderProps> = ({ onClose, ass
 
                 <div className="bg-white p-4 md:p-6 rounded-[2rem] border border-slate-200 shadow-sm space-y-4">
                   <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">Nhận xét (Tùy chọn)</h4>
-                  <textarea 
+                  <textarea
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
                     placeholder="Nhập nhận xét cho học sinh..."

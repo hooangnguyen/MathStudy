@@ -1,58 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { 
-  Users, BookOpen, CheckCircle, Clock, TrendingUp, 
-  Search, Filter, MoreVertical, ChevronRight, 
+import { useFirebase } from '../context/FirebaseProvider';
+import { createClass, subscribeToTeacherClasses, ClassData, reCalculateClassStats } from '../services/classService';
+import { subscribeToClassAssignments, subscribeToDraftAssignments, AssignmentData, DraftAssignmentData } from '../services/assignmentService';
+import { getUsersByIds, UserProfile } from '../services/userService';
+import {
+  Users, BookOpen, CheckCircle, Clock, TrendingUp,
+  Search, Filter, MoreVertical, ChevronRight,
   MessageSquare, Bell, Settings, LogOut,
   LayoutDashboard, GraduationCap, FileText, BarChart3,
-  Plus, Calendar, Target, AlertCircle, ChevronLeft, X, Copy, CheckCircle2, Trash2
+  Plus, Calendar, Target, AlertCircle, ChevronLeft, X, Copy, CheckCircle2, Trash2, RefreshCw
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, 
-  Tooltip, ResponsiveContainer, LineChart, Line,
-  Cell, PieChart, Pie
-} from 'recharts';
+
 import { cn } from '../utils/utils';
 import { AssignmentBuilder } from '../features/classroom/AssignmentBuilder';
 import { Chat } from '../features/chat/Chat';
 import { AssignmentGrader } from '../features/classroom/AssignmentGrader';
 
-const performanceData = [
-  { name: 'T2', score: 85, submitted: 35, total: 40 },
-  { name: 'T3', score: 78, submitted: 32, total: 40 },
-  { name: 'T4', score: 92, submitted: 38, total: 40 },
-  { name: 'T5', score: 88, submitted: 36, total: 40 },
-  { name: 'T6', score: 95, submitted: 39, total: 40 },
-  { name: 'T7', score: 82, submitted: 30, total: 40 },
-  { name: 'CN', score: 90, submitted: 37, total: 40 },
-];
-
-const students = [
-  { id: 1, name: 'Nguyễn Văn Minh', progress: 85, avgScore: 9.2, status: 'online' },
-  { id: 2, name: 'Lê Bảo Ngọc', progress: 92, avgScore: 9.5, status: 'online' },
-  { id: 3, name: 'Trần Đức Anh', progress: 65, avgScore: 7.8, status: 'offline' },
-];
-
-const assignments = [
-  { id: 1, title: 'Ôn tập Phân số', class: '5A', dueDate: '20/03', status: 'Đang diễn ra', completed: 25, total: 40 },
-  { id: 2, title: 'Toán chuyển động', class: '5A', dueDate: '18/03', status: 'Đã kết thúc', completed: 38, total: 40 },
-];
-
-const classesList = [
-  { id: '5A', name: 'Lớp 5A', studentCount: 40, submitted: 35, totalAssignments: 40, avgScore: 8.5, code: 'MATH5A' },
-  { id: '5B', name: 'Lớp 5B', studentCount: 38, submitted: 30, totalAssignments: 38, avgScore: 7.8, code: 'MATH5B' },
-  { id: '5C', name: 'Lớp 5C', studentCount: 42, submitted: 40, totalAssignments: 42, avgScore: 9.1, code: 'MATH5C' },
-];
-
 export const TeacherDashboard: React.FC = () => {
+  const { user } = useFirebase();
+  const [classesList, setClassesList] = useState<ClassData[]>([]);
+  const [isCreatingClass, setIsCreatingClass] = useState(false);
+
+  useEffect(() => {
+    if (!user?.uid) return;
+    const unsubscribe = subscribeToTeacherClasses(user.uid, (classes) => {
+      setClassesList(classes);
+    });
+    return () => unsubscribe();
+  }, [user]);
+
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
+  const [classStudents, setClassStudents] = useState<UserProfile[]>([]);
+  const currentClass = classesList.find(c => c.id === selectedClassId);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      if (currentClass?.studentIds && currentClass.studentIds.length > 0) {
+        const students = await getUsersByIds(currentClass.studentIds);
+        setClassStudents(students);
+      } else {
+        setClassStudents([]);
+      }
+    };
+    fetchStudents();
+  }, [currentClass]);
+
+  const [classAssignments, setClassAssignments] = useState<AssignmentData[]>([]);
+  useEffect(() => {
+    if (!selectedClassId) {
+      setClassAssignments([]);
+      return;
+    }
+    const unsubscribe = subscribeToClassAssignments(selectedClassId, (assignments) => {
+      setClassAssignments(assignments);
+    });
+    return () => unsubscribe();
+  }, [selectedClassId]);
+
+
+
   const [activeSubTab, setActiveSubTab] = useState<'overview' | 'students'>('overview');
   const [showCreateAssignment, setShowCreateAssignment] = useState(false);
+  const [showDraftSelectionModal, setShowDraftSelectionModal] = useState(false);
+  const [selectedInitialDraft, setSelectedInitialDraft] = useState<DraftAssignmentData | undefined>(undefined);
   const [activeChatStudent, setActiveChatStudent] = useState<string | null>(null);
   const [viewingStudentProfile, setViewingStudentProfile] = useState<any | null>(null);
   const [gradingAssignment, setGradingAssignment] = useState<any | null>(null);
-  
+
+  // Drafts state
+  const [draftsList, setDraftsList] = useState<DraftAssignmentData[]>([]);
+  useEffect(() => {
+    if (!user?.uid) return;
+    const unsubscribe = subscribeToDraftAssignments(user.uid, (drafts) => {
+      setDraftsList(drafts);
+    });
+    return () => unsubscribe();
+  }, [user]);
+
   // Create Class State
   const [showCreateClass, setShowCreateClass] = useState(false);
   const [newClassName, setNewClassName] = useState('');
@@ -60,10 +86,17 @@ export const TeacherDashboard: React.FC = () => {
   const [generatedCode, setGeneratedCode] = useState('');
   const [isCopied, setIsCopied] = useState(false);
 
-  const handleCreateClass = () => {
-    if (!newClassName.trim()) return;
-    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-    setGeneratedCode(code);
+  const handleCreateClass = async () => {
+    if (!newClassName.trim() || !user) return;
+    setIsCreatingClass(true);
+    try {
+      const newClass = await createClass(user.uid, newClassName, parseInt(newClassGrade));
+      setGeneratedCode(newClass.code);
+    } catch (error) {
+      console.error("Failed to create class", error);
+    } finally {
+      setIsCreatingClass(false);
+    }
   };
 
   const handleCopyCode = () => {
@@ -72,13 +105,24 @@ export const TeacherDashboard: React.FC = () => {
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  const currentClass = classesList.find(c => c.id === selectedClassId);
+  const [isRefreshing, setIsRefreshing] = useState<string | null>(null);
+  const handleRefreshStats = async (e: React.MouseEvent, classId: string) => {
+    e.stopPropagation();
+    setIsRefreshing(classId);
+    try {
+      await reCalculateClassStats(classId);
+    } catch (error) {
+      console.error("Failed to refresh stats", error);
+    } finally {
+      setIsRefreshing(null);
+    }
+  };
 
   const renderClassList = () => (
     <div className="space-y-6 px-6">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Danh sách lớp học</h3>
-        <button 
+        <button
           onClick={() => setShowCreateClass(true)}
           className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-100 transition-colors"
         >
@@ -88,7 +132,7 @@ export const TeacherDashboard: React.FC = () => {
 
       <div className="space-y-4">
         {classesList.map((cls) => (
-          <div 
+          <div
             key={cls.id}
             onClick={() => setSelectedClassId(cls.id)}
             className="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 hover:shadow-md transition-all group"
@@ -103,16 +147,29 @@ export const TeacherDashboard: React.FC = () => {
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{cls.studentCount} Học sinh</p>
                 </div>
               </div>
-              <ChevronRight size={20} className="text-slate-300 group-hover:text-indigo-500 transition-colors" />
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={(e) => handleRefreshStats(e, cls.id)}
+                  disabled={isRefreshing === cls.id}
+                  className={cn(
+                    "w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-slate-100 transition-all",
+                    isRefreshing === cls.id && "animate-spin"
+                  )}
+                  title="Làm mới dữ liệu"
+                >
+                  <RefreshCw size={16} />
+                </button>
+                <ChevronRight size={20} className="text-slate-300 group-hover:text-indigo-500 transition-colors" />
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-slate-50 p-3 rounded-2xl">
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Tỉ lệ nộp bài</p>
                 <div className="flex items-end gap-2">
-                  <p className="text-xl font-black text-slate-900">{cls.submitted}/{cls.totalAssignments}</p>
+                  <p className="text-xl font-black text-slate-900">{(cls.submitted || 0)}/{(cls.totalExpectedSubmissions || 0)}</p>
                   <p className="text-xs font-bold text-emerald-500 mb-1">
-                    {Math.round((cls.submitted / cls.totalAssignments) * 100)}%
+                    {cls.totalExpectedSubmissions > 0 ? Math.round(((cls.submitted || 0) / cls.totalExpectedSubmissions) * 100) : 0}%
                   </p>
                 </div>
               </div>
@@ -141,7 +198,7 @@ export const TeacherDashboard: React.FC = () => {
           </div>
           <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/5 rounded-full -mr-10 -mt-10 blur-xl" />
         </div>
-        <div 
+        <div
           className="bg-amber-50 p-4 rounded-3xl border border-amber-100 relative overflow-hidden cursor-pointer active:scale-95 transition-transform"
           onClick={() => {
             navigator.clipboard.writeText(currentClass?.code || 'MATH5A');
@@ -159,54 +216,24 @@ export const TeacherDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Chart Card */}
-      <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Hiệu suất & Tỉ lệ nộp bài</h3>
-          <BarChart3 size={18} className="text-slate-400" />
-        </div>
-        
-        {/* Summary Stats */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="bg-emerald-50 p-3 rounded-2xl border border-emerald-100">
-            <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-1">TB Điểm số</p>
-            <p className="text-xl font-black text-emerald-900">87.1</p>
+      {/* Quick Action: Create Assignment */}
+      <button
+        onClick={() => setShowDraftSelectionModal(true)}
+        className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-dashed border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50/50 transition-all group flex items-center justify-between"
+      >
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <Plus size={24} />
           </div>
-          <div className="bg-blue-50 p-3 rounded-2xl border border-blue-100">
-            <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">TB Nộp bài</p>
-            <p className="text-xl font-black text-blue-900">88%</p>
+          <div className="text-left">
+            <h4 className="text-lg font-black text-slate-900">Giao bài tập mới</h4>
+            <p className="text-sm font-bold text-slate-400">Tạo câu hỏi và giao cho học sinh ngay</p>
           </div>
         </div>
+        <ChevronRight size={24} className="text-slate-300 group-hover:translate-x-1 transition-transform" />
+      </button>
 
-        <div className="h-48 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={performanceData}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-              <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 700, fill: '#94a3b8' }} />
-              <Tooltip 
-                contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                formatter={(value: number, name: string) => {
-                  if (name === 'score') return [`${value} điểm`, 'Điểm số'];
-                  if (name === 'submitted') return [`${value}/40 hs`, 'Đã nộp bài'];
-                  return [value, name];
-                }}
-              />
-              <Bar dataKey="score" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={12} name="score" />
-              <Bar dataKey="submitted" fill="#10b981" radius={[4, 4, 0, 0]} barSize={12} name="submitted" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="flex justify-center gap-4 mt-2">
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-indigo-500" />
-            <span className="text-[10px] font-bold text-slate-500 uppercase">Điểm số</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-emerald-500" />
-            <span className="text-[10px] font-bold text-slate-500 uppercase">Đã nộp bài</span>
-          </div>
-        </div>
-      </div>
+
 
       {/* Active Assignments Section */}
       <div className="space-y-4">
@@ -215,42 +242,55 @@ export const TeacherDashboard: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {assignments.map(assignment => (
-          <div key={assignment.id} className="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm space-y-4">
-            <div className="flex items-center justify-between">
-              <span className={cn(
-                "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest",
-                assignment.status === 'Đang diễn ra' ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-500"
-              )}>
-                {assignment.status}
-              </span>
-              <span className="text-[10px] font-bold text-slate-400">Hạn: {assignment.dueDate}</span>
+          {classAssignments.length === 0 ? (
+            <div className="text-center py-10 bg-white rounded-[2rem] border border-slate-100">
+              <FileText size={32} className="mx-auto text-slate-300 mb-2" />
+              <p className="text-sm font-bold text-slate-400">Chưa có bài tập nào được giao.</p>
             </div>
-            <div>
-              <h4 className="text-base font-black text-slate-900">{assignment.title}</h4>
-              <p className="text-xs font-bold text-slate-400">Lớp {assignment.class} • {assignment.total} học sinh</p>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-[10px] font-black">
-                <span className="text-slate-400">Tiến độ</span>
-                <span className="text-slate-900">{assignment.completed}/{assignment.total}</span>
+          ) : (
+            classAssignments.map(assignment => (
+              <div key={assignment.id} className="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className={cn(
+                    "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest",
+                    assignment.status === 'Đang diễn ra' ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-500"
+                  )}>
+                    {assignment.status}
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-400">
+                    Hạn: {assignment.dueDate ? (() => {
+                      const d = assignment.dueDate.toDate();
+                      const pad = (n: number) => n.toString().padStart(2, '0');
+                      return `${pad(d.getHours())}:${pad(d.getMinutes())} ${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+                    })() : 'Không giới hạn'}
+                  </span>
+                </div>
+                <div>
+                  <h4 className="text-base font-black text-slate-900">{assignment.title}</h4>
+                  <p className="text-xs font-bold text-slate-400">Lớp {currentClass?.name} • {assignment.total} học sinh</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-[10px] font-black">
+                    <span className="text-slate-400">Tiến độ nộp bài</span>
+                    <span className="text-slate-900">{assignment.completed}/{assignment.total}</span>
+                  </div>
+                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-indigo-500 rounded-full transition-all"
+                      style={{ width: `${assignment.total > 0 ? (assignment.completed / assignment.total) * 100 : 0}%` }}
+                    />
+                  </div>
+                </div>
+                <button
+                  onClick={() => setGradingAssignment(assignment)}
+                  className="w-full py-3 bg-indigo-50 text-indigo-600 rounded-xl font-bold text-sm hover:bg-indigo-100 transition-colors flex items-center justify-center gap-2"
+                >
+                  <CheckCircle2 size={18} />
+                  Chấm bài chi tiết
+                </button>
               </div>
-              <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-indigo-500 rounded-full" 
-                  style={{ width: `${(assignment.completed / assignment.total) * 100}%` }}
-                />
-              </div>
-            </div>
-            <button 
-              onClick={() => setGradingAssignment(assignment)}
-              className="w-full py-3 bg-indigo-50 text-indigo-600 rounded-xl font-bold text-sm hover:bg-indigo-100 transition-colors flex items-center justify-center gap-2"
-            >
-              <CheckCircle2 size={18} />
-              Chấm bài
-            </button>
-          </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>
@@ -262,7 +302,7 @@ export const TeacherDashboard: React.FC = () => {
       <header className="p-6 pb-2 flex items-center justify-between">
         <div className="flex items-center gap-3">
           {selectedClassId && (
-            <button 
+            <button
               onClick={() => setSelectedClassId(null)}
               className="w-10 h-10 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition-colors"
             >
@@ -276,6 +316,16 @@ export const TeacherDashboard: React.FC = () => {
             </p>
           </div>
         </div>
+
+        {selectedClassId && (
+          <button
+            onClick={() => setShowDraftSelectionModal(true)}
+            className="px-6 py-2.5 bg-[#1cb0f6] text-white rounded-2xl font-black shadow-[0_4px_0_#1899d6] active:shadow-[0_0_0_#1899d6] active:translate-y-1 transition-all text-sm flex items-center gap-2"
+          >
+            <Plus size={18} />
+            Giao bài
+          </button>
+        )}
       </header>
 
       {!selectedClassId ? (
@@ -307,69 +357,77 @@ export const TeacherDashboard: React.FC = () => {
           <div className="px-6 py-2">
             {activeSubTab === 'overview' && renderOverview()}
             {activeSubTab === 'students' && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between px-2">
-              <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Danh sách lớp</h3>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold text-slate-400">Sắp xếp:</span>
-                <select className="text-[10px] font-black text-indigo-600 bg-transparent outline-none">
-                  <option>Tên A-Z</option>
-                  <option>Điểm cao</option>
-                </select>
-              </div>
-            </div>
-            <div className="space-y-3">
-              {students.map(student => (
-                <div key={student.id} className="bg-white p-4 rounded-3xl border border-slate-100 flex items-center justify-between group">
-                  <div className="flex items-center gap-3">
-                    <div className="relative cursor-pointer hover:opacity-80 transition-opacity" onClick={() => setViewingStudentProfile(student)}>
-                      <img 
-                        src={`https://picsum.photos/seed/student${student.id}/100`} 
-                        className="w-12 h-12 rounded-2xl object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className={cn(
-                        "absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white",
-                        student.status === 'online' ? "bg-emerald-500" : "bg-slate-300"
-                      )} />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-slate-900 cursor-pointer hover:text-indigo-600 transition-colors" onClick={() => setViewingStudentProfile(student)}>{student.name}</p>
-                      <p className="text-[10px] font-bold text-slate-400">Tiến độ: {student.progress}% • Điểm TB: {student.avgScore}</p>
-                    </div>
-                  </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between px-2">
+                  <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Danh sách lớp</h3>
                   <div className="flex items-center gap-2">
-                    <button 
-                      onClick={() => setActiveChatStudent(student.name)}
-                      className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
-                    >
-                      <MessageSquare size={16} />
-                    </button>
-                    <button 
-                      onClick={() => {
-                        if (window.confirm(`Bạn có chắc chắn muốn xóa học sinh ${student.name} khỏi lớp?`)) {
-                          // Handle delete
-                        }
-                      }}
-                      className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                    <span className="text-[10px] font-bold text-slate-400">Sắp xếp:</span>
+                    <select className="text-[10px] font-black text-indigo-600 bg-transparent outline-none">
+                      <option>Tên A-Z</option>
+                      <option>Điểm cao</option>
+                    </select>
                   </div>
                 </div>
-              ))}
-            </div>
+                <div className="space-y-3">
+                  {classStudents.length === 0 ? (
+                    <div className="text-center py-10 bg-white rounded-3xl border border-slate-100">
+                      <Users size={32} className="mx-auto text-slate-300 mb-2" />
+                      <p className="text-sm font-bold text-slate-400">Chưa có học sinh nào tham gia lớp này.</p>
+                    </div>
+                  ) : (
+                    classStudents.map(student => (
+                      <div key={student.uid} className="bg-white p-4 rounded-3xl border border-slate-100 flex items-center justify-between group">
+                        <div className="flex items-center gap-3">
+                          <div className="relative cursor-pointer hover:opacity-80 transition-opacity" onClick={() => setViewingStudentProfile(student)}>
+                            <img
+                              src={student.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${student.uid}`}
+                              className="w-12 h-12 rounded-2xl object-cover bg-slate-50 border border-slate-100"
+                              referrerPolicy="no-referrer"
+                            />
+                            <div className={cn(
+                              "absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white",
+                              "bg-slate-300" // Mock status or derive from lastActive
+                            )} />
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-slate-900 cursor-pointer hover:text-indigo-600 transition-colors" onClick={() => setViewingStudentProfile(student)}>{student.name}</p>
+                            <p className="text-[10px] font-bold text-slate-400">Chuỗi ngày: {student.streak} • Điểm: {student.points}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => setActiveChatStudent(student.name)}
+                            className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                          >
+                            <MessageSquare size={16} />
+                          </button>
+                          <button
+                            onClick={() => {
+                              if (window.confirm(`Bạn có chắc chắn muốn xóa học sinh ${student.name} khỏi lớp?`)) {
+                                // Handle delete
+                                alert('Chức năng xóa học sinh đang được phát triển.');
+                              }
+                            }}
+                            className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      </>
+        </>
       )}
 
       {/* Overlays */}
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {showCreateClass && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: '100%' }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: '100%' }}
@@ -387,11 +445,11 @@ export const TeacherDashboard: React.FC = () => {
                 <h3 className="text-xl font-black text-slate-900">Tạo lớp học mới</h3>
                 <div className="w-10" />
               </div>
-              
+
               <div className="flex-1 overflow-y-auto p-6 no-scrollbar bg-slate-50">
                 <div className="max-w-md mx-auto space-y-8">
                   {!generatedCode ? (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-6"
@@ -402,12 +460,12 @@ export const TeacherDashboard: React.FC = () => {
 
                       <div className="space-y-3">
                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tên lớp học</label>
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           value={newClassName}
                           onChange={(e) => setNewClassName(e.target.value)}
-                          placeholder="Ví dụ: Toán 5A" 
-                          className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-2xl text-base font-bold focus:border-indigo-500 focus:bg-white transition-all outline-none placeholder:text-slate-300" 
+                          placeholder="Ví dụ: Toán 5A"
+                          className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-2xl text-base font-bold focus:border-indigo-500 focus:bg-white transition-all outline-none placeholder:text-slate-300"
                         />
                       </div>
 
@@ -415,13 +473,13 @@ export const TeacherDashboard: React.FC = () => {
                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Khối lớp</label>
                         <div className="grid grid-cols-3 gap-3">
                           {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(grade => (
-                            <button 
+                            <button
                               key={grade}
                               onClick={() => setNewClassGrade(grade)}
                               className={cn(
                                 "p-3 rounded-2xl border-2 text-sm font-black transition-all",
-                                newClassGrade === grade 
-                                  ? "border-indigo-500 bg-indigo-50 text-indigo-600" 
+                                newClassGrade === grade
+                                  ? "border-indigo-500 bg-indigo-50 text-indigo-600"
                                   : "border-slate-100 text-slate-400 hover:border-slate-200 hover:bg-slate-50"
                               )}
                             >
@@ -431,16 +489,16 @@ export const TeacherDashboard: React.FC = () => {
                         </div>
                       </div>
 
-                      <button 
+                      <button
                         onClick={handleCreateClass}
-                        disabled={!newClassName.trim()}
-                        className="w-full py-5 mt-4 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all disabled:opacity-50 disabled:active:scale-100 flex items-center justify-center gap-2"
+                        disabled={!newClassName.trim() || isCreatingClass}
+                        className="w-full py-5 mt-4 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                       >
-                        Tạo lớp ngay <Plus size={20} />
+                        {isCreatingClass ? 'Đang tạo...' : <>Tạo lớp ngay <Plus size={20} /></>}
                       </button>
                     </motion.div>
                   ) : (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-8 text-center"
@@ -457,8 +515,8 @@ export const TeacherDashboard: React.FC = () => {
                       <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 relative overflow-hidden group">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Mã tham gia lớp học</p>
                         <p className="text-4xl font-black text-indigo-600 tracking-[0.2em]">{generatedCode}</p>
-                        
-                        <button 
+
+                        <button
                           onClick={handleCopyCode}
                           className="mt-6 w-full py-4 bg-white border-2 border-indigo-100 text-indigo-600 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-indigo-50 transition-colors active:scale-95"
                         >
@@ -474,7 +532,7 @@ export const TeacherDashboard: React.FC = () => {
                         Hãy gửi mã này cho học sinh để các em có thể tham gia vào lớp học của bạn.
                       </p>
 
-                      <button 
+                      <button
                         onClick={() => {
                           setShowCreateClass(false);
                           setGeneratedCode('');
@@ -491,17 +549,94 @@ export const TeacherDashboard: React.FC = () => {
             </motion.div>
           )}
 
-          {showCreateAssignment && <AssignmentBuilder onClose={() => setShowCreateAssignment(false)} />}
+
+
+          {showDraftSelectionModal && currentClass && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 sm:p-6"
+            >
+              <motion.div
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="bg-white w-full max-w-md rounded-[2rem] p-6 shadow-2xl max-h-[80vh] flex flex-col"
+              >
+                <div className="flex justify-between items-center mb-6 shrink-0">
+                  <h3 className="text-xl font-black text-slate-900">Giao bài cho lớp {currentClass.name}</h3>
+                  <button
+                    onClick={() => setShowDraftSelectionModal(false)}
+                    className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto no-scrollbar space-y-3">
+                  <button
+                    onClick={() => {
+                      setSelectedInitialDraft(undefined);
+                      setShowDraftSelectionModal(false);
+                      setShowCreateAssignment(true);
+                    }}
+                    className="w-full bg-indigo-50 p-4 rounded-2xl border-2 border-dashed border-indigo-200 text-indigo-600 flex flex-col items-center justify-center gap-2 hover:bg-indigo-100 transition-colors"
+                  >
+                    <Plus size={24} />
+                    <span className="font-bold text-sm">Tạo bài mới hoàn toàn</span>
+                  </button>
+
+                  <div className="relative py-4">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-slate-200"></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-2 bg-white text-slate-500 font-bold uppercase tracking-wider text-[10px]">Hoặc chọn từ bản nháp</span>
+                    </div>
+                  </div>
+
+                  {draftsList.map(draft => (
+                    <button
+                      key={draft.id}
+                      onClick={() => {
+                        setSelectedInitialDraft(draft);
+                        setShowDraftSelectionModal(false);
+                        setShowCreateAssignment(true);
+                      }}
+                      className="w-full bg-white p-4 rounded-2xl border border-slate-200 text-left hover:border-indigo-500 hover:shadow-md transition-all group"
+                    >
+                      <h4 className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{draft.title}</h4>
+                      <div className="flex items-center justify-between mt-2">
+                        <p className="text-xs font-bold text-slate-400">{draft.questions?.length || 0} câu hỏi</p>
+                        <p className="text-[10px] font-bold text-slate-400">Tạo: {draft.updatedAt ? new Date(draft.updatedAt.toMillis()).toLocaleDateString('vi-VN') : ''}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+
+          {showCreateAssignment && currentClass && (
+            <AssignmentBuilder
+              classId={currentClass.id}
+              totalStudents={currentClass.studentCount}
+              initialDraft={selectedInitialDraft}
+              onClose={() => setShowCreateAssignment(false)}
+            />
+          )}
           {activeChatStudent && (
-            <Chat 
-              onClose={() => setActiveChatStudent(null)} 
+            <Chat
+              onClose={() => setActiveChatStudent(null)}
               studentName={activeChatStudent}
               isTeacherView={true}
             />
           )}
 
           {viewingStudentProfile && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: '100%' }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: '100%' }}
@@ -515,26 +650,26 @@ export const TeacherDashboard: React.FC = () => {
                 <h3 className="text-xl font-black text-slate-900">Hồ sơ học sinh</h3>
                 <div className="w-10" />
               </div>
-              
+
               <div className="flex-1 overflow-y-auto p-6 no-scrollbar bg-slate-50">
                 <div className="max-w-md mx-auto space-y-6">
                   <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                    <img 
-                      src={`https://picsum.photos/seed/student${viewingStudentProfile.id}/200`} 
-                      className="w-24 h-24 rounded-[2rem] object-cover mb-4 shadow-lg"
+                    <img
+                      src={viewingStudentProfile.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${viewingStudentProfile.uid}`}
+                      className="w-24 h-24 rounded-[2rem] object-cover bg-slate-50 border border-slate-100 mb-4 shadow-lg"
                       referrerPolicy="no-referrer"
                     />
                     <h2 className="text-2xl font-black text-slate-900">{viewingStudentProfile.name}</h2>
                     <p className="text-sm font-bold text-slate-400 mt-1">Lớp {currentClass?.name}</p>
-                    
+
                     <div className="grid grid-cols-2 gap-4 w-full mt-6">
                       <div className="bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
-                        <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Điểm trung bình</p>
-                        <p className="text-2xl font-black text-indigo-900">{viewingStudentProfile.avgScore}</p>
+                        <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Tổng điểm</p>
+                        <p className="text-2xl font-black text-indigo-900">{viewingStudentProfile.points}</p>
                       </div>
                       <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
-                        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Tiến độ</p>
-                        <p className="text-2xl font-black text-emerald-900">{viewingStudentProfile.progress}%</p>
+                        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Chuỗi ngày</p>
+                        <p className="text-2xl font-black text-emerald-900">{viewingStudentProfile.streak}</p>
                       </div>
                     </div>
                   </div>
@@ -558,10 +693,12 @@ export const TeacherDashboard: React.FC = () => {
           )}
 
           {gradingAssignment && (
-            <AssignmentGrader 
+            <AssignmentGrader
               onClose={() => setGradingAssignment(null)}
               assignmentTitle={gradingAssignment.title}
-              className={gradingAssignment.class}
+              className={currentClass?.name || gradingAssignment.class}
+              classId={gradingAssignment.classId || selectedClassId || ''}
+              assignmentId={gradingAssignment.id || ''}
             />
           )}
         </AnimatePresence>,

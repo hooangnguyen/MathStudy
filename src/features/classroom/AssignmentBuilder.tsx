@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { 
-  ChevronLeft, Plus, Settings, FileText, 
+import {
+  ChevronLeft, Plus, Settings, FileText,
   Image as ImageIcon, Trash2, Copy, CheckCircle2,
   Clock, Calendar, Users, Target, Sigma, X
 } from 'lucide-react';
@@ -8,17 +8,42 @@ import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
 import { MathSymbolPicker } from '../../components/common/MathSymbolPicker';
 
+import { createAssignment, saveDraftAssignment, deleteDraftAssignment, DraftAssignmentData } from '../../services/assignmentService';
+import { subscribeToTeacherClasses, ClassData } from '../../services/classService';
+import { useFirebase } from '../../context/FirebaseProvider';
+
 interface AssignmentBuilderProps {
+  classId?: string;
+  totalStudents?: number;
+  initialDraft?: DraftAssignmentData;
   onClose: () => void;
+  onAssigned?: () => void;
+  onDraftSaved?: () => void;
 }
 
-export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose }) => {
+export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, totalStudents, initialDraft, onClose, onAssigned, onDraftSaved }) => {
+  const { user } = useFirebase();
   const [activeTab, setActiveTab] = useState<'questions' | 'settings'>('questions');
-  const [title, setTitle] = useState('Bài tập chưa có tiêu đề');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState(initialDraft?.title || 'Bài tập chưa có tiêu đề');
+  const [description, setDescription] = useState(initialDraft?.description || '');
+  const [dueDate, setDueDate] = useState<string>('');
+  const [shuffleQuestions, setShuffleQuestions] = useState(initialDraft?.settings?.shuffleQuestions ?? false);
+  const [showScoreImmediate, setShowScoreImmediate] = useState(initialDraft?.settings?.showScoreImmediate ?? true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [activePicker, setActivePicker] = useState<{ type: 'question' | 'option', id: number, optIndex?: number } | null>(null);
-  
-  const [questions, setQuestions] = useState([
+  const [teacherClasses, setTeacherClasses] = useState<ClassData[]>([]);
+  const [selectedClassId, setSelectedClassId] = useState<string>(classId || '');
+
+  React.useEffect(() => {
+    if (!user) return;
+    const unsubscribe = subscribeToTeacherClasses(user.uid, (classes) => {
+      setTeacherClasses(classes);
+    });
+    return () => unsubscribe();
+  }, [user]);
+
+  const [questions, setQuestions] = useState(initialDraft?.questions || [
     { id: 1, type: 'multiple_choice', text: '', options: ['Tùy chọn 1'], correctAnswer: 0, points: 10 }
   ]);
 
@@ -98,8 +123,134 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
     }
   };
 
+  const handleAssign = async () => {
+    // 1. Validate Title
+    if (!title.trim()) {
+      alert('Vui lòng nhập tiêu đề bài tập.');
+      setActiveTab('questions');
+      return;
+    }
+
+    // 2. Validate Class Selection
+    const targetClassId = classId || selectedClassId;
+    if (!targetClassId) {
+      alert('Vui lòng chọn lớp học để giao bài.');
+      setActiveTab('settings');
+      return;
+    }
+
+    // 3. Validate Due Date
+    if (!dueDate) {
+      alert('Vui lòng chọn hạn chót nộp bài.');
+      setActiveTab('settings');
+      return;
+    }
+    const dueTime = new Date(dueDate).getTime();
+    if (isNaN(dueTime)) {
+      alert('Hạn chót không hợp lệ.');
+      setActiveTab('settings');
+      return;
+    }
+    if (dueTime < Date.now()) {
+      alert('Hạn chót không được ở trong quá khứ.');
+      setActiveTab('settings');
+      return;
+    }
+
+    // 4. Validate Questions
+    if (questions.length === 0) {
+      alert('Vui lòng thêm ít nhất một câu hỏi.');
+      setActiveTab('questions');
+      return;
+    }
+
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      if (!q.text.trim()) {
+        alert(`Câu hỏi ${i + 1} đang để trống nội dung.`);
+        setActiveTab('questions');
+        return;
+      }
+      if ((q.type === 'multiple_choice' || q.type === 'checkbox')) {
+        if (q.options.length < 2) {
+          alert(`Câu hỏi ${i + 1} cần ít nhất 2 phương án trả lời.`);
+          setActiveTab('questions');
+          return;
+        }
+        if (q.options.some((opt: string) => !opt.trim())) {
+          alert(`Câu hỏi ${i + 1} có phương án trả lời đang để trống.`);
+          setActiveTab('questions');
+          return;
+        }
+      }
+    }
+
+    // Find student count for the target class
+    let targetStudentCount = totalStudents;
+    if (targetStudentCount === undefined) {
+      const cls = teacherClasses.find(c => c.id === targetClassId);
+      targetStudentCount = cls?.studentCount || 0;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await createAssignment(
+        targetClassId,
+        title,
+        description,
+        new Date(dueDate),
+        targetStudentCount,
+        questions,
+        { shuffleQuestions, showScoreImmediate }
+      );
+      if (onAssigned) onAssigned();
+      onClose();
+    } catch (error) {
+      console.error('Error assigning work:', error);
+      alert('Đã xảy ra lỗi khi giao bài. Vui lòng thử lại.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSaveDraft = async () => {
+    if (!title.trim() || isSavingDraft || !user) return;
+    setIsSavingDraft(true);
+    try {
+      await saveDraftAssignment(
+        user.uid,
+        title,
+        description,
+        questions,
+        { shuffleQuestions, showScoreImmediate },
+        initialDraft?.id // If it's an existing draft, update it
+      );
+      if (onDraftSaved) onDraftSaved();
+      onClose();
+    } catch (error) {
+      console.error('Error saving draft:', error);
+      alert('Đã xảy ra lỗi khi lưu bản nháp.');
+    } finally {
+      setIsSavingDraft(false);
+    }
+  };
+
+  const handleDeleteExistingDraft = async () => {
+    if (!initialDraft?.id) return;
+    if (window.confirm('Bạn có chắc muốn xóa bản nháp này không? Thao tác này không thể hoàn tác.')) {
+      try {
+        await deleteDraftAssignment(initialDraft.id);
+        if (onDraftSaved) onDraftSaved();
+        onClose();
+      } catch (error) {
+        console.error('Error deleting draft:', error);
+        alert('Đã xảy ra lỗi khi xóa bản nháp.');
+      }
+    }
+  };
+
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: '100%' }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: '100%' }}
@@ -108,29 +259,56 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
     >
       {/* Header */}
       <div className="bg-white border-b border-slate-200 shrink-0">
-        <div className="p-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-500 hover:bg-slate-100 transition-colors">
+        <div className="p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <button onClick={onClose} className="w-10 h-10 shrink-0 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-500 hover:bg-slate-100 transition-colors">
               <ChevronLeft size={24} />
             </button>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="text-xl font-black text-slate-900 bg-transparent border-none outline-none focus:ring-0 w-full max-w-md placeholder:text-slate-300"
+              className="text-lg sm:text-xl font-black text-slate-900 bg-transparent border-none outline-none focus:ring-0 w-full placeholder:text-slate-300 px-0 truncate"
               placeholder="Tiêu đề bài tập"
             />
           </div>
-          <div className="flex items-center gap-3">
-            <button className="px-6 py-2.5 bg-indigo-600 text-white rounded-2xl font-black text-sm shadow-lg shadow-indigo-200 active:scale-95 transition-transform">
-              Giao bài
+          <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end sm:justify-start">
+            {initialDraft?.id && (
+              <button
+                onClick={handleDeleteExistingDraft}
+                className="w-10 h-10 flex items-center justify-center bg-red-50 text-red-500 rounded-[1rem] sm:rounded-2xl font-black shadow-sm active:scale-95 transition-all hover:bg-red-100 shrink-0"
+                title="Xóa bản nháp"
+              >
+                <Trash2 size={20} />
+              </button>
+            )}
+            <button
+              onClick={handleSaveDraft}
+              disabled={isSavingDraft || !title.trim()}
+              className="px-4 sm:px-6 py-2 sm:py-2.5 bg-slate-100 text-slate-600 rounded-[1rem] sm:rounded-2xl font-black shadow-sm disabled:opacity-50 active:scale-95 transition-all text-xs sm:text-sm hover:bg-slate-200 flex-1 sm:flex-none text-center"
+            >
+              {isSavingDraft ? 'Đang lưu...' : 'Lưu nháp'}
+            </button>
+            <button
+              onClick={handleAssign}
+              disabled={isSubmitting}
+              className={cn(
+                "px-4 sm:px-6 py-2 sm:py-2.5 flex-1 sm:flex-none rounded-[1rem] sm:rounded-2xl font-black transition-all text-xs sm:text-sm text-center",
+                isSubmitting
+                  ? "bg-slate-300 text-slate-500 cursor-not-allowed shadow-[0_4px_0_#cbd5e1]"
+                  : (!title.trim() || !(classId || selectedClassId) || !dueDate || questions.length === 0)
+                    ? "bg-slate-200 text-slate-400 shadow-[0_4px_0_#cbd5e1] translate-y-0"
+                    : "bg-[#1cb0f6] text-white shadow-[0_4px_0_#1899d6] active:shadow-[0_0_0_#1899d6] active:translate-y-1 hover:bg-[#23beff]"
+              )}
+            >
+              {isSubmitting ? 'Đợi...' : 'Giao bài'}
             </button>
           </div>
         </div>
 
         {/* Tabs */}
         <div className="flex items-center justify-center gap-8 px-6">
-          <button 
+          <button
             onClick={() => setActiveTab('questions')}
             className={cn(
               "pb-4 text-sm font-black transition-colors relative",
@@ -142,7 +320,7 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
               <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-1 bg-indigo-600 rounded-t-full" />
             )}
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('settings')}
             className={cn(
               "pb-4 text-sm font-black transition-colors relative",
@@ -164,14 +342,14 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
             <div className="space-y-6 pb-24">
               {/* Title Card */}
               <div className="bg-white rounded-[2rem] p-6 shadow-sm border-t-8 border-t-indigo-500 border-x border-b border-slate-200">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   className="w-full text-3xl font-black text-slate-900 bg-transparent border-none outline-none mb-4 placeholder:text-slate-300"
                   placeholder="Tiêu đề bài tập"
                 />
-                <textarea 
+                <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   className="w-full text-sm font-bold text-slate-500 bg-transparent border-none outline-none resize-none placeholder:text-slate-300"
@@ -185,14 +363,14 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                 <div key={q.id} className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-200 space-y-6 relative group transition-all focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent">
                   <div className="flex items-start gap-4">
                     <div className="flex-1 relative">
-                      <input 
+                      <input
                         type="text"
                         value={q.text}
                         onChange={(e) => updateQuestion(q.id, 'text', e.target.value)}
                         className="w-full p-4 pr-12 bg-slate-50 rounded-2xl text-base font-bold border-none outline-none focus:bg-slate-100 transition-colors placeholder:text-slate-400"
                         placeholder="Nhập câu hỏi..."
                       />
-                      <button 
+                      <button
                         onClick={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'question' ? null : { type: 'question', id: q.id })}
                         className={cn(
                           "absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-colors",
@@ -207,7 +385,7 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                         <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
                       )}
                     </div>
-                    <select 
+                    <select
                       value={q.type}
                       onChange={(e) => updateQuestion(q.id, 'type', e.target.value)}
                       className="p-4 bg-slate-50 rounded-2xl text-sm font-black text-slate-700 border-none outline-none cursor-pointer"
@@ -226,23 +404,23 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                           <div className={cn(
                             "w-5 h-5 flex items-center justify-center border-2 cursor-pointer transition-colors",
                             q.type === 'multiple_choice' ? "rounded-full" : "rounded-md",
-                            q.correctAnswer === optIndex 
-                              ? "border-emerald-500 bg-emerald-500 text-white" 
+                            (q.type === 'multiple_choice' ? q.correctAnswer === optIndex : (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex)))
+                              ? "border-emerald-500 bg-emerald-500 text-white"
                               : "border-slate-300 hover:border-indigo-500"
                           )}
-                          onClick={() => updateQuestion(q.id, 'correctAnswer', optIndex)}
+                            onClick={() => updateQuestion(q.id, 'correctAnswer', optIndex)}
                           >
                             {q.correctAnswer === optIndex && <CheckCircle2 size={14} />}
                           </div>
                           <div className="flex-1 relative">
-                            <input 
+                            <input
                               type="text"
                               value={opt}
                               onChange={(e) => updateOption(q.id, optIndex, e.target.value)}
                               className="w-full bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500 outline-none py-2 pr-8 text-sm font-bold text-slate-700 transition-colors"
                               placeholder={`Tùy chọn ${optIndex + 1}`}
                             />
-                            <button 
+                            <button
                               onClick={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex ? null : { type: 'option', id: q.id, optIndex })}
                               className={cn(
                                 "absolute right-0 top-1/2 -translate-y-1/2 p-1 rounded-lg transition-colors",
@@ -258,7 +436,7 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                             )}
                           </div>
                           {q.options.length > 1 && (
-                            <button 
+                            <button
                               onClick={() => removeOption(q.id, optIndex)}
                               className="p-2 text-slate-400 hover:text-rose-500 transition-colors"
                             >
@@ -272,7 +450,7 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                           "w-5 h-5 border-2 border-slate-200",
                           q.type === 'multiple_choice' ? "rounded-full" : "rounded-md"
                         )} />
-                        <button 
+                        <button
                           onClick={() => addOption(q.id)}
                           className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors"
                         >
@@ -295,8 +473,8 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                   <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-slate-400">Điểm:</span>
-                      <input 
-                        type="number" 
+                      <input
+                        type="number"
                         value={q.points}
                         onChange={(e) => updateQuestion(q.id, 'points', parseInt(e.target.value) || 0)}
                         className="w-16 p-2 bg-slate-50 rounded-xl text-sm font-black text-center border-none outline-none"
@@ -316,7 +494,7 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
 
               {/* Add Question Button */}
               <div className="flex justify-center">
-                <button 
+                <button
                   onClick={addQuestion}
                   className="w-14 h-14 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-indigo-600 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all active:scale-95"
                 >
@@ -334,10 +512,21 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                   <div className="space-y-4">
                     <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Chọn lớp</label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {['Toán 5A', 'Toán 5B', 'Toán 5C'].map(c => (
-                        <label key={c} className="flex items-center gap-3 p-4 rounded-2xl border-2 border-slate-100 cursor-pointer hover:border-indigo-500 transition-colors has-[:checked]:border-indigo-500 has-[:checked]:bg-indigo-50">
-                          <input type="checkbox" className="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300" />
-                          <span className="text-sm font-black text-slate-700">{c}</span>
+                      {teacherClasses.map(c => (
+                        <label key={c.id} className={cn(
+                          "flex items-center gap-3 p-4 rounded-2xl border-2 cursor-pointer transition-colors",
+                          (classId === c.id || selectedClassId === c.id)
+                            ? "border-indigo-500 bg-indigo-50"
+                            : "border-slate-100 hover:border-indigo-500"
+                        )}>
+                          <input
+                            type="checkbox"
+                            className="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300"
+                            checked={classId === c.id || selectedClassId === c.id}
+                            onChange={() => !classId && setSelectedClassId(c.id)}
+                            disabled={!!classId}
+                          />
+                          <span className="text-sm font-black text-slate-700">{c.name}</span>
                         </label>
                       ))}
                     </div>
@@ -350,14 +539,15 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                   <h3 className="text-lg font-black text-slate-900 mb-6 flex items-center gap-2">
                     <Calendar className="text-indigo-500" /> Thời gian
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 gap-6">
                     <div className="space-y-3">
-                      <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Ngày bắt đầu</label>
-                      <input type="datetime-local" className="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500" />
-                    </div>
-                    <div className="space-y-3">
-                      <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Hạn chót</label>
-                      <input type="datetime-local" className="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500" />
+                      <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Hạn chót nộp bài</label>
+                      <input
+                        type="datetime-local"
+                        value={dueDate}
+                        onChange={(e) => setDueDate(e.target.value)}
+                        className="w-full p-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 outline-none"
+                      />
                     </div>
                   </div>
                 </div>
@@ -374,20 +564,30 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ onClose })
                         <p className="text-sm font-black text-slate-700">Trộn câu hỏi</p>
                         <p className="text-xs font-bold text-slate-400 mt-1">Thứ tự câu hỏi sẽ thay đổi với mỗi học sinh</p>
                       </div>
-                      <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-200">
-                        <input type="checkbox" className="peer sr-only" />
-                        <span className="inline-block h-4 w-4 translate-x-1 rounded-full bg-white transition peer-checked:translate-x-6 peer-checked:bg-indigo-600" />
+                      <div className={cn("relative inline-flex h-6 w-11 items-center rounded-full transition-colors", shuffleQuestions ? "bg-indigo-600" : "bg-slate-200")}>
+                        <input
+                          type="checkbox"
+                          checked={shuffleQuestions}
+                          onChange={(e) => setShuffleQuestions(e.target.checked)}
+                          className="peer sr-only"
+                        />
+                        <span className={cn("inline-block h-4 w-4 rounded-full bg-white transition-transform", shuffleQuestions ? "translate-x-6" : "translate-x-1")} />
                       </div>
                     </label>
-                    
+
                     <label className="flex items-center justify-between p-4 rounded-2xl border-2 border-slate-100 cursor-pointer hover:border-slate-200 transition-colors">
                       <div>
                         <p className="text-sm font-black text-slate-700">Hiển thị điểm ngay</p>
                         <p className="text-xs font-bold text-slate-400 mt-1">Học sinh thấy điểm ngay sau khi nộp bài</p>
                       </div>
-                      <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-indigo-600">
-                        <input type="checkbox" className="peer sr-only" defaultChecked />
-                        <span className="inline-block h-4 w-4 translate-x-6 rounded-full bg-white transition peer-checked:translate-x-6 peer-checked:bg-indigo-600" />
+                      <div className={cn("relative inline-flex h-6 w-11 items-center rounded-full transition-colors", showScoreImmediate ? "bg-indigo-600" : "bg-slate-200")}>
+                        <input
+                          type="checkbox"
+                          checked={showScoreImmediate}
+                          onChange={(e) => setShowScoreImmediate(e.target.checked)}
+                          className="peer sr-only"
+                        />
+                        <span className={cn("inline-block h-4 w-4 rounded-full bg-white transition-transform", showScoreImmediate ? "translate-x-6" : "translate-x-1")} />
                       </div>
                     </label>
                   </div>

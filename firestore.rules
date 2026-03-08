@@ -42,5 +42,9 @@ service cloud.firestore {
     match /classes/{classId}/{document=**} {
       allow read, write: if isAuthenticated();
     }
+
+    match /drafts/{draftId} {
+      allow read, write: if isAuthenticated();
+    }
   }
 }

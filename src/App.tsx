@@ -19,7 +19,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './utils/utils';
 import { useFirebase } from './context/FirebaseProvider';
 import { signOut } from 'firebase/auth';
-import { getUserProfile, saveUserProfile, getAchievements, Achievement } from './services/userService';
+import { getUserProfile, saveUserProfile, getAchievements, Achievement, UserPreferences } from './services/userService';
 
 export default function App() {
   const { user, isAuthReady, auth } = useFirebase();
@@ -44,6 +44,8 @@ export default function App() {
     achievements?: Achievement[];
     school?: string;
     subject?: string;
+    enrolledClasses?: string[];
+    preferences?: UserPreferences;
   } | null>(null);
 
   // Sync Firebase Auth state with local App state
@@ -64,7 +66,9 @@ export default function App() {
               points: profile.points,
               streak: profile.streak,
               school: profile.school,
-              subject: profile.subject
+              subject: profile.subject,
+              enrolledClasses: profile.enrolledClasses || [],
+              preferences: profile.preferences
             });
 
             if (profile.onboarded) {
@@ -183,10 +187,13 @@ export default function App() {
     if (showSettings) {
       return (
         <Settings
+          uid={user?.uid}
+          preferences={userData?.preferences}
           onBack={() => setShowSettings(false)}
           onLogout={handleLogout}
           onEditProfile={() => setShowEditProfile(true)}
           userName={userData?.name}
+          onPreferencesChanged={(newPrefs) => setUserData(prev => prev ? { ...prev, preferences: newPrefs } : null)}
         />
       );
     }
@@ -215,7 +222,10 @@ export default function App() {
         return userRole === 'teacher' ? (
           <TeacherDashboard />
         ) : (
-          <Classroom studentClass={studentClass} onJoinClass={setStudentClass} />
+          <Classroom
+            enrolledClassId={userData?.enrolledClasses?.[0]}
+            onJoinSuccess={(classId) => setUserData(prev => prev ? { ...prev, enrolledClasses: [...(prev.enrolledClasses || []), classId] } : null)}
+          />
         );
       case 'messages':
         return <Messages userRole={userRole} />;
