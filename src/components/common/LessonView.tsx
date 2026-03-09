@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, ChevronRight, CheckCircle2, AlertCircle, Volume2, HelpCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, ChevronRight, CheckCircle2, AlertCircle, Volume2, HelpCircle, Star, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
 
@@ -14,72 +14,171 @@ interface Question {
 
 interface LessonViewProps {
   lessonTitle: string;
+  topic?: string;
+  grade?: number;
   onClose: () => void;
   onComplete: (score: number) => void;
 }
 
-export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, onClose, onComplete }) => {
+export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grade = 1, onClose, onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
 
-  const questions: Question[] = [
-    {
-      id: 1,
-      type: 'multiple-choice',
-      question: 'Để cộng hai phân số khác mẫu số, bước đầu tiên chúng ta cần làm là gì?',
-      options: [
-        'Cộng tử số với tử số',
-        'Quy đồng mẫu số hai phân số',
-        'Cộng mẫu số với mẫu số',
-        'Nhân hai phân số với nhau'
-      ],
-      answer: 'Quy đồng mẫu số hai phân số',
-      hint: 'Chúng ta cần đưa chúng về cùng một "mẫu" chung trước khi cộng.'
-    },
-    {
-      id: 2,
-      type: 'input',
-      question: 'Tính kết quả của phép tính: 1/2 + 1/4 = ? (Viết dưới dạng phân số a/b)',
-      answer: '3/4',
-      hint: 'Quy đồng 1/2 thành 2/4, sau đó cộng với 1/4.'
-    },
-    {
-      id: 3,
-      type: 'multiple-choice',
-      question: 'Mẫu số chung nhỏ nhất của 1/3 và 1/5 là bao nhiêu?',
-      options: ['8', '10', '15', '30'],
-      answer: '15',
-      hint: 'Tìm số nhỏ nhất chia hết cho cả 3 và 5.'
-    }
-  ];
+  const [lessonQuestions, setLessonQuestions] = useState<Question[]>([]);
+  const [workingQuestions, setWorkingQuestions] = useState<Question[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const currentQuestion = questions[currentStep];
-  const progress = ((currentStep + 1) / questions.length) * 100;
+  // Load and sample 10 random questions for the given topic
+  useEffect(() => {
+    const loadQuestions = async () => {
+      setIsLoading(true);
+      try {
+        let rawData: any[];
+
+        if (!topic) {
+          // Default demo questions
+          rawData = [
+            {
+              id: 1,
+              type: 'multiple-choice',
+              question: 'Để cộng hai phân số khác mẫu số, bước đầu tiên chúng ta cần làm là gì?',
+              options: [
+                'Cộng tử số với tử số',
+                'Quy đồng mẫu số hai phân số',
+                'Cộng mẫu số với mẫu số',
+                'Nhân hai phân số với nhau'
+              ],
+              answer: 'Quy đồng mẫu số hai phân số',
+              hint: 'Chúng ta cần đưa chúng về cùng một "mẫu" chung trước khi cộng.'
+            },
+            {
+              id: 2,
+              type: 'input',
+              question: 'Tính kết quả của phép tính: 1/2 + 1/4 = ? (Viết dưới dạng phân số a/b)',
+              answer: '3/4',
+              hint: 'Quy đồng 1/2 thành 2/4, sau đó cộng với 1/4.'
+            }
+          ];
+        } else {
+          // Dynamic import to load only the specific grade needed
+          try {
+            const module = await import(`../../data/questions/grade${grade}.json`);
+            const gradeData = module.default;
+
+            const topicQuestions = gradeData.filter((q: any) => q.topic === topic);
+
+            if (topicQuestions.length === 0) {
+              console.warn(`No questions found for topic: ${topic} in grade: ${grade}`);
+              rawData = []; // Handle empty topics
+            } else {
+              // Shuffle and pick 10
+              const shuffled = [...topicQuestions].sort(() => 0.5 - Math.random());
+              rawData = shuffled.slice(0, 10).map((q, index) => ({
+                id: index + 1,
+                type: q.options && q.options.length > 0 ? 'multiple-choice' : 'input',
+                question: q.question,
+                options: q.options,
+                answer: q.answer,
+                hint: q.explanation || 'Hãy suy nghĩ kỹ nhé!'
+              }));
+            }
+          } catch (importError) {
+            console.error(`Missing data file for grade ${grade}:`, importError);
+            rawData = []; // Fallback for missing grades
+          }
+        }
+
+        setLessonQuestions(rawData);
+        setWorkingQuestions(rawData);
+      } catch (error) {
+        console.error("Failed to load questions:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadQuestions();
+  }, [topic, grade]);
+
+  const currentQuestion = workingQuestions[currentStep];
+  const progress = Math.min(((currentStep + 1) / (lessonQuestions.length || 1)) * 100, 100);
 
   const handleCheck = () => {
-    const correct = currentQuestion.type === 'multiple-choice' 
+    const correct = currentQuestion.type === 'multiple-choice'
       ? selectedOption === currentQuestion.answer
-      : inputValue.trim() === currentQuestion.answer;
-    
+      : inputValue.trim().toLowerCase() === currentQuestion.answer.toLowerCase();
+
+    if (correct && !isChecked) {
+      if (currentStep < lessonQuestions.length) {
+        setCorrectCount(prev => prev + 1);
+      }
+    }
     setIsCorrect(correct);
     setIsChecked(true);
   };
 
   const handleNext = () => {
-    if (currentStep < questions.length - 1) {
+    // If answer was incorrect, append this question to the end for a retry
+    if (!isCorrect) {
+      setWorkingQuestions(prev => [...prev, currentQuestion]);
+    }
+
+    if (currentStep < workingQuestions.length - 1) {
       setCurrentStep(currentStep + 1);
       setSelectedOption(null);
       setInputValue('');
       setIsChecked(false);
       setShowHint(false);
+      setIsCorrect(false);
     } else {
-      onComplete(100);
+      const finalScore = Math.round((correctCount / (lessonQuestions.length || 1)) * 100);
+      onComplete(finalScore);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center space-y-4">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className="text-primary"
+        >
+          <Loader2 size={40} />
+        </motion.div>
+        <p className="text-slate-400 font-bold text-sm animate-pulse tracking-widest uppercase">Đang tải câu hỏi...</p>
+      </div>
+    );
+  }
+
+  if (!isLoading && lessonQuestions.length === 0) {
+    return (
+      <div className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-6 text-center space-y-6">
+        <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center text-slate-300">
+          <HelpCircle size={48} />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-xl font-black text-slate-900">Chưa có bộ câu hỏi</h2>
+          <p className="text-slate-500 text-sm max-w-xs mx-auto">
+            Hệ thống đang cập nhật dữ liệu câu hỏi cho <b>{lessonTitle}</b> (Lớp {grade}). Anh/chị hãy quay lại sau nhé!
+          </p>
+        </div>
+        <button
+          onClick={onClose}
+          className="px-8 py-3 bg-primary text-white font-black rounded-2xl shadow-lg shadow-primary/20 active:scale-95 transition-all text-sm uppercase tracking-widest"
+        >
+          Quay lại
+        </button>
+      </div>
+    );
+  }
+
+  if (!currentQuestion) return null;
 
   return (
     <div className="fixed inset-0 z-[100] bg-white flex flex-col">
@@ -89,7 +188,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, onClose, on
           <X size={24} />
         </button>
         <div className="flex-1 h-3 bg-slate-100 rounded-full overflow-hidden">
-          <motion.div 
+          <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             className="h-full bg-primary rounded-full"
@@ -106,7 +205,9 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, onClose, on
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-slate-400">
             <HelpCircle size={16} />
-            <span className="text-[10px] font-black uppercase tracking-widest">Câu hỏi {currentStep + 1} / {questions.length}</span>
+            <span className="text-[10px] font-black uppercase tracking-widest">
+              {currentStep < lessonQuestions.length ? `Câu hỏi ${currentStep + 1} / ${lessonQuestions.length}` : `Sửa lỗi câu sai`}
+            </span>
           </div>
           <h2 className="text-xl font-black text-slate-900 leading-tight">
             {currentQuestion.question}
@@ -122,8 +223,8 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, onClose, on
                 onClick={() => setSelectedOption(option)}
                 className={cn(
                   "p-5 rounded-[2rem] border-2 text-left transition-all relative group",
-                  selectedOption === option 
-                    ? "border-primary bg-primary/5" 
+                  selectedOption === option
+                    ? "border-primary bg-primary/5"
                     : "border-slate-100 hover:border-slate-200 bg-white",
                   isChecked && option === currentQuestion.answer && "border-emerald-500 bg-emerald-50",
                   isChecked && selectedOption === option && option !== currentQuestion.answer && "border-rose-500 bg-rose-50"
@@ -156,9 +257,9 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, onClose, on
               placeholder="Nhập câu trả lời của bạn..."
               className={cn(
                 "w-full p-6 rounded-[2rem] border-2 bg-slate-50 text-lg font-black text-center outline-none transition-all",
-                isChecked && isCorrect ? "border-emerald-500 bg-emerald-50" : 
-                isChecked && !isCorrect ? "border-rose-500 bg-rose-50" :
-                "border-slate-100 focus:border-primary focus:bg-white"
+                isChecked && isCorrect ? "border-emerald-500 bg-emerald-50" :
+                  isChecked && !isCorrect ? "border-rose-500 bg-rose-50" :
+                    "border-slate-100 focus:border-primary focus:bg-white"
               )}
             />
           </div>
@@ -208,7 +309,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, onClose, on
 
           <div className="flex gap-3">
             {!isChecked && (
-              <button 
+              <button
                 onClick={() => setShowHint(!showHint)}
                 className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center active:scale-90 transition-transform"
               >
@@ -221,8 +322,8 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, onClose, on
               className={cn(
                 "flex-1 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg transition-all active:scale-95",
                 !isChecked && !selectedOption && !inputValue ? "bg-slate-200 text-slate-400 shadow-none" :
-                isChecked ? (isCorrect ? "bg-emerald-500 text-white shadow-emerald-200" : "bg-rose-500 text-white shadow-rose-200") :
-                "bg-primary text-white shadow-primary/30"
+                  isChecked ? (isCorrect ? "bg-emerald-500 text-white shadow-emerald-200" : "bg-rose-500 text-white shadow-rose-200") :
+                    "bg-primary text-white shadow-primary/30"
               )}
             >
               {isChecked ? 'Tiếp tục' : 'Kiểm tra'}
@@ -234,4 +335,3 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, onClose, on
   );
 };
 
-import { Star } from 'lucide-react';

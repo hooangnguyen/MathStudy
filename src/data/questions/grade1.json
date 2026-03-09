@@ -1,0 +1,2904 @@
+[
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 3 __ 5",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "<",
+    "explanation": "3 bé hơn 5 nên dùng dấu <."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 7 __ 4",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": ">",
+    "explanation": "7 lớn hơn 4 nên dùng dấu >."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 6 __ 6",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "=",
+    "explanation": "Hai số bằng nhau nên dùng dấu =."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 2 __ 8",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "<",
+    "explanation": "2 bé hơn 8."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 9 __ 3",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": ">",
+    "explanation": "9 lớn hơn 3."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 4 __ 4",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "=",
+    "explanation": "4 bằng 4."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 1 __ 5",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "<",
+    "explanation": "1 nhỏ hơn 5."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 10 __ 7",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": ">",
+    "explanation": "10 lớn hơn 7."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 8 __ 8",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "=",
+    "explanation": "Hai số giống nhau nên bằng nhau."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 5 __ 2",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": ">",
+    "explanation": "5 lớn hơn 2."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 3 __ 3",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "=",
+    "explanation": "3 bằng 3."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 6 __ 9",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "<",
+    "explanation": "6 bé hơn 9."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 7 __ 7",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "=",
+    "explanation": "7 bằng 7."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 2 __ 1",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": ">",
+    "explanation": "2 lớn hơn 1."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 4 __ 9",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "<",
+    "explanation": "4 nhỏ hơn 9."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 10 __ 10",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "=",
+    "explanation": "10 bằng 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 8 __ 6",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": ">",
+    "explanation": "8 lớn hơn 6."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 5 __ 7",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "<",
+    "explanation": "5 bé hơn 7."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 1 __ 1",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "=",
+    "explanation": "1 bằng 1."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu > < =",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 9 __ 10",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "<",
+    "explanation": "9 nhỏ hơn 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Đếm số lượng",
+    "difficulty": "Dễ",
+    "question": "Có bao nhiêu ngón tay trên một bàn tay bình thường?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "answer": "5",
+    "explanation": "Một bàn tay bình thường có 5 ngón tay: ngón cái, ngón trỏ, ngón giữa, ngón áp út và ngón út."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "So sánh số",
+    "difficulty": "Dễ",
+    "question": "Số nào lớn hơn trong cặp số sau: 3 và 7?",
+    "options": [
+      "3",
+      "7",
+      "Bằng nhau"
+    ],
+    "answer": "7",
+    "explanation": "Khi đếm từ 1 đến 10, số 7 đứng sau số 3 nên số 7 lớn hơn số 3."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Thứ tự số",
+    "difficulty": "Trung bình",
+    "question": "Số nào còn thiếu trong dãy số sau: 1, 2, 3, ..., 5?",
+    "options": [
+      "2",
+      "4",
+      "6",
+      "0"
+    ],
+    "answer": "4",
+    "explanation": "Theo thứ tự đếm tăng dần, số đứng giữa 3 và 5 là số 4."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Nhận diện mặt số",
+    "difficulty": "Dễ",
+    "question": "Số 'Tám' được viết là chữ số nào?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": "8",
+    "explanation": "Cách đọc 'Tám' tương ứng với ký hiệu chữ số 8."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Đếm ngược",
+    "difficulty": "Khó",
+    "question": "Đếm ngược từ 5 về 1, số nào đứng ngay sau số 4?",
+    "options": [
+      "5",
+      "3",
+      "2",
+      "1"
+    ],
+    "answer": "3",
+    "explanation": "Khi đếm ngược: 5, 4, 3, 2, 1. Vậy sau số 4 là số 3."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Khái niệm số 0",
+    "difficulty": "Trung bình",
+    "question": "Trên cành cây có 3 con chim, cả 3 con đều bay đi. Hỏi trên cành còn mấy con chim?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "0"
+    ],
+    "answer": "0",
+    "explanation": "Khi không còn đối tượng nào, ta dùng số 0 để biểu thị."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "So sánh số",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp vào chỗ trống: 5 ... 9",
+    "options": [
+      ">",
+      "<",
+      "="
+    ],
+    "answer": "<",
+    "explanation": "Vì 5 bé hơn 9 nên ta dùng dấu bé hơn (<)."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Thứ tự số",
+    "difficulty": "Trung bình",
+    "question": "Số liền trước của số 10 là số nào?",
+    "options": [
+      "8",
+      "9",
+      "11",
+      "7"
+    ],
+    "answer": "9",
+    "explanation": "Số liền trước là số đứng ngay trước nó khi đếm, đó là số 9."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Đếm số lượng",
+    "difficulty": "Dễ",
+    "question": "Một con chó có bao nhiêu cái chân?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": "4",
+    "explanation": "Con chó là động vật có 4 chân."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Khó",
+    "question": "Số 6 gồm mấy và mấy?",
+    "options": [
+      "2 và 3",
+      "4 và 2",
+      "5 và 0",
+      "1 và 4"
+    ],
+    "answer": "4 và 2",
+    "explanation": "Gộp 4 và 2 ta được 6. Các phương án khác không tổng bằng 6."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "So sánh",
+    "difficulty": "Trung bình",
+    "question": "Dãy số nào được sắp xếp theo thứ tự từ bé đến lớn?",
+    "options": [
+      "1, 3, 2",
+      "5, 4, 3",
+      "2, 4, 6",
+      "9, 8, 10"
+    ],
+    "answer": "2, 4, 6",
+    "explanation": "Dãy 2, 4, 6 có các số sau lớn hơn số trước."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Số lượng",
+    "difficulty": "Dễ",
+    "question": "Xe đạp hai bánh có bao nhiêu bánh xe?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "answer": "2",
+    "explanation": "Tên gọi 'xe đạp hai bánh' đã cho biết số lượng là 2."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "So sánh số",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 8 ... 8",
+    "options": [
+      ">",
+      "<",
+      "="
+    ],
+    "answer": "=",
+    "explanation": "Vì hai số giống nhau nên ta dùng dấu bằng."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Thứ tự số",
+    "difficulty": "Trung bình",
+    "question": "Dãy số nào được viết theo thứ tự ngược dần (lớn đến bé)?",
+    "options": [
+      "1, 2, 3",
+      "5, 6, 4",
+      "10, 9, 8",
+      "7, 8, 9"
+    ],
+    "answer": "10, 9, 8",
+    "explanation": "Đếm ngược từ 10: 10 rồi đến 9, sau đó đến 8."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Đếm thực tế",
+    "difficulty": "Dễ",
+    "question": "Một con nhện bình thường có bao nhiêu cái chân?",
+    "options": [
+      "4",
+      "6",
+      "8",
+      "10"
+    ],
+    "answer": "8",
+    "explanation": "Con nhện là loài thuộc lớp hình nhện, chúng có 8 chân."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Số liền sau",
+    "difficulty": "Dễ",
+    "question": "Số liền sau của số 0 là số nào?",
+    "options": [
+      "1",
+      "2",
+      "0",
+      "Không có"
+    ],
+    "answer": "1",
+    "explanation": "Bắt đầu dãy số tự nhiên từ 0, số tiếp theo ngay lập tức là 1."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Khó",
+    "question": "Số 7 gồm 3 và mấy?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "2"
+    ],
+    "answer": "4",
+    "explanation": "Tách 7 cái kẹo thành hai phần, một phần có 3 thì phần kia có 4."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Số lượng",
+    "difficulty": "Trung bình",
+    "question": "Con mèo có bao nhiêu cái đuôi?",
+    "options": [
+      "0",
+      "1",
+      "2",
+      "4"
+    ],
+    "answer": "1",
+    "explanation": "Mỗi con mèo chỉ có duy nhất 1 cái đuôi."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "So sánh",
+    "difficulty": "Trung bình",
+    "question": "Số nào bé hơn số 1?",
+    "options": [
+      "0",
+      "2",
+      "3",
+      "Không có"
+    ],
+    "answer": "0",
+    "explanation": "Trong dãy số đang học, số 0 là số bé nhất, đứng trước số 1."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Nhận diện",
+    "difficulty": "Dễ",
+    "question": "Chữ số nào trông giống quả trứng gà hoặc vòng tròn?",
+    "options": [
+      "0",
+      "1",
+      "8",
+      "9"
+    ],
+    "answer": "0",
+    "explanation": "Số 0 có hình dạng là một đường cong khép kín giống quả trứng."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Đếm thực tế",
+    "difficulty": "Trung bình",
+    "question": "Một tuần lễ có bao nhiêu ngày?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "answer": "7",
+    "explanation": "Một tuần bao gồm các ngày từ Thứ Hai đến Chủ Nhật, tổng cộng là 7 ngày."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Nhận diện",
+    "difficulty": "Dễ",
+    "question": "Số 'Bảy' được viết là:",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "answer": "7",
+    "explanation": "Cách đọc 'Bảy' tương ứng với chữ số 7."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "So sánh dãy số",
+    "difficulty": "Khó",
+    "question": "Trong các số: 3, 9, 5, 2. Số nào là số lớn nhất?",
+    "options": [
+      "3",
+      "9",
+      "5",
+      "2"
+    ],
+    "answer": "9",
+    "explanation": "Khi đếm, số 9 xuất hiện muộn nhất nên nó lớn nhất trong nhóm này."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Trung bình",
+    "question": "Gộp 2 và 3 được mấy?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": "5",
+    "explanation": "Hai ngón tay thêm ba ngón tay là năm ngón tay."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Bản chất phép cộng (Thêm vào)",
+    "difficulty": "Dễ",
+    "question": "Trên cành có 4 con chim, có thêm 2 con chim nữa bay đến. Hỏi trên cành có tất cả bao nhiêu con chim?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "2"
+    ],
+    "answer": "6",
+    "explanation": "Có 4 con chim, thêm 2 con nữa nghĩa là ta thực hiện phép tính gộp: 4 + 2 = 6."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Bản chất phép trừ (Bớt đi)",
+    "difficulty": "Dễ",
+    "question": "Mẹ mua 7 quả cam, Lan ăn hết 3 quả. Hỏi còn lại bao nhiêu quả cam?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "10"
+    ],
+    "answer": "4",
+    "explanation": "Ăn hết là bớt đi, ta thực hiện phép tính trừ: 7 - 3 = 4."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Phép cộng (Gộp nhóm)",
+    "difficulty": "Trung bình",
+    "question": "Tay trái em cầm 5 viên bi, tay phải em cầm 4 viên bi. Hỏi cả hai tay cầm bao nhiêu viên bi?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": "9",
+    "explanation": "Gộp 5 viên và 4 viên lại, ta có phép tính: 5 + 4 = 9."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Phép trừ (Tách nhóm)",
+    "difficulty": "Trung bình",
+    "question": "Trong rổ có 8 bông hoa, 5 bông màu đỏ, còn lại là màu vàng. Hỏi có mấy bông hoa màu vàng?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "13"
+    ],
+    "answer": "3",
+    "explanation": "Để tìm phần còn lại, ta lấy tổng số hoa trừ đi số hoa đỏ: 8 - 5 = 3."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Phép cộng với số 0",
+    "difficulty": "Dễ",
+    "question": "Bình có 6 cái kẹo, mẹ không cho thêm cái nào nữa. Hỏi Bình có tất cả bao nhiêu cái kẹo?",
+    "options": [
+      "0",
+      "6",
+      "7",
+      "5"
+    ],
+    "answer": "6",
+    "explanation": "Bất kỳ số nào cộng với 0 vẫn bằng chính số đó: 6 + 0 = 6."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Phép trừ với số 0",
+    "difficulty": "Dễ",
+    "question": "Tính kết quả của phép tính: 9 - 0 = ?",
+    "options": [
+      "0",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": "9",
+    "explanation": "Chín bớt đi không (không bớt gì cả) thì vẫn còn chín."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "So sánh kết quả",
+    "difficulty": "Khó",
+    "question": "Phép tính nào sau đây có kết quả lớn nhất?",
+    "options": [
+      "3 + 3",
+      "2 + 5",
+      "10 - 4",
+      "8 - 2"
+    ],
+    "answer": "2 + 5",
+    "explanation": "3+3=6, 2+5=7, 10-4=6, 8-2=6. Vậy 7 là kết quả lớn nhất."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Điền số còn thiếu",
+    "difficulty": "Khó",
+    "question": "Điền số thích hợp vào dấu hỏi chấm: 4 + ? = 10",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": "6",
+    "explanation": "Ta có thể đếm thêm từ 4 đến khi đủ 10, hoặc dùng phép tính 10 - 4 = 6."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Phép trừ (Tất cả)",
+    "difficulty": "Trung bình",
+    "question": "Có 5 bạn đang chơi, cả 5 bạn cùng đi về nhà. Hỏi còn lại mấy bạn đang chơi?",
+    "options": [
+      "1",
+      "5",
+      "10",
+      "0"
+    ],
+    "answer": "0",
+    "explanation": "Một số trừ đi chính nó sẽ bằng 0: 5 - 5 = 0."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng và phép trừ trong phạm vi 10",
+    "sub_topic": "Phép cộng (Nhiều đối tượng)",
+    "difficulty": "Khó",
+    "question": "Nhà em có 2 con mèo, 1 con chó và 3 con gà. Hỏi nhà em có tất cả bao nhiêu con vật?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": "6",
+    "explanation": "Gộp tất cả lại: 2 + 1 + 3 = 6 con vật."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Các số đến 20",
+    "difficulty": "Dễ",
+    "question": "Số 'Mười lăm' được viết là chữ số nào?",
+    "options": [
+      "10",
+      "15",
+      "51",
+      "20"
+    ],
+    "answer": "15",
+    "explanation": "Số mười lăm gồm 1 chục và 5 đơn vị, viết là 15."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Trung bình",
+    "question": "Số 12 gồm mấy chục và mấy đơn vị?",
+    "options": [
+      "1 chục và 1 đơn vị",
+      "2 chục và 1 đơn vị",
+      "1 chục và 2 đơn vị",
+      "12 chục"
+    ],
+    "answer": "1 chục và 2 đơn vị",
+    "explanation": "Trong số có hai chữ số, chữ số bên trái chỉ hàng chục, bên phải chỉ hàng đơn vị."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Số tròn chục",
+    "difficulty": "Dễ",
+    "question": "Số nào sau đây là số tròn chục?",
+    "options": [
+      "15",
+      "20",
+      "25",
+      "35"
+    ],
+    "answer": "20",
+    "explanation": "Số tròn chục là số có chữ số hàng đơn vị bằng 0."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Đo độ dài",
+    "difficulty": "Trung bình",
+    "question": "Đơn vị đo độ dài em đã học là gì?",
+    "options": [
+      "kg",
+      "lít",
+      "cm",
+      "giờ"
+    ],
+    "answer": "cm",
+    "explanation": "Trong chương trình lớp 1, em học đơn vị xăng-ti-mét, viết tắt là cm."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Sử dụng thước kẻ",
+    "difficulty": "Trung bình",
+    "question": "Khi đo độ dài một vật, ta đặt vạch nào của thước trùng với một đầu của vật?",
+    "options": [
+      "Vạch số 0",
+      "Vạch số 1",
+      "Vạch bất kỳ",
+      "Cuối cây thước"
+    ],
+    "answer": "Vạch số 0",
+    "explanation": "Luôn bắt đầu đo từ vạch số 0 để có kết quả chính xác."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Thời gian",
+    "difficulty": "Dễ",
+    "question": "Kim ngắn của đồng hồ chỉ số 3, kim dài chỉ số 12. Hỏi là mấy giờ?",
+    "options": [
+      "12 giờ",
+      "3 giờ",
+      "6 giờ",
+      "9 giờ"
+    ],
+    "answer": "3 giờ",
+    "explanation": "Khi kim dài chỉ số 12, kim ngắn chỉ số nào thì đó là giờ đúng."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Thứ trong tuần",
+    "difficulty": "Dễ",
+    "question": "Sau ngày Thứ Hai là ngày thứ mấy?",
+    "options": [
+      "Thứ Ba",
+      "Thứ Tư",
+      "Chủ Nhật",
+      "Thứ Bảy"
+    ],
+    "answer": "Thứ Ba",
+    "explanation": "Thứ tự các ngày là: Thứ Hai, Thứ Ba, Thứ Tư..."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Các số đến 100",
+    "difficulty": "Khó",
+    "question": "Số lớn nhất có hai chữ số là số nào?",
+    "options": [
+      "10",
+      "90",
+      "99",
+      "100"
+    ],
+    "answer": "99",
+    "explanation": "Số 99 là số cuối cùng có 2 chữ số trước khi đến số 100 (có 3 chữ số)."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Các số đến 100",
+    "difficulty": "Dễ",
+    "question": "Số 'Bảy mươi tư' được viết là:",
+    "options": [
+      "70",
+      "47",
+      "74",
+      "704"
+    ],
+    "answer": "74",
+    "explanation": "Bảy mươi tư gồm 7 chục và 4 đơn vị."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Phép tính không nhớ",
+    "difficulty": "Trung bình",
+    "question": "Kết quả của phép tính 20 + 30 là:",
+    "options": [
+      "40",
+      "50",
+      "60",
+      "70"
+    ],
+    "answer": "50",
+    "explanation": "2 chục cộng 3 chục bằng 5 chục (50)."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Phép tính không nhớ",
+    "difficulty": "Khó",
+    "question": "Tính: 45 - 5 = ?",
+    "options": [
+      "40",
+      "50",
+      "35",
+      "45"
+    ],
+    "answer": "40",
+    "explanation": "5 đơn vị trừ 5 đơn vị bằng 0, giữ nguyên 4 chục. Kết quả là 40."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Thời gian",
+    "difficulty": "Trung bình",
+    "question": "Nếu hôm nay là Thứ Năm, thì ngày mai là thứ mấy?",
+    "options": [
+      "Thứ Sáu",
+      "Thứ Bảy",
+      "Thứ Tư",
+      "Chủ Nhật"
+    ],
+    "answer": "Thứ Sáu",
+    "explanation": "Ngày mai là ngày kế tiếp của ngày hôm nay."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Đo độ dài",
+    "difficulty": "Khó",
+    "question": "Bút chì dài 10cm, tẩy dài 3cm. Hỏi cả hai vật dài bao nhiêu cm?",
+    "options": [
+      "7cm",
+      "12cm",
+      "13cm",
+      "10cm"
+    ],
+    "answer": "13cm",
+    "explanation": "Ta thực hiện phép cộng độ dài: 10 + 3 = 13 (cm)."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Các số đến 100",
+    "difficulty": "Dễ",
+    "question": "Số liền sau của số 89 là số nào?",
+    "options": [
+      "88",
+      "90",
+      "91",
+      "80"
+    ],
+    "answer": "90",
+    "explanation": "Khi đếm tiếp từ 89, số tiếp theo là 90."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "So sánh số",
+    "difficulty": "Trung bình",
+    "question": "Điền dấu thích hợp: 56 ... 65",
+    "options": [
+      ">",
+      "<",
+      "="
+    ],
+    "answer": "<",
+    "explanation": "So sánh hàng chục: 5 chục bé hơn 6 chục, nên 56 < 65."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Thời gian",
+    "difficulty": "Trung bình",
+    "question": "Đồng hồ chỉ 10 giờ đúng thì kim dài chỉ vào số nào?",
+    "options": [
+      "số 10",
+      "số 12",
+      "số 6",
+      "số 1"
+    ],
+    "answer": "số 12",
+    "explanation": "Mọi giờ đúng đều có kim dài (kim phút) chỉ vào số 12."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Số tròn chục",
+    "difficulty": "Khó",
+    "question": "Có bao nhiêu số tròn chục từ 10 đến 90?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": "9",
+    "explanation": "Các số đó là: 10, 20, 30, 40, 50, 60, 70, 80, 90."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Thứ trong tuần",
+    "difficulty": "Dễ",
+    "question": "Các ngày em thường được nghỉ học là ngày nào?",
+    "options": [
+      "Thứ Hai, Thứ Ba",
+      "Thứ Tư, Thứ Năm",
+      "Thứ Bảy, Chủ Nhật",
+      "Thứ Sáu"
+    ],
+    "answer": "Thứ Bảy, Chủ Nhật",
+    "explanation": "Thông thường, học sinh được nghỉ học vào cuối tuần là Thứ Bảy và Chủ Nhật."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "Các số đến 100",
+    "difficulty": "Khó",
+    "question": "Số gồm 8 chục và 0 đơn vị là số mấy?",
+    "options": [
+      "8",
+      "80",
+      "18",
+      "88"
+    ],
+    "answer": "80",
+    "explanation": "Số này viết là 80, đọc là tám mươi."
+  },
+  {
+    "grade": 1,
+    "topic": "Mở rộng phạm vi số và Đo lường",
+    "sub_topic": "So sánh độ dài",
+    "difficulty": "Trung bình",
+    "question": "Gang tay của bé dài khoảng bao nhiêu xăng-ti-mét?",
+    "options": [
+      "50cm",
+      "10-15cm",
+      "100cm",
+      "1cm"
+    ],
+    "answer": "10-15cm",
+    "explanation": "Gang tay trẻ em thường dài khoảng hơn 10cm một chút, không thể quá dài như 50cm hay 100cm."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Dễ",
+    "question": "Số 14 gồm mấy chục và mấy đơn vị?",
+    "options": [
+      "4 chục và 1 đơn vị",
+      "1 chục và 4 đơn vị",
+      "14 chục",
+      "0 chục và 14 đơn vị"
+    ],
+    "answer": "1 chục và 4 đơn vị",
+    "explanation": "Số 14 có chữ số 1 ở hàng chục và chữ số 4 ở hàng đơn vị."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Nhận diện số",
+    "difficulty": "Dễ",
+    "question": "Số gồm 1 chục và 7 đơn vị là số nào?",
+    "options": [
+      "71",
+      "10",
+      "17",
+      "8"
+    ],
+    "answer": "17",
+    "explanation": "Viết chữ số 1 ở bên trái và chữ số 7 ở bên phải ta được số 17."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Phép cộng không nhớ",
+    "difficulty": "Trung bình",
+    "question": "Tính: 10 + 5 = ?",
+    "options": [
+      "10",
+      "15",
+      "51",
+      "16"
+    ],
+    "answer": "15",
+    "explanation": "1 chục cộng thêm 5 đơn vị là 1 chục 5 đơn vị (15)."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Phép trừ không nhớ",
+    "difficulty": "Trung bình",
+    "question": "Tính: 18 - 8 = ?",
+    "options": [
+      "1",
+      "10",
+      "8",
+      "0"
+    ],
+    "answer": "10",
+    "explanation": "8 đơn vị trừ 8 đơn vị bằng 0, giữ nguyên 1 chục. Kết quả là 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "So sánh số",
+    "difficulty": "Dễ",
+    "question": "Số nào lớn hơn: 13 hay 16?",
+    "options": [
+      "13",
+      "16",
+      "Bằng nhau",
+      "Không biết"
+    ],
+    "answer": "16",
+    "explanation": "Cả hai số cùng có 1 chục, số 16 có 6 đơn vị lớn hơn 3 đơn vị của số 13."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Thứ tự số",
+    "difficulty": "Trung bình",
+    "question": "Số liền trước của số 20 là số nào?",
+    "options": [
+      "10",
+      "11",
+      "19",
+      "21"
+    ],
+    "answer": "19",
+    "explanation": "Đếm ngược từ 20 ta có số 19."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Khó",
+    "question": "Số nào có chữ số hàng chục và hàng đơn vị giống nhau?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "20"
+    ],
+    "answer": "11",
+    "explanation": "Số 11 gồm 1 chục và 1 đơn vị, cả hai chữ số đều là 1."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Phép tính cộng",
+    "difficulty": "Trung bình",
+    "question": "Kết quả của phép tính 12 + 3 là:",
+    "options": [
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "answer": "15",
+    "explanation": "Ta lấy 2 đơn vị cộng 3 đơn vị bằng 5, giữ nguyên 1 chục được 15."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Phép tính trừ",
+    "difficulty": "Trung bình",
+    "question": "Kết quả của phép tính 17 - 4 là:",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "answer": "13",
+    "explanation": "Lấy 7 đơn vị trừ 4 đơn vị bằng 3, giữ nguyên 1 chục được 13."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Đếm số lượng",
+    "difficulty": "Dễ",
+    "question": "Một tá bút chì có bao nhiêu chiếc?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "20"
+    ],
+    "answer": "12",
+    "explanation": "Một tá là tên gọi khác của số lượng 12."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "5 + 3 = ?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": "8",
+    "explanation": "5 cộng 3 bằng 8."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "7 + 2 = ?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "11"
+    ],
+    "answer": "9",
+    "explanation": "7 cộng 2 bằng 9."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "6 + 4 = ?",
+    "options": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "answer": "10",
+    "explanation": "6 cộng 4 bằng 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "8 + 5 = ?",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "answer": "13",
+    "explanation": "8 cộng 5 bằng 13."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "9 + 6 = ?",
+    "options": [
+      "14",
+      "15",
+      "16",
+      "17"
+    ],
+    "answer": "15",
+    "explanation": "9 cộng 6 bằng 15."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "10 + 4 = ?",
+    "options": [
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "answer": "14",
+    "explanation": "10 cộng 4 bằng 14."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "7 + 8 = ?",
+    "options": [
+      "14",
+      "15",
+      "16",
+      "17"
+    ],
+    "answer": "15",
+    "explanation": "7 cộng 8 bằng 15."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "10 - 3 = ?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": "7",
+    "explanation": "10 trừ 3 bằng 7."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "12 - 4 = ?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": "8",
+    "explanation": "12 trừ 4 bằng 8."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "15 - 5 = ?",
+    "options": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "answer": "10",
+    "explanation": "15 trừ 5 bằng 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "18 - 6 = ?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": "12",
+    "explanation": "18 trừ 6 bằng 12."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "14 - 7 = ?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": "7",
+    "explanation": "14 trừ 7 bằng 7."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "20 - 10 = ?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "11"
+    ],
+    "answer": "10",
+    "explanation": "20 trừ 10 bằng 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Nhận biết số",
+    "difficulty": "Dễ",
+    "question": "Số nào lớn hơn 18?",
+    "options": [
+      "16",
+      "17",
+      "19",
+      "15"
+    ],
+    "answer": "19",
+    "explanation": "19 lớn hơn 18."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Nhận biết số",
+    "difficulty": "Dễ",
+    "question": "Số nào nhỏ hơn 12?",
+    "options": [
+      "11",
+      "13",
+      "14",
+      "15"
+    ],
+    "answer": "11",
+    "explanation": "11 nhỏ hơn 12."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Nhận biết số",
+    "difficulty": "Dễ",
+    "question": "Số nào đứng sau 14?",
+    "options": [
+      "13",
+      "15",
+      "16",
+      "17"
+    ],
+    "answer": "15",
+    "explanation": "Sau 14 là 15."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Nhận biết số",
+    "difficulty": "Dễ",
+    "question": "Số nào đứng trước 20?",
+    "options": [
+      "17",
+      "18",
+      "19",
+      "16"
+    ],
+    "answer": "19",
+    "explanation": "Trước 20 là 19."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "11 + 3 = ?",
+    "options": [
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "answer": "14",
+    "explanation": "11 cộng 3 bằng 14."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "12 + 5 = ?",
+    "options": [
+      "16",
+      "17",
+      "18",
+      "19"
+    ],
+    "answer": "17",
+    "explanation": "12 cộng 5 bằng 17."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "13 + 4 = ?",
+    "options": [
+      "16",
+      "17",
+      "18",
+      "19"
+    ],
+    "answer": "17",
+    "explanation": "13 cộng 4 bằng 17."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "17 - 5 = ?",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "answer": "12",
+    "explanation": "17 trừ 5 bằng 12."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "19 - 9 = ?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "11"
+    ],
+    "answer": "10",
+    "explanation": "19 trừ 9 bằng 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "16 - 6 = ?",
+    "options": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "answer": "10",
+    "explanation": "16 trừ 6 bằng 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "So sánh",
+    "difficulty": "Trung bình",
+    "question": "Số nào bé nhất trong các số: 15, 11, 19, 14?",
+    "options": [
+      "15",
+      "11",
+      "19",
+      "14"
+    ],
+    "answer": "11",
+    "explanation": "Trong các số có cùng 1 chục, số 11 có hàng đơn vị bé nhất."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Phép tính liên tiếp",
+    "difficulty": "Khó",
+    "question": "Tính: 10 + 2 + 4 = ?",
+    "options": [
+      "12",
+      "14",
+      "16",
+      "18"
+    ],
+    "answer": "16",
+    "explanation": "10 + 2 = 12, sau đó lấy 12 + 4 = 16."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Phép tính trừ",
+    "difficulty": "Khó",
+    "question": "Mẹ có 19 cái bánh, em ăn 5 cái, anh ăn 2 cái. Hỏi còn lại bao nhiêu cái bánh?",
+    "options": [
+      "14",
+      "12",
+      "7",
+      "10"
+    ],
+    "answer": "12",
+    "explanation": "Lấy 19 - 5 = 14, sau đó lấy 14 - 2 = 12."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Trung bình",
+    "question": "1 chục và 0 đơn vị gọi là số mấy?",
+    "options": [
+      "1",
+      "0",
+      "10",
+      "100"
+    ],
+    "answer": "10",
+    "explanation": "1 chục chính là số mười (10)."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Nhận diện số",
+    "difficulty": "Dễ",
+    "question": "Số 'Mười chín' viết là:",
+    "options": [
+      "109",
+      "91",
+      "19",
+      "29"
+    ],
+    "answer": "19",
+    "explanation": "Mười chín gồm 1 chục và 9 đơn vị."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Thứ tự số",
+    "difficulty": "Dễ",
+    "question": "Dãy số nào sau đây đúng?",
+    "options": [
+      "11, 12, 14, 13",
+      "15, 16, 17, 18",
+      "10, 12, 11, 13",
+      "20, 19, 17, 18"
+    ],
+    "answer": "15, 16, 17, 18",
+    "explanation": "Dãy số tăng dần liên tiếp đúng là 15, 16, 17, 18."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Phép cộng",
+    "difficulty": "Dễ",
+    "question": "Điền số vào dấu ?: 11 + ? = 11",
+    "options": [
+      "1",
+      "11",
+      "0",
+      "2"
+    ],
+    "answer": "0",
+    "explanation": "Bất kỳ số nào cộng với 0 cũng bằng chính nó."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Khó",
+    "question": "Số nào lớn hơn 1 chục nhưng bé hơn 1 chục và 2 đơn vị?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": "11",
+    "explanation": "Số lớn hơn 10 và bé hơn 12 là số 11."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Toán có lời văn",
+    "difficulty": "Trung bình",
+    "question": "Lan có 10 quyển vở, Lan mua thêm 6 quyển nữa. Hỏi Lan có tất cả bao nhiêu quyển vở?",
+    "options": [
+      "10",
+      "16",
+      "6",
+      "20"
+    ],
+    "answer": "16",
+    "explanation": "Thực hiện phép tính gộp: 10 + 6 = 16."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 và Phép tính",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Dễ",
+    "question": "Số 20 gồm mấy chục và mấy đơn vị?",
+    "options": [
+      "1 chục và 10 đơn vị",
+      "2 chục và 0 đơn vị",
+      "0 chục và 2 đơn vị",
+      "20 chục"
+    ],
+    "answer": "2 chục và 0 đơn vị",
+    "explanation": "Số 20 gồm 2 chục và 0 đơn vị, gọi là hai mươi."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Đọc và viết số",
+    "difficulty": "Dễ",
+    "question": "Số 'Tám mươi lăm' được viết là:",
+    "options": [
+      "58",
+      "805",
+      "85",
+      "80"
+    ],
+    "answer": "85",
+    "explanation": "Số tám mươi lăm gồm 8 chục và 5 đơn vị."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Số tròn chục",
+    "difficulty": "Dễ",
+    "question": "Trong các số sau, số nào là số tròn chục?",
+    "options": [
+      "34",
+      "50",
+      "5",
+      "99"
+    ],
+    "answer": "50",
+    "explanation": "Số tròn chục là số có chữ số hàng đơn vị bằng 0."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Cộng số tròn chục",
+    "difficulty": "Trung bình",
+    "question": "Tính nhẩm: 40 + 20 = ?",
+    "options": [
+      "50",
+      "60",
+      "70",
+      "42"
+    ],
+    "answer": "60",
+    "explanation": "4 chục cộng 2 chục bằng 6 chục (60)."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "So sánh số",
+    "difficulty": "Trung bình",
+    "question": "Điền dấu thích hợp: 76 ... 67",
+    "options": [
+      ">",
+      "<",
+      "="
+    ],
+    "answer": ">",
+    "explanation": "So sánh hàng chục: 7 lớn hơn 6 nên 76 > 67."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Trừ số tròn chục",
+    "difficulty": "Trung bình",
+    "question": "Tính nhẩm: 90 - 30 = ?",
+    "options": [
+      "50",
+      "70",
+      "60",
+      "30"
+    ],
+    "answer": "60",
+    "explanation": "9 chục trừ 3 chục bằng 6 chục (60)."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Dễ",
+    "question": "Số 95 gồm mấy chục và mấy đơn vị?",
+    "options": [
+      "5 chục và 9 đơn vị",
+      "9 chục và 5 đơn vị",
+      "90 chục và 5 đơn vị",
+      "9 chục và 0 đơn vị"
+    ],
+    "answer": "9 chục và 5 đơn vị",
+    "explanation": "Số 95 có chữ số 9 ở hàng chục và chữ số 5 ở hàng đơn vị."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Cộng không nhớ",
+    "difficulty": "Trung bình",
+    "question": "Kết quả của phép tính: 32 + 5 = ?",
+    "options": [
+      "37",
+      "35",
+      "82",
+      "27"
+    ],
+    "answer": "37",
+    "explanation": "Cộng hàng đơn vị: 2 + 5 = 7. Giữ nguyên hàng chục là 3. Kết quả 37."
+  },
+  {
+    "grade": "1",
+    "topic": "Các số đến 100",
+    "sub_topic": "Thứ tự số",
+    "difficulty": "Dễ",
+    "question": "Số liền sau của số 99 là số nào?",
+    "options": [
+      "98",
+      "100",
+      "90",
+      "10"
+    ],
+    "answer": "100",
+    "explanation": "Đếm thêm 1 vào 99 ta được 100."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Trừ không nhớ",
+    "difficulty": "Khó",
+    "question": "Thực hiện phép tính: 68 - 44 = ?",
+    "options": [
+      "22",
+      "24",
+      "14",
+      "28"
+    ],
+    "answer": "24",
+    "explanation": "Hàng đơn vị: 8 - 4 = 4. Hàng chục: 6 - 4 = 2. Kết quả 24."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "So sánh dãy số",
+    "difficulty": "Trung bình",
+    "question": "Số nào là số lớn nhất trong các số: 20, 50, 10, 80?",
+    "options": [
+      "20",
+      "50",
+      "10",
+      "80"
+    ],
+    "answer": "80",
+    "explanation": "So sánh các hàng chục: 8 là lớn nhất nên 80 là số lớn nhất."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Đọc số",
+    "difficulty": "Dễ",
+    "question": "Số 50 đọc là gì?",
+    "options": [
+      "Năm không",
+      "Năm",
+      "Năm mươi",
+      "Mười lăm"
+    ],
+    "answer": "Năm mươi",
+    "explanation": "Số 50 là số tròn chục, đọc là năm mươi."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Toán có lời văn",
+    "difficulty": "Khó",
+    "question": "Lớp 1A có 20 bạn, lớp 1B có 20 bạn. Hỏi cả hai lớp có bao nhiêu bạn?",
+    "options": [
+      "20",
+      "30",
+      "40",
+      "50"
+    ],
+    "answer": "40",
+    "explanation": "2 chục cộng 2 chục bằng 4 chục (40)."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Số liền trước",
+    "difficulty": "Dễ",
+    "question": "Số liền trước của số 70 là số nào?",
+    "options": [
+      "71",
+      "60",
+      "69",
+      "59"
+    ],
+    "answer": "69",
+    "explanation": "Số đứng ngay trước số 70 khi đếm là 69."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Cộng không nhớ",
+    "difficulty": "Trung bình",
+    "question": "Tính: 51 + 27 = ?",
+    "options": [
+      "77",
+      "78",
+      "88",
+      "71"
+    ],
+    "answer": "78",
+    "explanation": "Hàng đơn vị: 1 + 7 = 8. Hàng chục: 5 + 2 = 7. Kết quả 78."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Trừ không nhớ",
+    "difficulty": "Trung bình",
+    "question": "Tính: 99 - 9 = ?",
+    "options": [
+      "90",
+      "9",
+      "0",
+      "89"
+    ],
+    "answer": "90",
+    "explanation": "9 đơn vị trừ 9 đơn vị bằng 0. Giữ nguyên 9 chục. Kết quả 90."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Khó",
+    "question": "Số gồm 6 đơn vị và 4 chục là số nào?",
+    "options": [
+      "64",
+      "46",
+      "60",
+      "40"
+    ],
+    "answer": "46",
+    "explanation": "4 chục viết trước, 6 đơn vị viết sau ta được số 46."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Số tròn chục",
+    "difficulty": "Dễ",
+    "question": "Số tròn chục lớn nhất có hai chữ số là số nào?",
+    "options": [
+      "10",
+      "90",
+      "99",
+      "100"
+    ],
+    "answer": "90",
+    "explanation": "Các số tròn chục là 10, 20... 90. Vậy 90 là số lớn nhất có 2 chữ số."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Phép tính hỗn hợp",
+    "difficulty": "Khó",
+    "question": "Tính: 80 - 30 + 10 = ?",
+    "options": [
+      "40",
+      "50",
+      "60",
+      "70"
+    ],
+    "answer": "60",
+    "explanation": "80 - 30 = 50. Sau đó 50 + 10 = 60."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "So sánh",
+    "difficulty": "Trung bình",
+    "question": "Số nào bé hơn 45?",
+    "options": [
+      "54",
+      "45",
+      "40",
+      "60"
+    ],
+    "answer": "40",
+    "explanation": "40 có cùng số chục là 4 nhưng hàng đơn vị (0) bé hơn 5."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100",
+    "sub_topic": "Toán thực tế",
+    "difficulty": "Trung bình",
+    "question": "Mẹ có 55 cái kẹo, mẹ cho anh 20 cái. Hỏi mẹ còn lại bao nhiêu cái?",
+    "options": [
+      "75",
+      "35",
+      "25",
+      "50"
+    ],
+    "answer": "35",
+    "explanation": "5 chục trừ 2 chục còn 3 chục. 5 đơn vị giữ nguyên. Kết quả 35."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Đơn vị đo độ dài",
+    "difficulty": "Dễ",
+    "question": "Xăng-ti-mét là đơn vị dùng để đo gì?",
+    "options": [
+      "Cân nặng",
+      "Độ dài",
+      "Thời gian",
+      "Nhiệt độ"
+    ],
+    "answer": "Độ dài",
+    "explanation": "Xăng-ti-mét (cm) là đơn vị dùng để đo độ dài của các vật dụng nhỏ như bút, thước, vở."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Ký hiệu đơn vị",
+    "difficulty": "Dễ",
+    "question": "Xăng-ti-mét được viết tắt là gì?",
+    "options": [
+      "km",
+      "m",
+      "mm",
+      "cm"
+    ],
+    "answer": "cm",
+    "explanation": "Trong toán học, xăng-ti-mét được viết tắt là hai chữ cái c và m đứng cạnh nhau."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Cách dùng thước",
+    "difficulty": "Trung bình",
+    "question": "Khi đo độ dài, em đặt vạch nào của thước trùng với một đầu của vật?",
+    "options": [
+      "Vạch số 1",
+      "Vạch số 0",
+      "Vạch cuối cùng",
+      "Vạch ở giữa"
+    ],
+    "answer": "Vạch số 0",
+    "explanation": "Để đo chính xác, con phải đặt vạch số 0 khớp với điểm đầu của vật nhé."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Đọc số đo",
+    "difficulty": "Trung bình",
+    "question": "Một chiếc bút chì dài từ vạch số 0 đến vạch số 12 trên thước kẻ. Chiếc bút dài bao nhiêu?",
+    "options": [
+      "10 cm",
+      "11 cm",
+      "12 cm",
+      "13 cm"
+    ],
+    "answer": "12 cm",
+    "explanation": "Đầu vật trùng với số nào trên thước thì đó chính là độ dài của vật."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Phép tính độ dài",
+    "difficulty": "Khó",
+    "question": "Băng giấy xanh dài 10cm, băng giấy đỏ dài 5cm. Cả hai băng giấy dài bao nhiêu?",
+    "options": [
+      "15 cm",
+      "5 cm",
+      "10 cm",
+      "20 cm"
+    ],
+    "answer": "15 cm",
+    "explanation": "Ta lấy 10 + 5 = 15. Đừng quên viết đơn vị cm ở sau kết quả nhé."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Xem giờ đúng",
+    "difficulty": "Dễ",
+    "question": "Trên đồng hồ, kim ngắn chỉ vào số 7, kim dài chỉ vào số 12. Hỏi là mấy giờ?",
+    "options": [
+      "12 giờ",
+      "7 giờ",
+      "5 giờ",
+      "1 giờ"
+    ],
+    "answer": "7 giờ",
+    "explanation": "Khi kim dài chỉ số 12, kim ngắn chỉ vào số nào thì đó là giờ đúng của số đó."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Cấu tạo đồng hồ",
+    "difficulty": "Trung bình",
+    "question": "Kim nào trên đồng hồ dùng để chỉ giờ?",
+    "options": [
+      "Kim dài",
+      "Kim ngắn",
+      "Kim giây",
+      "Cả hai kim"
+    ],
+    "answer": "Kim ngắn",
+    "explanation": "Kim ngắn lùn hơn nhưng lại dùng để chỉ giờ, còn kim dài dùng để chỉ phút."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Thời gian thực tế",
+    "difficulty": "Trung bình",
+    "question": "Lúc 12 giờ đúng, hai kim đồng hồ sẽ như thế nào?",
+    "options": [
+      "Thẳng hàng nhau",
+      "Chồng khít lên nhau",
+      "Vuông góc với nhau",
+      "Đối diện nhau"
+    ],
+    "answer": "Chồng khít lên nhau",
+    "explanation": "Vì cả kim ngắn và kim dài đều cùng chỉ vào số 12 nên chúng chồng lên nhau."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Thứ trong tuần",
+    "difficulty": "Dễ",
+    "question": "Một tuần lễ có bao nhiêu ngày?",
+    "options": [
+      "5 ngày",
+      "6 ngày",
+      "7 ngày",
+      "8 ngày"
+    ],
+    "answer": "7 ngày",
+    "explanation": "Một tuần gồm: Thứ 2, 3, 4, 5, 6, 7 và Chủ nhật. Tổng cộng là 7 ngày."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Thứ trong tuần",
+    "difficulty": "Dễ",
+    "question": "Ngày đầu tiên của một tuần học tập là thứ mấy?",
+    "options": [
+      "Chủ nhật",
+      "Thứ Hai",
+      "Thứ Ba",
+      "Thứ Bảy"
+    ],
+    "answer": "Thứ Hai",
+    "explanation": "Thứ Hai là ngày chúng ta bắt đầu một tuần học mới đấy."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Sắp xếp thời gian",
+    "difficulty": "Trung bình",
+    "question": "Nếu hôm nay là Thứ Tư, thì ngày mai là thứ mấy?",
+    "options": [
+      "Thứ Ba",
+      "Thứ Năm",
+      "Thứ Sáu",
+      "Thứ Bảy"
+    ],
+    "answer": "Thứ Năm",
+    "explanation": "Ngày tiếp theo của Thứ Tư chính là Thứ Năm."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Sắp xếp thời gian",
+    "difficulty": "Trung bình",
+    "question": "Ngày đứng trước Thứ Hai là ngày nào?",
+    "options": [
+      "Thứ Ba",
+      "Thứ Bảy",
+      "Chủ nhật",
+      "Thứ Sáu"
+    ],
+    "answer": "Chủ nhật",
+    "explanation": "Hết Chủ nhật chúng ta sẽ quay lại Thứ Hai của tuần kế tiếp."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Thời gian thực tế",
+    "difficulty": "Trung bình",
+    "question": "Em thường đi ngủ vào lúc 9 giờ tối. Lúc đó kim dài chỉ vào số mấy?",
+    "options": [
+      "Số 9",
+      "Số 12",
+      "Số 6",
+      "Số 3"
+    ],
+    "answer": "Số 12",
+    "explanation": "Vì là 9 giờ đúng nên kim dài phải chỉ vào số 12."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Đo độ dài",
+    "difficulty": "Khó",
+    "question": "Bút chì dài 15cm, gôm tẩy dài 4cm. Bút chì dài hơn gôm tẩy bao nhiêu cm?",
+    "options": [
+      "10 cm",
+      "11 cm",
+      "19 cm",
+      "9 cm"
+    ],
+    "answer": "11 cm",
+    "explanation": "Thực hiện phép trừ để so sánh: 15 - 4 = 11 (cm)."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Dụng cụ đo",
+    "difficulty": "Dễ",
+    "question": "Để đo độ dài của một đoạn thẳng trong vở, em dùng dụng cụ nào?",
+    "options": [
+      "Đồng hồ",
+      "Thước kẻ",
+      "Cái cân",
+      "Nhiệt kế"
+    ],
+    "answer": "Thước kẻ",
+    "explanation": "Thước kẻ có vạch chia cm là dụng cụ tốt nhất để đo đoạn thẳng."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Thứ trong tuần",
+    "difficulty": "Khó",
+    "question": "Trong một tuần, em được nghỉ học những ngày nào?",
+    "options": [
+      "Thứ Hai và Thứ Ba",
+      "Thứ Sáu và Thứ Bảy",
+      "Thứ Bảy và Chủ nhật",
+      "Chủ nhật và Thứ Hai"
+    ],
+    "answer": "Thứ Bảy và Chủ nhật",
+    "explanation": "Thông thường Thứ Bảy và Chủ nhật là hai ngày nghỉ cuối tuần của học sinh."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Ước lượng độ dài",
+    "difficulty": "Khó",
+    "question": "Gang tay của một bạn nhỏ dài khoảng bao nhiêu?",
+    "options": [
+      "2 cm",
+      "13 cm",
+      "50 cm",
+      "100 cm"
+    ],
+    "answer": "13 cm",
+    "explanation": "Gang tay trẻ em thường dài khoảng từ 10cm đến 15cm."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Xem giờ đúng",
+    "difficulty": "Trung bình",
+    "question": "Lúc 6 giờ đúng, kim ngắn và kim dài tạo thành một đường thẳng. Đúng hay sai?",
+    "options": [
+      "Đúng",
+      "Sai"
+    ],
+    "answer": "Đúng",
+    "explanation": "Kim ngắn chỉ số 6 (dưới), kim dài chỉ số 12 (trên) tạo thành một đường thẳng đứng."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Phép tính độ dài",
+    "difficulty": "Khó",
+    "question": "Sợi dây dài 18cm, cắt bớt đi 6cm. Sợi dây còn lại dài bao nhiêu?",
+    "options": [
+      "12 cm",
+      "10 cm",
+      "24 cm",
+      "8 cm"
+    ],
+    "answer": "12 cm",
+    "explanation": "Phép tính: 18 - 6 = 12 (cm)."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường và Thời gian",
+    "sub_topic": "Thứ trong tuần",
+    "difficulty": "Dễ",
+    "question": "Ngày liền sau của Thứ Sáu là thứ mấy?",
+    "options": [
+      "Thứ Năm",
+      "Thứ Bảy",
+      "Chủ nhật",
+      "Thứ Hai"
+    ],
+    "answer": "Thứ Bảy",
+    "explanation": "Thứ tự là: Thứ Sáu rồi đến Thứ Bảy."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Toán thực tế - Đi chợ",
+    "difficulty": "Trung bình",
+    "question": "Mẹ đi chợ mua 10 quả trứng gà và 5 quả trứng vịt. Hỏi mẹ đã mua tất cả bao nhiêu quả trứng?",
+    "options": [
+      "10",
+      "5",
+      "15",
+      "20"
+    ],
+    "answer": "15",
+    "explanation": "Phép tính gộp: 10 + 5 = 15 quả trứng."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Toán thực tế - Chia kẹo",
+    "difficulty": "Khó",
+    "question": "An có 18 viên kẹo, An cho Bình 4 viên và cho Chi 2 viên. Hỏi An còn lại bao nhiêu viên kẹo?",
+    "options": [
+      "14",
+      "12",
+      "16",
+      "10"
+    ],
+    "answer": "12",
+    "explanation": "An cho đi tổng cộng 4 + 2 = 6 viên. Vậy An còn lại: 18 - 6 = 12 viên."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Thời gian và Lịch",
+    "difficulty": "Trung bình",
+    "question": "Hôm nay là Thứ Sáu, còn 2 ngày nữa là đến sinh nhật của bé. Sinh nhật bé là thứ mấy?",
+    "options": [
+      "Thứ Bảy",
+      "Chủ nhật",
+      "Thứ Hai",
+      "Thứ Năm"
+    ],
+    "answer": "Chủ nhật",
+    "explanation": "Đếm thêm 2 ngày từ Thứ Sáu: Thứ Bảy rồi đến Chủ nhật."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Hình học thực tế",
+    "difficulty": "Dễ",
+    "question": "Bánh chưng ngày Tết thường có dạng hình khối gì?",
+    "options": [
+      "Khối tròn",
+      "Khối hộp chữ nhật",
+      "Khối lập phương",
+      "Khối trụ"
+    ],
+    "answer": "Khối lập phương",
+    "explanation": "Bánh chưng vuông vức, các cạnh bằng nhau nên có dạng khối lập phương."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Số và phép tính",
+    "difficulty": "Khó",
+    "question": "Số lớn nhất có hai chữ số mà khi trừ đi 10 thì bằng 89. Đó là số nào?",
+    "options": [
+      "90",
+      "99",
+      "89",
+      "79"
+    ],
+    "answer": "99",
+    "explanation": "99 - 10 = 89. Đây cũng là số lớn nhất có hai chữ số."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Đo lường thực tế",
+    "difficulty": "Trung bình",
+    "question": "Gang tay của bố dài 20cm, gang tay của bé dài 12cm. Gang tay của bố dài hơn bé bao nhiêu cm?",
+    "options": [
+      "10 cm",
+      "8 cm",
+      "12 cm",
+      "32 cm"
+    ],
+    "answer": "8 cm",
+    "explanation": "Phép tính so sánh: 20 - 12 = 8 cm."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Thời gian - Giờ đúng",
+    "difficulty": "Dễ",
+    "question": "Đồng hồ chỉ 11 giờ đúng. Kim dài đang chỉ vào số nào?",
+    "options": [
+      "Số 11",
+      "Số 1",
+      "Số 12",
+      "Số 6"
+    ],
+    "answer": "Số 12",
+    "explanation": "Mọi giờ đúng đều có kim dài chỉ vào số 12."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Số tròn chục",
+    "difficulty": "Trung bình",
+    "question": "Nhà bà có 3 chục con gà. Bà bán đi 10 con. Hỏi nhà bà còn lại bao nhiêu con gà?",
+    "options": [
+      "30",
+      "20",
+      "10",
+      "40"
+    ],
+    "answer": "20",
+    "explanation": "3 chục là 30. 30 - 10 = 20 con gà."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Dễ",
+    "question": "Số nhỏ nhất có hai chữ số là số nào?",
+    "options": [
+      "1",
+      "10",
+      "11",
+      "0"
+    ],
+    "answer": "10",
+    "explanation": "Số 10 là số đầu tiên trong dãy số có hai chữ số."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Đếm thực tế",
+    "difficulty": "Khó",
+    "question": "Một bàn tay có 5 ngón, hai bàn tay có bao nhiêu ngón?",
+    "options": [
+      "5",
+      "10",
+      "15",
+      "20"
+    ],
+    "answer": "10",
+    "explanation": "5 + 5 = 10 ngón tay."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Phép tính hỗn hợp",
+    "difficulty": "Trung bình",
+    "question": "Tính nhẩm: 80 - 50 + 20 = ?",
+    "options": [
+      "30",
+      "50",
+      "10",
+      "40"
+    ],
+    "answer": "50",
+    "explanation": "80 - 50 = 30; 30 + 20 = 50."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Thứ trong tuần",
+    "difficulty": "Dễ",
+    "question": "Nếu hôm qua là Thứ Bảy, thì hôm nay là thứ mấy?",
+    "options": [
+      "Thứ Sáu",
+      "Chủ nhật",
+      "Thứ Hai",
+      "Thứ Năm"
+    ],
+    "answer": "Chủ nhật",
+    "explanation": "Sau Thứ Bảy là đến Chủ nhật."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Đo lường - So sánh",
+    "difficulty": "Khó",
+    "question": "Cây thước của Lan dài 20cm, cây thước của Tú dài 1 gang tay (15cm). Thước của ai dài hơn?",
+    "options": [
+      "Thước của Lan",
+      "Thước của Tú",
+      "Hai thước bằng nhau"
+    ],
+    "answer": "Thước của Lan",
+    "explanation": "So sánh 20cm và 15cm, ta thấy 20cm lớn hơn."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Phép trừ thực tế",
+    "difficulty": "Dễ",
+    "question": "Một hộp có 12 bút chì màu, bé lấy ra 2 chiếc để vẽ. Trong hộp còn mấy chiếc?",
+    "options": [
+      "12",
+      "10",
+      "14",
+      "2"
+    ],
+    "answer": "10",
+    "explanation": "Phép tính: 12 - 2 = 10."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Số và đơn vị",
+    "difficulty": "Khó",
+    "question": "Số tròn chục nào đứng giữa số 40 và 60?",
+    "options": [
+      "45",
+      "50",
+      "55",
+      "70"
+    ],
+    "answer": "50",
+    "explanation": "Dãy số tròn chục: 40, 50, 60."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Toán thực tế - Đồ chơi",
+    "difficulty": "Trung bình",
+    "question": "Gấu bông giá 50 nghìn, xe ô tô giá 40 nghìn. Cả hai món giá bao nhiêu nghìn?",
+    "options": [
+      "80 nghìn",
+      "90 nghìn",
+      "10 nghìn",
+      "100 nghìn"
+    ],
+    "answer": "90 nghìn",
+    "explanation": "5 chục + 4 chục = 9 chục (90)."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "Dễ",
+    "question": "Số 77 gồm mấy chục và mấy đơn vị?",
+    "options": [
+      "7 chục và 0 đơn vị",
+      "7 chục và 7 đơn vị",
+      "70 chục và 7 đơn vị",
+      "7 đơn vị và 7 đơn vị"
+    ],
+    "answer": "7 chục và 7 đơn vị",
+    "explanation": "Chữ số bên trái là 7 chục, chữ số bên phải là 7 đơn vị."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Thời gian - Sinh hoạt",
+    "difficulty": "Trung bình",
+    "question": "Bé bắt đầu học bài lúc 8 giờ và kết thúc lúc 9 giờ. Bé học trong mấy giờ?",
+    "options": [
+      "1 giờ",
+      "2 giờ",
+      "8 giờ",
+      "9 giờ"
+    ],
+    "answer": "1 giờ",
+    "explanation": "Từ 8 giờ đến 9 giờ là trôi qua 1 tiếng đồng hồ."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Số học",
+    "difficulty": "Khó",
+    "question": "Tìm một số biết rằng lấy số đó cộng với 20 thì được 60?",
+    "options": [
+      "20",
+      "30",
+      "40",
+      "80"
+    ],
+    "answer": "40",
+    "explanation": "Ta lấy 60 - 20 = 40."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập và Tổng kết cuối năm",
+    "sub_topic": "Tổng hợp",
+    "difficulty": "Dễ",
+    "question": "Số nhỏ nhất có một chữ số là số nào?",
+    "options": [
+      "0",
+      "1",
+      "9",
+      "10"
+    ],
+    "answer": "0",
+    "explanation": "Số 0 là số đầu tiên và nhỏ nhất trong các số có một chữ số."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Nhận diện số",
+    "difficulty": "Dễ",
+    "question": "Số nào đứng sau số 3?",
+    "options": [
+      "2",
+      "4",
+      "5",
+      "6"
+    ],
+    "answer": "4",
+    "explanation": "Sau số 3 là số 4."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Nhận diện số",
+    "difficulty": "Dễ",
+    "question": "Số nào đứng trước số 7?",
+    "options": [
+      "5",
+      "6",
+      "8",
+      "9"
+    ],
+    "answer": "6",
+    "explanation": "Trước số 7 là số 6."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "So sánh số",
+    "difficulty": "Dễ",
+    "question": "Số nào lớn hơn: 6 hay 4?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "3"
+    ],
+    "answer": "6",
+    "explanation": "6 lớn hơn 4."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "So sánh số",
+    "difficulty": "Dễ",
+    "question": "Số nào bé hơn: 9 hay 5?",
+    "options": [
+      "9",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": "5",
+    "explanation": "5 nhỏ hơn 9."
+  },
+  {
+    "grade": 1,
+    "topic": "Nhận biết các số đến 10",
+    "sub_topic": "Điền dấu",
+    "difficulty": "Dễ",
+    "question": "Điền dấu thích hợp: 4 __ 6",
+    "options": [
+      ">",
+      "<",
+      "=",
+      "!="
+    ],
+    "answer": "<",
+    "explanation": "4 nhỏ hơn 6 nên dùng dấu <."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng & trừ trong phạm vi 10",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "3 + 5 = ?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": "8",
+    "explanation": "3 cộng 5 bằng 8."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng & trừ trong phạm vi 10",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "2 + 6 = ?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": "8",
+    "explanation": "2 cộng 6 bằng 8."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng & trừ trong phạm vi 10",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "9 - 4 = ?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "answer": "5",
+    "explanation": "9 trừ 4 bằng 5."
+  },
+  {
+    "grade": 1,
+    "topic": "Phép cộng & trừ trong phạm vi 10",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "7 - 3 = ?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "answer": "4",
+    "explanation": "7 trừ 3 bằng 4."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 & Phép tính",
+    "sub_topic": "Cộng không nhớ",
+    "difficulty": "Dễ",
+    "question": "11 + 4 = ?",
+    "options": [
+      "14",
+      "15",
+      "16",
+      "17"
+    ],
+    "answer": "15",
+    "explanation": "11 cộng 4 bằng 15."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 20 & Phép tính",
+    "sub_topic": "Trừ",
+    "difficulty": "Dễ",
+    "question": "16 - 5 = ?",
+    "options": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": "11",
+    "explanation": "16 trừ 5 bằng 11."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường & Thời gian",
+    "sub_topic": "Thời gian",
+    "difficulty": "Dễ",
+    "question": "Một ngày có bao nhiêu giờ?",
+    "options": [
+      "12",
+      "24",
+      "36",
+      "48"
+    ],
+    "answer": "24",
+    "explanation": "Một ngày có 24 giờ."
+  },
+  {
+    "grade": 1,
+    "topic": "Đo lường & Thời gian",
+    "sub_topic": "Độ dài",
+    "difficulty": "Dễ",
+    "question": "Đơn vị nào dùng để đo độ dài?",
+    "options": [
+      "kg",
+      "m",
+      "l",
+      "giờ"
+    ],
+    "answer": "m",
+    "explanation": "Mét (m) là đơn vị đo độ dài."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100 & Phép tính",
+    "sub_topic": "Nhận biết số",
+    "difficulty": "Dễ",
+    "question": "Số nào lớn hơn 45?",
+    "options": [
+      "40",
+      "43",
+      "46",
+      "44"
+    ],
+    "answer": "46",
+    "explanation": "46 lớn hơn 45."
+  },
+  {
+    "grade": 1,
+    "topic": "Các số đến 100 & Phép tính",
+    "sub_topic": "Cộng",
+    "difficulty": "Dễ",
+    "question": "20 + 10 = ?",
+    "options": [
+      "20",
+      "30",
+      "40",
+      "50"
+    ],
+    "answer": "30",
+    "explanation": "20 cộng 10 bằng 30."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập cuối năm",
+    "sub_topic": "Tổng hợp",
+    "difficulty": "Trung bình",
+    "question": "5 + 4 = ?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "answer": "9",
+    "explanation": "5 cộng 4 bằng 9."
+  },
+  {
+    "grade": 1,
+    "topic": "Ôn tập cuối năm",
+    "sub_topic": "Tổng hợp",
+    "difficulty": "Trung bình",
+    "question": "10 - 6 = ?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": "4",
+    "explanation": "10 trừ 6 bằng 4."
+  }
+]

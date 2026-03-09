@@ -137,25 +137,28 @@ export const submitAssignment = async (
 ) => {
     try {
         await runTransaction(db, async (transaction) => {
+            const classRef = doc(db, 'classes', classId);
             const assignmentRef = doc(db, 'classes', classId, 'assignments', assignmentId);
-            const assignmentDoc = await transaction.get(assignmentRef);
+            const submissionRef = doc(assignmentRef, 'submissions', studentId);
+
+            // 1. READ OPERATIONS FIRST
+            const [classDoc, assignmentDoc, submissionDoc] = await Promise.all([
+                transaction.get(classRef),
+                transaction.get(assignmentRef),
+                transaction.get(submissionRef)
+            ]);
 
             if (!assignmentDoc.exists()) {
                 throw new Error("Assignment does not exist!");
             }
 
-            const assignmentData = assignmentDoc.data() as AssignmentData;
-
-            // Reference to the new submission document
-            const submissionRef = doc(assignmentRef, 'submissions', studentId);
-
-            // Check if already submitted
-            const submissionDoc = await transaction.get(submissionRef);
             if (submissionDoc.exists()) {
                 throw new Error("Student has already submitted this assignment.");
             }
 
-            // Prepare submission data
+            const assignmentData = assignmentDoc.data() as AssignmentData;
+
+            // 2. PREPARE DATA
             const submissionData: SubmissionData = {
                 id: studentId,
                 studentName,
@@ -164,23 +167,18 @@ export const submitAssignment = async (
                 submittedAt: serverTimestamp()
             };
 
-            // Calculate new stats
             const oldCompleted = assignmentData.completed || 0;
             const oldAvg = assignmentData.avgScore || 0;
             const newCompleted = oldCompleted + 1;
             const newAvg = Number((((oldAvg * oldCompleted) + score) / newCompleted).toFixed(1));
 
-            // Write updates
+            // 3. WRITE OPERATIONS LAST
             transaction.set(submissionRef, submissionData);
             transaction.update(assignmentRef, {
                 completed: newCompleted,
                 avgScore: newAvg
             });
 
-            // Update class-level "submitted" count
-            // Note: This is an aggregate of total completions across all assignments
-            const classRef = doc(db, 'classes', classId);
-            const classDoc = await transaction.get(classRef);
             if (classDoc.exists()) {
                 const currentSubmitted = classDoc.data().submitted || 0;
                 transaction.update(classRef, {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Users, BookOpen, Bell, Plus, ChevronRight, Target, Calendar, BarChart3, Clock, ChevronLeft, Copy, CheckCircle2, X, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -8,6 +8,7 @@ import { AssignmentBuilder } from '../features/classroom/AssignmentBuilder';
 import { AssignmentGrader } from '../features/classroom/AssignmentGrader';
 import { subscribeToDraftAssignments, deleteDraftAssignment, DraftAssignmentData, createAssignment } from '../services/assignmentService';
 import { subscribeToTeacherClasses, ClassData } from '../services/classService';
+import { getUserProfile, UserProfile } from '../services/userService';
 
 export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowNotifications?: () => void; onCreateRoom?: () => void }> = ({ onNavigate, onShowNotifications, onCreateRoom }) => {
   const [showCreateClass, setShowCreateClass] = useState(false);
@@ -21,7 +22,36 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
   const [generatedCode, setGeneratedCode] = useState('');
   const [selectedDueDate, setSelectedDueDate] = useState('');
   const [isSubmittingAssign, setIsSubmittingAssign] = useState(false);
+  const [teacherProfile, setTeacherProfile] = useState<UserProfile | null>(null);
   const { user } = useFirebase();
+
+  // Fetch teacher profile
+  useEffect(() => {
+    const fetchTeacherProfile = async () => {
+      if (!user) return;
+      const profile = await getUserProfile(user.uid);
+      setTeacherProfile(profile);
+    };
+    fetchTeacherProfile();
+  }, [user]);
+
+  // Get greeting based on time of day
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Chào buổi sáng';
+    if (hour < 18) return 'Chào buổi chiều';
+    return 'Chào buổi tối';
+  };
+
+  // Get teacher title based on gender
+  const getTeacherTitle = () => {
+    const gender = teacherProfile?.gender;
+    if (gender === 'female') return 'Cô';
+    if (gender === 'male') return 'Thầy';
+    return 'Giáo viên';
+  };
+
+  const teacherName = teacherProfile?.name || user?.displayName || 'Giáo viên';
 
   const [draftAssignments, setDraftAssignments] = useState<DraftAssignmentData[]>([]);
   const [teacherClasses, setTeacherClasses] = useState<ClassData[]>([]);
@@ -200,7 +230,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
       <div className="p-6 bg-white border-b border-slate-100 flex items-center justify-between shrink-0">
         <div>
           <h1 className="text-2xl font-black text-slate-900">Trang chủ</h1>
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Chào buổi sáng, Cô Thu Hương</p>
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{getGreeting()}, {getTeacherTitle()} {teacherName}</p>
         </div>
         <button
           onClick={() => onShowNotifications?.()}
@@ -446,14 +476,6 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
                       />
                     </div>
 
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Ghi chú cho học sinh (Tùy chọn)</label>
-                      <textarea
-                        rows={3}
-                        placeholder="Nhập ghi chú..."
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none"
-                      />
-                    </div>
                   </div>
                 </div>
 

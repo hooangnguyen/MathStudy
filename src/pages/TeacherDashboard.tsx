@@ -3,7 +3,8 @@ import { createPortal } from 'react-dom';
 import { useFirebase } from '../context/FirebaseProvider';
 import { createClass, subscribeToTeacherClasses, ClassData, reCalculateClassStats } from '../services/classService';
 import { subscribeToClassAssignments, subscribeToDraftAssignments, AssignmentData, DraftAssignmentData } from '../services/assignmentService';
-import { getUsersByIds, UserProfile } from '../services/userService';
+import { getUsersByIds, UserProfile, getOnlineStatus, getUserProfile } from '../services/userService';
+import { getOrCreateConversation } from '../services/messageService';
 import {
   Users, BookOpen, CheckCircle, Clock, TrendingUp,
   Search, Filter, MoreVertical, ChevronRight,
@@ -22,6 +23,27 @@ export const TeacherDashboard: React.FC = () => {
   const { user } = useFirebase();
   const [classesList, setClassesList] = useState<ClassData[]>([]);
   const [isCreatingClass, setIsCreatingClass] = useState(false);
+  const [teacherProfile, setTeacherProfile] = useState<UserProfile | null>(null);
+
+  // Fetch teacher profile
+  useEffect(() => {
+    const fetchTeacherProfile = async () => {
+      if (!user) return;
+      const profile = await getUserProfile(user.uid);
+      setTeacherProfile(profile);
+    };
+    fetchTeacherProfile();
+  }, [user]);
+
+  // Get teacher title based on gender
+  const getTeacherTitle = () => {
+    const gender = teacherProfile?.gender;
+    if (gender === 'female') return 'Cô';
+    if (gender === 'male') return 'Thầy';
+    return 'Giáo viên';
+  };
+
+  const teacherName = teacherProfile?.name || user?.displayName || 'Giáo viên';
 
   useEffect(() => {
     if (!user?.uid) return;
@@ -33,6 +55,7 @@ export const TeacherDashboard: React.FC = () => {
 
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
   const [classStudents, setClassStudents] = useState<UserProfile[]>([]);
+  const [studentOnlineStatus, setStudentOnlineStatus] = useState<{ [uid: string]: boolean }>({});
   const currentClass = classesList.find(c => c.id === selectedClassId);
 
   useEffect(() => {
@@ -40,8 +63,13 @@ export const TeacherDashboard: React.FC = () => {
       if (currentClass?.studentIds && currentClass.studentIds.length > 0) {
         const students = await getUsersByIds(currentClass.studentIds);
         setClassStudents(students);
+
+        // Get online status
+        const status = await getOnlineStatus(currentClass.studentIds);
+        setStudentOnlineStatus(status);
       } else {
         setClassStudents([]);
+        setStudentOnlineStatus({});
       }
     };
     fetchStudents();
@@ -65,7 +93,7 @@ export const TeacherDashboard: React.FC = () => {
   const [showCreateAssignment, setShowCreateAssignment] = useState(false);
   const [showDraftSelectionModal, setShowDraftSelectionModal] = useState(false);
   const [selectedInitialDraft, setSelectedInitialDraft] = useState<DraftAssignmentData | undefined>(undefined);
-  const [activeChatStudent, setActiveChatStudent] = useState<string | null>(null);
+  const [activeChatStudent, setActiveChatStudent] = useState<{ uid: string; name: string } | null>(null);
   const [viewingStudentProfile, setViewingStudentProfile] = useState<any | null>(null);
   const [gradingAssignment, setGradingAssignment] = useState<any | null>(null);
 
@@ -312,7 +340,7 @@ export const TeacherDashboard: React.FC = () => {
           <div>
             <h2 className="text-2xl font-black text-slate-900">Lớp học</h2>
             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-              {selectedClassId ? `${currentClass?.name} • Cô Thu Hương` : 'Quản lý lớp học'}
+              {selectedClassId ? `${currentClass?.name} • ${getTeacherTitle()} ${teacherName}` : 'Quản lý lớp học'}
             </p>
           </div>
         </div>
@@ -386,7 +414,7 @@ export const TeacherDashboard: React.FC = () => {
                             />
                             <div className={cn(
                               "absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white",
-                              "bg-slate-300" // Mock status or derive from lastActive
+                              studentOnlineStatus[student.uid] ? "bg-emerald-500" : "bg-slate-300"
                             )} />
                           </div>
                           <div>
@@ -396,7 +424,12 @@ export const TeacherDashboard: React.FC = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() => setActiveChatStudent(student.name)}
+                            onClick={async () => {
+                              if (user) {
+                                const convId = await getOrCreateConversation(user.uid, student.uid);
+                                setActiveChatStudent({ uid: convId, name: student.name });
+                              }
+                            }}
                             className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                           >
                             <MessageSquare size={16} />
@@ -629,9 +662,8 @@ export const TeacherDashboard: React.FC = () => {
           )}
           {activeChatStudent && (
             <Chat
+              conversationId={activeChatStudent.uid}
               onClose={() => setActiveChatStudent(null)}
-              studentName={activeChatStudent}
-              isTeacherView={true}
             />
           )}
 

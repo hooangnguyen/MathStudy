@@ -2,6 +2,7 @@ import {
     collection,
     doc,
     setDoc,
+    getDoc,
     getDocs,
     query,
     where,
@@ -172,6 +173,43 @@ export const subscribeToStudentClass = (classId: string, callback: (classData: C
         console.error("Error subscribing to student class:", error);
     });
 };
+export const getStudentClasses = async (studentId: string): Promise<ClassData[]> => {
+    try {
+        const userDoc = await getDoc(doc(db, 'users', studentId));
+        if (!userDoc.exists()) return [];
+
+        const userData = userDoc.data();
+        const enrolledClasses = userData.enrolledClasses || [];
+
+        if (enrolledClasses.length === 0) return [];
+
+        const classes: ClassData[] = [];
+        for (const classId of enrolledClasses) {
+            const classDoc = await getDoc(doc(db, 'classes', classId));
+            if (classDoc.exists()) {
+                classes.push(classDoc.data() as ClassData);
+            }
+        }
+        return classes;
+    } catch (error) {
+        console.error('Error getting student classes:', error);
+        return [];
+    }
+};
+
+export const getClassById = async (classId: string): Promise<ClassData | null> => {
+    try {
+        const classDoc = await getDoc(doc(db, 'classes', classId));
+        if (classDoc.exists()) {
+            return classDoc.data() as ClassData;
+        }
+        return null;
+    } catch (error) {
+        console.error('Error getting class:', error);
+        return null;
+    }
+};
+
 export const reCalculateClassStats = async (classId: string): Promise<void> => {
     try {
         const classRef = doc(db, 'classes', classId);

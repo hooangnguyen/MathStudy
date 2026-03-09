@@ -21,15 +21,19 @@ export interface UserProfile {
     name: string;
     role: 'student' | 'teacher';
     grade?: number;
+    gender?: 'male' | 'female' | 'other';
     avatar?: string;
     onboarded: boolean;
     streak: number;
     points: number;
+    completedLessons?: number[];
     achievements?: Achievement[];
     school?: string;
     subject?: string;
     enrolledClasses?: string[];
     preferences?: UserPreferences;
+    isOnline?: boolean;
+    blockedUsers?: string[];
     lastActive: any;
     createdAt: any;
 }
@@ -120,27 +124,154 @@ export const awardAchievement = async (uid: string, achievement: Omit<Achievemen
 export const getTopUsers = async (limitCount: number = 50, type: 'solo' | 'multiplayer' = 'solo'): Promise<UserProfile[]> => {
     try {
         const usersRef = collection(db, 'users');
-        // Both types will just sort by points for now as duelWins doesn't exist yet,
-        // but this allows easy expansion later.
-        const q = query(
-            usersRef,
-            orderBy('points', 'desc'),
-            orderBy('lastActive', 'desc'), // Tie-breaker
-        );
+        // Get all users and sort in memory (no index needed)
+        const q = query(usersRef);
 
-        // Note: In a real prod app with millions of users, we'd need better pagination
-        // or a dedicated leaderboard collection updated via cloud functions.
         const querySnapshot = await getDocs(q);
 
-        // Filter in memory for role student since compound index role+points is needed otherwise
+        // Get all users, filter by role, then sort by points in memory
         const students = querySnapshot.docs
             .map(doc => ({ uid: doc.id, ...doc.data() } as UserProfile))
             .filter(user => user.role === 'student')
+            .sort((a, b) => (b.points || 0) - (a.points || 0))
             .slice(0, limitCount);
 
         return students;
     } catch (error) {
         console.error('Error fetching top users:', error);
         return [];
+    }
+};
+
+export const updateProgress = async (uid: string, lessonId: number, score: number) => {
+    try {
+        const userRef = doc(db, 'users', uid);
+        const userDoc = await getDoc(userRef);
+
+        let completedLessons: number[] = [];
+        let points = 0;
+
+        if (userDoc.exists()) {
+            const data = userDoc.data();
+            completedLessons = data.completedLessons || [];
+            points = data.points || 0;
+        }
+
+        if (!completedLessons.includes(lessonId)) {
+            completedLessons.push(lessonId);
+            points += (score * 10);
+
+            await setDoc(userRef, {
+                completedLessons,
+                points,
+                lastActive: serverTimestamp()
+            }, { merge: true });
+
+            return { completedLessons, points };
+        }
+        return null;
+    } catch (error) {
+        console.error('Error updating progress:', error);
+        throw error;
+    }
+};
+
+/**
+ * Cập nhật trạng thái online của user
+ */
+export const setUserOnline = async (uid: string, isOnline: boolean) => {
+    try {
+        const userRef = doc(db, 'users', uid);
+        const userDoc = await getDoc(userRef);
+
+        if (!userDoc.exists()) {
+            // User document doesn't exist yet (new user), skip updating
+            console.log('User document not found, skipping online status update');
+            return;
+        }
+
+        await updateDoc(userRef, {
+            isOnline,
+            lastActive: serverTimestamp()
+        });
+    } catch (error) {
+        console.error('Error updating online status:', error);
+    }
+};
+
+/**
+ * Lấy danh sách online status của nhiều users
+ */
+export const getOnlineStatus = async (uids: string[]): Promise<{ [uid: string]: boolean }> => {
+    if (!uids || uids.length === 0) return {};
+    try {
+        const promises = uids.map(uid => getDoc(doc(db, 'users', uid)));
+        const userDocs = await Promise.all(promises);
+        const status: { [uid: string]: boolean } = {};
+        userDocs.forEach((userDoc, index) => {
+            if (userDoc.exists()) {
+                status[uids[index]] = userDoc.data().isOnline || false;
+            }
+        });
+        return status;
+    } catch (error) {
+        console.error('Error fetching online status:', error);
+        return {};
+    }
+};
+
+/**
+ * Chặn người dùng
+ */
+export const blockUser = async (currentUserId: string, blockedUserId: string) => {
+    try {
+        const userRef = doc(db, 'users', currentUserId);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+            const data = userDoc.data();
+            const blockedUsers = data.blockedUsers || [];
+            if (!blockedUsers.includes(blockedUserId)) {
+                blockedUsers.push(blockedUserId);
+                await updateDoc(userRef, { blockedUsers });
+            }
+        }
+    } catch (error) {
+        console.error('Error blocking user:', error);
+        throw error;
+    }
+};
+
+/**
+ * Bỏ chặn người dùng
+ */
+export const unblockUser = async (currentUserId: string, blockedUserId: string) => {
+    try {
+        const userRef = doc(db, 'users', currentUserId);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+            const data = userDoc.data();
+            const blockedUsers = (data.blockedUsers || []).filter((id: string) => id !== blockedUserId);
+            await updateDoc(userRef, { blockedUsers });
+        }
+    } catch (error) {
+        console.error('Error unblocking user:', error);
+        throw error;
+    }
+};
+
+/**
+ * Kiểm tra người dùng bị chặn
+ */
+export const isUserBlocked = async (currentUserId: string, otherUserId: string): Promise<boolean> => {
+    try {
+        const userDoc = await getDoc(doc(db, 'users', currentUserId));
+        if (userDoc.exists()) {
+            const data = userDoc.data();
+            return (data.blockedUsers || []).includes(otherUserId);
+        }
+        return false;
+    } catch (error) {
+        console.error('Error checking blocked user:', error);
+        return false;
     }
 };

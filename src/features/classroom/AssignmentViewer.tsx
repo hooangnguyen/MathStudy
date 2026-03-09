@@ -14,6 +14,9 @@ interface AssignmentViewerProps {
 export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, onClose, onSubmitted }) => {
     const { user } = useFirebase();
     const [shuffledQuestions, setShuffledQuestions] = useState<any[]>([]);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [answers, setAnswers] = useState<Record<number, any>>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         const baseQuestions = assignment.questions || [];
@@ -236,18 +239,6 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
                         <ChevronLeft size={20} />
                         Câu trước
                     </button>
-
-                    <div className="flex items-center gap-2">
-                        {questions.map((_, idx) => (
-                            <div
-                                key={idx}
-                                className={cn(
-                                    "w-2.5 h-2.5 rounded-full transition-colors",
-                                    idx === currentQuestionIndex ? "bg-indigo-600" : answers[questions[idx].id] !== undefined ? "bg-indigo-200" : "bg-slate-200"
-                                )}
-                            />
-                        ))}
-                    </div>
 
                     {currentQuestionIndex === questions.length - 1 ? (
                         <button

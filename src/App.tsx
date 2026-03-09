@@ -1,28 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { MobileContainer } from './components/common/MobileContainer';
 import { Navigation } from './components/common/Navigation';
-import { Dashboard } from './pages/Dashboard';
-import { Profile } from './pages/Profile';
-import { Leaderboard } from './pages/Leaderboard';
-import { MathDuel } from './pages/MathDuel';
-import { Auth } from './pages/Auth';
-import { Settings } from './pages/Settings';
-import { EditProfile } from './pages/EditProfile';
-import { Notifications } from './components/common/Notifications';
-import { LessonView } from './components/common/LessonView';
-import { TeacherDashboard } from './pages/TeacherDashboard';
-import { TeacherHome } from './pages/TeacherHome';
-import { Classroom } from './pages/Classroom';
-import { Messages } from './pages/Messages';
-import { Onboarding } from './pages/Onboarding';
+import { LoadingScreen } from './components/common/LoadingScreen';
+
+// Lazy load pages
+const Dashboard = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })));
+const Profile = lazy(() => import('./pages/Profile').then(m => ({ default: m.Profile })));
+const Leaderboard = lazy(() => import('./pages/Leaderboard').then(m => ({ default: m.Leaderboard })));
+const MathDuel = lazy(() => import('./pages/MathDuel').then(m => ({ default: m.MathDuel })));
+const Auth = lazy(() => import('./pages/Auth').then(m => ({ default: m.Auth })));
+const Settings = lazy(() => import('./pages/Settings').then(m => ({ default: m.Settings })));
+const EditProfile = lazy(() => import('./pages/EditProfile').then(m => ({ default: m.EditProfile })));
+const Notifications = lazy(() => import('./components/common/Notifications').then(m => ({ default: m.Notifications })));
+const LessonView = lazy(() => import('./components/common/LessonView').then(m => ({ default: m.LessonView })));
+const TeacherDashboard = lazy(() => import('./pages/TeacherDashboard').then(m => ({ default: m.TeacherDashboard })));
+const TeacherHome = lazy(() => import('./pages/TeacherHome').then(m => ({ default: m.TeacherHome })));
+const Classroom = lazy(() => import('./pages/Classroom').then(m => ({ default: m.Classroom })));
+const Messages = lazy(() => import('./pages/Messages').then(m => ({ default: m.Messages })));
+const Onboarding = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })));
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './utils/utils';
 import { useFirebase } from './context/FirebaseProvider';
 import { signOut } from 'firebase/auth';
-import { getUserProfile, saveUserProfile, getAchievements, Achievement, UserPreferences } from './services/userService';
+import { getDoc, doc, updateDoc } from 'firebase/firestore';
+import { getUserProfile, saveUserProfile, getAchievements, Achievement, UserPreferences, updateProgress } from './services/userService';
 
 export default function App() {
-  const { user, isAuthReady, auth } = useFirebase();
+  const authContext = useFirebase();
+  const { user, isAuthReady, auth } = authContext;
   const [activeTab, setActiveTab] = useState('home');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSyncingProfile, setIsSyncingProfile] = useState(true);
@@ -32,6 +37,8 @@ export default function App() {
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [currentLesson, setCurrentLesson] = useState<string | null>(null);
+  const [currentTopic, setCurrentTopic] = useState<string | null>(null);
+  const [currentLessonId, setCurrentLessonId] = useState<number | null>(null);
   const [studentClass, setStudentClass] = useState<{ id: string, name: string, teacher: string } | null>(null);
   const [duelInitialState, setDuelInitialState] = useState<'lobby' | 'create_room' | 'join_room' | 'waiting_room'>('lobby');
   const [userData, setUserData] = useState<{
@@ -45,6 +52,7 @@ export default function App() {
     school?: string;
     subject?: string;
     enrolledClasses?: string[];
+    completedLessons?: number[];
     preferences?: UserPreferences;
   } | null>(null);
 
@@ -68,6 +76,7 @@ export default function App() {
               school: profile.school,
               subject: profile.subject,
               enrolledClasses: profile.enrolledClasses || [],
+              completedLessons: profile.completedLessons || [],
               preferences: profile.preferences
             });
 
@@ -95,6 +104,21 @@ export default function App() {
 
     syncProfile();
   }, [user, isAuthReady]);
+
+  const { userProfile } = authContext;
+
+  // Sync userData with userProfile from context
+  useEffect(() => {
+    if (userProfile) {
+      setUserData(prev => ({
+        ...prev,
+        ...userProfile,
+        points: userProfile.points ?? prev?.points ?? 0,
+        streak: userProfile.streak ?? prev?.streak ?? 0,
+        completedLessons: userProfile.completedLessons ?? prev?.completedLessons ?? [],
+      }));
+    }
+  }, [userProfile]);
 
   const handleLogin = (role: 'student' | 'teacher' | 'new_user') => {
     // The useEffect will automatically catch the user state change and sync the profile.
@@ -137,6 +161,84 @@ export default function App() {
   };
 
   const renderContent = () => {
+    const getActiveComponent = () => {
+      switch (activeTab) {
+        case 'home':
+          return userRole === 'teacher' ? (
+            <TeacherHome
+              onNavigate={setActiveTab}
+              onShowNotifications={() => setShowNotifications(true)}
+              onCreateRoom={() => {
+                setDuelInitialState('create_room');
+                setActiveTab('duel');
+              }}
+            />
+          ) : (
+            <Dashboard
+              grade={userData?.grade || 1}
+              points={userData?.points || 0}
+              streak={userData?.streak || 0}
+              completedLessons={userData?.completedLessons || []}
+              onShowNotifications={() => setShowNotifications(true)}
+              onStartLesson={(title, topic, id) => {
+                setCurrentLesson(title);
+                setCurrentTopic(topic || null);
+                setCurrentLessonId(id || null);
+              }}
+            />
+          );
+        case 'classroom':
+          return userRole === 'teacher' ? (
+            <TeacherDashboard />
+          ) : (
+            <Classroom
+              enrolledClassId={userData?.enrolledClasses?.[0]}
+              onJoinSuccess={(classId) => setUserData(prev => prev ? { ...prev, enrolledClasses: [...(prev.enrolledClasses || []), classId] } : null)}
+            />
+          );
+        case 'messages':
+          return <Messages userRole={userRole} />;
+        case 'duel':
+          return <MathDuel userRole={userRole} initialState={duelInitialState} />;
+        case 'rank':
+          return <Leaderboard />;
+        case 'profile':
+          return (
+            <Profile
+              onSettings={() => setShowSettings(true)}
+              onEditProfile={() => setShowEditProfile(true)}
+              userData={userData || undefined}
+              userRole={userRole}
+              userId={user?.uid}
+            />
+          );
+        default:
+          return userRole === 'teacher' ? (
+            <TeacherHome
+              onNavigate={setActiveTab}
+              onShowNotifications={() => setShowNotifications(true)}
+              onCreateRoom={() => {
+                setDuelInitialState('create_room');
+                setActiveTab('duel');
+              }}
+            />
+          ) : (
+            <Dashboard
+              grade={userData?.grade || 1}
+              points={userData?.points || 0}
+              streak={userData?.streak || 0}
+              completedLessons={userData?.completedLessons || []}
+              onShowNotifications={() => setShowNotifications(true)}
+              onStartLesson={(title, topic, id) => {
+                setCurrentLesson(title);
+                setCurrentTopic(topic || null);
+                setCurrentLessonId(id || null);
+              }}
+            />
+          );
+      }
+    };
+
     if (!isAuthReady || isSyncingProfile) {
       return (
         <div className="flex h-screen items-center justify-center bg-slate-50">
@@ -151,116 +253,63 @@ export default function App() {
 
     if (showOnboarding) {
       return (
-        <Onboarding
-          onComplete={handleOnboardingComplete}
-          initialGrade={userData?.grade || 5}
-          name={userData?.name || user?.displayName || ''}
-        />
+        <Suspense fallback={<LoadingScreen />}>
+          <Onboarding
+            onComplete={handleOnboardingComplete}
+            initialGrade={userData?.grade || 5}
+            name={userData?.name || user?.displayName || ''}
+          />
+        </Suspense>
       );
     }
 
     if (showEditProfile) {
       return (
-        <EditProfile
-          onBack={() => setShowEditProfile(false)}
-          initialData={{
-            name: userData?.name || '',
-            email: user?.email || '',
-            avatar: userData?.avatar,
-            grade: userData?.grade,
-            role: userData?.role,
-            school: userData?.school,
-            subject: userData?.subject
-          }}
-          onSave={async (data) => {
-            if (user) {
-              await saveUserProfile(user.uid, data);
-              // Refresh user data locally
-              setUserData(prev => prev ? { ...prev, ...data } : null);
-              setShowEditProfile(false);
-            }
-          }}
-        />
+        <Suspense fallback={<LoadingScreen />}>
+          <EditProfile
+            onBack={() => setShowEditProfile(false)}
+            initialData={{
+              name: userData?.name || '',
+              email: user?.email || '',
+              avatar: userData?.avatar,
+              grade: userData?.grade,
+              role: userData?.role,
+              school: userData?.school,
+              subject: userData?.subject
+            }}
+            onSave={async (data) => {
+              if (user) {
+                await saveUserProfile(user.uid, data);
+                setUserData(prev => prev ? { ...prev, ...data } : null);
+                setShowEditProfile(false);
+              }
+            }}
+          />
+        </Suspense>
       );
     }
 
     if (showSettings) {
       return (
-        <Settings
-          uid={user?.uid}
-          preferences={userData?.preferences}
-          onBack={() => setShowSettings(false)}
-          onLogout={handleLogout}
-          onEditProfile={() => setShowEditProfile(true)}
-          userName={userData?.name}
-          onPreferencesChanged={(newPrefs) => setUserData(prev => prev ? { ...prev, preferences: newPrefs } : null)}
-        />
+        <Suspense fallback={<LoadingScreen />}>
+          <Settings
+            uid={user?.uid}
+            preferences={userData?.preferences}
+            onBack={() => setShowSettings(false)}
+            onLogout={handleLogout}
+            onEditProfile={() => setShowEditProfile(true)}
+            userName={userData?.name}
+            onPreferencesChanged={(newPrefs) => setUserData(prev => prev ? { ...prev, preferences: newPrefs } : null)}
+          />
+        </Suspense>
       );
     }
 
-    switch (activeTab) {
-      case 'home':
-        return userRole === 'teacher' ? (
-          <TeacherHome
-            onNavigate={setActiveTab}
-            onShowNotifications={() => setShowNotifications(true)}
-            onCreateRoom={() => {
-              setDuelInitialState('create_room');
-              setActiveTab('duel');
-            }}
-          />
-        ) : (
-          <Dashboard
-            grade={userData?.grade || 5}
-            points={userData?.points || 0}
-            streak={userData?.streak || 0}
-            onShowNotifications={() => setShowNotifications(true)}
-            onStartLesson={() => setCurrentLesson('Phép cộng phân số khác mẫu số')}
-          />
-        );
-      case 'classroom':
-        return userRole === 'teacher' ? (
-          <TeacherDashboard />
-        ) : (
-          <Classroom
-            enrolledClassId={userData?.enrolledClasses?.[0]}
-            onJoinSuccess={(classId) => setUserData(prev => prev ? { ...prev, enrolledClasses: [...(prev.enrolledClasses || []), classId] } : null)}
-          />
-        );
-      case 'messages':
-        return <Messages userRole={userRole} />;
-      case 'duel':
-        return <MathDuel userRole={userRole} initialState={duelInitialState} />;
-      case 'rank':
-        return <Leaderboard />;
-      case 'profile':
-        return (
-          <Profile
-            onSettings={() => setShowSettings(true)}
-            onEditProfile={() => setShowEditProfile(true)}
-            userData={userData || undefined}
-          />
-        );
-      default:
-        return userRole === 'teacher' ? (
-          <TeacherHome
-            onNavigate={setActiveTab}
-            onShowNotifications={() => setShowNotifications(true)}
-            onCreateRoom={() => {
-              setDuelInitialState('create_room');
-              setActiveTab('duel');
-            }}
-          />
-        ) : (
-          <Dashboard
-            grade={userData?.grade || 5}
-            points={userData?.points || 0}
-            streak={userData?.streak || 0}
-            onShowNotifications={() => setShowNotifications(true)}
-            onStartLesson={() => setCurrentLesson('Phép cộng phân số khác mẫu số')}
-          />
-        );
-    }
+    return (
+      <Suspense fallback={<LoadingScreen />}>
+        {getActiveComponent()}
+      </Suspense>
+    );
   };
 
   if (!isAuthReady) {
@@ -311,20 +360,59 @@ export default function App() {
         {/* Notifications Overlay */}
         <AnimatePresence>
           {showNotifications && (
-            <Notifications onBack={() => setShowNotifications(false)} userRole={userRole} />
+            <Suspense fallback={null}>
+              <Notifications onBack={() => setShowNotifications(false)} userRole={userRole} />
+            </Suspense>
           )}
         </AnimatePresence>
 
         {/* Lesson View Overlay */}
         <AnimatePresence>
           {currentLesson && (
-            <LessonView
-              lessonTitle={currentLesson}
-              onClose={() => setCurrentLesson(null)}
-              onComplete={() => {
-                setCurrentLesson(null);
-              }}
-            />
+            <Suspense fallback={<LoadingScreen />}>
+              <LessonView
+                lessonTitle={currentLesson}
+                topic={currentTopic || undefined}
+                grade={userData?.grade || 1}
+                onClose={() => {
+                  setCurrentLesson(null);
+                  setCurrentTopic(null);
+                  setCurrentLessonId(null);
+                }}
+                onComplete={async (score) => {
+                  const lessonIdToSave = currentLessonId;
+                  const uid = user?.uid;
+
+                  // Clear UI state immediately
+                  setCurrentLesson(null);
+                  setCurrentTopic(null);
+                  setCurrentLessonId(null);
+
+                  if (uid && lessonIdToSave !== null) {
+                    // Optimistic Update
+                    setUserData(prev => {
+                      if (!prev) return null;
+                      const alreadyCompleted = prev.completedLessons || [];
+                      if (alreadyCompleted.includes(lessonIdToSave)) return prev;
+                      return {
+                        ...prev,
+                        completedLessons: [...alreadyCompleted, lessonIdToSave],
+                        points: (prev.points || 0) + (score * 10)
+                      };
+                    });
+
+                    try {
+                      console.log(`Saving progress: Lesson ${lessonIdToSave}, Score ${score}`);
+                      await updateProgress(uid, lessonIdToSave, score);
+                      await authContext.refreshProfile();
+                      console.log("Progress saved and profile refreshed.");
+                    } catch (error) {
+                      console.error("Error saving progress:", error);
+                    }
+                  }
+                }}
+              />
+            </Suspense>
           )}
         </AnimatePresence>
       </div>
