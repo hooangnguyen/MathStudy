@@ -73,7 +73,7 @@ const SYMBOL_GROUPS = [
 
 export const MathSymbolPicker: React.FC<MathSymbolPickerProps> = ({ onSelect, onClose }) => {
   return (
-    <div className="bg-white border-2 border-slate-200 rounded-t-[2.5rem] md:rounded-3xl shadow-2xl p-5 md:p-6 w-full max-w-[22rem] max-h-[75vh] md:max-h-[85vh] overflow-y-auto no-scrollbar z-[100] flex flex-col gap-5">
+    <div className="bg-white border-2 border-slate-200 rounded-t-[2.5rem] md:rounded-3xl shadow-2xl p-5 md:p-6 w-full max-w-[22rem] max-h-[75vh] md:max-h-[85vh] overflow-y-auto z-[100] flex flex-col gap-5">
       <div className="flex items-center justify-between sticky top-0 bg-white z-10 py-1">
         <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
           <div className="w-2 h-6 bg-indigo-500 rounded-full" />

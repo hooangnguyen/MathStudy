@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   ChevronLeft, Plus, Settings, FileText,
   Image as ImageIcon, Trash2, Copy, CheckCircle2,
-  Clock, Calendar, Users, Target, Sigma, X
+  Clock, Calendar, Users, Target, Sigma, X, Keyboard
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
@@ -363,24 +363,41 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
               {questions.map((q, index) => (
                 <div key={q.id} className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-200 space-y-6 relative group transition-all focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4">
+                    {/* Question Text with Grouped Actions (Google Forms style) */}
                     <div className="flex-1 relative">
                       <MathEquationEditor
                         value={q.text}
                         onChange={(latex) => updateQuestion(q.id, 'text', latex)}
-                        placeholder="Nhập câu hỏi (góc, cung, phân số... nhấn Σ để chèn)"
-                        className="pr-12"
+                        placeholder="Câu hỏi"
+                        className="bg-transparent border-none rounded-none border-b-2 border-slate-100 focus-within:border-indigo-500 focus-within:bg-slate-50/50 transition-all px-0 py-4 text-xl"
                       />
-                      <button
-                        onClick={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'question' ? null : { type: 'question', id: q.id })}
-                        className={cn(
-                          "absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-all flex items-center gap-1.5",
-                          activePicker?.id === q.id && activePicker?.type === 'question' ? "bg-indigo-600 text-white shadow-md" : "text-slate-400 hover:bg-indigo-50 hover:text-indigo-600"
-                        )}
-                        title="Chèn kí hiệu toán (góc ∠, cung ⌢, phân số...)"
-                      >
-                        <Sigma size={20} strokeWidth={2.5} />
-                        <span className="text-xs font-bold hidden sm:inline">Công thức</span>
-                      </button>
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-1.5 pr-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const kb = (window as any).mathVirtualKeyboard;
+                            if (kb) {
+                              if (kb.visible) kb.hide();
+                              else kb.show();
+                            }
+                          }}
+                          className="p-2 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-indigo-600 transition-all bg-white shadow-sm border border-slate-100"
+                          title="Bật/Tắt bàn phím ảo"
+                        >
+                          <Keyboard size={18} strokeWidth={2.5} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'question' ? null : { type: 'question', id: q.id })}
+                          className={cn(
+                            "p-2 rounded-xl transition-all shadow-sm border border-slate-100",
+                            activePicker?.id === q.id && activePicker?.type === 'question' ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-slate-400 hover:bg-slate-100 hover:text-indigo-600"
+                          )}
+                          title="Chèn kí hiệu toán"
+                        >
+                          <Sigma size={18} strokeWidth={2.5} />
+                        </button>
+                      </div>
 
                       {activePicker?.id === q.id && activePicker?.type === 'question' && (
                         <div
@@ -391,23 +408,90 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-wrap sm:flex-col gap-2 shrink-0">
-                      <span className="text-xs font-bold text-slate-400 w-full sm:w-auto">Loại câu:</span>
-                      <div className="flex gap-2">
-                        {(['multiple_choice', 'checkbox', 'short_answer'] as const).map((t) => (
+
+                    {/* Question Type Selector (Dropdown style like Google Forms) */}
+                    <div className="relative group shrink-0 self-center sm:self-start">
+                      <button
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-black transition-all min-w-[180px] justify-between border-2 border-slate-100 hover:border-slate-200 bg-white shadow-sm",
+                          q.type === 'multiple_choice' ? "text-indigo-600" : q.type === 'checkbox' ? "text-emerald-600" : "text-amber-600"
+                        )}
+                      >
+                        <span className="flex items-center gap-2">
+                          {q.type === 'multiple_choice' ? (
+                            <div className="w-4 h-4 rounded-full border-2 border-indigo-600 flex items-center justify-center">
+                              <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                            </div>
+                          ) : q.type === 'checkbox' ? (
+                            <div className="w-4 h-4 rounded border-2 border-emerald-600 bg-emerald-600 flex items-center justify-center">
+                              <CheckCircle2 size={10} className="text-white" />
+                            </div>
+                          ) : (
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                          )}
+                          {q.type === 'multiple_choice' ? 'Trắc nghiệm' : q.type === 'checkbox' ? 'Hộp kiểm' : 'Trả lời ngắn'}
+                        </span>
+                        <svg className="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+
+                      <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top-right translate-y-2 group-hover:translate-y-0">
+                        <div className="p-2">
                           <button
-                            key={t}
-                            onClick={() => updateQuestion(q.id, 'type', t)}
+                            onClick={() => updateQuestion(q.id, 'type', 'multiple_choice')}
                             className={cn(
-                              "px-3 py-2 rounded-xl text-xs font-black transition-all",
-                              q.type === t
-                                ? "bg-indigo-600 text-white shadow-sm"
-                                : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                              "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
+                              q.type === 'multiple_choice' ? "bg-indigo-50" : "hover:bg-slate-50"
                             )}
                           >
-                            {t === 'multiple_choice' ? 'Trắc nghiệm' : t === 'checkbox' ? 'Hộp kiểm' : 'Trả lời ngắn'}
+                            <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
+                              <div className="w-4 h-4 rounded-full border-2 border-indigo-600 flex items-center justify-center">
+                                <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                              </div>
+                            </div>
+                            <div>
+                              <p className="text-sm font-black text-slate-700">Trắc nghiệm</p>
+                              <p className="text-[10px] font-medium text-slate-400">Chọn một đáp án đúng</p>
+                            </div>
                           </button>
-                        ))}
+
+                          <button
+                            onClick={() => updateQuestion(q.id, 'type', 'checkbox')}
+                            className={cn(
+                              "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
+                              q.type === 'checkbox' ? "bg-emerald-50" : "hover:bg-slate-50"
+                            )}
+                          >
+                            <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                              <CheckCircle2 size={20} />
+                            </div>
+                            <div>
+                              <p className="text-sm font-black text-slate-700">Hộp kiểm</p>
+                              <p className="text-[10px] font-medium text-slate-400">Chọn nhiều đáp án đúng</p>
+                            </div>
+                          </button>
+
+                          <button
+                            onClick={() => updateQuestion(q.id, 'type', 'short_answer')}
+                            className={cn(
+                              "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
+                              q.type === 'short_answer' ? "bg-amber-50" : "hover:bg-slate-50"
+                            )}
+                          >
+                            <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16M4 18h7" />
+                              </svg>
+                            </div>
+                            <div>
+                              <p className="text-sm font-black text-slate-700">Trả lời ngắn</p>
+                              <p className="text-[10px] font-medium text-slate-400">Học sinh tự nhập đáp án</p>
+                            </div>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -503,24 +587,36 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
 
                   {/* Footer Actions */}
                   <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-slate-400">Điểm:</span>
-                      <input
-                        type="number"
-                        value={q.points}
-                        onChange={(e) => updateQuestion(q.id, 'points', parseInt(e.target.value) || 0)}
-                        className="w-16 p-2 bg-slate-50 rounded-xl text-sm font-black text-center border-none outline-none"
-                      />
+                    <div className="flex items-center gap-3">
+                      <div className="px-3 py-1.5 bg-slate-50 rounded-2xl flex items-center gap-3 border border-slate-100">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Điểm:</span>
+                        <input
+                          type="number"
+                          value={q.points}
+                          onChange={(e) => updateQuestion(q.id, 'points', parseInt(e.target.value) || 0)}
+                          className="w-10 bg-transparent text-sm font-black text-slate-900 border-none outline-none focus:ring-0 p-0 text-center"
+                        />
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <button onClick={() => duplicateQuestion(q.id)} className="p-2 text-slate-400 hover:text-indigo-600 rounded-xl hover:bg-indigo-50 transition-colors" title="Nhân bản">
-                        <Copy size={20} />
+                    <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-2xl border border-slate-100/50">
+                      <button
+                        onClick={() => duplicateQuestion(q.id)}
+                        className="p-2.5 text-slate-400 hover:text-indigo-600 rounded-xl hover:bg-white hover:shadow-sm transition-all active:scale-95"
+                        title="Nhân bản"
+                      >
+                        <Copy size={18} />
                       </button>
-                      <button onClick={() => removeQuestion(q.id)} className="p-2 text-slate-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition-colors" title="Xóa">
-                        <Trash2 size={20} />
+                      <div className="w-px h-6 bg-slate-200 mx-1" />
+                      <button
+                        onClick={() => removeQuestion(q.id)}
+                        className="p-2.5 text-slate-400 hover:text-rose-600 rounded-xl hover:bg-white hover:shadow-sm transition-all active:scale-95"
+                        title="Xóa"
+                      >
+                        <Trash2 size={18} />
                       </button>
                     </div>
                   </div>
+
                 </div>
               ))}
 
