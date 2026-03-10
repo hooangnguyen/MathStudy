@@ -1,0 +1,1982 @@
+[
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Số có 5 chữ số",
+        "difficulty": "easy",
+        "question": "Số nào sau đây là số có 5 chữ số?",
+        "options": [
+            "9999",
+            "10000",
+            "999",
+            "1000"
+        ],
+        "answer": "10000",
+        "explanation": "10000 là số nhỏ nhất có 5 chữ số."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Số có 5 chữ số",
+        "difficulty": "easy",
+        "question": "Số lớn nhất có 5 chữ số là số nào?",
+        "options": [
+            "99999",
+            "10000",
+            "9999",
+            "90000"
+        ],
+        "answer": "99999",
+        "explanation": "99999 là số lớn nhất có 5 chữ số."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 34567, chữ số 7 thuộc hàng nào?",
+        "options": [
+            "Hàng đơn vị",
+            "Hàng chục",
+            "Hàng trăm",
+            "Hàng nghìn"
+        ],
+        "answer": "Hàng đơn vị",
+        "explanation": "Chữ số cuối cùng là hàng đơn vị."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 45678, chữ số 7 thuộc hàng nào?",
+        "options": [
+            "Hàng chục",
+            "Hàng trăm",
+            "Hàng nghìn",
+            "Hàng đơn vị"
+        ],
+        "answer": "Hàng chục",
+        "explanation": "Chữ số thứ hai từ phải sang là hàng chục."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 34567, chữ số 5 thuộc hàng nào?",
+        "options": [
+            "Hàng trăm",
+            "Hàng chục",
+            "Hàng nghìn",
+            "Hàng đơn vị"
+        ],
+        "answer": "Hàng trăm",
+        "explanation": "Chữ số thứ ba từ phải sang là hàng trăm."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 54321, chữ số 4 thuộc hàng nào?",
+        "options": [
+            "Hàng nghìn",
+            "Hàng trăm",
+            "Hàng chục",
+            "Hàng đơn vị"
+        ],
+        "answer": "Hàng nghìn",
+        "explanation": "Chữ số thứ tư từ phải sang là hàng nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 98765, chữ số 9 thuộc hàng nào?",
+        "options": [
+            "Hàng chục nghìn",
+            "Hàng nghìn",
+            "Hàng trăm",
+            "Hàng chục"
+        ],
+        "answer": "Hàng chục nghìn",
+        "explanation": "Chữ số đầu tiên của số có 5 chữ số là hàng chục nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Lớp",
+        "difficulty": "easy",
+        "question": "Số 34567 có mấy lớp?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "Gồm lớp nghìn và lớp đơn vị."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Lớp",
+        "difficulty": "easy",
+        "question": "Trong số 34567, lớp nghìn là số nào?",
+        "options": [
+            "34",
+            "345",
+            "3",
+            "567"
+        ],
+        "answer": "34",
+        "explanation": "Lớp nghìn gồm hai chữ số đầu."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Lớp",
+        "difficulty": "easy",
+        "question": "Trong số 34567, lớp đơn vị là số nào?",
+        "options": [
+            "567",
+            "34",
+            "345",
+            "67"
+        ],
+        "answer": "567",
+        "explanation": "Ba chữ số cuối thuộc lớp đơn vị."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 34567 đọc là gì?",
+        "options": [
+            "Ba mươi bốn nghìn năm trăm sáu mươi bảy",
+            "Ba mươi bốn nghìn năm trăm sáu mươi",
+            "Ba nghìn bốn trăm năm mươi sáu",
+            "Ba mươi bốn nghìn sáu mươi bảy"
+        ],
+        "answer": "Ba mươi bốn nghìn năm trăm sáu mươi bảy",
+        "explanation": "Đọc theo từng lớp."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "So sánh số",
+        "difficulty": "easy",
+        "question": "Số nào lớn hơn?",
+        "options": [
+            "34567",
+            "34667",
+            "34000",
+            "34500"
+        ],
+        "answer": "34667",
+        "explanation": "34667 lớn nhất."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "So sánh số",
+        "difficulty": "easy",
+        "question": "Số nào nhỏ nhất?",
+        "options": [
+            "12345",
+            "12354",
+            "12435",
+            "13245"
+        ],
+        "answer": "12345",
+        "explanation": "12345 nhỏ nhất."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Viết số",
+        "difficulty": "easy",
+        "question": "Viết số: ba mươi nghìn không trăm năm mươi",
+        "options": [
+            "30050",
+            "30500",
+            "30005",
+            "35000"
+        ],
+        "answer": "30050",
+        "explanation": "30 050."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Viết số",
+        "difficulty": "easy",
+        "question": "Viết số: bốn mươi hai nghìn",
+        "options": [
+            "42000",
+            "40200",
+            "4200",
+            "4020"
+        ],
+        "answer": "42000",
+        "explanation": "42 nghìn = 42000."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Phân tích số",
+        "difficulty": "medium",
+        "question": "34567 = ?",
+        "options": [
+            "30000 + 4000 + 500 + 60 + 7",
+            "30000 + 4000 + 600 + 50 + 7",
+            "30000 + 5000 + 400 + 60 + 7",
+            "30000 + 4000 + 500 + 70 + 6"
+        ],
+        "answer": "30000 + 4000 + 500 + 60 + 7",
+        "explanation": "Phân tích theo hàng."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Phân tích số",
+        "difficulty": "medium",
+        "question": "56000 = ?",
+        "options": [
+            "50000 + 6000",
+            "50000 + 600",
+            "5000 + 6000",
+            "5600 + 0"
+        ],
+        "answer": "50000 + 6000",
+        "explanation": "Phân tích theo hàng."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "medium",
+        "question": "Trong số 45678, giá trị của chữ số 5 là bao nhiêu?",
+        "options": [
+            "500",
+            "5000",
+            "50",
+            "5"
+        ],
+        "answer": "5000",
+        "explanation": "Chữ số 5 ở hàng nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "medium",
+        "question": "Trong số 34782, giá trị của chữ số 8 là bao nhiêu?",
+        "options": [
+            "8",
+            "80",
+            "800",
+            "8000"
+        ],
+        "answer": "80",
+        "explanation": "8 ở hàng chục."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Lớp",
+        "difficulty": "medium",
+        "question": "Số 456789 có bao nhiêu lớp?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "Lớp nghìn và lớp đơn vị."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 567890 ... 567809",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "567890 lớn hơn 567809."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 900000 ... 899999",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "900000 lớn hơn 899999."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 456123 đến hàng trăm nghìn",
+        "options": [
+            "400000",
+            "450000",
+            "460000",
+            "500000"
+        ],
+        "answer": "500000",
+        "explanation": "456123 ≥ 450000 nên làm tròn lên 500000."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 342567 đến hàng trăm nghìn",
+        "options": [
+            "300000",
+            "350000",
+            "400000",
+            "340000"
+        ],
+        "answer": "300000",
+        "explanation": "342567 < 350000 nên làm tròn xuống 300000."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 678900 đến hàng trăm nghìn",
+        "options": [
+            "600000",
+            "700000",
+            "680000",
+            "650000"
+        ],
+        "answer": "700000",
+        "explanation": "678900 gần 700000 hơn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 812345 đến hàng trăm nghìn",
+        "options": [
+            "800000",
+            "810000",
+            "820000",
+            "900000"
+        ],
+        "answer": "800000",
+        "explanation": "812345 gần 800000 hơn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 945678 đến hàng trăm nghìn",
+        "options": [
+            "900000",
+            "950000",
+            "1000000",
+            "940000"
+        ],
+        "answer": "900000",
+        "explanation": "945678 < 950000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 3456789 đến hàng triệu",
+        "options": [
+            "3000000",
+            "3500000",
+            "4000000",
+            "3400000"
+        ],
+        "answer": "3000000",
+        "explanation": "3456789 < 3500000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 6789123 đến hàng triệu",
+        "options": [
+            "6000000",
+            "7000000",
+            "6800000",
+            "6900000"
+        ],
+        "answer": "7000000",
+        "explanation": "6789123 ≥ 6500000 nên làm tròn lên."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 5234567 đến hàng triệu",
+        "options": [
+            "5000000",
+            "5200000",
+            "5300000",
+            "6000000"
+        ],
+        "answer": "5000000",
+        "explanation": "5234567 gần 5000000 hơn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 7890123 đến hàng triệu",
+        "options": [
+            "7000000",
+            "8000000",
+            "7900000",
+            "7800000"
+        ],
+        "answer": "8000000",
+        "explanation": "7890123 ≥ 7500000 nên làm tròn lên."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 9123456 đến hàng triệu",
+        "options": [
+            "9000000",
+            "9100000",
+            "9200000",
+            "10000000"
+        ],
+        "answer": "9000000",
+        "explanation": "9123456 gần 9000000 hơn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "medium",
+        "question": "Số nào lớn nhất?",
+        "options": [
+            "3456789",
+            "3546789",
+            "3457689",
+            "3456798"
+        ],
+        "answer": "3546789",
+        "explanation": "So sánh từ hàng triệu."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "medium",
+        "question": "Số nào bé nhất?",
+        "options": [
+            "7654321",
+            "7651234",
+            "7654320",
+            "7654322"
+        ],
+        "answer": "7651234",
+        "explanation": "So sánh từ trái sang phải."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 4567890 ... 4567809",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "4567890 lớn hơn 4567809."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 9000000 ... 8999999",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "9000000 lớn hơn 8999999."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Số có 5 chữ số",
+        "difficulty": "easy",
+        "question": "Số nào sau đây có 5 chữ số?",
+        "options": [
+            "9999",
+            "12000",
+            "800",
+            "4500"
+        ],
+        "answer": "12000",
+        "explanation": "12000 có 5 chữ số."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Số có 5 chữ số",
+        "difficulty": "easy",
+        "question": "Số nhỏ nhất có 5 chữ số là gì?",
+        "options": [
+            "10000",
+            "9999",
+            "1000",
+            "99999"
+        ],
+        "answer": "10000",
+        "explanation": "10000 là số nhỏ nhất có 5 chữ số."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 67891, chữ số 1 thuộc hàng nào?",
+        "options": [
+            "Hàng đơn vị",
+            "Hàng chục",
+            "Hàng trăm",
+            "Hàng nghìn"
+        ],
+        "answer": "Hàng đơn vị",
+        "explanation": "Chữ số cuối cùng là hàng đơn vị."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 67891, chữ số 9 thuộc hàng nào?",
+        "options": [
+            "Hàng chục",
+            "Hàng trăm",
+            "Hàng nghìn",
+            "Hàng đơn vị"
+        ],
+        "answer": "Hàng chục",
+        "explanation": "Chữ số thứ hai từ phải sang là hàng chục."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 67891, chữ số 8 thuộc hàng nào?",
+        "options": [
+            "Hàng trăm",
+            "Hàng chục",
+            "Hàng nghìn",
+            "Hàng đơn vị"
+        ],
+        "answer": "Hàng trăm",
+        "explanation": "Chữ số thứ ba từ phải sang là hàng trăm."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 67891, chữ số 7 thuộc hàng nào?",
+        "options": [
+            "Hàng nghìn",
+            "Hàng trăm",
+            "Hàng chục",
+            "Hàng đơn vị"
+        ],
+        "answer": "Hàng nghìn",
+        "explanation": "Chữ số thứ tư từ phải sang là hàng nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "easy",
+        "question": "Trong số 67891, chữ số 6 thuộc hàng nào?",
+        "options": [
+            "Hàng chục nghìn",
+            "Hàng nghìn",
+            "Hàng trăm",
+            "Hàng chục"
+        ],
+        "answer": "Hàng chục nghìn",
+        "explanation": "Chữ số đầu tiên của số có 5 chữ số."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 45678 đọc là gì?",
+        "options": [
+            "Bốn mươi lăm nghìn sáu trăm bảy mươi tám",
+            "Bốn nghìn năm trăm sáu mươi bảy",
+            "Bốn mươi lăm nghìn sáu trăm bảy mươi",
+            "Bốn mươi lăm nghìn bảy trăm sáu mươi tám"
+        ],
+        "answer": "Bốn mươi lăm nghìn sáu trăm bảy mươi tám",
+        "explanation": "Đọc theo từng lớp."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Viết số",
+        "difficulty": "easy",
+        "question": "Viết số: năm mươi nghìn",
+        "options": [
+            "50000",
+            "5000",
+            "500",
+            "500000"
+        ],
+        "answer": "50000",
+        "explanation": "50 nghìn = 50000."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Viết số",
+        "difficulty": "easy",
+        "question": "Viết số: sáu mươi ba nghìn",
+        "options": [
+            "63000",
+            "60300",
+            "60030",
+            "6300"
+        ],
+        "answer": "63000",
+        "explanation": "63 nghìn = 63000."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Phân tích số",
+        "difficulty": "medium",
+        "question": "45678 = ?",
+        "options": [
+            "40000 + 5000 + 600 + 70 + 8",
+            "40000 + 6000 + 500 + 70 + 8",
+            "40000 + 5000 + 700 + 60 + 8",
+            "40000 + 5000 + 600 + 80 + 7"
+        ],
+        "answer": "40000 + 5000 + 600 + 70 + 8",
+        "explanation": "Phân tích theo giá trị từng hàng."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Phân tích số",
+        "difficulty": "medium",
+        "question": "72000 = ?",
+        "options": [
+            "70000 + 2000",
+            "70000 + 200",
+            "7200 + 0",
+            "7000 + 2000"
+        ],
+        "answer": "70000 + 2000",
+        "explanation": "Phân tích theo hàng."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "medium",
+        "question": "Trong số 56342, giá trị của chữ số 6 là bao nhiêu?",
+        "options": [
+            "6",
+            "60",
+            "600",
+            "6000"
+        ],
+        "answer": "6000",
+        "explanation": "6 ở hàng nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Hàng",
+        "difficulty": "medium",
+        "question": "Trong số 56342, giá trị của chữ số 3 là bao nhiêu?",
+        "options": [
+            "3",
+            "30",
+            "300",
+            "3000"
+        ],
+        "answer": "300",
+        "explanation": "3 ở hàng trăm."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Lớp",
+        "difficulty": "medium",
+        "question": "Số 345678 có bao nhiêu lớp?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "Gồm lớp nghìn và lớp đơn vị."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "Lớp",
+        "difficulty": "medium",
+        "question": "Trong số 456789, lớp nghìn là gì?",
+        "options": [
+            "456",
+            "4567",
+            "456789",
+            "789"
+        ],
+        "answer": "456",
+        "explanation": "Ba chữ số trước lớp đơn vị."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "So sánh số",
+        "difficulty": "medium",
+        "question": "Sắp xếp tăng dần: 34567, 34576, 34506",
+        "options": [
+            "34506, 34567, 34576",
+            "34576, 34567, 34506",
+            "34567, 34506, 34576",
+            "34506, 34576, 34567"
+        ],
+        "answer": "34506, 34567, 34576",
+        "explanation": "So sánh từ trái sang phải."
+    },
+    {
+        "grade": 4,
+        "topic": "Số học",
+        "sub_topic": "So sánh số",
+        "difficulty": "medium",
+        "question": "Sắp xếp giảm dần: 78901, 78091, 78910",
+        "options": [
+            "78910, 78901, 78091",
+            "78091, 78901, 78910",
+            "78901, 78910, 78091",
+            "78910, 78091, 78901"
+        ],
+        "answer": "78910, 78901, 78091",
+        "explanation": "So sánh giá trị."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 345678 ... 345679",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": "<",
+        "explanation": "345678 nhỏ hơn 345679."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 789456 ... 789455",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "789456 lớn hơn 789455."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 562345 đến hàng trăm nghìn",
+        "options": [
+            "500000",
+            "600000",
+            "560000",
+            "570000"
+        ],
+        "answer": "600000",
+        "explanation": "562345 ≥ 550000 nên làm tròn lên 600000."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 412345 đến hàng trăm nghìn",
+        "options": [
+            "400000",
+            "410000",
+            "420000",
+            "500000"
+        ],
+        "answer": "400000",
+        "explanation": "412345 < 450000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 789654 đến hàng trăm nghìn",
+        "options": [
+            "700000",
+            "800000",
+            "790000",
+            "780000"
+        ],
+        "answer": "800000",
+        "explanation": "789654 gần 800000 hơn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 645321 đến hàng trăm nghìn",
+        "options": [
+            "600000",
+            "650000",
+            "700000",
+            "640000"
+        ],
+        "answer": "600000",
+        "explanation": "645321 < 650000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 950123 đến hàng trăm nghìn",
+        "options": [
+            "900000",
+            "950000",
+            "1000000",
+            "960000"
+        ],
+        "answer": "1000000",
+        "explanation": "950123 ≥ 950000 nên làm tròn lên 1000000."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 2345678 đến hàng triệu",
+        "options": [
+            "2000000",
+            "2300000",
+            "2400000",
+            "3000000"
+        ],
+        "answer": "2000000",
+        "explanation": "2345678 < 2500000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 5678123 đến hàng triệu",
+        "options": [
+            "5000000",
+            "6000000",
+            "5700000",
+            "5800000"
+        ],
+        "answer": "6000000",
+        "explanation": "5678123 ≥ 5500000 nên làm tròn lên."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 3499999 đến hàng triệu",
+        "options": [
+            "3000000",
+            "3500000",
+            "4000000",
+            "3400000"
+        ],
+        "answer": "3000000",
+        "explanation": "3499999 < 3500000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 4500000 đến hàng triệu",
+        "options": [
+            "4000000",
+            "5000000",
+            "4500000",
+            "4600000"
+        ],
+        "answer": "5000000",
+        "explanation": "4500000 nằm giữa nên làm tròn lên."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 3456789 ... 3456790",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": "<",
+        "explanation": "3456789 nhỏ hơn 3456790."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 8000000 ... 7999999",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "8000000 lớn hơn 7999999."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 456789 ... 456788",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "456789 lớn hơn 456788."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 900001 ... 900010",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": "<",
+        "explanation": "900001 nhỏ hơn 900010."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 612345 đến hàng trăm nghìn",
+        "options": [
+            "600000",
+            "610000",
+            "620000",
+            "700000"
+        ],
+        "answer": "600000",
+        "explanation": "612345 < 650000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 678123 đến hàng trăm nghìn",
+        "options": [
+            "600000",
+            "700000",
+            "680000",
+            "670000"
+        ],
+        "answer": "700000",
+        "explanation": "678123 gần 700000 hơn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 432567 đến hàng trăm nghìn",
+        "options": [
+            "400000",
+            "430000",
+            "440000",
+            "500000"
+        ],
+        "answer": "400000",
+        "explanation": "432567 < 450000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 854321 đến hàng trăm nghìn",
+        "options": [
+            "800000",
+            "850000",
+            "900000",
+            "860000"
+        ],
+        "answer": "900000",
+        "explanation": "854321 ≥ 850000 nên làm tròn lên."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "easy",
+        "question": "Làm tròn 745678 đến hàng trăm nghìn",
+        "options": [
+            "700000",
+            "750000",
+            "800000",
+            "740000"
+        ],
+        "answer": "700000",
+        "explanation": "745678 < 750000 nên làm tròn xuống."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 7891234 đến hàng triệu",
+        "options": [
+            "7000000",
+            "8000000",
+            "7900000",
+            "7800000"
+        ],
+        "answer": "8000000",
+        "explanation": "7891234 ≥ 7500000 nên làm tròn lên."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 5123456 đến hàng triệu",
+        "options": [
+            "5000000",
+            "6000000",
+            "5100000",
+            "5200000"
+        ],
+        "answer": "5000000",
+        "explanation": "5123456 gần 5000000 hơn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Làm tròn số",
+        "difficulty": "medium",
+        "question": "Làm tròn 9678901 đến hàng triệu",
+        "options": [
+            "9000000",
+            "10000000",
+            "9600000",
+            "9700000"
+        ],
+        "answer": "10000000",
+        "explanation": "9678901 ≥ 9500000 nên làm tròn lên."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 4567891 ... 4567889",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "4567891 lớn hơn 4567889."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số lớn",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 7000000 ... 6999999",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≠"
+        ],
+        "answer": ">",
+        "explanation": "7000000 lớn hơn 6999999."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Số có 5 chữ số",
+        "difficulty": "easy",
+        "question": "Số nhỏ nhất có 5 chữ số là số nào?",
+        "options": [
+            "10000",
+            "9999",
+            "1000",
+            "10001"
+        ],
+        "answer": "10000",
+        "explanation": "Số có 5 chữ số nhỏ nhất là 10000."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số",
+        "difficulty": "easy",
+        "question": "Số nào bé hơn?",
+        "options": [
+            "54321",
+            "52341",
+            "53421",
+            "54231"
+        ],
+        "answer": "52341",
+        "explanation": "So sánh chữ số hàng nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Giá trị chữ số",
+        "difficulty": "medium",
+        "question": "Trong số 68245, chữ số 8 có giá trị là bao nhiêu?",
+        "options": [
+            "8",
+            "80",
+            "800",
+            "8000"
+        ],
+        "answer": "8000",
+        "explanation": "8 nằm ở hàng nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Giá trị chữ số",
+        "difficulty": "medium",
+        "question": "Trong số 75021, chữ số 5 có giá trị là bao nhiêu?",
+        "options": [
+            "5",
+            "50",
+            "500",
+            "5000"
+        ],
+        "answer": "5000",
+        "explanation": "5 nằm ở hàng nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Tách số",
+        "difficulty": "medium",
+        "question": "63421 được viết dưới dạng tổng nào?",
+        "options": [
+            "60000 + 3000 + 400 + 20 + 1",
+            "60000 + 3000 + 200 + 40 + 1",
+            "60000 + 2000 + 300 + 40 + 1",
+            "60000 + 3000 + 400 + 10 + 1"
+        ],
+        "answer": "60000 + 3000 + 400 + 20 + 1",
+        "explanation": "Tách theo giá trị từng hàng."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Cấu tạo số",
+        "difficulty": "medium",
+        "question": "Số gồm 8 chục nghìn, 4 nghìn, 2 trăm, 3 chục và 6 đơn vị là số nào?",
+        "options": [
+            "84236",
+            "82436",
+            "84263",
+            "83426"
+        ],
+        "answer": "84236",
+        "explanation": "Ghép giá trị từng hàng."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 50823 đọc là gì?",
+        "options": [
+            "Năm mươi nghìn tám trăm hai mươi ba",
+            "Năm mươi nghìn không trăm tám mươi ba",
+            "Năm mươi nghìn tám trăm hai mươi ba",
+            "Năm mươi nghìn tám trăm ba"
+        ],
+        "answer": "Năm mươi nghìn tám trăm hai mươi ba",
+        "explanation": "Đọc theo từng lớp."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 70015 đọc là gì?",
+        "options": [
+            "Bảy mươi nghìn mười lăm",
+            "Bảy mươi nghìn không trăm mười lăm",
+            "Bảy mươi nghìn mười năm",
+            "Bảy mươi nghìn không trăm mười năm"
+        ],
+        "answer": "Bảy mươi nghìn không trăm mười lăm",
+        "explanation": "Có 0 ở hàng trăm."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 65432 ... 65423",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≤"
+        ],
+        "answer": ">",
+        "explanation": "65432 lớn hơn 65423."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "So sánh số",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 72015 ... 72051",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "≥"
+        ],
+        "answer": "<",
+        "explanation": "72015 nhỏ hơn 72051."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Hàng và lớp",
+        "difficulty": "medium",
+        "question": "Trong số 92345 có bao nhiêu nghìn?",
+        "options": [
+            "92 nghìn",
+            "9 nghìn",
+            "23 nghìn",
+            "93 nghìn"
+        ],
+        "answer": "92 nghìn",
+        "explanation": "92345 = 92 nghìn 345."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Hàng và lớp",
+        "difficulty": "medium",
+        "question": "Trong số 84567, chữ số 4 thuộc hàng nào?",
+        "options": [
+            "Hàng nghìn",
+            "Hàng trăm",
+            "Hàng chục",
+            "Hàng đơn vị"
+        ],
+        "answer": "Hàng nghìn",
+        "explanation": "84567 = 8 chục nghìn + 4 nghìn + ..."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Giá trị chữ số",
+        "difficulty": "medium",
+        "question": "Giá trị của chữ số 2 trong số 32456 là bao nhiêu?",
+        "options": [
+            "2",
+            "20",
+            "200",
+            "2000"
+        ],
+        "answer": "2000",
+        "explanation": "2 ở hàng nghìn."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "easy",
+        "question": "3456 + 2345 = ?",
+        "options": [
+            "5801",
+            "5791",
+            "5811",
+            "5901"
+        ],
+        "answer": "5801",
+        "explanation": "3456 + 2345 = 5801."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "easy",
+        "question": "6789 + 1234 = ?",
+        "options": [
+            "8013",
+            "8023",
+            "8033",
+            "8043"
+        ],
+        "answer": "8023",
+        "explanation": "6789 + 1234 = 8023."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "easy",
+        "question": "5678 − 2345 = ?",
+        "options": [
+            "3323",
+            "3333",
+            "3343",
+            "3353"
+        ],
+        "answer": "3333",
+        "explanation": "5678 − 2345 = 3333."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "easy",
+        "question": "9000 − 3456 = ?",
+        "options": [
+            "5544",
+            "5554",
+            "5564",
+            "5574"
+        ],
+        "answer": "5544",
+        "explanation": "9000 − 3456 = 5544."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "easy",
+        "question": "4567 + 3210 = ?",
+        "options": [
+            "7767",
+            "7777",
+            "7787",
+            "7797"
+        ],
+        "answer": "7777",
+        "explanation": "4567 + 3210 = 7777."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "medium",
+        "question": "12345 + 6789 = ?",
+        "options": [
+            "19124",
+            "19134",
+            "19144",
+            "19154"
+        ],
+        "answer": "19134",
+        "explanation": "12345 + 6789 = 19134."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "medium",
+        "question": "20000 − 8765 = ?",
+        "options": [
+            "11235",
+            "11335",
+            "11435",
+            "11535"
+        ],
+        "answer": "11235",
+        "explanation": "20000 − 8765 = 11235."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "medium",
+        "question": "45678 + 12345 = ?",
+        "options": [
+            "57923",
+            "58023",
+            "58123",
+            "58223"
+        ],
+        "answer": "58023",
+        "explanation": "45678 + 12345 = 58023."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "medium",
+        "question": "98765 − 43210 = ?",
+        "options": [
+            "55555",
+            "55655",
+            "55755",
+            "55855"
+        ],
+        "answer": "55555",
+        "explanation": "98765 − 43210 = 55555."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "medium",
+        "question": "34567 + 23456 = ?",
+        "options": [
+            "57923",
+            "58023",
+            "58123",
+            "58223"
+        ],
+        "answer": "58023",
+        "explanation": "34567 + 23456 = 58023."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "medium",
+        "question": "76543 − 23456 = ?",
+        "options": [
+            "53087",
+            "53187",
+            "53287",
+            "53387"
+        ],
+        "answer": "53087",
+        "explanation": "76543 − 23456 = 53087."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "medium",
+        "question": "67890 + 12345 = ?",
+        "options": [
+            "80135",
+            "80235",
+            "80335",
+            "80435"
+        ],
+        "answer": "80235",
+        "explanation": "67890 + 12345 = 80235."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "medium",
+        "question": "65432 − 12345 = ?",
+        "options": [
+            "53087",
+            "53187",
+            "53287",
+            "53387"
+        ],
+        "answer": "53087",
+        "explanation": "65432 − 12345 = 53087."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "medium",
+        "question": "78901 + 21098 = ?",
+        "options": [
+            "99999",
+            "100000",
+            "99899",
+            "100099"
+        ],
+        "answer": "99999",
+        "explanation": "78901 + 21098 = 99999."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "medium",
+        "question": "100000 − 45678 = ?",
+        "options": [
+            "54322",
+            "54422",
+            "54522",
+            "54622"
+        ],
+        "answer": "54322",
+        "explanation": "100000 − 45678 = 54322."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "hard",
+        "question": "234567 + 345678 = ?",
+        "options": [
+            "579245",
+            "580245",
+            "581245",
+            "582245"
+        ],
+        "answer": "580245",
+        "explanation": "234567 + 345678 = 580245."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "hard",
+        "question": "876543 − 234567 = ?",
+        "options": [
+            "641976",
+            "642976",
+            "643976",
+            "644976"
+        ],
+        "answer": "641976",
+        "explanation": "876543 − 234567 = 641976."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "hard",
+        "question": "456789 + 123456 = ?",
+        "options": [
+            "579245",
+            "580245",
+            "581245",
+            "582245"
+        ],
+        "answer": "580245",
+        "explanation": "456789 + 123456 = 580245."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép trừ nhiều chữ số",
+        "difficulty": "hard",
+        "question": "900000 − 345678 = ?",
+        "options": [
+            "554322",
+            "555322",
+            "556322",
+            "557322"
+        ],
+        "answer": "554322",
+        "explanation": "900000 − 345678 = 554322."
+    },
+    {
+        "grade": 4,
+        "topic": "Số tự nhiên",
+        "sub_topic": "Phép cộng nhiều chữ số",
+        "difficulty": "hard",
+        "question": "678901 + 210987 = ?",
+        "options": [
+            "889888",
+            "890888",
+            "891888",
+            "892888"
+        ],
+        "answer": "889888",
+        "explanation": "678901 + 210987 = 889888."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình bình hành",
+        "difficulty": "easy",
+        "question": "Hình bình hành có mấy cặp cạnh đối song song?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "Hình bình hành có 2 cặp cạnh đối song song."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình bình hành",
+        "difficulty": "easy",
+        "question": "Các cạnh đối của hình bình hành có đặc điểm gì?",
+        "options": [
+            "Song song và bằng nhau",
+            "Chỉ song song",
+            "Chỉ bằng nhau",
+            "Không liên quan"
+        ],
+        "answer": "Song song và bằng nhau",
+        "explanation": "Trong hình bình hành, các cạnh đối vừa song song vừa bằng nhau."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình bình hành",
+        "difficulty": "easy",
+        "question": "Diện tích hình bình hành được tính bằng công thức nào?",
+        "options": [
+            "S = a × h",
+            "S = a × a",
+            "S = a + h",
+            "S = a × b × h"
+        ],
+        "answer": "S = a × h",
+        "explanation": "Diện tích hình bình hành bằng đáy nhân chiều cao."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình bình hành",
+        "difficulty": "easy",
+        "question": "Một hình bình hành có đáy 8 cm và chiều cao 5 cm. Diện tích là bao nhiêu?",
+        "options": [
+            "40 cm²",
+            "13 cm²",
+            "20 cm²",
+            "30 cm²"
+        ],
+        "answer": "40 cm²",
+        "explanation": "S = 8 × 5 = 40 cm²."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình bình hành",
+        "difficulty": "easy",
+        "question": "Hình bình hành có bao nhiêu cạnh?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "4",
+        "explanation": "Hình bình hành là tứ giác."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình thoi",
+        "difficulty": "easy",
+        "question": "Hình thoi có đặc điểm gì về cạnh?",
+        "options": [
+            "4 cạnh bằng nhau",
+            "2 cạnh bằng nhau",
+            "3 cạnh bằng nhau",
+            "Không cạnh nào bằng nhau"
+        ],
+        "answer": "4 cạnh bằng nhau",
+        "explanation": "Hình thoi có 4 cạnh bằng nhau."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình thoi",
+        "difficulty": "easy",
+        "question": "Hình thoi có bao nhiêu đường chéo?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "Hình thoi có 2 đường chéo."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình thoi",
+        "difficulty": "easy",
+        "question": "Hai đường chéo của hình thoi có đặc điểm gì?",
+        "options": [
+            "Vuông góc với nhau",
+            "Song song",
+            "Bằng nhau",
+            "Không cắt nhau"
+        ],
+        "answer": "Vuông góc với nhau",
+        "explanation": "Hai đường chéo của hình thoi cắt nhau vuông góc."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình thoi",
+        "difficulty": "easy",
+        "question": "Diện tích hình thoi được tính bằng công thức nào?",
+        "options": [
+            "S = (d1 × d2) / 2",
+            "S = a × h",
+            "S = a × a",
+            "S = a × b"
+        ],
+        "answer": "S = (d1 × d2) / 2",
+        "explanation": "Diện tích hình thoi bằng tích hai đường chéo chia 2."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình thoi",
+        "difficulty": "easy",
+        "question": "Một hình thoi có d1 = 6 cm, d2 = 8 cm. Diện tích là?",
+        "options": [
+            "24 cm²",
+            "48 cm²",
+            "14 cm²",
+            "20 cm²"
+        ],
+        "answer": "24 cm²",
+        "explanation": "S = (6 × 8) / 2 = 24."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Nhận biết hình",
+        "difficulty": "medium",
+        "question": "Hình nào có 4 cạnh bằng nhau?",
+        "options": [
+            "Hình thoi",
+            "Hình bình hành",
+            "Hình chữ nhật",
+            "Tam giác"
+        ],
+        "answer": "Hình thoi",
+        "explanation": "Hình thoi có 4 cạnh bằng nhau."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Nhận biết hình",
+        "difficulty": "medium",
+        "question": "Hình nào có diện tích tính bằng đáy × chiều cao?",
+        "options": [
+            "Hình bình hành",
+            "Hình thoi",
+            "Hình vuông",
+            "Hình tròn"
+        ],
+        "answer": "Hình bình hành",
+        "explanation": "Công thức diện tích hình bình hành."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình bình hành",
+        "difficulty": "medium",
+        "question": "Hình bình hành có đáy 9 cm, chiều cao 4 cm. Diện tích?",
+        "options": [
+            "36 cm²",
+            "13 cm²",
+            "18 cm²",
+            "40 cm²"
+        ],
+        "answer": "36 cm²",
+        "explanation": "S = 9 × 4 = 36."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình thoi",
+        "difficulty": "medium",
+        "question": "Hình thoi có d1 = 10 cm, d2 = 6 cm. Diện tích?",
+        "options": [
+            "30 cm²",
+            "60 cm²",
+            "16 cm²",
+            "40 cm²"
+        ],
+        "answer": "30 cm²",
+        "explanation": "S = (10 × 6)/2."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình thoi",
+        "difficulty": "medium",
+        "question": "Hình thoi có mấy cặp cạnh đối song song?",
+        "options": [
+            "2",
+            "1",
+            "3",
+            "0"
+        ],
+        "answer": "2",
+        "explanation": "Hình thoi là một dạng hình bình hành."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "So sánh hình",
+        "difficulty": "medium",
+        "question": "Hình nào vừa có 4 cạnh bằng nhau vừa có 2 cặp cạnh đối song song?",
+        "options": [
+            "Hình thoi",
+            "Hình bình hành",
+            "Hình chữ nhật",
+            "Tam giác"
+        ],
+        "answer": "Hình thoi",
+        "explanation": "Hình thoi có các tính chất này."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình bình hành",
+        "difficulty": "medium",
+        "question": "Hình bình hành có đáy 12 cm, chiều cao 5 cm. Diện tích?",
+        "options": [
+            "60 cm²",
+            "17 cm²",
+            "24 cm²",
+            "30 cm²"
+        ],
+        "answer": "60 cm²",
+        "explanation": "S = 12 × 5."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình thoi",
+        "difficulty": "medium",
+        "question": "Hình thoi có d1 = 12 cm, d2 = 8 cm. Diện tích?",
+        "options": [
+            "48 cm²",
+            "96 cm²",
+            "20 cm²",
+            "40 cm²"
+        ],
+        "answer": "48 cm²",
+        "explanation": "S = (12 × 8)/2."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Nhận biết hình",
+        "difficulty": "medium",
+        "question": "Hình nào có 2 cặp cạnh đối song song nhưng không nhất thiết bằng nhau?",
+        "options": [
+            "Hình bình hành",
+            "Hình thoi",
+            "Hình vuông",
+            "Hình tròn"
+        ],
+        "answer": "Hình bình hành",
+        "explanation": "Đặc điểm cơ bản của hình bình hành."
+    },
+    {
+        "grade": 4,
+        "topic": "Hình học",
+        "sub_topic": "Hình bình hành",
+        "difficulty": "medium",
+        "question": "Hình bình hành có đáy 15 cm và chiều cao 6 cm. Diện tích?",
+        "options": [
+            "90 cm²",
+            "21 cm²",
+            "30 cm²",
+            "75 cm²"
+        ],
+        "answer": "90 cm²",
+        "explanation": "S = 15 × 6."
+    }
+]

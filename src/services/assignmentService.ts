@@ -7,9 +7,11 @@ import {
     query,
     orderBy,
     getDoc,
-    runTransaction
+    runTransaction,
+    getDocs
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { sendNotification } from './notificationService';
 
 export interface QuestionData {
     id: number;
@@ -84,14 +86,27 @@ export const createAssignment = async (
             const classDoc = await transaction.get(classRef);
             if (!classDoc.exists()) throw new Error("Class not found");
 
-            const currentTotal = classDoc.data()?.totalAssignments || 0;
-            const currentExpected = classDoc.data()?.totalExpectedSubmissions || 0;
+            const classData = classDoc.data();
+            const currentTotal = classData?.totalAssignments || 0;
+            const currentExpected = classData?.totalExpectedSubmissions || 0;
+            const studentIds = classData?.studentIds || [];
 
             transaction.update(classRef, {
                 totalAssignments: currentTotal + 1,
                 totalExpectedSubmissions: currentExpected + totalStudents
             });
             transaction.set(newAssignmentRef, assignmentData);
+
+            // Send notifications to all students in the class
+            for (const studentId of studentIds) {
+                sendNotification(
+                    studentId,
+                    'assignment',
+                    'Bài tập mới từ giáo viên',
+                    `Bạn có bài tập mới: "${title}". Hạn nộp: ${dueDate.toLocaleString('vi-VN')}`,
+                    { classId, assignmentId: newAssignmentRef.id }
+                ).catch(err => console.error("Error sending student notification:", err));
+            }
         });
 
         return assignmentData;
@@ -140,12 +155,14 @@ export const submitAssignment = async (
             const classRef = doc(db, 'classes', classId);
             const assignmentRef = doc(db, 'classes', classId, 'assignments', assignmentId);
             const submissionRef = doc(assignmentRef, 'submissions', studentId);
+            const userRef = doc(db, 'users', studentId);
 
             // 1. READ OPERATIONS FIRST
-            const [classDoc, assignmentDoc, submissionDoc] = await Promise.all([
+            const [classDoc, assignmentDoc, submissionDoc, userDoc] = await Promise.all([
                 transaction.get(classRef),
                 transaction.get(assignmentRef),
-                transaction.get(submissionRef)
+                transaction.get(submissionRef),
+                transaction.get(userRef)
             ]);
 
             if (!assignmentDoc.exists()) {
@@ -179,11 +196,33 @@ export const submitAssignment = async (
                 avgScore: newAvg
             });
 
+            // Update user profile totalCompletedAssignments
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                transaction.update(userRef, {
+                    totalCompletedAssignments: (userData.totalCompletedAssignments || 0) + 1
+                });
+            }
+
             if (classDoc.exists()) {
-                const currentSubmitted = classDoc.data().submitted || 0;
+                const classData = classDoc.data();
+                const currentSubmitted = classData.submitted || 0;
+                const teacherId = classData.teacherId;
+
                 transaction.update(classRef, {
                     submitted: currentSubmitted + 1
                 });
+
+                // Send notification to the teacher
+                if (teacherId) {
+                    sendNotification(
+                        teacherId,
+                        'submission',
+                        'Nộp bài mới',
+                        `Học sinh ${studentName} vừa nộp bài cho "${assignmentData.title}"`,
+                        { classId, assignmentId, studentId }
+                    ).catch(err => console.error("Error sending teacher notification:", err));
+                }
             }
         });
     } catch (error) {
@@ -286,6 +325,23 @@ export const subscribeToDraftAssignments = (teacherId: string, callback: (drafts
     }, (error) => {
         console.error("Error subscribing to drafts:", error);
     });
+};
+
+export const validateDraftForAutoGrading = (draft: DraftAssignmentData) => {
+    const issues: string[] = [];
+    draft.questions.forEach((q, index) => {
+        if (q.type === 'multiple_choice') {
+            if (typeof q.correctAnswer !== 'number') {
+                issues.push(`Câu ${index + 1} (${q.text.slice(0, 30)}...) chưa chọn đáp án đúng.`);
+            }
+        } else if (q.type === 'checkbox') {
+            const arr = Array.isArray(q.correctAnswer) ? q.correctAnswer : [];
+            if (arr.length === 0) {
+                issues.push(`Câu ${index + 1} (${q.text.slice(0, 30)}...) chưa chọn đáp án đúng (ít nhất một đáp án).`);
+            }
+        }
+    });
+    return issues;
 };
 
 export const deleteDraftAssignment = async (draftId: string) => {

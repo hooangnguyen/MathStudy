@@ -1,7 +1,8 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
+import 'katex/dist/katex.min.css';
 import { FirebaseProvider } from './context/FirebaseProvider';
 import ErrorBoundary from './components/common/ErrorBoundary';
 
@@ -14,13 +15,13 @@ const shouldSuppress = (arg: any) => {
   try {
     const errorString = (
       typeof arg === 'string' ? arg :
-      arg instanceof Error ? arg.message :
-      JSON.stringify(arg)
+        arg instanceof Error ? arg.message :
+          JSON.stringify(arg)
     ).toLowerCase();
-    return errorString.includes('metamask') || 
-           errorString.includes('failed to connect') ||
-           errorString.includes('coinbase') ||
-           errorString.includes('extension');
+    return errorString.includes('metamask') ||
+      errorString.includes('failed to connect') ||
+      errorString.includes('coinbase') ||
+      errorString.includes('extension');
   } catch (e) {
     return false;
   }
@@ -45,10 +46,10 @@ window.addEventListener('unhandledrejection', (event) => {
 
 window.addEventListener('error', (event) => {
   const isExtensionError = event.filename && (
-    event.filename.startsWith('chrome-extension://') || 
+    event.filename.startsWith('chrome-extension://') ||
     event.filename.startsWith('moz-extension://')
   );
-  
+
   if (isExtensionError || shouldSuppress(event.error) || shouldSuppress(event.message)) {
     event.preventDefault();
     event.stopImmediatePropagation();

@@ -1,0 +1,3542 @@
+[
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Ôn tập phân số",
+        "difficulty": "easy",
+        "question": "Phân số nào dưới đây bằng 1/2?",
+        "options": [
+            "2/3",
+            "3/6",
+            "4/5",
+            "5/8"
+        ],
+        "answer": "3/6",
+        "explanation": "3/6 = 1/2 vì khi chia cả tử và mẫu cho 3 ta được 1/2."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Ôn tập phân số",
+        "difficulty": "easy",
+        "question": "Phân số nào lớn nhất?",
+        "options": [
+            "1/4",
+            "2/5",
+            "3/5",
+            "1/2"
+        ],
+        "answer": "3/5",
+        "explanation": "Quy đồng mẫu hoặc đổi sang số thập phân: 1/4=0.25, 2/5=0.4, 1/2=0.5, 3/5=0.6 nên 3/5 lớn nhất."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển đổi hỗn số",
+        "difficulty": "medium",
+        "question": "Hỗn số 2 1/3 được viết dưới dạng phân số là bao nhiêu?",
+        "options": [
+            "5/3",
+            "6/3",
+            "7/3",
+            "8/3"
+        ],
+        "answer": "7/3",
+        "explanation": "2 1/3 = (2 × 3 + 1) / 3 = 7/3."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Nhận biết hỗn số",
+        "difficulty": "easy",
+        "question": "Số nào sau đây là hỗn số?",
+        "options": [
+            "5/4",
+            "2 1/5",
+            "3/7",
+            "4/9"
+        ],
+        "answer": "2 1/5",
+        "explanation": "Hỗn số gồm một số tự nhiên và một phân số nhỏ hơn 1."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Phân số nào là phân số thập phân?",
+        "options": [
+            "3/5",
+            "7/10",
+            "2/3",
+            "4/7"
+        ],
+        "answer": "7/10",
+        "explanation": "Phân số thập phân là phân số có mẫu số là 10, 100, 1000,..."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Trong các phân số sau, phân số nào có thể viết thành phân số thập phân?",
+        "options": [
+            "1/2",
+            "1/3",
+            "2/7",
+            "5/9"
+        ],
+        "answer": "1/2",
+        "explanation": "1/2 = 5/10 nên có thể viết thành phân số thập phân."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "Phân số nào bé hơn 3/4?",
+        "options": [
+            "5/6",
+            "2/3",
+            "4/5",
+            "7/8"
+        ],
+        "answer": "2/3",
+        "explanation": "Quy đồng: 3/4 = 9/12, 2/3 = 8/12 nên 2/3 nhỏ hơn 3/4."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển đổi hỗn số",
+        "difficulty": "medium",
+        "question": "Phân số 9/4 viết dưới dạng hỗn số là gì?",
+        "options": [
+            "1 3/4",
+            "2 1/4",
+            "2 3/4",
+            "3 1/4"
+        ],
+        "answer": "2 1/4",
+        "explanation": "9 ÷ 4 = 2 dư 1 nên 9/4 = 2 1/4."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Rút gọn phân số",
+        "difficulty": "easy",
+        "question": "Phân số 6/8 rút gọn được thành phân số nào?",
+        "options": [
+            "3/4",
+            "2/3",
+            "4/5",
+            "5/6"
+        ],
+        "answer": "3/4",
+        "explanation": "Chia cả tử và mẫu cho 2: 6/8 = 3/4."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Nhận biết phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng với 4/6?",
+        "options": [
+            "2/3",
+            "3/4",
+            "5/6",
+            "4/5"
+        ],
+        "answer": "2/3",
+        "explanation": "Rút gọn 4/6 bằng cách chia cả tử và mẫu cho 2: 4/6 = 2/3."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển hỗn số thành phân số",
+        "difficulty": "medium",
+        "question": "Hỗn số 3 2/5 được viết thành phân số là gì?",
+        "options": [
+            "15/5",
+            "16/5",
+            "17/5",
+            "18/5"
+        ],
+        "answer": "17/5",
+        "explanation": "3 2/5 = (3 × 5 + 2) / 5 = 17/5."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển phân số thành hỗn số",
+        "difficulty": "medium",
+        "question": "Phân số 11/3 viết dưới dạng hỗn số là gì?",
+        "options": [
+            "3 1/3",
+            "3 2/3",
+            "2 3/3",
+            "4 1/3"
+        ],
+        "answer": "3 2/3",
+        "explanation": "11 ÷ 3 = 3 dư 2 nên 11/3 = 3 2/3."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Phân số nào sau đây là phân số thập phân?",
+        "options": [
+            "3/100",
+            "4/7",
+            "5/9",
+            "6/11"
+        ],
+        "answer": "3/100",
+        "explanation": "Phân số thập phân có mẫu số là 10, 100, 1000,..."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Chuyển đổi",
+        "difficulty": "medium",
+        "question": "Phân số 3/5 viết thành phân số thập phân là gì?",
+        "options": [
+            "6/10",
+            "3/10",
+            "9/10",
+            "12/10"
+        ],
+        "answer": "6/10",
+        "explanation": "Nhân cả tử và mẫu với 2: 3/5 = 6/10."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "Trong các phân số sau, phân số nào lớn nhất?",
+        "options": [
+            "5/8",
+            "3/4",
+            "2/3",
+            "7/10"
+        ],
+        "answer": "3/4",
+        "explanation": "Đổi sang số thập phân: 5/8=0.625, 3/4=0.75, 2/3≈0.67, 7/10=0.7 nên 3/4 lớn nhất."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Nhận biết tử số và mẫu số",
+        "difficulty": "easy",
+        "question": "Trong phân số 5/9, số 9 được gọi là gì?",
+        "options": [
+            "Tử số",
+            "Mẫu số",
+            "Hiệu",
+            "Tổng"
+        ],
+        "answer": "Mẫu số",
+        "explanation": "Trong phân số a/b thì a là tử số và b là mẫu số."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Rút gọn phân số",
+        "difficulty": "easy",
+        "question": "Phân số 10/15 rút gọn được thành phân số nào?",
+        "options": [
+            "2/3",
+            "3/5",
+            "5/6",
+            "4/7"
+        ],
+        "answer": "2/3",
+        "explanation": "Chia cả tử và mẫu cho 5: 10/15 = 2/3."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "Phân số nào nhỏ nhất?",
+        "options": [
+            "3/8",
+            "1/2",
+            "4/5",
+            "2/3"
+        ],
+        "answer": "3/8",
+        "explanation": "Đổi sang số thập phân: 3/8=0.375, 1/2=0.5, 2/3≈0.67, 4/5=0.8 nên 3/8 nhỏ nhất."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển hỗn số thành phân số",
+        "difficulty": "medium",
+        "question": "Hỗn số 4 1/2 được viết thành phân số là gì?",
+        "options": [
+            "8/2",
+            "9/2",
+            "10/2",
+            "7/2"
+        ],
+        "answer": "9/2",
+        "explanation": "4 1/2 = (4 × 2 + 1) / 2 = 9/2."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển phân số thành hỗn số",
+        "difficulty": "medium",
+        "question": "Phân số 13/4 viết dưới dạng hỗn số là gì?",
+        "options": [
+            "2 3/4",
+            "3 1/4",
+            "3 3/4",
+            "4 1/4"
+        ],
+        "answer": "3 1/4",
+        "explanation": "13 ÷ 4 = 3 dư 1 nên 13/4 = 3 1/4."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Phân số nào sau đây có thể viết thành phân số thập phân?",
+        "options": [
+            "2/5",
+            "3/7",
+            "4/9",
+            "5/11"
+        ],
+        "answer": "2/5",
+        "explanation": "2/5 = 4/10 nên có thể viết thành phân số thập phân."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Trong các phân số sau, phân số nào là phân số thập phân?",
+        "options": [
+            "7/10",
+            "3/8",
+            "5/6",
+            "2/7"
+        ],
+        "answer": "7/10",
+        "explanation": "Phân số thập phân là phân số có mẫu số là 10, 100, 1000,..."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 2/4?",
+        "options": [
+            "1/2",
+            "3/5",
+            "4/5",
+            "2/3"
+        ],
+        "answer": "1/2",
+        "explanation": "Rút gọn 2/4 bằng cách chia cả tử và mẫu cho 2: 2/4 = 1/2."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Nhận biết phân số",
+        "difficulty": "easy",
+        "question": "Phân số nào sau đây bé hơn 1?",
+        "options": [
+            "5/4",
+            "7/6",
+            "3/5",
+            "9/8"
+        ],
+        "answer": "3/5",
+        "explanation": "Phân số bé hơn 1 khi tử số nhỏ hơn mẫu số."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Rút gọn phân số",
+        "difficulty": "easy",
+        "question": "Phân số 8/12 rút gọn được thành phân số nào?",
+        "options": [
+            "2/3",
+            "3/4",
+            "4/5",
+            "5/6"
+        ],
+        "answer": "2/3",
+        "explanation": "Chia cả tử và mẫu cho 4: 8/12 = 2/3."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "Trong các phân số sau, phân số nào lớn hơn 1/2?",
+        "options": [
+            "2/5",
+            "3/10",
+            "4/9",
+            "3/5"
+        ],
+        "answer": "3/5",
+        "explanation": "Đổi sang số thập phân: 1/2 = 0.5; 3/5 = 0.6 nên 3/5 lớn hơn 1/2."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển hỗn số thành phân số",
+        "difficulty": "medium",
+        "question": "Hỗn số 5 2/3 được viết thành phân số là gì?",
+        "options": [
+            "15/3",
+            "16/3",
+            "17/3",
+            "18/3"
+        ],
+        "answer": "17/3",
+        "explanation": "5 2/3 = (5 × 3 + 2) / 3 = 17/3."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển phân số thành hỗn số",
+        "difficulty": "medium",
+        "question": "Phân số 15/4 viết dưới dạng hỗn số là gì?",
+        "options": [
+            "3 3/4",
+            "2 3/4",
+            "4 1/4",
+            "3 1/4"
+        ],
+        "answer": "3 3/4",
+        "explanation": "15 ÷ 4 = 3 dư 3 nên 15/4 = 3 3/4."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Phân số nào dưới đây là phân số thập phân?",
+        "options": [
+            "4/10",
+            "5/7",
+            "3/8",
+            "6/11"
+        ],
+        "answer": "4/10",
+        "explanation": "Phân số thập phân có mẫu số là 10, 100, 1000,..."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Chuyển đổi",
+        "difficulty": "medium",
+        "question": "Phân số 7/5 viết thành phân số thập phân là gì?",
+        "options": [
+            "14/10",
+            "7/10",
+            "21/10",
+            "35/10"
+        ],
+        "answer": "14/10",
+        "explanation": "Nhân cả tử và mẫu với 2: 7/5 = 14/10."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Nhận biết tử và mẫu",
+        "difficulty": "easy",
+        "question": "Trong phân số 7/8, số 7 được gọi là gì?",
+        "options": [
+            "Tử số",
+            "Mẫu số",
+            "Hiệu",
+            "Tổng"
+        ],
+        "answer": "Tử số",
+        "explanation": "Trong phân số a/b thì a là tử số và b là mẫu số."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Rút gọn phân số",
+        "difficulty": "easy",
+        "question": "Phân số 9/12 rút gọn được thành phân số nào?",
+        "options": [
+            "3/4",
+            "2/3",
+            "4/5",
+            "5/6"
+        ],
+        "answer": "3/4",
+        "explanation": "Chia cả tử và mẫu cho 3: 9/12 = 3/4."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "Phân số nào lớn hơn 2/3?",
+        "options": [
+            "1/2",
+            "3/4",
+            "4/7",
+            "5/9"
+        ],
+        "answer": "3/4",
+        "explanation": "Đổi sang số thập phân: 2/3 ≈ 0.67; 3/4 = 0.75 nên 3/4 lớn hơn."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển hỗn số thành phân số",
+        "difficulty": "medium",
+        "question": "Hỗn số 6 1/4 được viết thành phân số là gì?",
+        "options": [
+            "24/4",
+            "25/4",
+            "26/4",
+            "23/4"
+        ],
+        "answer": "25/4",
+        "explanation": "6 1/4 = (6 × 4 + 1) / 4 = 25/4."
+    },
+    {
+        "grade": 4,
+        "topic": "Hỗn số",
+        "sub_topic": "Chuyển phân số thành hỗn số",
+        "difficulty": "medium",
+        "question": "Phân số 17/5 viết dưới dạng hỗn số là gì?",
+        "options": [
+            "3 1/5",
+            "3 2/5",
+            "2 3/5",
+            "4 1/5"
+        ],
+        "answer": "3 2/5",
+        "explanation": "17 ÷ 5 = 3 dư 2 nên 17/5 = 3 2/5."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số thập phân",
+        "sub_topic": "Chuyển đổi",
+        "difficulty": "medium",
+        "question": "Phân số 4/5 viết thành phân số thập phân là gì?",
+        "options": [
+            "8/10",
+            "4/10",
+            "12/10",
+            "16/10"
+        ],
+        "answer": "8/10",
+        "explanation": "Nhân cả tử và mẫu với 2: 4/5 = 8/10."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Nhận biết phân số",
+        "difficulty": "easy",
+        "question": "Phân số nào sau đây lớn hơn 1?",
+        "options": [
+            "3/5",
+            "7/6",
+            "4/9",
+            "2/7"
+        ],
+        "answer": "7/6",
+        "explanation": "Phân số lớn hơn 1 khi tử số lớn hơn mẫu số."
+    },
+    {
+        "grade": 4,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 3/5?",
+        "options": [
+            "6/10",
+            "9/20",
+            "4/10",
+            "5/8"
+        ],
+        "answer": "6/10",
+        "explanation": "Nhân cả tử và mẫu với 2: 3/5 = 6/10."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Số nào lớn hơn?",
+        "options": [
+            "3,5",
+            "3,4",
+            "Bằng nhau",
+            "Không xác định"
+        ],
+        "answer": "3,5",
+        "explanation": "Hai số có phần nguyên bằng nhau, so sánh phần mười: 5 > 4."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Số nào bé hơn?",
+        "options": [
+            "2,3",
+            "2,8",
+            "Bằng nhau",
+            "Không xác định"
+        ],
+        "answer": "2,3",
+        "explanation": "Phần nguyên bằng nhau, so sánh phần mười: 3 < 8."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 4,6 ... 4,2",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "Không xác định"
+        ],
+        "answer": ">",
+        "explanation": "6 > 2 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 5,1 ... 5,7",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "1 < 7 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 8,4 ... 8,4",
+        "options": [
+            "=",
+            "<",
+            ">",
+            "Không xác định"
+        ],
+        "answer": "=",
+        "explanation": "Hai số giống nhau."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 3,08 ... 3,8",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "3,08 = 3,08 và 3,8 = 3,80 nên 08 < 80."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 4,50 ... 4,5",
+        "options": [
+            "=",
+            "<",
+            ">",
+            "Không xác định"
+        ],
+        "answer": "=",
+        "explanation": "4,50 và 4,5 có giá trị bằng nhau."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 5,17 ... 5,71",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "1 < 7 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 6,09 ... 6,9",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "6,09 = 6,09 và 6,9 = 6,90 nên 09 < 90."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 9,12 ... 9,21",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "1 < 2 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 7,003 ... 7,03",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "7,003 < 7,030."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 2,999 ... 3,0",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "2,999 nhỏ hơn 3."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "hard",
+        "question": "Số nào lớn nhất?",
+        "options": [
+            "3,45",
+            "3,405",
+            "3,5",
+            "3,49"
+        ],
+        "answer": "3,5",
+        "explanation": "3,5 = 3,50 lớn nhất."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "hard",
+        "question": "Số nào nhỏ nhất?",
+        "options": [
+            "4,08",
+            "4,8",
+            "4,18",
+            "4,008"
+        ],
+        "answer": "4,008",
+        "explanation": "So sánh phần thập phân: 008 nhỏ nhất."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "hard",
+        "question": "Chọn dấu đúng: 5,678 ... 5,687",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "678 < 687."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "hard",
+        "question": "Chọn dấu đúng: 7,500 ... 7,5",
+        "options": [
+            "=",
+            "<",
+            ">",
+            "Không xác định"
+        ],
+        "answer": "=",
+        "explanation": "7,500 = 7,5."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 2,4 ... 2,9",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "4 < 9."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 8,6 ... 8,1",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "Không xác định"
+        ],
+        "answer": ">",
+        "explanation": "6 > 1."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 1,5 ... 1,7",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "1,5 nhỏ hơn 1,7 vì 5 < 7 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 3,6 ... 3,2",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "Không xác định"
+        ],
+        "answer": ">",
+        "explanation": "6 > 2 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 6,4 ... 6,4",
+        "options": [
+            "=",
+            "<",
+            ">",
+            "Không xác định"
+        ],
+        "answer": "=",
+        "explanation": "Hai số giống nhau."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 5,08 ... 5,8",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "5,08 = 5,080 nhỏ hơn 5,800."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 8,004 ... 8,04",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "8,004 < 8,040."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 2,45 ... 2,54",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "4 < 5 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 4,305 ... 4,35",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "4,305 < 4,350."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 1,009 ... 1,09",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "1,009 < 1,090."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "hard",
+        "question": "Chọn dấu đúng: 9,999 ... 10,0",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "9,999 nhỏ hơn 10."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "hard",
+        "question": "Chọn dấu đúng: 6,500 ... 6,5",
+        "options": [
+            "=",
+            "<",
+            ">",
+            "Không xác định"
+        ],
+        "answer": "=",
+        "explanation": "6,500 = 6,5."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 0,4 ... 0,9",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "4 < 9."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 0,8 ... 0,1",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "Không xác định"
+        ],
+        "answer": ">",
+        "explanation": "8 > 1."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 1,8 ... 1,6",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "Không xác định"
+        ],
+        "answer": ">",
+        "explanation": "8 > 6 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 3,4 ... 3,9",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "4 < 9."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 5,3 ... 5,3",
+        "options": [
+            "=",
+            "<",
+            ">",
+            "Không xác định"
+        ],
+        "answer": "=",
+        "explanation": "Hai số giống nhau."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 7,02 ... 7,2",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "7,02 = 7,020 nhỏ hơn 7,200."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 9,007 ... 9,07",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "9,007 < 9,070."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 4,19 ... 4,91",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "1 < 9 ở hàng phần mười."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 6,304 ... 6,34",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "6,304 < 6,340."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "medium",
+        "question": "Chọn dấu đúng: 2,006 ... 2,06",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "2,006 < 2,060."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "hard",
+        "question": "Chọn dấu đúng: 8,999 ... 9,0",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "8,999 nhỏ hơn 9."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "hard",
+        "question": "Chọn dấu đúng: 3,600 ... 3,6",
+        "options": [
+            "=",
+            "<",
+            ">",
+            "Không xác định"
+        ],
+        "answer": "=",
+        "explanation": "3,600 = 3,6."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 0,3 ... 0,7",
+        "options": [
+            "<",
+            ">",
+            "=",
+            "Không xác định"
+        ],
+        "answer": "<",
+        "explanation": "3 < 7."
+    },
+    {
+        "grade": 4,
+        "topic": "Số thập phân",
+        "sub_topic": "So sánh số thập phân",
+        "difficulty": "easy",
+        "question": "Chọn dấu đúng: 0,6 ... 0,2",
+        "options": [
+            ">",
+            "<",
+            "=",
+            "Không xác định"
+        ],
+        "answer": ">",
+        "explanation": "6 > 2."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Công thức tính diện tích tam giác là gì?",
+        "options": [
+            "S = a × b",
+            "S = (a × h) : 2",
+            "S = a + b + c",
+            "S = a × a"
+        ],
+        "answer": "S = (a × h) : 2",
+        "explanation": "Diện tích tam giác bằng tích của đáy và chiều cao tương ứng chia cho 2."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 6 cm và chiều cao 4 cm. Diện tích là bao nhiêu?",
+        "options": [
+            "12 cm²",
+            "24 cm²",
+            "10 cm²",
+            "20 cm²"
+        ],
+        "answer": "12 cm²",
+        "explanation": "S = (6 × 4) : 2 = 12 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 10 cm và chiều cao 5 cm. Diện tích bằng bao nhiêu?",
+        "options": [
+            "50 cm²",
+            "25 cm²",
+            "20 cm²",
+            "30 cm²"
+        ],
+        "answer": "25 cm²",
+        "explanation": "S = (10 × 5) : 2 = 25 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Đơn vị thường dùng để đo diện tích tam giác là gì?",
+        "options": [
+            "cm",
+            "cm²",
+            "cm³",
+            "m"
+        ],
+        "answer": "cm²",
+        "explanation": "Diện tích được đo bằng đơn vị vuông."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có đáy 8 m và chiều cao 6 m. Diện tích là:",
+        "options": [
+            "24 m²",
+            "48 m²",
+            "14 m²",
+            "30 m²"
+        ],
+        "answer": "24 m²",
+        "explanation": "S = (8 × 6) : 2 = 24 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 20 cm² và đáy 8 cm. Chiều cao là:",
+        "options": [
+            "4 cm",
+            "5 cm",
+            "6 cm",
+            "3 cm"
+        ],
+        "answer": "5 cm",
+        "explanation": "20 = (8 × h) : 2 → 40 = 8h → h = 5 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 12 cm, chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "36 cm²",
+            "72 cm²",
+            "30 cm²",
+            "24 cm²"
+        ],
+        "answer": "36 cm²",
+        "explanation": "S = (12 × 6) : 2 = 36 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 30 m² và chiều cao 5 m. Đáy là:",
+        "options": [
+            "12 m",
+            "10 m",
+            "6 m",
+            "15 m"
+        ],
+        "answer": "12 m",
+        "explanation": "30 = (a × 5) : 2 → 60 = 5a → a = 12 m."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 9 cm và chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "9 cm²",
+            "18 cm²",
+            "12 cm²",
+            "6 cm²"
+        ],
+        "answer": "9 cm²",
+        "explanation": "S = (9 × 2) : 2 = 9 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 14 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "28 cm²",
+            "56 cm²",
+            "18 cm²",
+            "20 cm²"
+        ],
+        "answer": "28 cm²",
+        "explanation": "S = (14 × 4) : 2 = 28 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Nếu đáy tam giác tăng gấp đôi, chiều cao giữ nguyên thì diện tích sẽ:",
+        "options": [
+            "Tăng gấp đôi",
+            "Không đổi",
+            "Giảm một nửa",
+            "Tăng gấp bốn"
+        ],
+        "answer": "Tăng gấp đôi",
+        "explanation": "Diện tích tỉ lệ thuận với đáy khi chiều cao không đổi."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Nếu chiều cao giảm một nửa, đáy giữ nguyên thì diện tích:",
+        "options": [
+            "Giảm một nửa",
+            "Tăng gấp đôi",
+            "Không đổi",
+            "Tăng gấp bốn"
+        ],
+        "answer": "Giảm một nửa",
+        "explanation": "Diện tích tỉ lệ thuận với chiều cao."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 7 cm và chiều cao 8 cm. Diện tích là:",
+        "options": [
+            "28 cm²",
+            "56 cm²",
+            "24 cm²",
+            "30 cm²"
+        ],
+        "answer": "28 cm²",
+        "explanation": "S = (7 × 8) : 2 = 28 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 18 cm² và đáy 6 cm. Chiều cao là:",
+        "options": [
+            "6 cm",
+            "4 cm",
+            "3 cm",
+            "8 cm"
+        ],
+        "answer": "6 cm",
+        "explanation": "18 = (6 × h) : 2 → 36 = 6h → h = 6 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 16 cm, chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "40 cm²",
+            "80 cm²",
+            "30 cm²",
+            "35 cm²"
+        ],
+        "answer": "40 cm²",
+        "explanation": "S = (16 × 5) : 2 = 40 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 20 cm và chiều cao 3 cm. Diện tích là:",
+        "options": [
+            "30 cm²",
+            "60 cm²",
+            "20 cm²",
+            "15 cm²"
+        ],
+        "answer": "30 cm²",
+        "explanation": "S = (20 × 3) : 2 = 30 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 45 cm² và chiều cao 9 cm. Đáy là:",
+        "options": [
+            "10 cm",
+            "8 cm",
+            "9 cm",
+            "12 cm"
+        ],
+        "answer": "10 cm",
+        "explanation": "45 = (a × 9) : 2 → 90 = 9a → a = 10 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 11 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "22 cm²",
+            "44 cm²",
+            "15 cm²",
+            "20 cm²"
+        ],
+        "answer": "22 cm²",
+        "explanation": "S = (11 × 4) : 2 = 22 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 24 m² và đáy 6 m. Chiều cao là:",
+        "options": [
+            "6 m",
+            "8 m",
+            "4 m",
+            "10 m"
+        ],
+        "answer": "8 m",
+        "explanation": "24 = (6 × h) : 2 → 48 = 6h → h = 8 m."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 5 cm và chiều cao 10 cm. Diện tích là:",
+        "options": [
+            "25 cm²",
+            "50 cm²",
+            "20 cm²",
+            "30 cm²"
+        ],
+        "answer": "25 cm²",
+        "explanation": "S = (5 × 10) : 2 = 25 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 18 cm và chiều cao 4 cm. Diện tích là bao nhiêu?",
+        "options": [
+            "36 cm²",
+            "72 cm²",
+            "40 cm²",
+            "18 cm²"
+        ],
+        "answer": "36 cm²",
+        "explanation": "S = (18 × 4) : 2 = 36 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 15 cm và chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "45 cm²",
+            "90 cm²",
+            "30 cm²",
+            "60 cm²"
+        ],
+        "answer": "45 cm²",
+        "explanation": "S = (15 × 6) : 2 = 45 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 10 cm và chiều cao 8 cm. Diện tích bằng:",
+        "options": [
+            "40 cm²",
+            "80 cm²",
+            "20 cm²",
+            "18 cm²"
+        ],
+        "answer": "40 cm²",
+        "explanation": "S = (10 × 8) : 2 = 40 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 16 cm² và đáy 4 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "6 cm",
+            "4 cm",
+            "10 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "16 = (4 × h) : 2 → 32 = 4h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 25 cm và chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "25 cm²",
+            "50 cm²",
+            "20 cm²",
+            "30 cm²"
+        ],
+        "answer": "25 cm²",
+        "explanation": "S = (25 × 2) : 2 = 25 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 35 cm² và chiều cao 5 cm. Đáy là:",
+        "options": [
+            "14 cm",
+            "10 cm",
+            "7 cm",
+            "12 cm"
+        ],
+        "answer": "14 cm",
+        "explanation": "35 = (a × 5) : 2 → 70 = 5a → a = 14 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 30 cm và chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "30 cm²",
+            "60 cm²",
+            "40 cm²",
+            "20 cm²"
+        ],
+        "answer": "30 cm²",
+        "explanation": "S = (30 × 2) : 2 = 30 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 9 m và chiều cao 4 m. Diện tích là:",
+        "options": [
+            "18 m²",
+            "36 m²",
+            "20 m²",
+            "40 m²"
+        ],
+        "answer": "18 m²",
+        "explanation": "S = (9 × 4) : 2 = 18 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 27 m² và đáy 6 m. Chiều cao là:",
+        "options": [
+            "9 m",
+            "6 m",
+            "3 m",
+            "12 m"
+        ],
+        "answer": "9 m",
+        "explanation": "27 = (6 × h) : 2 → 54 = 6h → h = 9 m."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 13 cm và chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "39 cm²",
+            "78 cm²",
+            "26 cm²",
+            "18 cm²"
+        ],
+        "answer": "39 cm²",
+        "explanation": "S = (13 × 6) : 2 = 39 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 22 cm và chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "44 cm²",
+            "88 cm²",
+            "30 cm²",
+            "40 cm²"
+        ],
+        "answer": "44 cm²",
+        "explanation": "S = (22 × 4) : 2 = 44 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 21 cm² và đáy 7 cm. Chiều cao là:",
+        "options": [
+            "6 cm",
+            "3 cm",
+            "4 cm",
+            "5 cm"
+        ],
+        "answer": "6 cm",
+        "explanation": "21 = (7 × h) : 2 → 42 = 7h → h = 6 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 16 cm và chiều cao 8 cm. Diện tích là:",
+        "options": [
+            "64 cm²",
+            "32 cm²",
+            "48 cm²",
+            "40 cm²"
+        ],
+        "answer": "64 cm²",
+        "explanation": "S = (16 × 8) : 2 = 64 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 6 m và chiều cao 10 m. Diện tích là:",
+        "options": [
+            "30 m²",
+            "60 m²",
+            "20 m²",
+            "40 m²"
+        ],
+        "answer": "30 m²",
+        "explanation": "S = (6 × 10) : 2 = 30 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 50 m² và chiều cao 10 m. Đáy là:",
+        "options": [
+            "10 m",
+            "5 m",
+            "8 m",
+            "12 m"
+        ],
+        "answer": "10 m",
+        "explanation": "50 = (a × 10) : 2 → 100 = 10a → a = 10 m."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 24 cm và chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "72 cm²",
+            "48 cm²",
+            "60 cm²",
+            "36 cm²"
+        ],
+        "answer": "72 cm²",
+        "explanation": "S = (24 × 6) : 2 = 72 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 5 m và chiều cao 12 m. Diện tích là:",
+        "options": [
+            "30 m²",
+            "60 m²",
+            "24 m²",
+            "36 m²"
+        ],
+        "answer": "30 m²",
+        "explanation": "S = (5 × 12) : 2 = 30 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 32 cm² và đáy 8 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "4 cm",
+            "6 cm",
+            "10 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "32 = (8 × h) : 2 → 64 = 8h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 7 m và chiều cao 14 m. Diện tích là:",
+        "options": [
+            "49 m²",
+            "98 m²",
+            "28 m²",
+            "56 m²"
+        ],
+        "answer": "49 m²",
+        "explanation": "S = (7 × 14) : 2 = 49 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 40 cm và chiều cao 3 cm. Diện tích là:",
+        "options": [
+            "60 cm²",
+            "120 cm²",
+            "80 cm²",
+            "50 cm²"
+        ],
+        "answer": "60 cm²",
+        "explanation": "S = (40 × 3) : 2 = 60 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 12 m và chiều cao 10 m. Diện tích là:",
+        "options": [
+            "60 m²",
+            "120 m²",
+            "50 m²",
+            "40 m²"
+        ],
+        "answer": "60 m²",
+        "explanation": "S = (12 × 10) : 2 = 60 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 14 cm và chiều cao 10 cm. Diện tích là:",
+        "options": [
+            "70 cm²",
+            "140 cm²",
+            "50 cm²",
+            "60 cm²"
+        ],
+        "answer": "70 cm²",
+        "explanation": "S = (14 × 10) : 2 = 70 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 48 cm² và đáy 12 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "6 cm",
+            "10 cm",
+            "12 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "48 = (12 × h) : 2 → 96 = 12h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 18 cm và chiều cao 8 cm. Diện tích là:",
+        "options": [
+            "72 cm²",
+            "144 cm²",
+            "64 cm²",
+            "36 cm²"
+        ],
+        "answer": "72 cm²",
+        "explanation": "S = (18 × 8) : 2 = 72 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 9 cm và chiều cao 12 cm. Diện tích là:",
+        "options": [
+            "54 cm²",
+            "108 cm²",
+            "36 cm²",
+            "45 cm²"
+        ],
+        "answer": "54 cm²",
+        "explanation": "S = (9 × 12) : 2 = 54 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 20 cm² và chiều cao 4 cm. Đáy là:",
+        "options": [
+            "10 cm",
+            "8 cm",
+            "6 cm",
+            "12 cm"
+        ],
+        "answer": "10 cm",
+        "explanation": "20 = (a × 4) : 2 → 40 = 4a → a = 10 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 16 m và chiều cao 4 m. Diện tích là:",
+        "options": [
+            "32 m²",
+            "64 m²",
+            "40 m²",
+            "48 m²"
+        ],
+        "answer": "32 m²",
+        "explanation": "S = (16 × 4) : 2 = 32 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 36 m² và đáy 9 m. Chiều cao là:",
+        "options": [
+            "8 m",
+            "6 m",
+            "4 m",
+            "10 m"
+        ],
+        "answer": "8 m",
+        "explanation": "36 = (9 × h) : 2 → 72 = 9h → h = 8 m."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 21 cm và chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "63 cm²",
+            "42 cm²",
+            "126 cm²",
+            "54 cm²"
+        ],
+        "answer": "63 cm²",
+        "explanation": "S = (21 × 6) : 2 = 63 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 8 m và chiều cao 14 m. Diện tích là:",
+        "options": [
+            "56 m²",
+            "112 m²",
+            "48 m²",
+            "64 m²"
+        ],
+        "answer": "56 m²",
+        "explanation": "S = (8 × 14) : 2 = 56 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 30 cm² và đáy 5 cm. Chiều cao là:",
+        "options": [
+            "12 cm",
+            "10 cm",
+            "6 cm",
+            "8 cm"
+        ],
+        "answer": "12 cm",
+        "explanation": "30 = (5 × h) : 2 → 60 = 5h → h = 12 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 19 cm và chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "38 cm²",
+            "76 cm²",
+            "40 cm²",
+            "28 cm²"
+        ],
+        "answer": "38 cm²",
+        "explanation": "S = (19 × 4) : 2 = 38 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 28 cm và chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "70 cm²",
+            "140 cm²",
+            "80 cm²",
+            "60 cm²"
+        ],
+        "answer": "70 cm²",
+        "explanation": "S = (28 × 5) : 2 = 70 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 54 cm² và chiều cao 6 cm. Đáy là:",
+        "options": [
+            "18 cm",
+            "12 cm",
+            "9 cm",
+            "15 cm"
+        ],
+        "answer": "18 cm",
+        "explanation": "54 = (a × 6) : 2 → 108 = 6a → a = 18 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 11 m và chiều cao 10 m. Diện tích là:",
+        "options": [
+            "55 m²",
+            "110 m²",
+            "44 m²",
+            "66 m²"
+        ],
+        "answer": "55 m²",
+        "explanation": "S = (11 × 10) : 2 = 55 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 26 cm và chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "52 cm²",
+            "104 cm²",
+            "40 cm²",
+            "60 cm²"
+        ],
+        "answer": "52 cm²",
+        "explanation": "S = (26 × 4) : 2 = 52 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 72 cm² và đáy 12 cm. Chiều cao là:",
+        "options": [
+            "12 cm",
+            "10 cm",
+            "8 cm",
+            "6 cm"
+        ],
+        "answer": "12 cm",
+        "explanation": "72 = (12 × h) : 2 → 144 = 12h → h = 12 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 32 cm và chiều cao 3 cm. Diện tích là:",
+        "options": [
+            "48 cm²",
+            "96 cm²",
+            "64 cm²",
+            "36 cm²"
+        ],
+        "answer": "48 cm²",
+        "explanation": "S = (32 × 3) : 2 = 48 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 50 cm và chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "50 cm²",
+            "100 cm²",
+            "40 cm²",
+            "60 cm²"
+        ],
+        "answer": "50 cm²",
+        "explanation": "S = (50 × 2) : 2 = 50 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 64 cm² và đáy 16 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "6 cm",
+            "4 cm",
+            "10 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "64 = (16 × h) : 2 → 128 = 16h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 17 cm và chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "51 cm²",
+            "102 cm²",
+            "34 cm²",
+            "60 cm²"
+        ],
+        "answer": "51 cm²",
+        "explanation": "S = (17 × 6) : 2 = 51 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 12 cm và chiều cao 12 cm. Diện tích là:",
+        "options": [
+            "72 cm²",
+            "144 cm²",
+            "60 cm²",
+            "48 cm²"
+        ],
+        "answer": "72 cm²",
+        "explanation": "S = (12 × 12) : 2 = 72 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 40 cm² và đáy 8 cm. Chiều cao là:",
+        "options": [
+            "10 cm",
+            "8 cm",
+            "6 cm",
+            "12 cm"
+        ],
+        "answer": "10 cm",
+        "explanation": "40 = (8 × h) : 2 → 80 = 8h → h = 10 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 23 cm và chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "46 cm²",
+            "92 cm²",
+            "40 cm²",
+            "50 cm²"
+        ],
+        "answer": "46 cm²",
+        "explanation": "S = (23 × 4) : 2 = 46 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 14 m và chiều cao 12 m. Diện tích là:",
+        "options": [
+            "84 m²",
+            "168 m²",
+            "70 m²",
+            "96 m²"
+        ],
+        "answer": "84 m²",
+        "explanation": "S = (14 × 12) : 2 = 84 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 63 cm² và chiều cao 9 cm. Đáy là:",
+        "options": [
+            "14 cm",
+            "12 cm",
+            "9 cm",
+            "7 cm"
+        ],
+        "answer": "14 cm",
+        "explanation": "63 = (a × 9) : 2 → 126 = 9a → a = 14 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 33 cm và chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "66 cm²",
+            "132 cm²",
+            "44 cm²",
+            "60 cm²"
+        ],
+        "answer": "66 cm²",
+        "explanation": "S = (33 × 4) : 2 = 66 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 10 m và chiều cao 16 m. Diện tích là:",
+        "options": [
+            "80 m²",
+            "160 m²",
+            "60 m²",
+            "70 m²"
+        ],
+        "answer": "80 m²",
+        "explanation": "S = (10 × 16) : 2 = 80 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 90 cm² và đáy 15 cm. Chiều cao là:",
+        "options": [
+            "12 cm",
+            "10 cm",
+            "8 cm",
+            "6 cm"
+        ],
+        "answer": "12 cm",
+        "explanation": "90 = (15 × h) : 2 → 180 = 15h → h = 12 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 27 cm và chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "81 cm²",
+            "162 cm²",
+            "72 cm²",
+            "90 cm²"
+        ],
+        "answer": "81 cm²",
+        "explanation": "S = (27 × 6) : 2 = 81 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 36 cm và chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "90 cm²",
+            "180 cm²",
+            "100 cm²",
+            "80 cm²"
+        ],
+        "answer": "90 cm²",
+        "explanation": "S = (36 × 5) : 2 = 90 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 28 cm² và chiều cao 4 cm. Đáy là:",
+        "options": [
+            "14 cm",
+            "7 cm",
+            "10 cm",
+            "12 cm"
+        ],
+        "answer": "14 cm",
+        "explanation": "28 = (a × 4) : 2 → 56 = 4a → a = 14 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 45 cm và chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "45 cm²",
+            "90 cm²",
+            "40 cm²",
+            "50 cm²"
+        ],
+        "answer": "45 cm²",
+        "explanation": "S = (45 × 2) : 2 = 45 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 20 m và chiều cao 7 m. Diện tích là:",
+        "options": [
+            "70 m²",
+            "140 m²",
+            "60 m²",
+            "80 m²"
+        ],
+        "answer": "70 m²",
+        "explanation": "S = (20 × 7) : 2 = 70 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 56 cm² và đáy 14 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "6 cm",
+            "4 cm",
+            "10 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "56 = (14 × h) : 2 → 112 = 14h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 48 cm và chiều cao 3 cm. Diện tích là:",
+        "options": [
+            "72 cm²",
+            "144 cm²",
+            "60 cm²",
+            "90 cm²"
+        ],
+        "answer": "72 cm²",
+        "explanation": "S = (48 × 3) : 2 = 72 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 13 m và chiều cao 14 m. Diện tích là:",
+        "options": [
+            "91 m²",
+            "182 m²",
+            "70 m²",
+            "84 m²"
+        ],
+        "answer": "91 m²",
+        "explanation": "S = (13 × 14) : 2 = 91 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 75 cm² và chiều cao 5 cm. Đáy là:",
+        "options": [
+            "30 cm",
+            "25 cm",
+            "15 cm",
+            "20 cm"
+        ],
+        "answer": "30 cm",
+        "explanation": "75 = (a × 5) : 2 → 150 = 5a → a = 30 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "easy",
+        "question": "Tam giác có đáy 60 cm và chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "60 cm²",
+            "120 cm²",
+            "80 cm²",
+            "40 cm²"
+        ],
+        "answer": "60 cm²",
+        "explanation": "S = (60 × 2) : 2 = 60 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích tam giác",
+        "difficulty": "medium",
+        "question": "Tam giác có diện tích 100 cm² và đáy 20 cm. Chiều cao là:",
+        "options": [
+            "10 cm",
+            "8 cm",
+            "5 cm",
+            "12 cm"
+        ],
+        "answer": "10 cm",
+        "explanation": "100 = (20 × h) : 2 → 200 = 20h → h = 10 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Công thức tính diện tích hình thang là gì?",
+        "options": [
+            "S = (a + b) × h",
+            "S = (a + b) × h : 2",
+            "S = a × b",
+            "S = (a × h) : 2"
+        ],
+        "answer": "S = (a + b) × h : 2",
+        "explanation": "Diện tích hình thang bằng tổng hai đáy nhân với chiều cao rồi chia cho 2."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 10 cm, đáy bé 6 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "32 cm²",
+            "64 cm²",
+            "40 cm²",
+            "20 cm²"
+        ],
+        "answer": "32 cm²",
+        "explanation": "S = (10 + 6) × 4 : 2 = 32 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 12 cm, đáy bé 8 cm, chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "50 cm²",
+            "100 cm²",
+            "40 cm²",
+            "60 cm²"
+        ],
+        "answer": "50 cm²",
+        "explanation": "S = (12 + 8) × 5 : 2 = 50 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 14 cm, đáy bé 6 cm, chiều cao 3 cm. Diện tích là:",
+        "options": [
+            "30 cm²",
+            "60 cm²",
+            "24 cm²",
+            "36 cm²"
+        ],
+        "answer": "30 cm²",
+        "explanation": "S = (14 + 6) × 3 : 2 = 30 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 48 cm², đáy lớn 10 cm, đáy bé 6 cm. Chiều cao là:",
+        "options": [
+            "6 cm",
+            "8 cm",
+            "10 cm",
+            "12 cm"
+        ],
+        "answer": "6 cm",
+        "explanation": "48 = (10 + 6) × h : 2 → 96 = 16h → h = 6 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 20 cm, đáy bé 10 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "60 cm²",
+            "80 cm²",
+            "40 cm²",
+            "100 cm²"
+        ],
+        "answer": "60 cm²",
+        "explanation": "S = (20 + 10) × 4 : 2 = 60 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 16 cm, đáy bé 8 cm, chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "72 cm²",
+            "96 cm²",
+            "48 cm²",
+            "64 cm²"
+        ],
+        "answer": "72 cm²",
+        "explanation": "S = (16 + 8) × 6 : 2 = 72 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 45 cm², đáy lớn 9 cm, đáy bé 6 cm. Chiều cao là:",
+        "options": [
+            "6 cm",
+            "5 cm",
+            "4 cm",
+            "3 cm"
+        ],
+        "answer": "6 cm",
+        "explanation": "45 = (9 + 6) × h : 2 → 90 = 15h → h = 6 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 18 cm, đáy bé 12 cm, chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "75 cm²",
+            "60 cm²",
+            "90 cm²",
+            "45 cm²"
+        ],
+        "answer": "75 cm²",
+        "explanation": "S = (18 + 12) × 5 : 2 = 75 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 25 cm, đáy bé 15 cm, chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "40 cm²",
+            "50 cm²",
+            "60 cm²",
+            "80 cm²"
+        ],
+        "answer": "40 cm²",
+        "explanation": "S = (25 + 15) × 2 : 2 = 40 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 84 cm², đáy lớn 14 cm, đáy bé 10 cm. Chiều cao là:",
+        "options": [
+            "7 cm",
+            "8 cm",
+            "6 cm",
+            "9 cm"
+        ],
+        "answer": "7 cm",
+        "explanation": "84 = (14 + 10) × h : 2 → 168 = 24h → h = 7 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 30 cm, đáy bé 10 cm, chiều cao 3 cm. Diện tích là:",
+        "options": [
+            "60 cm²",
+            "90 cm²",
+            "45 cm²",
+            "30 cm²"
+        ],
+        "answer": "60 cm²",
+        "explanation": "S = (30 + 10) × 3 : 2 = 60 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 22 cm, đáy bé 8 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "60 cm²",
+            "48 cm²",
+            "72 cm²",
+            "64 cm²"
+        ],
+        "answer": "60 cm²",
+        "explanation": "S = (22 + 8) × 4 : 2 = 60 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 36 cm², đáy lớn 8 cm, đáy bé 4 cm. Chiều cao là:",
+        "options": [
+            "6 cm",
+            "8 cm",
+            "5 cm",
+            "4 cm"
+        ],
+        "answer": "6 cm",
+        "explanation": "36 = (8 + 4) × h : 2 → 72 = 12h → h = 6 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 40 cm, đáy bé 20 cm, chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "60 cm²",
+            "80 cm²",
+            "100 cm²",
+            "120 cm²"
+        ],
+        "answer": "60 cm²",
+        "explanation": "S = (40 + 20) × 2 : 2 = 60 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 15 cm, đáy bé 5 cm, chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "60 cm²",
+            "45 cm²",
+            "30 cm²",
+            "50 cm²"
+        ],
+        "answer": "60 cm²",
+        "explanation": "S = (15 + 5) × 6 : 2 = 60 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 70 cm², đáy lớn 12 cm, đáy bé 8 cm. Chiều cao là:",
+        "options": [
+            "7 cm",
+            "5 cm",
+            "6 cm",
+            "8 cm"
+        ],
+        "answer": "7 cm",
+        "explanation": "70 = (12 + 8) × h : 2 → 140 = 20h → h = 7 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 24 cm, đáy bé 16 cm, chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "100 cm²",
+            "80 cm²",
+            "120 cm²",
+            "90 cm²"
+        ],
+        "answer": "100 cm²",
+        "explanation": "S = (24 + 16) × 5 : 2 = 100 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 28 cm, đáy bé 12 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "80 cm²",
+            "64 cm²",
+            "72 cm²",
+            "96 cm²"
+        ],
+        "answer": "80 cm²",
+        "explanation": "S = (28 + 12) × 4 : 2 = 80 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 96 cm², đáy lớn 20 cm, đáy bé 4 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "6 cm",
+            "10 cm",
+            "12 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "96 = (20 + 4) × h : 2 → 192 = 24h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 18 cm, đáy bé 10 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "56 cm²",
+            "64 cm²",
+            "72 cm²",
+            "48 cm²"
+        ],
+        "answer": "56 cm²",
+        "explanation": "S = (18 + 10) × 4 : 2 = 56 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 14 cm, đáy bé 12 cm, chiều cao 3 cm. Diện tích là:",
+        "options": [
+            "39 cm²",
+            "36 cm²",
+            "42 cm²",
+            "48 cm²"
+        ],
+        "answer": "39 cm²",
+        "explanation": "S = (14 + 12) × 3 : 2 = 39 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 20 cm, đáy bé 16 cm, chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "90 cm²",
+            "80 cm²",
+            "100 cm²",
+            "70 cm²"
+        ],
+        "answer": "90 cm²",
+        "explanation": "S = (20 + 16) × 5 : 2 = 90 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 60 cm², đáy lớn 12 cm, đáy bé 8 cm. Chiều cao là:",
+        "options": [
+            "6 cm",
+            "5 cm",
+            "4 cm",
+            "8 cm"
+        ],
+        "answer": "6 cm",
+        "explanation": "60 = (12 + 8) × h : 2 → 120 = 20h → h = 6 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 30 cm, đáy bé 14 cm, chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "44 cm²",
+            "60 cm²",
+            "50 cm²",
+            "40 cm²"
+        ],
+        "answer": "44 cm²",
+        "explanation": "S = (30 + 14) × 2 : 2 = 44 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 26 cm, đáy bé 10 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "72 cm²",
+            "68 cm²",
+            "64 cm²",
+            "80 cm²"
+        ],
+        "answer": "72 cm²",
+        "explanation": "S = (26 + 10) × 4 : 2 = 72 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 84 cm², đáy lớn 16 cm, đáy bé 8 cm. Chiều cao là:",
+        "options": [
+            "7 cm",
+            "6 cm",
+            "5 cm",
+            "8 cm"
+        ],
+        "answer": "7 cm",
+        "explanation": "84 = (16 + 8) × h : 2 → 168 = 24h → h = 7 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 40 cm, đáy bé 12 cm, chiều cao 3 cm. Diện tích là:",
+        "options": [
+            "78 cm²",
+            "70 cm²",
+            "60 cm²",
+            "90 cm²"
+        ],
+        "answer": "78 cm²",
+        "explanation": "S = (40 + 12) × 3 : 2 = 78 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 22 cm, đáy bé 14 cm, chiều cao 6 cm. Diện tích là:",
+        "options": [
+            "108 cm²",
+            "96 cm²",
+            "90 cm²",
+            "120 cm²"
+        ],
+        "answer": "108 cm²",
+        "explanation": "S = (22 + 14) × 6 : 2 = 108 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 72 cm², đáy lớn 10 cm, đáy bé 8 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "6 cm",
+            "4 cm",
+            "10 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "72 = (10 + 8) × h : 2 → 144 = 18h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 34 cm, đáy bé 6 cm, chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "100 cm²",
+            "90 cm²",
+            "80 cm²",
+            "70 cm²"
+        ],
+        "answer": "100 cm²",
+        "explanation": "S = (34 + 6) × 5 : 2 = 100 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 28 cm, đáy bé 20 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "96 cm²",
+            "100 cm²",
+            "88 cm²",
+            "80 cm²"
+        ],
+        "answer": "96 cm²",
+        "explanation": "S = (28 + 20) × 4 : 2 = 96 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 64 cm², đáy lớn 12 cm, đáy bé 4 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "6 cm",
+            "10 cm",
+            "4 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "64 = (12 + 4) × h : 2 → 128 = 16h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 50 cm, đáy bé 30 cm, chiều cao 2 cm. Diện tích là:",
+        "options": [
+            "80 cm²",
+            "70 cm²",
+            "60 cm²",
+            "90 cm²"
+        ],
+        "answer": "80 cm²",
+        "explanation": "S = (50 + 30) × 2 : 2 = 80 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 16 m, đáy bé 8 m, chiều cao 6 m. Diện tích là:",
+        "options": [
+            "72 m²",
+            "96 m²",
+            "80 m²",
+            "64 m²"
+        ],
+        "answer": "72 m²",
+        "explanation": "S = (16 + 8) × 6 : 2 = 72 m²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 54 m², đáy lớn 12 m, đáy bé 6 m. Chiều cao là:",
+        "options": [
+            "6 m",
+            "5 m",
+            "4 m",
+            "3 m"
+        ],
+        "answer": "6 m",
+        "explanation": "54 = (12 + 6) × h : 2 → 108 = 18h → h = 6 m."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 36 cm, đáy bé 14 cm, chiều cao 4 cm. Diện tích là:",
+        "options": [
+            "100 cm²",
+            "90 cm²",
+            "80 cm²",
+            "120 cm²"
+        ],
+        "answer": "100 cm²",
+        "explanation": "S = (36 + 14) × 4 : 2 = 100 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 18 cm, đáy bé 2 cm, chiều cao 10 cm. Diện tích là:",
+        "options": [
+            "100 cm²",
+            "90 cm²",
+            "80 cm²",
+            "60 cm²"
+        ],
+        "answer": "100 cm²",
+        "explanation": "S = (18 + 2) × 10 : 2 = 100 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "medium",
+        "question": "Hình thang có diện tích 48 cm², đáy lớn 10 cm, đáy bé 2 cm. Chiều cao là:",
+        "options": [
+            "8 cm",
+            "6 cm",
+            "4 cm",
+            "10 cm"
+        ],
+        "answer": "8 cm",
+        "explanation": "48 = (10 + 2) × h : 2 → 96 = 12h → h = 8 cm."
+    },
+    {
+        "grade": 5,
+        "topic": "Hình học",
+        "sub_topic": "Diện tích hình thang",
+        "difficulty": "easy",
+        "question": "Hình thang có đáy lớn 24 cm, đáy bé 12 cm, chiều cao 5 cm. Diện tích là:",
+        "options": [
+            "90 cm²",
+            "80 cm²",
+            "70 cm²",
+            "60 cm²"
+        ],
+        "answer": "90 cm²",
+        "explanation": "S = (24 + 12) × 5 : 2 = 90 cm²."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "Tỉ số phần trăm của 20 và 100 là:",
+        "options": [
+            "10%",
+            "20%",
+            "25%",
+            "30%"
+        ],
+        "answer": "20%",
+        "explanation": "20 : 100 = 0,2 = 20%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "Tỉ số phần trăm của 25 và 100 là:",
+        "options": [
+            "20%",
+            "25%",
+            "30%",
+            "40%"
+        ],
+        "answer": "25%",
+        "explanation": "25 : 100 = 0,25 = 25%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "Tỉ số phần trăm của 30 và 60 là:",
+        "options": [
+            "40%",
+            "50%",
+            "60%",
+            "30%"
+        ],
+        "answer": "50%",
+        "explanation": "30 : 60 = 0,5 = 50%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "10% của 200 là:",
+        "options": [
+            "10",
+            "15",
+            "20",
+            "25"
+        ],
+        "answer": "20",
+        "explanation": "200 × 10% = 20."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "25% của 80 là:",
+        "options": [
+            "10",
+            "20",
+            "30",
+            "40"
+        ],
+        "answer": "20",
+        "explanation": "80 × 25% = 20."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "50% của 60 là:",
+        "options": [
+            "20",
+            "25",
+            "30",
+            "35"
+        ],
+        "answer": "30",
+        "explanation": "60 × 50% = 30."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "medium",
+        "question": "Tỉ số phần trăm của 15 và 60 là:",
+        "options": [
+            "20%",
+            "25%",
+            "30%",
+            "35%"
+        ],
+        "answer": "25%",
+        "explanation": "15 : 60 = 0,25 = 25%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "5% của 200 là:",
+        "options": [
+            "5",
+            "10",
+            "15",
+            "20"
+        ],
+        "answer": "10",
+        "explanation": "200 × 5% = 10."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "20% của 150 là:",
+        "options": [
+            "20",
+            "25",
+            "30",
+            "35"
+        ],
+        "answer": "30",
+        "explanation": "150 × 20% = 30."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "medium",
+        "question": "Tỉ số phần trăm của 12 và 48 là:",
+        "options": [
+            "20%",
+            "25%",
+            "30%",
+            "40%"
+        ],
+        "answer": "25%",
+        "explanation": "12 : 48 = 0,25 = 25%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "15% của 200 là:",
+        "options": [
+            "20",
+            "30",
+            "25",
+            "35"
+        ],
+        "answer": "30",
+        "explanation": "200 × 15% = 30."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "40% của 50 là:",
+        "options": [
+            "10",
+            "20",
+            "30",
+            "40"
+        ],
+        "answer": "20",
+        "explanation": "50 × 40% = 20."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "medium",
+        "question": "Tỉ số phần trăm của 18 và 90 là:",
+        "options": [
+            "10%",
+            "15%",
+            "20%",
+            "25%"
+        ],
+        "answer": "20%",
+        "explanation": "18 : 90 = 0,2 = 20%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "30% của 90 là:",
+        "options": [
+            "20",
+            "27",
+            "30",
+            "36"
+        ],
+        "answer": "27",
+        "explanation": "90 × 30% = 27."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "75% của 40 là:",
+        "options": [
+            "25",
+            "30",
+            "35",
+            "20"
+        ],
+        "answer": "30",
+        "explanation": "40 × 75% = 30."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "medium",
+        "question": "Tỉ số phần trăm của 24 và 80 là:",
+        "options": [
+            "20%",
+            "25%",
+            "30%",
+            "35%"
+        ],
+        "answer": "30%",
+        "explanation": "24 : 80 = 0,3 = 30%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "60% của 50 là:",
+        "options": [
+            "25",
+            "30",
+            "35",
+            "40"
+        ],
+        "answer": "30",
+        "explanation": "50 × 60% = 30."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "35% của 200 là:",
+        "options": [
+            "60",
+            "70",
+            "80",
+            "90"
+        ],
+        "answer": "70",
+        "explanation": "200 × 35% = 70."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "medium",
+        "question": "Tỉ số phần trăm của 45 và 90 là:",
+        "options": [
+            "40%",
+            "45%",
+            "50%",
+            "55%"
+        ],
+        "answer": "50%",
+        "explanation": "45 : 90 = 0,5 = 50%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "80% của 25 là:",
+        "options": [
+            "10",
+            "15",
+            "20",
+            "25"
+        ],
+        "answer": "20",
+        "explanation": "25 × 80% = 20."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "90% của 50 là:",
+        "options": [
+            "40",
+            "45",
+            "50",
+            "35"
+        ],
+        "answer": "45",
+        "explanation": "50 × 90% = 45."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "medium",
+        "question": "Tỉ số phần trăm của 16 và 80 là:",
+        "options": [
+            "10%",
+            "20%",
+            "25%",
+            "30%"
+        ],
+        "answer": "20%",
+        "explanation": "16 : 80 = 0,2 = 20%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "12% của 100 là:",
+        "options": [
+            "10",
+            "12",
+            "15",
+            "20"
+        ],
+        "answer": "12",
+        "explanation": "100 × 12% = 12."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "45% của 200 là:",
+        "options": [
+            "80",
+            "90",
+            "100",
+            "110"
+        ],
+        "answer": "90",
+        "explanation": "200 × 45% = 90."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "medium",
+        "question": "Tỉ số phần trăm của 27 và 90 là:",
+        "options": [
+            "20%",
+            "25%",
+            "30%",
+            "35%"
+        ],
+        "answer": "30%",
+        "explanation": "27 : 90 = 0,3 = 30%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "65% của 40 là:",
+        "options": [
+            "20",
+            "24",
+            "26",
+            "30"
+        ],
+        "answer": "26",
+        "explanation": "40 × 65% = 26."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "15% của 60 là:",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "9",
+        "explanation": "60 × 15% = 9."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "medium",
+        "question": "Tỉ số phần trăm của 21 và 70 là:",
+        "options": [
+            "25%",
+            "30%",
+            "35%",
+            "40%"
+        ],
+        "answer": "30%",
+        "explanation": "21 : 70 = 0,3 = 30%."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "55% của 100 là:",
+        "options": [
+            "45",
+            "50",
+            "55",
+            "60"
+        ],
+        "answer": "55",
+        "explanation": "100 × 55% = 55."
+    },
+    {
+        "grade": 5,
+        "topic": "Số học",
+        "sub_topic": "Tỉ số phần trăm",
+        "difficulty": "easy",
+        "question": "70% của 30 là:",
+        "options": [
+            "18",
+            "20",
+            "21",
+            "24"
+        ],
+        "answer": "21",
+        "explanation": "30 × 70% = 21."
+    },
+    {
+        "grade": 5,
+        "topic": "Chuyển động đều",
+        "sub_topic": "Hai xe đi ngược chiều",
+        "difficulty": "easy",
+        "question": "Hai xe xuất phát cùng lúc từ hai điểm cách nhau 160 km và đi ngược chiều nhau. Xe A chạy 40 km/h, xe B chạy 40 km/h. Hỏi sau bao lâu hai xe gặp nhau?",
+        "options": [
+            "1 giờ",
+            "2 giờ",
+            "3 giờ",
+            "4 giờ"
+        ],
+        "answer": "2 giờ",
+        "explanation": "Tổng vận tốc = 40 + 40 = 80 km/h. Thời gian gặp nhau = 160 : 80 = 2 giờ."
+    },
+    {
+        "grade": 5,
+        "topic": "Chuyển động đều",
+        "sub_topic": "Hai xe đi ngược chiều",
+        "difficulty": "medium",
+        "question": "Hai xe khởi hành cùng lúc từ hai điểm A và B cách nhau 240 km và đi ngược chiều nhau. Xe A đi 60 km/h, xe B đi 40 km/h. Sau bao lâu hai xe gặp nhau?",
+        "options": [
+            "2 giờ",
+            "2.4 giờ",
+            "3 giờ",
+            "4 giờ"
+        ],
+        "answer": "2.4 giờ",
+        "explanation": "Tổng vận tốc = 60 + 40 = 100 km/h. Thời gian = 240 : 100 = 2.4 giờ."
+    },
+    {
+        "grade": 5,
+        "topic": "Chuyển động đều",
+        "sub_topic": "Hai xe đi cùng chiều",
+        "difficulty": "easy",
+        "question": "Xe A đi trước với vận tốc 30 km/h. Xe B đi sau với vận tốc 50 km/h. Khoảng cách ban đầu giữa hai xe là 60 km. Hỏi sau bao lâu xe B đuổi kịp xe A?",
+        "options": [
+            "2 giờ",
+            "3 giờ",
+            "4 giờ",
+            "5 giờ"
+        ],
+        "answer": "3 giờ",
+        "explanation": "Vận tốc đuổi = 50 - 30 = 20 km/h. Thời gian = 60 : 20 = 3 giờ."
+    },
+    {
+        "grade": 5,
+        "topic": "Chuyển động đều",
+        "sub_topic": "Hai xe đi cùng chiều",
+        "difficulty": "medium",
+        "question": "Hai xe xuất phát cùng lúc từ cùng một điểm và đi cùng chiều. Xe A chạy 48 km/h, xe B chạy 60 km/h. Sau bao lâu khoảng cách giữa hai xe là 36 km?",
+        "options": [
+            "2 giờ",
+            "3 giờ",
+            "4 giờ",
+            "5 giờ"
+        ],
+        "answer": "3 giờ",
+        "explanation": "Vận tốc lệch = 60 - 48 = 12 km/h. Thời gian = 36 : 12 = 3 giờ."
+    },
+    {
+        "grade": 5,
+        "topic": "Chuyển động đều",
+        "sub_topic": "Hai xe đi ngược chiều",
+        "difficulty": "hard",
+        "question": "Hai xe xuất phát cùng lúc từ hai điểm cách nhau 350 km và đi ngược chiều nhau. Xe A đi 70 km/h, xe B đi 30 km/h. Hỏi sau bao lâu hai xe gặp nhau?",
+        "options": [
+            "2 giờ",
+            "3 giờ",
+            "3.5 giờ",
+            "4 giờ"
+        ],
+        "answer": "3.5 giờ",
+        "explanation": "Tổng vận tốc = 70 + 30 = 100 km/h. Thời gian = 350 : 100 = 3.5 giờ."
+    },
+    {
+        "grade": 5,
+        "topic": "Chuyển động đều",
+        "sub_topic": "Hai xe đi cùng chiều",
+        "difficulty": "hard",
+        "question": "Xe A đi trước với vận tốc 40 km/h. Xe B xuất phát sau 2 giờ với vận tốc 80 km/h. Hỏi sau bao lâu kể từ lúc xe B xuất phát thì xe B đuổi kịp xe A?",
+        "options": [
+            "1 giờ",
+            "2 giờ",
+            "3 giờ",
+            "4 giờ"
+        ],
+        "answer": "2 giờ",
+        "explanation": "Trong 2 giờ xe A đi được 80 km. Vận tốc đuổi = 80 - 40 = 40 km/h. Thời gian đuổi kịp = 80 : 40 = 2 giờ."
+    }
+]

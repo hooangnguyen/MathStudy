@@ -1,0 +1,3272 @@
+[
+    {
+        "grade": 2,
+        "topic": "Ôn tập và bổ sung",
+        "sub_topic": "Số liền trước - liền sau",
+        "difficulty": "Dễ",
+        "question": "Số liền sau của 45 là số nào?",
+        "options": [
+            "44",
+            "45",
+            "46",
+            "47"
+        ],
+        "answer": "46",
+        "explanation": "Số liền sau của 45 là 46."
+    },
+    {
+        "grade": 2,
+        "topic": "Ôn tập và bổ sung",
+        "sub_topic": "Số liền trước - liền sau",
+        "difficulty": "Dễ",
+        "question": "Số liền trước của 30 là số nào?",
+        "options": [
+            "28",
+            "29",
+            "30",
+            "31"
+        ],
+        "answer": "29",
+        "explanation": "Số liền trước của 30 là 29."
+    },
+    {
+        "grade": 2,
+        "topic": "Ôn tập và bổ sung",
+        "sub_topic": "Cộng không nhớ",
+        "difficulty": "Dễ",
+        "question": "23 + 14 = ?",
+        "options": [
+            "35",
+            "36",
+            "37",
+            "38"
+        ],
+        "answer": "37",
+        "explanation": "23 cộng 14 bằng 37."
+    },
+    {
+        "grade": 2,
+        "topic": "Ôn tập và bổ sung",
+        "sub_topic": "Trừ không nhớ",
+        "difficulty": "Dễ",
+        "question": "56 - 21 = ?",
+        "options": [
+            "33",
+            "34",
+            "35",
+            "36"
+        ],
+        "answer": "35",
+        "explanation": "56 trừ 21 bằng 35."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng có nhớ",
+        "sub_topic": "Cộng dạng 9 + a",
+        "difficulty": "Trung bình",
+        "question": "9 + 5 = ?",
+        "options": [
+            "13",
+            "14",
+            "15",
+            "16"
+        ],
+        "answer": "14",
+        "explanation": "9 cộng 5 bằng 14."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng có nhớ",
+        "sub_topic": "Cộng hai chữ số",
+        "difficulty": "Trung bình",
+        "question": "38 + 25 = ?",
+        "options": [
+            "61",
+            "62",
+            "63",
+            "64"
+        ],
+        "answer": "63",
+        "explanation": "38 + 25 = 63."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép trừ có nhớ",
+        "sub_topic": "Trừ hai chữ số",
+        "difficulty": "Trung bình",
+        "question": "64 - 27 = ?",
+        "options": [
+            "35",
+            "36",
+            "37",
+            "38"
+        ],
+        "answer": "37",
+        "explanation": "64 trừ 27 bằng 37."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép trừ có nhớ",
+        "sub_topic": "Trừ dạng 11 - a",
+        "difficulty": "Trung bình",
+        "question": "11 - 5 = ?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "6",
+        "explanation": "11 trừ 5 bằng 6."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học",
+        "sub_topic": "Đường gấp khúc",
+        "difficulty": "Dễ",
+        "question": "Đường gồm nhiều đoạn thẳng nối tiếp gọi là gì?",
+        "options": [
+            "Đường cong",
+            "Đường gấp khúc",
+            "Đường tròn",
+            "Đường thẳng"
+        ],
+        "answer": "Đường gấp khúc",
+        "explanation": "Đường gồm nhiều đoạn thẳng nối tiếp gọi là đường gấp khúc."
+    },
+    {
+        "grade": 2,
+        "topic": "Đo lường",
+        "sub_topic": "Đề-xi-mét",
+        "difficulty": "Dễ",
+        "question": "1 dm bằng bao nhiêu cm?",
+        "options": [
+            "5",
+            "10",
+            "20",
+            "100"
+        ],
+        "answer": "10",
+        "explanation": "1 đề-xi-mét bằng 10 cm."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem đồng hồ",
+        "difficulty": "Dễ",
+        "question": "Kim phút chỉ số 6 là bao nhiêu phút?",
+        "options": [
+            "15",
+            "30",
+            "45",
+            "60"
+        ],
+        "answer": "30",
+        "explanation": "Kim phút chỉ số 6 là 30 phút."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân",
+        "sub_topic": "Bảng nhân 2",
+        "difficulty": "Dễ",
+        "question": "2 × 6 = ?",
+        "options": [
+            "10",
+            "11",
+            "12",
+            "13"
+        ],
+        "answer": "12",
+        "explanation": "2 nhân 6 bằng 12."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân",
+        "sub_topic": "Bảng nhân 5",
+        "difficulty": "Dễ",
+        "question": "5 × 7 = ?",
+        "options": [
+            "30",
+            "35",
+            "40",
+            "45"
+        ],
+        "answer": "35",
+        "explanation": "5 nhân 7 bằng 35."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép chia",
+        "sub_topic": "Chia cho 2",
+        "difficulty": "Dễ",
+        "question": "12 ÷ 2 = ?",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "12 chia 2 bằng 6."
+    },
+    {
+        "grade": 2,
+        "topic": "Các số đến 1000",
+        "sub_topic": "Cấu tạo số",
+        "difficulty": "Trung bình",
+        "question": "Số 345 có bao nhiêu chục?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "34"
+        ],
+        "answer": "4",
+        "explanation": "345 gồm 3 trăm, 4 chục và 5 đơn vị."
+    },
+    {
+        "grade": 2,
+        "topic": "Các số đến 1000",
+        "sub_topic": "So sánh số",
+        "difficulty": "Trung bình",
+        "question": "Số nào lớn hơn?",
+        "options": [
+            "456",
+            "465",
+            "445",
+            "454"
+        ],
+        "answer": "465",
+        "explanation": "465 là số lớn nhất."
+    },
+    {
+        "grade": 2,
+        "topic": "Đo lường",
+        "sub_topic": "Khối lượng",
+        "difficulty": "Dễ",
+        "question": "Đơn vị đo khối lượng thường dùng là gì?",
+        "options": [
+            "m",
+            "kg",
+            "l",
+            "cm"
+        ],
+        "answer": "kg",
+        "explanation": "kg là đơn vị đo khối lượng."
+    },
+    {
+        "grade": 2,
+        "topic": "Dung tích",
+        "sub_topic": "Lít",
+        "difficulty": "Dễ",
+        "question": "Đơn vị đo dung tích là gì?",
+        "options": [
+            "kg",
+            "m",
+            "l",
+            "cm"
+        ],
+        "answer": "l",
+        "explanation": "Lít dùng để đo dung tích."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình khối",
+        "sub_topic": "Nhận biết khối",
+        "difficulty": "Dễ",
+        "question": "Quả bóng có dạng khối gì?",
+        "options": [
+            "Khối trụ",
+            "Khối cầu",
+            "Khối lập phương",
+            "Khối hộp"
+        ],
+        "answer": "Khối cầu",
+        "explanation": "Quả bóng có dạng khối cầu."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 7 = ?",
+        "options": [
+            "15",
+            "16",
+            "17",
+            "18"
+        ],
+        "answer": "16",
+        "explanation": "9 cộng 7 bằng 16."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 6 = ?",
+        "options": [
+            "12",
+            "13",
+            "14",
+            "15"
+        ],
+        "answer": "14",
+        "explanation": "8 cộng 6 bằng 14."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 7 = ?",
+        "options": [
+            "14",
+            "15",
+            "16",
+            "17"
+        ],
+        "answer": "15",
+        "explanation": "8 cộng 7 bằng 15."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 9",
+        "difficulty": "easy",
+        "question": "14 - 9 = ?",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "5",
+        "explanation": "Vì 9 + 5 = 14 nên 14 - 9 = 5."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 9",
+        "difficulty": "easy",
+        "question": "16 - 9 = ?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "7",
+        "explanation": "Vì 9 + 7 = 16 nên 16 - 9 = 7."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 8",
+        "difficulty": "easy",
+        "question": "15 - 8 = ?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "7",
+        "explanation": "Vì 8 + 7 = 15 nên 15 - 8 = 7."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 8",
+        "difficulty": "easy",
+        "question": "14 - 8 = ?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "6",
+        "explanation": "Vì 8 + 6 = 14 nên 14 - 8 = 6."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 34 + 25 là bao nhiêu?",
+        "options": [
+            "49",
+            "59",
+            "69",
+            "58"
+        ],
+        "answer": "59",
+        "explanation": "Đặt tính dọc: 34 + 25. Cộng hàng đơn vị: 4 + 5 = 9. Cộng hàng chục: 3 + 2 = 5. Kết quả là 59."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 46 + 32 là bao nhiêu?",
+        "options": [
+            "78",
+            "68",
+            "88",
+            "76"
+        ],
+        "answer": "78",
+        "explanation": "Đặt tính dọc: 46 + 32. Hàng đơn vị: 6 + 2 = 8. Hàng chục: 4 + 3 = 7. Kết quả là 78."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 63 - 21 là bao nhiêu?",
+        "options": [
+            "42",
+            "52",
+            "44",
+            "41"
+        ],
+        "answer": "42",
+        "explanation": "Đặt tính dọc: 63 - 21. Hàng đơn vị: 3 - 1 = 2. Hàng chục: 6 - 2 = 4. Kết quả là 42."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 75 - 34 là bao nhiêu?",
+        "options": [
+            "41",
+            "51",
+            "39",
+            "43"
+        ],
+        "answer": "41",
+        "explanation": "Đặt tính dọc: 75 - 34. Hàng đơn vị: 5 - 4 = 1. Hàng chục: 7 - 3 = 4. Kết quả là 41."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 47 + 38 là bao nhiêu?",
+        "options": [
+            "75",
+            "85",
+            "95",
+            "65"
+        ],
+        "answer": "85",
+        "explanation": "Đặt tính dọc: 47 + 38. Hàng đơn vị: 7 + 8 = 15, viết 5 nhớ 1. Hàng chục: 4 + 3 + 1 = 8. Kết quả là 85."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 56 + 27 là bao nhiêu?",
+        "options": [
+            "73",
+            "83",
+            "93",
+            "82"
+        ],
+        "answer": "83",
+        "explanation": "Đặt tính dọc: 56 + 27. Hàng đơn vị: 6 + 7 = 13, viết 3 nhớ 1. Hàng chục: 5 + 2 + 1 = 8. Kết quả là 83."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 82 - 47 là bao nhiêu?",
+        "options": [
+            "35",
+            "45",
+            "25",
+            "55"
+        ],
+        "answer": "35",
+        "explanation": "Đặt tính dọc: 82 - 47. Mượn 1 chục: 12 - 7 = 5. Hàng chục còn 7: 7 - 4 = 3. Kết quả là 35."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 91 - 56 là bao nhiêu?",
+        "options": [
+            "45",
+            "35",
+            "25",
+            "55"
+        ],
+        "answer": "35",
+        "explanation": "Đặt tính dọc: 91 - 56. Mượn 1 chục: 11 - 6 = 5. Hàng chục còn 8: 8 - 5 = 3. Kết quả là 35."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 68 + 27 là bao nhiêu?",
+        "options": [
+            "95",
+            "85",
+            "96",
+            "94"
+        ],
+        "answer": "95",
+        "explanation": "Đặt tính dọc: 68 + 27. Hàng đơn vị: 8 + 7 = 15, viết 5 nhớ 1. Hàng chục: 6 + 2 + 1 = 9. Kết quả là 95."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 73 - 48 là bao nhiêu?",
+        "options": [
+            "25",
+            "35",
+            "45",
+            "15"
+        ],
+        "answer": "25",
+        "explanation": "Đặt tính dọc: 73 - 48. Mượn 1 chục: 13 - 8 = 5. Hàng chục còn 6: 6 - 4 = 2. Kết quả là 25."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 6 = ?",
+        "options": [
+            "11",
+            "12",
+            "13",
+            "14"
+        ],
+        "answer": "13",
+        "explanation": "7 cộng 6 bằng 13."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 8 = ?",
+        "options": [
+            "14",
+            "15",
+            "16",
+            "17"
+        ],
+        "answer": "15",
+        "explanation": "7 cộng 8 bằng 15."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 5 = ?",
+        "options": [
+            "11",
+            "12",
+            "13",
+            "14"
+        ],
+        "answer": "12",
+        "explanation": "7 cộng 5 bằng 12."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 7 = ?",
+        "options": [
+            "12",
+            "13",
+            "14",
+            "15"
+        ],
+        "answer": "13",
+        "explanation": "6 cộng 7 bằng 13."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 8 = ?",
+        "options": [
+            "13",
+            "14",
+            "15",
+            "16"
+        ],
+        "answer": "14",
+        "explanation": "6 cộng 8 bằng 14."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 9 = ?",
+        "options": [
+            "14",
+            "15",
+            "16",
+            "17"
+        ],
+        "answer": "15",
+        "explanation": "6 cộng 9 bằng 15."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 7",
+        "difficulty": "easy",
+        "question": "13 - 7 = ?",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "Vì 7 + 6 = 13 nên 13 - 7 = 6."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 7",
+        "difficulty": "easy",
+        "question": "15 - 7 = ?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "8",
+        "explanation": "Vì 7 + 8 = 15 nên 15 - 7 = 8."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 6",
+        "difficulty": "easy",
+        "question": "14 - 6 = ?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "8",
+        "explanation": "Vì 6 + 8 = 14 nên 14 - 6 = 8."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 6",
+        "difficulty": "easy",
+        "question": "15 - 6 = ?",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "9",
+        "explanation": "Vì 6 + 9 = 15 nên 15 - 6 = 9."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 3 = ?",
+        "options": [
+            "11",
+            "12",
+            "13",
+            "14"
+        ],
+        "answer": "12",
+        "explanation": "9 cộng 3 bằng 12."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 6 = ?",
+        "options": [
+            "14",
+            "15",
+            "16",
+            "17"
+        ],
+        "answer": "15",
+        "explanation": "9 cộng 6 bằng 15."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 4 = ?",
+        "options": [
+            "11",
+            "12",
+            "13",
+            "14"
+        ],
+        "answer": "12",
+        "explanation": "8 cộng 4 bằng 12."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 9 = ?",
+        "options": [
+            "15",
+            "16",
+            "17",
+            "18"
+        ],
+        "answer": "17",
+        "explanation": "8 cộng 9 bằng 17."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 7",
+        "difficulty": "easy",
+        "question": "12 - 7 = ?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "5",
+        "explanation": "Vì 7 + 5 = 12 nên 12 - 7 = 5."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "Bảng trừ tương ứng với 8",
+        "difficulty": "easy",
+        "question": "17 - 8 = ?",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "9",
+        "explanation": "Vì 8 + 9 = 17 nên 17 - 8 = 9."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 52 + 16 là bao nhiêu?",
+        "options": [
+            "68",
+            "67",
+            "66",
+            "69"
+        ],
+        "answer": "68",
+        "explanation": "Đặt tính dọc: 52 + 16. Hàng đơn vị: 2 + 6 = 8. Hàng chục: 5 + 1 = 6. Kết quả là 68."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 84 - 23 là bao nhiêu?",
+        "options": [
+            "61",
+            "51",
+            "62",
+            "71"
+        ],
+        "answer": "61",
+        "explanation": "Đặt tính dọc: 84 - 23. Hàng đơn vị: 4 - 3 = 1. Hàng chục: 8 - 2 = 6. Kết quả là 61."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 41 + 37 là bao nhiêu?",
+        "options": [
+            "78",
+            "68",
+            "88",
+            "76"
+        ],
+        "answer": "78",
+        "explanation": "Đặt tính dọc: 41 + 37. Hàng đơn vị: 1 + 7 = 8. Hàng chục: 4 + 3 = 7. Kết quả là 78."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 29 + 45 là bao nhiêu?",
+        "options": [
+            "64",
+            "74",
+            "84",
+            "73"
+        ],
+        "answer": "74",
+        "explanation": "Đặt tính dọc: 29 + 45. Hàng đơn vị: 9 + 5 = 14, viết 4 nhớ 1. Hàng chục: 2 + 4 + 1 = 7. Kết quả là 74."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 67 + 28 là bao nhiêu?",
+        "options": [
+            "95",
+            "85",
+            "96",
+            "94"
+        ],
+        "answer": "95",
+        "explanation": "Đặt tính dọc: 67 + 28. Hàng đơn vị: 7 + 8 = 15, viết 5 nhớ 1. Hàng chục: 6 + 2 + 1 = 9. Kết quả là 95."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 72 - 36 là bao nhiêu?",
+        "options": [
+            "36",
+            "46",
+            "26",
+            "56"
+        ],
+        "answer": "36",
+        "explanation": "Đặt tính dọc: 72 - 36. Mượn 1 chục: 12 - 6 = 6. Hàng chục còn 6: 6 - 3 = 3. Kết quả là 36."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 80 - 47 là bao nhiêu?",
+        "options": [
+            "33",
+            "43",
+            "23",
+            "53"
+        ],
+        "answer": "33",
+        "explanation": "Đặt tính dọc: 80 - 47. Mượn 1 chục: 10 - 7 = 3. Hàng chục còn 7: 7 - 4 = 3. Kết quả là 33."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 58 + 36 là bao nhiêu?",
+        "options": [
+            "94",
+            "84",
+            "95",
+            "93"
+        ],
+        "answer": "94",
+        "explanation": "Đặt tính dọc: 58 + 36. Hàng đơn vị: 8 + 6 = 14, viết 4 nhớ 1. Hàng chục: 5 + 3 + 1 = 9. Kết quả là 94."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 93 - 57 là bao nhiêu?",
+        "options": [
+            "36",
+            "46",
+            "26",
+            "35"
+        ],
+        "answer": "36",
+        "explanation": "Đặt tính dọc: 93 - 57. Mượn 1 chục: 13 - 7 = 6. Hàng chục còn 8: 8 - 5 = 3. Kết quả là 36."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 74 - 38 là bao nhiêu?",
+        "options": [
+            "36",
+            "46",
+            "26",
+            "34"
+        ],
+        "answer": "36",
+        "explanation": "Đặt tính dọc: 74 - 38. Mượn 1 chục: 14 - 8 = 6. Hàng chục còn 6: 6 - 3 = 3. Kết quả là 36."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 21 + 13 là bao nhiêu?",
+        "options": [
+            "34",
+            "35",
+            "33",
+            "36"
+        ],
+        "answer": "34",
+        "explanation": "Cộng hàng đơn vị: 1+3=4, hàng chục: 2+1=3 → 34"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 32 + 15 là bao nhiêu?",
+        "options": [
+            "47",
+            "46",
+            "48",
+            "45"
+        ],
+        "answer": "47",
+        "explanation": "2+5=7, 3+1=4 → 47"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 44 + 12 là bao nhiêu?",
+        "options": [
+            "56",
+            "55",
+            "57",
+            "58"
+        ],
+        "answer": "56",
+        "explanation": "4+2=6, 4+1=5 → 56"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 53 + 24 là bao nhiêu?",
+        "options": [
+            "77",
+            "78",
+            "76",
+            "79"
+        ],
+        "answer": "77",
+        "explanation": "3+4=7, 5+2=7 → 77"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 65 + 14 là bao nhiêu?",
+        "options": [
+            "79",
+            "78",
+            "77",
+            "80"
+        ],
+        "answer": "79",
+        "explanation": "5+4=9, 6+1=7 → 79"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 76 + 13 là bao nhiêu?",
+        "options": [
+            "89",
+            "88",
+            "87",
+            "90"
+        ],
+        "answer": "89",
+        "explanation": "6+3=9, 7+1=8 → 89"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 84 + 11 là bao nhiêu?",
+        "options": [
+            "95",
+            "96",
+            "94",
+            "97"
+        ],
+        "answer": "95",
+        "explanation": "4+1=5, 8+1=9 → 95"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 90 + 8 là bao nhiêu?",
+        "options": [
+            "98",
+            "97",
+            "96",
+            "99"
+        ],
+        "answer": "98",
+        "explanation": "0+8=8, 9 giữ nguyên → 98"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 40 + 17 là bao nhiêu?",
+        "options": [
+            "57",
+            "56",
+            "58",
+            "55"
+        ],
+        "answer": "57",
+        "explanation": "0+7=7, 4+1=5 → 57"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 33 + 22 là bao nhiêu?",
+        "options": [
+            "55",
+            "56",
+            "54",
+            "57"
+        ],
+        "answer": "55",
+        "explanation": "3+2=5, 3+2=5 → 55"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 54 - 21 là bao nhiêu?",
+        "options": [
+            "33",
+            "34",
+            "32",
+            "35"
+        ],
+        "answer": "33",
+        "explanation": "4-1=3, 5-2=3 → 33"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 63 - 32 là bao nhiêu?",
+        "options": [
+            "31",
+            "32",
+            "30",
+            "33"
+        ],
+        "answer": "31",
+        "explanation": "3-2=1, 6-3=3 → 31"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 75 - 24 là bao nhiêu?",
+        "options": [
+            "51",
+            "52",
+            "50",
+            "53"
+        ],
+        "answer": "51",
+        "explanation": "5-4=1, 7-2=5 → 51"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 86 - 41 là bao nhiêu?",
+        "options": [
+            "45",
+            "46",
+            "44",
+            "47"
+        ],
+        "answer": "45",
+        "explanation": "6-1=5, 8-4=4 → 45"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 92 - 50 là bao nhiêu?",
+        "options": [
+            "42",
+            "41",
+            "43",
+            "40"
+        ],
+        "answer": "42",
+        "explanation": "2-0=2, 9-5=4 → 42"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 27 + 38 là bao nhiêu?",
+        "options": [
+            "65",
+            "66",
+            "64",
+            "67"
+        ],
+        "answer": "65",
+        "explanation": "7+8=15 viết 5 nhớ 1; 2+3+1=6 → 65"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 46 + 27 là bao nhiêu?",
+        "options": [
+            "73",
+            "72",
+            "74",
+            "71"
+        ],
+        "answer": "73",
+        "explanation": "6+7=13 viết 3 nhớ 1; 4+2+1=7 → 73"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 39 + 47 là bao nhiêu?",
+        "options": [
+            "86",
+            "85",
+            "87",
+            "84"
+        ],
+        "answer": "86",
+        "explanation": "9+7=16 viết 6 nhớ 1; 3+4+1=8 → 86"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 81 - 47 là bao nhiêu?",
+        "options": [
+            "34",
+            "35",
+            "33",
+            "36"
+        ],
+        "answer": "34",
+        "explanation": "11-7=4; 7-4=3 → 34"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 90 - 56 là bao nhiêu?",
+        "options": [
+            "34",
+            "35",
+            "33",
+            "36"
+        ],
+        "answer": "34",
+        "explanation": "10-6=4; 8-5=3 → 34"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 64 - 29 là bao nhiêu?",
+        "options": [
+            "35",
+            "34",
+            "36",
+            "33"
+        ],
+        "answer": "35",
+        "explanation": "14-9=5; 5-2=3 → 35"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 79 + 18 là bao nhiêu?",
+        "options": [
+            "97",
+            "96",
+            "98",
+            "95"
+        ],
+        "answer": "97",
+        "explanation": "9+8=17 nhớ 1; 7+1+1=9 → 97"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 85 + 19 là bao nhiêu?",
+        "options": [
+            "104",
+            "103",
+            "105",
+            "102"
+        ],
+        "answer": "104",
+        "explanation": "5+9=14 nhớ 1; 8+1+1=10 → 104"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 96 + 17 là bao nhiêu?",
+        "options": [
+            "113",
+            "112",
+            "114",
+            "111"
+        ],
+        "answer": "113",
+        "explanation": "6+7=13 nhớ 1; 9+1+1=11 → 113"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "hard",
+        "question": "Kết quả của phép tính 87 + 26 là bao nhiêu?",
+        "options": [
+            "113",
+            "112",
+            "114",
+            "111"
+        ],
+        "answer": "113",
+        "explanation": "7+6=13 nhớ 1; 8+2+1=11 → 113"
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 1 = ?",
+        "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "9 cộng 1 bằng 10."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 2 = ?",
+        "options": [
+            "10",
+            "11",
+            "12",
+            "13"
+        ],
+        "answer": "11",
+        "explanation": "9 cộng 2 bằng 11."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 4 = ?",
+        "options": [
+            "12",
+            "13",
+            "14",
+            "15"
+        ],
+        "answer": "13",
+        "explanation": "9 cộng 4 bằng 13."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 8 = ?",
+        "options": [
+            "16",
+            "17",
+            "18",
+            "19"
+        ],
+        "answer": "17",
+        "explanation": "9 cộng 8 bằng 17."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 9 = ?",
+        "options": [
+            "17",
+            "18",
+            "19",
+            "20"
+        ],
+        "answer": "18",
+        "explanation": "9 cộng 9 bằng 18."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "9 cộng với một số",
+        "difficulty": "easy",
+        "question": "9 + 10 = ?",
+        "options": [
+            "17",
+            "18",
+            "19",
+            "20"
+        ],
+        "answer": "19",
+        "explanation": "9 cộng 10 bằng 19."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 1 = ?",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "9",
+        "explanation": "8 cộng 1 bằng 9."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 2 = ?",
+        "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "8 cộng 2 bằng 10."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 3 = ?",
+        "options": [
+            "10",
+            "11",
+            "12",
+            "13"
+        ],
+        "answer": "11",
+        "explanation": "8 cộng 3 bằng 11."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 5 = ?",
+        "options": [
+            "12",
+            "13",
+            "14",
+            "15"
+        ],
+        "answer": "13",
+        "explanation": "8 cộng 5 bằng 13."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 8 = ?",
+        "options": [
+            "15",
+            "16",
+            "17",
+            "18"
+        ],
+        "answer": "16",
+        "explanation": "8 cộng 8 bằng 16."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "8 cộng với một số",
+        "difficulty": "easy",
+        "question": "8 + 10 = ?",
+        "options": [
+            "16",
+            "17",
+            "18",
+            "19"
+        ],
+        "answer": "18",
+        "explanation": "8 cộng 10 bằng 18."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 1 = ?",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "8",
+        "explanation": "7 cộng 1 bằng 8."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 2 = ?",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "9",
+        "explanation": "7 cộng 2 bằng 9."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 3 = ?",
+        "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "7 cộng 3 bằng 10."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 4 = ?",
+        "options": [
+            "10",
+            "11",
+            "12",
+            "13"
+        ],
+        "answer": "11",
+        "explanation": "7 cộng 4 bằng 11."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 7 = ?",
+        "options": [
+            "13",
+            "14",
+            "15",
+            "16"
+        ],
+        "answer": "14",
+        "explanation": "7 cộng 7 bằng 14."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 9 = ?",
+        "options": [
+            "15",
+            "16",
+            "17",
+            "18"
+        ],
+        "answer": "16",
+        "explanation": "7 cộng 9 bằng 16."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "7 cộng với một số",
+        "difficulty": "easy",
+        "question": "7 + 10 = ?",
+        "options": [
+            "15",
+            "16",
+            "17",
+            "18"
+        ],
+        "answer": "17",
+        "explanation": "7 cộng 10 bằng 17."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 1 = ?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "7",
+        "explanation": "6 cộng 1 bằng 7."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 2 = ?",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "8",
+        "explanation": "6 cộng 2 bằng 8."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 3 = ?",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "9",
+        "explanation": "6 cộng 3 bằng 9."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 4 = ?",
+        "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "6 cộng 4 bằng 10."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 5 = ?",
+        "options": [
+            "10",
+            "11",
+            "12",
+            "13"
+        ],
+        "answer": "11",
+        "explanation": "6 cộng 5 bằng 11."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 6 = ?",
+        "options": [
+            "11",
+            "12",
+            "13",
+            "14"
+        ],
+        "answer": "12",
+        "explanation": "6 cộng 6 bằng 12."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "6 cộng với một số",
+        "difficulty": "easy",
+        "question": "6 + 10 = ?",
+        "options": [
+            "14",
+            "15",
+            "16",
+            "17"
+        ],
+        "answer": "16",
+        "explanation": "6 cộng 10 bằng 16."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 1 = ?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "6",
+        "explanation": "5 cộng 1 bằng 6."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 2 = ?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "7",
+        "explanation": "5 cộng 2 bằng 7."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 3 = ?",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "8",
+        "explanation": "5 cộng 3 bằng 8."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 4 = ?",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "9",
+        "explanation": "5 cộng 4 bằng 9."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 5 = ?",
+        "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "5 cộng 5 bằng 10."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 6 = ?",
+        "options": [
+            "10",
+            "11",
+            "12",
+            "13"
+        ],
+        "answer": "11",
+        "explanation": "5 cộng 6 bằng 11."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 7 = ?",
+        "options": [
+            "11",
+            "12",
+            "13",
+            "14"
+        ],
+        "answer": "12",
+        "explanation": "5 cộng 7 bằng 12."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 8 = ?",
+        "options": [
+            "12",
+            "13",
+            "14",
+            "15"
+        ],
+        "answer": "13",
+        "explanation": "5 cộng 8 bằng 13."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 9 = ?",
+        "options": [
+            "13",
+            "14",
+            "15",
+            "16"
+        ],
+        "answer": "14",
+        "explanation": "5 cộng 9 bằng 14."
+    },
+    {
+        "grade": 1,
+        "topic": "Các bảng cộng và bảng trừ trong phạm vi 20",
+        "sub_topic": "5 cộng với một số",
+        "difficulty": "easy",
+        "question": "5 + 10 = ?",
+        "options": [
+            "13",
+            "14",
+            "15",
+            "16"
+        ],
+        "answer": "15",
+        "explanation": "5 cộng 10 bằng 15."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 22 + 14 là bao nhiêu?",
+        "options": [
+            "36",
+            "35",
+            "37",
+            "34"
+        ],
+        "answer": "36",
+        "explanation": "2+4=6, 2+1=3 → 36"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 31 + 27 là bao nhiêu?",
+        "options": [
+            "58",
+            "57",
+            "59",
+            "56"
+        ],
+        "answer": "58",
+        "explanation": "1+7=8, 3+2=5 → 58"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 45 + 13 là bao nhiêu?",
+        "options": [
+            "58",
+            "57",
+            "59",
+            "56"
+        ],
+        "answer": "58",
+        "explanation": "5+3=8, 4+1=5 → 58"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 56 + 12 là bao nhiêu?",
+        "options": [
+            "68",
+            "67",
+            "69",
+            "66"
+        ],
+        "answer": "68",
+        "explanation": "6+2=8, 5+1=6 → 68"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 63 + 25 là bao nhiêu?",
+        "options": [
+            "88",
+            "87",
+            "89",
+            "86"
+        ],
+        "answer": "88",
+        "explanation": "3+5=8, 6+2=8 → 88"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 74 + 11 là bao nhiêu?",
+        "options": [
+            "85",
+            "84",
+            "86",
+            "83"
+        ],
+        "answer": "85",
+        "explanation": "4+1=5, 7+1=8 → 85"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 81 + 17 là bao nhiêu?",
+        "options": [
+            "98",
+            "97",
+            "99",
+            "96"
+        ],
+        "answer": "98",
+        "explanation": "1+7=8, 8+1=9 → 98"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 90 + 9 là bao nhiêu?",
+        "options": [
+            "99",
+            "98",
+            "97",
+            "100"
+        ],
+        "answer": "99",
+        "explanation": "0+9=9, 9 giữ nguyên → 99"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 43 + 26 là bao nhiêu?",
+        "options": [
+            "69",
+            "68",
+            "70",
+            "67"
+        ],
+        "answer": "69",
+        "explanation": "3+6=9, 4+2=6 → 69"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 52 + 23 là bao nhiêu?",
+        "options": [
+            "75",
+            "74",
+            "76",
+            "73"
+        ],
+        "answer": "75",
+        "explanation": "2+3=5, 5+2=7 → 75"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 65 - 24 là bao nhiêu?",
+        "options": [
+            "41",
+            "42",
+            "40",
+            "43"
+        ],
+        "answer": "41",
+        "explanation": "5-4=1, 6-2=4 → 41"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 73 - 21 là bao nhiêu?",
+        "options": [
+            "52",
+            "53",
+            "51",
+            "54"
+        ],
+        "answer": "52",
+        "explanation": "3-1=2, 7-2=5 → 52"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 84 - 32 là bao nhiêu?",
+        "options": [
+            "52",
+            "51",
+            "53",
+            "50"
+        ],
+        "answer": "52",
+        "explanation": "4-2=2, 8-3=5 → 52"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 96 - 54 là bao nhiêu?",
+        "options": [
+            "42",
+            "41",
+            "43",
+            "40"
+        ],
+        "answer": "42",
+        "explanation": "6-4=2, 9-5=4 → 42"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 88 - 17 là bao nhiêu?",
+        "options": [
+            "71",
+            "70",
+            "72",
+            "69"
+        ],
+        "answer": "71",
+        "explanation": "8-7=1, 8-1=7 → 71"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 27 + 48 là bao nhiêu?",
+        "options": [
+            "75",
+            "74",
+            "76",
+            "73"
+        ],
+        "answer": "75",
+        "explanation": "7+8=15 nhớ 1; 2+4+1=7 → 75"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 36 + 47 là bao nhiêu?",
+        "options": [
+            "83",
+            "82",
+            "84",
+            "81"
+        ],
+        "answer": "83",
+        "explanation": "6+7=13 nhớ 1; 3+4+1=8 → 83"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 58 + 29 là bao nhiêu?",
+        "options": [
+            "87",
+            "86",
+            "88",
+            "85"
+        ],
+        "answer": "87",
+        "explanation": "8+9=17 nhớ 1; 5+2+1=8 → 87"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 69 + 18 là bao nhiêu?",
+        "options": [
+            "87",
+            "88",
+            "86",
+            "89"
+        ],
+        "answer": "87",
+        "explanation": "9+8=17 nhớ 1; 6+1+1=8 → 87"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 74 - 39 là bao nhiêu?",
+        "options": [
+            "35",
+            "34",
+            "36",
+            "33"
+        ],
+        "answer": "35",
+        "explanation": "14-9=5; 6-3=3 → 35"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 83 - 48 là bao nhiêu?",
+        "options": [
+            "35",
+            "34",
+            "36",
+            "33"
+        ],
+        "answer": "35",
+        "explanation": "13-8=5; 7-4=3 → 35"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 64 - 28 là bao nhiêu?",
+        "options": [
+            "36",
+            "35",
+            "37",
+            "34"
+        ],
+        "answer": "36",
+        "explanation": "14-8=6; 5-2=3 → 36"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 24 + 15 là bao nhiêu?",
+        "options": [
+            "39",
+            "38",
+            "40",
+            "37"
+        ],
+        "answer": "39",
+        "explanation": "4+5=9, 2+1=3 → 39"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 33 + 16 là bao nhiêu?",
+        "options": [
+            "49",
+            "48",
+            "50",
+            "47"
+        ],
+        "answer": "49",
+        "explanation": "3+6=9, 3+1=4 → 49"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 42 + 17 là bao nhiêu?",
+        "options": [
+            "59",
+            "58",
+            "60",
+            "57"
+        ],
+        "answer": "59",
+        "explanation": "2+7=9, 4+1=5 → 59"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 51 + 18 là bao nhiêu?",
+        "options": [
+            "69",
+            "68",
+            "70",
+            "67"
+        ],
+        "answer": "69",
+        "explanation": "1+8=9, 5+1=6 → 69"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 63 + 14 là bao nhiêu?",
+        "options": [
+            "77",
+            "76",
+            "78",
+            "75"
+        ],
+        "answer": "77",
+        "explanation": "3+4=7, 6+1=7 → 77"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 72 + 16 là bao nhiêu?",
+        "options": [
+            "88",
+            "87",
+            "89",
+            "86"
+        ],
+        "answer": "88",
+        "explanation": "2+6=8, 7+1=8 → 88"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 84 + 13 là bao nhiêu?",
+        "options": [
+            "97",
+            "96",
+            "98",
+            "95"
+        ],
+        "answer": "97",
+        "explanation": "4+3=7, 8+1=9 → 97"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 91 + 7 là bao nhiêu?",
+        "options": [
+            "98",
+            "97",
+            "99",
+            "96"
+        ],
+        "answer": "98",
+        "explanation": "1+7=8, 9 giữ nguyên → 98"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 35 + 22 là bao nhiêu?",
+        "options": [
+            "57",
+            "56",
+            "58",
+            "55"
+        ],
+        "answer": "57",
+        "explanation": "5+2=7, 3+2=5 → 57"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 46 + 23 là bao nhiêu?",
+        "options": [
+            "69",
+            "68",
+            "70",
+            "67"
+        ],
+        "answer": "69",
+        "explanation": "6+3=9, 4+2=6 → 69"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 57 - 25 là bao nhiêu?",
+        "options": [
+            "32",
+            "33",
+            "31",
+            "34"
+        ],
+        "answer": "32",
+        "explanation": "7-5=2, 5-2=3 → 32"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 64 - 31 là bao nhiêu?",
+        "options": [
+            "33",
+            "34",
+            "32",
+            "35"
+        ],
+        "answer": "33",
+        "explanation": "4-1=3, 6-3=3 → 33"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 72 - 20 là bao nhiêu?",
+        "options": [
+            "52",
+            "53",
+            "51",
+            "54"
+        ],
+        "answer": "52",
+        "explanation": "2-0=2, 7-2=5 → 52"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "easy",
+        "question": "Kết quả của phép tính 85 - 43 là bao nhiêu?",
+        "options": [
+            "42",
+            "41",
+            "43",
+            "40"
+        ],
+        "answer": "42",
+        "explanation": "5-3=2, 8-4=4 → 42"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 28 + 37 là bao nhiêu?",
+        "options": [
+            "65",
+            "64",
+            "66",
+            "63"
+        ],
+        "answer": "65",
+        "explanation": "8+7=15 nhớ 1; 2+3+1=6 → 65"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 46 + 38 là bao nhiêu?",
+        "options": [
+            "84",
+            "83",
+            "85",
+            "82"
+        ],
+        "answer": "84",
+        "explanation": "6+8=14 nhớ 1; 4+3+1=8 → 84"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 59 + 27 là bao nhiêu?",
+        "options": [
+            "86",
+            "85",
+            "87",
+            "84"
+        ],
+        "answer": "86",
+        "explanation": "9+7=16 nhớ 1; 5+2+1=8 → 86"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 68 + 29 là bao nhiêu?",
+        "options": [
+            "97",
+            "96",
+            "98",
+            "95"
+        ],
+        "answer": "97",
+        "explanation": "8+9=17 nhớ 1; 6+2+1=9 → 97"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 47 + 36 là bao nhiêu?",
+        "options": [
+            "83",
+            "82",
+            "84",
+            "81"
+        ],
+        "answer": "83",
+        "explanation": "7+6=13 nhớ 1; 4+3+1=8 → 83"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 81 - 46 là bao nhiêu?",
+        "options": [
+            "35",
+            "36",
+            "34",
+            "33"
+        ],
+        "answer": "35",
+        "explanation": "11-6=5; 7-4=3 → 35"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép cộng và trừ",
+        "sub_topic": "Đặt tính rồi tính (phép tính dọc)",
+        "difficulty": "medium",
+        "question": "Kết quả của phép tính 72 - 39 là bao nhiêu?",
+        "options": [
+            "33",
+            "34",
+            "32",
+            "35"
+        ],
+        "answer": "33",
+        "explanation": "12-9=3; 6-3=3 → 33"
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học và thời gian",
+        "sub_topic": "Hình tứ giác",
+        "difficulty": "easy",
+        "question": "Hình nào dưới đây là hình tứ giác?",
+        "options": [
+            "Hình có 3 cạnh",
+            "Hình có 4 cạnh",
+            "Hình có 5 cạnh",
+            "Hình có 6 cạnh"
+        ],
+        "answer": "Hình có 4 cạnh",
+        "explanation": "Hình tứ giác là hình có 4 cạnh."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học và thời gian",
+        "sub_topic": "Hình tứ giác",
+        "difficulty": "easy",
+        "question": "Hình vuông có bao nhiêu cạnh?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "4",
+        "explanation": "Hình vuông là một dạng hình tứ giác nên có 4 cạnh."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học và thời gian",
+        "sub_topic": "Hình tứ giác",
+        "difficulty": "easy",
+        "question": "Hình chữ nhật có bao nhiêu góc?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "4",
+        "explanation": "Hình chữ nhật có 4 góc vuông."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học và thời gian",
+        "sub_topic": "Hình tứ giác",
+        "difficulty": "easy",
+        "question": "Hình nào sau đây KHÔNG phải là hình tứ giác?",
+        "options": [
+            "Hình vuông",
+            "Hình chữ nhật",
+            "Hình tam giác",
+            "Hình thang"
+        ],
+        "answer": "Hình tam giác",
+        "explanation": "Hình tam giác có 3 cạnh nên không phải hình tứ giác."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học và thời gian",
+        "sub_topic": "Hình mẫu",
+        "difficulty": "easy",
+        "question": "Quy luật sau: ★ ○ ★ ○ ★ ... Hình tiếp theo là gì?",
+        "options": [
+            "★",
+            "○",
+            "△",
+            "□"
+        ],
+        "answer": "○",
+        "explanation": "Quy luật lặp lại ★ rồi đến ○."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học và thời gian",
+        "sub_topic": "Hình mẫu",
+        "difficulty": "easy",
+        "question": "Quy luật: ▲ ▲ ● ▲ ▲ ● ... Hình tiếp theo là gì?",
+        "options": [
+            "▲",
+            "●",
+            "■",
+            "◆"
+        ],
+        "answer": "▲",
+        "explanation": "Quy luật là 2 hình ▲ rồi đến 1 hình ●."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học và thời gian",
+        "sub_topic": "Hình mẫu",
+        "difficulty": "easy",
+        "question": "Quy luật: ■ ● ■ ● ■ ... Hình tiếp theo là gì?",
+        "options": [
+            "■",
+            "●",
+            "▲",
+            "★"
+        ],
+        "answer": "●",
+        "explanation": "Quy luật lặp lại ■ rồi ●."
+    },
+    {
+        "grade": 2,
+        "topic": "Hình học và thời gian",
+        "sub_topic": "Hình mẫu",
+        "difficulty": "easy",
+        "question": "Quy luật: ▲ ● ● ▲ ● ● ... Hình tiếp theo là gì?",
+        "options": [
+            "▲",
+            "●",
+            "■",
+            "◆"
+        ],
+        "answer": "▲",
+        "explanation": "Quy luật là 1 ▲ rồi 2 ●."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem đồng hồ (đến 5 phút)",
+        "difficulty": "easy",
+        "question": "Kim phút chỉ số 1 trên đồng hồ thì là bao nhiêu phút?",
+        "options": [
+            "5 phút",
+            "10 phút",
+            "15 phút",
+            "20 phút"
+        ],
+        "answer": "5 phút",
+        "explanation": "Mỗi số trên đồng hồ cách nhau 5 phút."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem đồng hồ (đến 5 phút)",
+        "difficulty": "easy",
+        "question": "Kim phút chỉ số 3 là mấy phút?",
+        "options": [
+            "10 phút",
+            "15 phút",
+            "20 phút",
+            "25 phút"
+        ],
+        "answer": "15 phút",
+        "explanation": "3 × 5 = 15 phút."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem đồng hồ (đến 5 phút)",
+        "difficulty": "easy",
+        "question": "Kim phút chỉ số 6 là mấy phút?",
+        "options": [
+            "20 phút",
+            "25 phút",
+            "30 phút",
+            "35 phút"
+        ],
+        "answer": "30 phút",
+        "explanation": "6 × 5 = 30 phút."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem đồng hồ (đến 5 phút)",
+        "difficulty": "easy",
+        "question": "Kim phút chỉ số 9 là mấy phút?",
+        "options": [
+            "35 phút",
+            "40 phút",
+            "45 phút",
+            "50 phút"
+        ],
+        "answer": "45 phút",
+        "explanation": "9 × 5 = 45 phút."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem lịch",
+        "difficulty": "easy",
+        "question": "Một tuần có bao nhiêu ngày?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "7",
+        "explanation": "Một tuần có 7 ngày."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem lịch",
+        "difficulty": "easy",
+        "question": "Ngày sau thứ Hai là ngày nào?",
+        "options": [
+            "Chủ nhật",
+            "Thứ Ba",
+            "Thứ Tư",
+            "Thứ Năm"
+        ],
+        "answer": "Thứ Ba",
+        "explanation": "Trong tuần: Thứ Hai → Thứ Ba."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem lịch",
+        "difficulty": "easy",
+        "question": "Ngày trước thứ Sáu là ngày nào?",
+        "options": [
+            "Thứ Ba",
+            "Thứ Tư",
+            "Thứ Năm",
+            "Chủ Nhật"
+        ],
+        "answer": "Thứ Năm",
+        "explanation": "Thứ Năm đứng trước Thứ Sáu."
+    },
+    {
+        "grade": 2,
+        "topic": "Thời gian",
+        "sub_topic": "Xem lịch",
+        "difficulty": "easy",
+        "question": "Tháng thường có khoảng bao nhiêu ngày?",
+        "options": [
+            "20",
+            "25",
+            "30",
+            "40"
+        ],
+        "answer": "30",
+        "explanation": "Nhiều tháng có khoảng 30 ngày (hoặc 31 ngày)."
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép nhân (tổng các số hạng bằng nhau)",
+        "difficulty": "easy",
+        "question": "2 + 2 + 2 bằng phép nhân nào?",
+        "options": [
+            "2 × 3",
+            "3 × 2",
+            "2 × 2",
+            "3 × 3"
+        ],
+        "answer": "3 × 2",
+        "explanation": "Có 3 số hạng đều bằng 2 nên viết thành 3 × 2"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép nhân",
+        "difficulty": "easy",
+        "question": "5 + 5 + 5 bằng phép nhân nào?",
+        "options": [
+            "3 × 5",
+            "5 × 3",
+            "2 × 5",
+            "4 × 5"
+        ],
+        "answer": "3 × 5",
+        "explanation": "Có 3 số hạng đều bằng 5 nên là 3 × 5"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép nhân",
+        "difficulty": "easy",
+        "question": "4 + 4 + 4 + 4 bằng phép nhân nào?",
+        "options": [
+            "4 × 4",
+            "2 × 4",
+            "4 × 2",
+            "3 × 4"
+        ],
+        "answer": "4 × 4",
+        "explanation": "Có 4 số hạng bằng 4 nên viết 4 × 4"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép nhân",
+        "difficulty": "easy",
+        "question": "3 + 3 + 3 bằng bao nhiêu?",
+        "options": [
+            "6",
+            "9",
+            "12",
+            "3"
+        ],
+        "answer": "9",
+        "explanation": "3 + 3 + 3 = 9"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép nhân",
+        "difficulty": "easy",
+        "question": "2 × 4 bằng bao nhiêu?",
+        "options": [
+            "6",
+            "8",
+            "10",
+            "4"
+        ],
+        "answer": "8",
+        "explanation": "2 × 4 = 8"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép chia",
+        "difficulty": "easy",
+        "question": "6 chia đều cho 2 được bao nhiêu?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "3",
+        "explanation": "6 ÷ 2 = 3"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép chia",
+        "difficulty": "easy",
+        "question": "8 chia đều cho 4 được bao nhiêu?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "8 ÷ 4 = 2"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép chia",
+        "difficulty": "easy",
+        "question": "9 chia đều cho 3 được bao nhiêu?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "3",
+        "explanation": "9 ÷ 3 = 3"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép chia",
+        "difficulty": "easy",
+        "question": "10 chia đều cho 5 được bao nhiêu?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "5"
+        ],
+        "answer": "2",
+        "explanation": "10 ÷ 5 = 2"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Khái niệm phép chia",
+        "difficulty": "easy",
+        "question": "12 chia đều cho 3 được bao nhiêu?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "4",
+        "explanation": "12 ÷ 3 = 4"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Liên hệ nhân và chia",
+        "difficulty": "medium",
+        "question": "3 × 4 bằng bao nhiêu?",
+        "options": [
+            "7",
+            "12",
+            "9",
+            "10"
+        ],
+        "answer": "12",
+        "explanation": "3 nhóm, mỗi nhóm 4 → 12"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Liên hệ nhân và chia",
+        "difficulty": "medium",
+        "question": "4 × 3 bằng bao nhiêu?",
+        "options": [
+            "7",
+            "10",
+            "12",
+            "8"
+        ],
+        "answer": "12",
+        "explanation": "4 nhóm, mỗi nhóm 3 → 12"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Liên hệ nhân và chia",
+        "difficulty": "medium",
+        "question": "12 ÷ 4 bằng bao nhiêu?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "6"
+        ],
+        "answer": "3",
+        "explanation": "12 chia 4 phần bằng nhau được 3"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Liên hệ nhân và chia",
+        "difficulty": "medium",
+        "question": "15 ÷ 3 bằng bao nhiêu?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "5",
+        "explanation": "15 ÷ 3 = 5"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Liên hệ nhân và chia",
+        "difficulty": "medium",
+        "question": "5 × 2 bằng bao nhiêu?",
+        "options": [
+            "7",
+            "10",
+            "8",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "5 nhóm mỗi nhóm 2 = 10"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Nhận biết tổng bằng nhau",
+        "difficulty": "medium",
+        "question": "2 + 2 + 2 + 2 bằng phép nhân nào?",
+        "options": [
+            "2 × 2",
+            "4 × 2",
+            "3 × 2",
+            "2 × 4"
+        ],
+        "answer": "4 × 2",
+        "explanation": "Có 4 số hạng bằng 2"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Nhận biết tổng bằng nhau",
+        "difficulty": "medium",
+        "question": "6 + 6 bằng phép nhân nào?",
+        "options": [
+            "2 × 6",
+            "6 × 2",
+            "3 × 6",
+            "4 × 6"
+        ],
+        "answer": "2 × 6",
+        "explanation": "Có 2 số hạng bằng 6"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Nhận biết tổng bằng nhau",
+        "difficulty": "medium",
+        "question": "7 + 7 + 7 bằng phép nhân nào?",
+        "options": [
+            "3 × 7",
+            "7 × 3",
+            "2 × 7",
+            "4 × 7"
+        ],
+        "answer": "3 × 7",
+        "explanation": "3 số hạng bằng 7"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Nhận biết tổng bằng nhau",
+        "difficulty": "medium",
+        "question": "4 + 4 + 4 bằng phép nhân nào?",
+        "options": [
+            "2 × 4",
+            "3 × 4",
+            "4 × 3",
+            "4 × 4"
+        ],
+        "answer": "3 × 4",
+        "explanation": "3 số hạng bằng 4"
+    },
+    {
+        "grade": 2,
+        "topic": "Phép nhân và phép chia",
+        "sub_topic": "Nhận biết tổng bằng nhau",
+        "difficulty": "medium",
+        "question": "5 + 5 + 5 + 5 bằng phép nhân nào?",
+        "options": [
+            "4 × 5",
+            "5 × 4",
+            "3 × 5",
+            "2 × 5"
+        ],
+        "answer": "4 × 5",
+        "explanation": "4 số hạng bằng 5"
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đơn vị - Chục - Trăm",
+        "difficulty": "easy",
+        "question": "Số 245 có bao nhiêu trăm?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "245 gồm 2 trăm, 4 chục, 5 đơn vị."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đơn vị - Chục - Trăm",
+        "difficulty": "easy",
+        "question": "Số 368 có bao nhiêu chục?",
+        "options": [
+            "3",
+            "6",
+            "8",
+            "36"
+        ],
+        "answer": "6",
+        "explanation": "368 gồm 3 trăm, 6 chục, 8 đơn vị."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đơn vị - Chục - Trăm",
+        "difficulty": "easy",
+        "question": "Số 502 có bao nhiêu đơn vị?",
+        "options": [
+            "5",
+            "0",
+            "2",
+            "50"
+        ],
+        "answer": "2",
+        "explanation": "502 gồm 5 trăm, 0 chục, 2 đơn vị."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 123 đọc là gì?",
+        "options": [
+            "Một trăm hai mươi ba",
+            "Một trăm ba mươi hai",
+            "Một trăm hai mươi",
+            "Một trăm ba"
+        ],
+        "answer": "Một trăm hai mươi ba",
+        "explanation": "123 = một trăm hai mươi ba."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 405 đọc là gì?",
+        "options": [
+            "Bốn trăm linh năm",
+            "Bốn trăm năm",
+            "Bốn trăm linh bốn",
+            "Bốn trăm mười lăm"
+        ],
+        "answer": "Bốn trăm linh năm",
+        "explanation": "405 đọc là bốn trăm linh năm."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Viết số",
+        "difficulty": "easy",
+        "question": "Hai trăm ba mươi sáu viết là số nào?",
+        "options": [
+            "236",
+            "263",
+            "326",
+            "362"
+        ],
+        "answer": "236",
+        "explanation": "Hai trăm ba mươi sáu = 236."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Viết số",
+        "difficulty": "easy",
+        "question": "Năm trăm mười hai viết là số nào?",
+        "options": [
+            "512",
+            "521",
+            "502",
+            "520"
+        ],
+        "answer": "512",
+        "explanation": "Năm trăm mười hai = 512."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Cấu tạo số",
+        "difficulty": "easy",
+        "question": "Số nào gồm 3 trăm, 2 chục, 4 đơn vị?",
+        "options": [
+            "324",
+            "342",
+            "234",
+            "432"
+        ],
+        "answer": "324",
+        "explanation": "3 trăm + 2 chục + 4 đơn vị = 324."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Cấu tạo số",
+        "difficulty": "easy",
+        "question": "Số nào gồm 6 trăm, 5 chục, 1 đơn vị?",
+        "options": [
+            "651",
+            "615",
+            "561",
+            "516"
+        ],
+        "answer": "651",
+        "explanation": "6 trăm + 5 chục + 1 đơn vị = 651."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 999 đọc là gì?",
+        "options": [
+            "Chín trăm chín mươi chín",
+            "Chín trăm chín mươi",
+            "Chín trăm chín",
+            "Chín trăm mười chín"
+        ],
+        "answer": "Chín trăm chín mươi chín",
+        "explanation": "999 đọc là chín trăm chín mươi chín."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đơn vị - Chục - Trăm",
+        "difficulty": "easy",
+        "question": "Số 710 có bao nhiêu chục?",
+        "options": [
+            "1",
+            "7",
+            "10",
+            "71"
+        ],
+        "answer": "1",
+        "explanation": "710 gồm 7 trăm, 1 chục, 0 đơn vị."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đơn vị - Chục - Trăm",
+        "difficulty": "easy",
+        "question": "Số 880 có bao nhiêu trăm?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "8",
+        "explanation": "880 gồm 8 trăm."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 320 đọc là gì?",
+        "options": [
+            "Ba trăm hai mươi",
+            "Ba trăm linh hai",
+            "Ba trăm mười hai",
+            "Ba trăm hai"
+        ],
+        "answer": "Ba trăm hai mươi",
+        "explanation": "320 = ba trăm hai mươi."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Viết số",
+        "difficulty": "easy",
+        "question": "Bảy trăm linh tám viết là số nào?",
+        "options": [
+            "708",
+            "780",
+            "807",
+            "870"
+        ],
+        "answer": "708",
+        "explanation": "Bảy trăm linh tám = 708."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Đọc số",
+        "difficulty": "easy",
+        "question": "Số 600 đọc là gì?",
+        "options": [
+            "Sáu trăm",
+            "Sáu mươi",
+            "Sáu trăm linh",
+            "Sáu trăm mười"
+        ],
+        "answer": "Sáu trăm",
+        "explanation": "600 đọc là sáu trăm."
+    },
+    {
+        "grade": 2,
+        "topic": "Số và cấu tạo số",
+        "sub_topic": "Viết số",
+        "difficulty": "easy",
+        "question": "Tám trăm ba mươi viết là số nào?",
+        "options": [
+            "830",
+            "803",
+            "380",
+            "308"
+        ],
+        "answer": "830",
+        "explanation": "Tám trăm ba mươi = 830."
+    }
+]

@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback, memo } from 'react';
 import { Bell, Flame, Star, Trophy, List, ArrowDown, Heart, Hexagon, BookOpen, LayoutGrid, CheckCircle2 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useFirebase } from '../context/FirebaseProvider';
+import { Notifications } from '../components/common/Notifications';
+import { subscribeToNotifications, Notification } from '../services/notificationService';
 import { cn } from '../utils/utils';
 import { getCurriculum } from '../services/dataService';
 
@@ -13,7 +15,6 @@ interface DashboardProps {
   streak?: number;
   completedLessons?: number[];
 }
-// curriculumData is now loaded dynamically inside the component
 
 interface PathNodeProps {
   node: any;
@@ -101,7 +102,6 @@ const PathNode = memo(({ node, unitTitle, onStartLesson }: PathNodeProps) => {
 
 PathNode.displayName = 'PathNode';
 
-
 export const Dashboard: React.FC<DashboardProps> = ({
   onShowNotifications,
   onStartLesson,
@@ -111,16 +111,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
   completedLessons: completedLessonsProp
 }) => {
   const { user, userProfile } = useFirebase();
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [gradeData, setGradeData] = useState<any[]>([]);
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   // Load grade-specific data for the map
-  // TODO: import grade-specific files (grade2.json, grade3.json...) when they are added
   useEffect(() => {
     const loadGradeData = async () => {
       setIsDataLoading(true);
       try {
-        const module = await import('../data/questions/grade1.json');
+        const module = await import(`../data/questions/grade${grade}.json`);
         setGradeData(module.default);
       } catch (error) {
         console.error('Failed to load question data:', error);
@@ -209,6 +210,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
     };
   }, [studentGrade, completedLessons, curriculumData]);
 
+  useEffect(() => {
+    if (!user) return;
+    const unsubscribe = subscribeToNotifications(user.uid, (data) => {
+      setNotifications(data);
+    });
+    return () => unsubscribe();
+  }, [user]);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
   return (
     <div className="flex flex-col h-full bg-[#fdfdfd] relative font-sans overflow-hidden">
       {/* Decorative Background Elements */}
@@ -240,11 +251,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           <button
-            onClick={() => onShowNotifications?.()}
+            onClick={() => setShowNotifications(true)}
             className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-all relative border border-slate-100 active:scale-95"
           >
             <Bell size={20} />
-            <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-white shadow-sm animate-pulse"></span>
+            {unreadCount > 0 && (
+              <span className="absolute top-1 right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-slate-50 text-[8px] font-black text-white flex items-center justify-center">
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </span>
+            )}
           </button>
         </div>
       </div>
@@ -252,8 +267,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* Main Scrollable Area */}
       <div className="flex-1 overflow-y-auto pb-32 relative no-scrollbar">
         <div className="max-w-md mx-auto relative pt-0 px-6">
-
-
           {/* Unit Sections */}
           <div className="space-y-16">
             {pathData.units.map((unit, uIndex) => (
@@ -298,6 +311,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showNotifications && (
+          <Notifications
+            userRole="student"
+            onBack={() => setShowNotifications(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

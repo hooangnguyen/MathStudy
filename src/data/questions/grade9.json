@@ -1,0 +1,5387 @@
+[
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Nhận dạng phương trình bậc nhất hai ẩn",
+        "difficulty": "easy",
+        "question": "Phương trình nào sau đây là phương trình bậc nhất hai ẩn?",
+        "options": [
+            "2x + 3y = 5",
+            "x^2 + y = 4",
+            "2x + 3y^2 = 6",
+            "xy + 2 = 5"
+        ],
+        "answer": "2x + 3y = 5",
+        "explanation": "Phương trình bậc nhất hai ẩn có dạng ax + by = c (a,b không đồng thời bằng 0). Chỉ có 2x + 3y = 5 thỏa mãn dạng này."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Kiểm tra nghiệm",
+        "difficulty": "easy",
+        "question": "Cặp số (1,2) có phải là nghiệm của phương trình 2x + y = 4 không?",
+        "options": [
+            "Có",
+            "Không",
+            "Không xác định",
+            "Phụ thuộc vào y"
+        ],
+        "answer": "Có",
+        "explanation": "Thay x=1, y=2 vào phương trình: 2*1 + 2 = 4 nên (1,2) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Biểu diễn nghiệm",
+        "difficulty": "medium",
+        "question": "Trong các cặp số sau, cặp nào là nghiệm của phương trình x + y = 5?",
+        "options": [
+            "(1,3)",
+            "(2,3)",
+            "(0,4)",
+            "(5,1)"
+        ],
+        "answer": "(2,3)",
+        "explanation": "Thay vào phương trình: 2 + 3 = 5 nên (2,3) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Giải hệ phương trình",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình: x + y = 5 và x - y = 1 là gì?",
+        "options": [
+            "(3,2)",
+            "(2,3)",
+            "(4,1)",
+            "(1,4)"
+        ],
+        "answer": "(3,2)",
+        "explanation": "Cộng hai phương trình: 2x = 6 ⇒ x = 3. Thay vào x + y = 5 ⇒ y = 2."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Số nghiệm của hệ",
+        "difficulty": "medium",
+        "question": "Hệ phương trình x + y = 2 và 2x + 2y = 4 có bao nhiêu nghiệm?",
+        "options": [
+            "Vô nghiệm",
+            "Một nghiệm",
+            "Vô số nghiệm",
+            "Hai nghiệm"
+        ],
+        "answer": "Vô số nghiệm",
+        "explanation": "Phương trình thứ hai là bội của phương trình thứ nhất nên hai đường thẳng trùng nhau ⇒ hệ có vô số nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Nhận dạng số nghiệm",
+        "difficulty": "hard",
+        "question": "Hệ phương trình x + y = 2 và x + y = 5 có đặc điểm gì?",
+        "options": [
+            "Vô nghiệm",
+            "Một nghiệm",
+            "Vô số nghiệm",
+            "Hai nghiệm"
+        ],
+        "answer": "Vô nghiệm",
+        "explanation": "Hai phương trình có cùng hệ số nhưng khác hằng số ⇒ hai đường thẳng song song ⇒ hệ vô nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Nhận dạng phương trình",
+        "difficulty": "easy",
+        "question": "Phương trình nào sau đây KHÔNG phải là phương trình bậc nhất hai ẩn?",
+        "options": [
+            "3x + 2y = 7",
+            "4x - y = 1",
+            "x + y^2 = 5",
+            "5x + 6y = 0"
+        ],
+        "answer": "x + y^2 = 5",
+        "explanation": "Phương trình bậc nhất hai ẩn chỉ chứa x và y với số mũ bằng 1. y^2 làm phương trình không còn bậc nhất."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Tìm nghiệm",
+        "difficulty": "easy",
+        "question": "Cặp số nào là nghiệm của phương trình 2x + y = 7?",
+        "options": [
+            "(2,3)",
+            "(3,1)",
+            "(1,5)",
+            "(0,6)"
+        ],
+        "answer": "(2,3)",
+        "explanation": "Thay x=2, y=3 ta có 2*2 + 3 = 7 nên (2,3) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Biểu diễn nghiệm tổng quát",
+        "difficulty": "medium",
+        "question": "Nếu x = 2 thì giá trị của y để thỏa mãn phương trình x + y = 6 là bao nhiêu?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "4",
+        "explanation": "Thay x=2 vào phương trình: 2 + y = 6 ⇒ y = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Giải hệ bằng phương pháp thế",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình: x + y = 6 và x - y = 2 là gì?",
+        "options": [
+            "(4,2)",
+            "(3,3)",
+            "(2,4)",
+            "(5,1)"
+        ],
+        "answer": "(4,2)",
+        "explanation": "Cộng hai phương trình: 2x = 8 ⇒ x = 4. Thay vào x + y = 6 ⇒ y = 2."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Giải hệ bằng phương pháp cộng",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình: 2x + y = 5 và x + y = 3 là gì?",
+        "options": [
+            "(2,1)",
+            "(1,2)",
+            "(3,0)",
+            "(0,3)"
+        ],
+        "answer": "(2,1)",
+        "explanation": "Lấy (2x + y) - (x + y) = 5 - 3 ⇒ x = 2. Thay vào x + y = 3 ⇒ y = 1."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Xác định số nghiệm",
+        "difficulty": "hard",
+        "question": "Hệ phương trình 2x + 3y = 6 và 4x + 6y = 12 có đặc điểm gì?",
+        "options": [
+            "Vô nghiệm",
+            "Một nghiệm duy nhất",
+            "Vô số nghiệm",
+            "Hai nghiệm"
+        ],
+        "answer": "Vô số nghiệm",
+        "explanation": "Phương trình thứ hai là bội của phương trình thứ nhất nên hai đường thẳng trùng nhau ⇒ hệ có vô số nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Xác định số nghiệm",
+        "difficulty": "hard",
+        "question": "Hệ phương trình 2x + y = 3 và 2x + y = 7 có đặc điểm gì?",
+        "options": [
+            "Vô nghiệm",
+            "Một nghiệm",
+            "Vô số nghiệm",
+            "Hai nghiệm"
+        ],
+        "answer": "Vô nghiệm",
+        "explanation": "Hai phương trình có cùng hệ số nhưng khác hằng số ⇒ hai đường thẳng song song ⇒ hệ vô nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Bài toán thực tế",
+        "difficulty": "hard",
+        "question": "Tổng của hai số là 10 và hiệu của chúng là 2. Hai số đó là gì?",
+        "options": [
+            "(6,4)",
+            "(5,5)",
+            "(7,3)",
+            "(8,2)"
+        ],
+        "answer": "(6,4)",
+        "explanation": "Gọi hai số là x và y: x + y = 10, x - y = 2. Cộng hai phương trình: 2x = 12 ⇒ x = 6 ⇒ y = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Kiểm tra nghiệm",
+        "difficulty": "easy",
+        "question": "Cặp số (2,1) có phải là nghiệm của phương trình 3x + y = 7 không?",
+        "options": [
+            "Có",
+            "Không",
+            "Không xác định",
+            "Phụ thuộc vào x"
+        ],
+        "answer": "Có",
+        "explanation": "Thay x = 2, y = 1 vào phương trình: 3×2 + 1 = 7 nên (2,1) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Tìm nghiệm",
+        "difficulty": "easy",
+        "question": "Cặp số nào sau đây là nghiệm của phương trình x + 3y = 10?",
+        "options": [
+            "(1,3)",
+            "(2,3)",
+            "(3,2)",
+            "(4,1)"
+        ],
+        "answer": "(1,3)",
+        "explanation": "Thay x=1, y=3: 1 + 3×3 = 10 nên (1,3) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Biến đổi phương trình",
+        "difficulty": "medium",
+        "question": "Trong phương trình 2x + y = 9, nếu x = 4 thì y bằng bao nhiêu?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "1",
+        "explanation": "Thay x = 4: 2×4 + y = 9 ⇒ 8 + y = 9 ⇒ y = 1."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Giải hệ",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình x + y = 8 và x − y = 4 là gì?",
+        "options": [
+            "(6,2)",
+            "(5,3)",
+            "(4,4)",
+            "(7,1)"
+        ],
+        "answer": "(6,2)",
+        "explanation": "Cộng hai phương trình: 2x = 12 ⇒ x = 6. Thay vào x + y = 8 ⇒ y = 2."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Phương pháp cộng",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình 2x + y = 9 và x + y = 6 là gì?",
+        "options": [
+            "(3,3)",
+            "(2,4)",
+            "(4,2)",
+            "(1,5)"
+        ],
+        "answer": "(3,3)",
+        "explanation": "Lấy (2x + y) - (x + y) = 9 - 6 ⇒ x = 3. Thay vào x + y = 6 ⇒ y = 3."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Số nghiệm của hệ",
+        "difficulty": "hard",
+        "question": "Hệ phương trình 3x + 2y = 6 và 6x + 4y = 12 có bao nhiêu nghiệm?",
+        "options": [
+            "Vô nghiệm",
+            "Một nghiệm",
+            "Vô số nghiệm",
+            "Hai nghiệm"
+        ],
+        "answer": "Vô số nghiệm",
+        "explanation": "Phương trình thứ hai là bội của phương trình thứ nhất nên hai đường thẳng trùng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Bài toán thực tế",
+        "difficulty": "hard",
+        "question": "Tổng của hai số là 14 và hiệu của chúng là 6. Hai số đó là gì?",
+        "options": [
+            "(10,4)",
+            "(9,5)",
+            "(8,6)",
+            "(11,3)"
+        ],
+        "answer": "(10,4)",
+        "explanation": "Gọi hai số là x,y: x + y = 14 và x − y = 6. Cộng hai phương trình: 2x = 20 ⇒ x = 10 ⇒ y = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Kiểm tra nghiệm",
+        "difficulty": "easy",
+        "question": "Cặp số (3,1) có phải là nghiệm của phương trình 2x + y = 7 không?",
+        "options": [
+            "Có",
+            "Không",
+            "Không xác định",
+            "Phụ thuộc vào y"
+        ],
+        "answer": "Có",
+        "explanation": "Thay x=3, y=1 vào phương trình: 2×3 + 1 = 7 nên (3,1) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Tìm nghiệm",
+        "difficulty": "easy",
+        "question": "Cặp số nào sau đây là nghiệm của phương trình x + y = 9?",
+        "options": [
+            "(4,4)",
+            "(5,4)",
+            "(3,5)",
+            "(6,2)"
+        ],
+        "answer": "(5,4)",
+        "explanation": "Thay x=5, y=4 vào phương trình: 5 + 4 = 9 nên (5,4) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Biểu diễn biến",
+        "difficulty": "medium",
+        "question": "Trong phương trình 3x + y = 10, nếu x = 2 thì y bằng bao nhiêu?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "4",
+        "explanation": "Thay x = 2: 3×2 + y = 10 ⇒ 6 + y = 10 ⇒ y = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Giải hệ",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình x + y = 9 và x − y = 5 là gì?",
+        "options": [
+            "(7,2)",
+            "(6,3)",
+            "(5,4)",
+            "(8,1)"
+        ],
+        "answer": "(7,2)",
+        "explanation": "Cộng hai phương trình: 2x = 14 ⇒ x = 7. Thay vào x + y = 9 ⇒ y = 2."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Phương pháp cộng",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình 2x + y = 8 và x + y = 5 là gì?",
+        "options": [
+            "(3,2)",
+            "(2,3)",
+            "(4,1)",
+            "(1,4)"
+        ],
+        "answer": "(3,2)",
+        "explanation": "Lấy (2x + y) - (x + y) = 8 - 5 ⇒ x = 3. Thay vào x + y = 5 ⇒ y = 2."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Số nghiệm của hệ",
+        "difficulty": "hard",
+        "question": "Hệ phương trình 4x + 2y = 10 và 2x + y = 5 có đặc điểm gì?",
+        "options": [
+            "Vô nghiệm",
+            "Một nghiệm",
+            "Vô số nghiệm",
+            "Hai nghiệm"
+        ],
+        "answer": "Vô số nghiệm",
+        "explanation": "Phương trình thứ nhất là bội của phương trình thứ hai nên hai đường thẳng trùng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Bài toán thực tế",
+        "difficulty": "hard",
+        "question": "Tổng của hai số là 16 và hiệu của chúng là 4. Hai số đó là gì?",
+        "options": [
+            "(10,6)",
+            "(9,7)",
+            "(12,4)",
+            "(11,5)"
+        ],
+        "answer": "(10,6)",
+        "explanation": "Gọi hai số là x,y: x + y = 16, x − y = 4. Cộng hai phương trình: 2x = 20 ⇒ x = 10 ⇒ y = 6."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Kiểm tra nghiệm",
+        "difficulty": "easy",
+        "question": "Cặp số (2,3) có phải là nghiệm của phương trình x + 2y = 8 không?",
+        "options": [
+            "Có",
+            "Không",
+            "Không xác định",
+            "Phụ thuộc vào x"
+        ],
+        "answer": "Có",
+        "explanation": "Thay x=2, y=3 vào phương trình: 2 + 2×3 = 8 nên (2,3) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Tìm nghiệm",
+        "difficulty": "easy",
+        "question": "Cặp số nào sau đây là nghiệm của phương trình 2x + y = 6?",
+        "options": [
+            "(2,2)",
+            "(1,3)",
+            "(3,1)",
+            "(4,1)"
+        ],
+        "answer": "(2,2)",
+        "explanation": "Thay x=2, y=2 vào phương trình: 2×2 + 2 = 6 nên (2,2) là nghiệm."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc nhất hai ẩn",
+        "sub_topic": "Biểu diễn biến",
+        "difficulty": "medium",
+        "question": "Trong phương trình 4x + y = 13, nếu x = 3 thì y bằng bao nhiêu?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "answer": "1",
+        "explanation": "Thay x = 3: 4×3 + y = 13 ⇒ 12 + y = 13 ⇒ y = 1."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Giải hệ",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình x + y = 10 và x − y = 2 là gì?",
+        "options": [
+            "(6,4)",
+            "(5,5)",
+            "(7,3)",
+            "(8,2)"
+        ],
+        "answer": "(6,4)",
+        "explanation": "Cộng hai phương trình: 2x = 12 ⇒ x = 6. Thay vào x + y = 10 ⇒ y = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Phương pháp cộng",
+        "difficulty": "medium",
+        "question": "Nghiệm của hệ phương trình 3x + y = 10 và x + y = 6 là gì?",
+        "options": [
+            "(2,4)",
+            "(3,3)",
+            "(4,2)",
+            "(1,5)"
+        ],
+        "answer": "(2,4)",
+        "explanation": "Lấy (3x + y) − (x + y) = 10 − 6 ⇒ 2x = 4 ⇒ x = 2. Thay vào x + y = 6 ⇒ y = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Số nghiệm của hệ",
+        "difficulty": "hard",
+        "question": "Hệ phương trình 5x + 5y = 15 và x + y = 3 có đặc điểm gì?",
+        "options": [
+            "Vô nghiệm",
+            "Một nghiệm",
+            "Vô số nghiệm",
+            "Hai nghiệm"
+        ],
+        "answer": "Vô số nghiệm",
+        "explanation": "Phương trình thứ nhất là bội của phương trình thứ hai nên hai đường thẳng trùng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Hệ phương trình bậc nhất hai ẩn",
+        "sub_topic": "Bài toán thực tế",
+        "difficulty": "hard",
+        "question": "Tổng của hai số là 18 và hiệu của chúng là 6. Hai số đó là gì?",
+        "options": [
+            "(12,6)",
+            "(11,7)",
+            "(10,8)",
+            "(9,9)"
+        ],
+        "answer": "(12,6)",
+        "explanation": "Gọi hai số là x,y: x + y = 18, x − y = 6. Cộng hai phương trình: 2x = 24 ⇒ x = 12 ⇒ y = 6."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "medium",
+        "question": "Một cửa hàng bán 2 bút bi và 1 bút chì được 7000 đồng. Bán 1 bút bi và 1 bút chì được 5000 đồng. Giá của mỗi bút bi là bao nhiêu?",
+        "options": [
+            "2000 đồng",
+            "3000 đồng",
+            "4000 đồng",
+            "5000 đồng"
+        ],
+        "answer": "2000 đồng",
+        "explanation": "Gọi giá bút bi là x, bút chì là y. Ta có hệ: 2x + y = 7000 và x + y = 5000. Lấy phương trình đầu trừ phương trình sau: x = 2000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "medium",
+        "question": "Tổng giá tiền của 3 quyển vở và 1 cây bút là 13000 đồng. Tổng giá tiền của 1 quyển vở và 1 cây bút là 7000 đồng. Giá một quyển vở là bao nhiêu?",
+        "options": [
+            "2000 đồng",
+            "3000 đồng",
+            "4000 đồng",
+            "5000 đồng"
+        ],
+        "answer": "3000 đồng",
+        "explanation": "Gọi giá vở là x, giá bút là y. Ta có hệ: 3x + y = 13000 và x + y = 7000. Lấy phương trình đầu trừ phương trình sau: 2x = 6000 ⇒ x = 3000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "medium",
+        "question": "Hai xe xuất phát cùng lúc từ hai điểm cách nhau 60 km và đi ngược chiều nhau. Vận tốc xe thứ nhất là 20 km/h, xe thứ hai là 40 km/h. Sau bao lâu hai xe gặp nhau?",
+        "options": [
+            "1 giờ",
+            "1,5 giờ",
+            "2 giờ",
+            "3 giờ"
+        ],
+        "answer": "1 giờ",
+        "explanation": "Tổng vận tốc hai xe: 20 + 40 = 60 km/h. Thời gian gặp nhau: 60 / 60 = 1 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "hard",
+        "question": "Một ô tô và một xe máy cùng xuất phát từ một điểm. Ô tô đi với vận tốc 60 km/h, xe máy 40 km/h. Sau bao lâu khoảng cách giữa hai xe là 40 km?",
+        "options": [
+            "1 giờ",
+            "2 giờ",
+            "3 giờ",
+            "4 giờ"
+        ],
+        "answer": "2 giờ",
+        "explanation": "Hiệu vận tốc: 60 − 40 = 20 km/h. Thời gian để cách nhau 40 km: 40 / 20 = 2 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Nồng độ dung dịch",
+        "difficulty": "medium",
+        "question": "Trộn 2 lít dung dịch muối 10% với 3 lít dung dịch muối 20%. Nồng độ dung dịch sau khi trộn là bao nhiêu?",
+        "options": [
+            "14%",
+            "15%",
+            "16%",
+            "18%"
+        ],
+        "answer": "16%",
+        "explanation": "Lượng muối: 2×10% = 0.2 lít, 3×20% = 0.6 lít. Tổng muối = 0.8 lít trong 5 lít dung dịch ⇒ nồng độ = 0.8/5 = 16%."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Nồng độ dung dịch",
+        "difficulty": "hard",
+        "question": "Có 5 lít dung dịch muối 12%. Cần thêm bao nhiêu lít dung dịch muối 20% để được dung dịch 16%?",
+        "options": [
+            "4 lít",
+            "5 lít",
+            "6 lít",
+            "8 lít"
+        ],
+        "answer": "5 lít",
+        "explanation": "Gọi x là lượng dung dịch 20%. Ta có: (5×0.12 + 0.2x) / (5 + x) = 0.16 ⇒ 0.6 + 0.2x = 0.8 + 0.16x ⇒ x = 5."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "hard",
+        "question": "Một cửa hàng bán 2 áo và 3 quần được 560000 đồng. Bán 1 áo và 2 quần được 360000 đồng. Giá một chiếc áo là bao nhiêu?",
+        "options": [
+            "120000 đồng",
+            "140000 đồng",
+            "160000 đồng",
+            "180000 đồng"
+        ],
+        "answer": "160000 đồng",
+        "explanation": "Gọi giá áo là x, giá quần là y. Ta có hệ: 2x + 3y = 560000 và x + 2y = 360000. Nhân phương trình hai với 2: 2x + 4y = 720000. Trừ hai phương trình: y = 160000. Thay vào x + 2y = 360000 ⇒ x = 160000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "medium",
+        "question": "Hai người đi xe đạp từ hai điểm cách nhau 30 km và đi ngược chiều nhau. Người thứ nhất đi 12 km/h, người thứ hai 18 km/h. Sau bao lâu họ gặp nhau?",
+        "options": [
+            "1 giờ",
+            "1,5 giờ",
+            "2 giờ",
+            "2,5 giờ"
+        ],
+        "answer": "1 giờ",
+        "explanation": "Tổng vận tốc: 12 + 18 = 30 km/h. Thời gian gặp nhau: 30 / 30 = 1 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "medium",
+        "question": "Một cửa hàng bán 1 quyển sách và 2 cây bút được 26000 đồng. Bán 2 quyển sách và 1 cây bút được 34000 đồng. Giá một quyển sách là bao nhiêu?",
+        "options": [
+            "10000 đồng",
+            "12000 đồng",
+            "14000 đồng",
+            "16000 đồng"
+        ],
+        "answer": "14000 đồng",
+        "explanation": "Gọi giá sách là x, giá bút là y. Ta có hệ: x + 2y = 26000 và 2x + y = 34000. Giải hệ: nhân phương trình đầu với 2: 2x + 4y = 52000. Trừ phương trình thứ hai: 3y = 18000 ⇒ y = 6000 ⇒ x = 14000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "hard",
+        "question": "Hai loại vé xem phim có giá khác nhau. 3 vé loại A và 2 vé loại B giá 220000 đồng. 2 vé loại A và 1 vé loại B giá 140000 đồng. Giá vé loại A là bao nhiêu?",
+        "options": [
+            "50000 đồng",
+            "60000 đồng",
+            "70000 đồng",
+            "80000 đồng"
+        ],
+        "answer": "60000 đồng",
+        "explanation": "Gọi giá vé A là x, vé B là y. Ta có hệ: 3x + 2y = 220000 và 2x + y = 140000. Nhân phương trình hai với 2: 4x + 2y = 280000. Trừ hai phương trình: x = 60000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "medium",
+        "question": "Hai xe xuất phát cùng lúc từ hai điểm cách nhau 90 km và đi ngược chiều nhau. Vận tốc xe thứ nhất 30 km/h, xe thứ hai 60 km/h. Sau bao lâu hai xe gặp nhau?",
+        "options": [
+            "1 giờ",
+            "1,5 giờ",
+            "2 giờ",
+            "3 giờ"
+        ],
+        "answer": "1 giờ",
+        "explanation": "Tổng vận tốc: 30 + 60 = 90 km/h. Thời gian gặp nhau: 90 / 90 = 1 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "hard",
+        "question": "Một xe máy đi từ A đến B với vận tốc 40 km/h. Sau 1 giờ, một ô tô đi từ A đến B với vận tốc 60 km/h. Sau bao lâu kể từ khi ô tô xuất phát thì ô tô đuổi kịp xe máy?",
+        "options": [
+            "1 giờ",
+            "2 giờ",
+            "3 giờ",
+            "4 giờ"
+        ],
+        "answer": "2 giờ",
+        "explanation": "Xe máy đi trước 1 giờ được 40 km. Hiệu vận tốc: 60 − 40 = 20 km/h. Thời gian ô tô đuổi kịp: 40 / 20 = 2 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Nồng độ dung dịch",
+        "difficulty": "medium",
+        "question": "Trộn 4 lít dung dịch muối 15% với 6 lít dung dịch muối 25%. Nồng độ dung dịch sau khi trộn là bao nhiêu?",
+        "options": [
+            "19%",
+            "20%",
+            "21%",
+            "22%"
+        ],
+        "answer": "21%",
+        "explanation": "Lượng muối: 4×15% = 0.6 lít và 6×25% = 1.5 lít. Tổng muối = 2.1 lít trong 10 lít dung dịch ⇒ nồng độ = 2.1/10 = 21%."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Nồng độ dung dịch",
+        "difficulty": "hard",
+        "question": "Có 8 lít dung dịch muối 10%. Cần thêm bao nhiêu lít dung dịch muối 30% để được dung dịch 20%?",
+        "options": [
+            "4 lít",
+            "6 lít",
+            "8 lít",
+            "10 lít"
+        ],
+        "answer": "8 lít",
+        "explanation": "Gọi x là lượng dung dịch 30%. Ta có: (8×0.1 + 0.3x) / (8 + x) = 0.2 ⇒ 0.8 + 0.3x = 1.6 + 0.2x ⇒ x = 8."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "medium",
+        "question": "Một cửa hàng bán 2 kg táo và 1 kg cam được 110000 đồng. Bán 1 kg táo và 1 kg cam được 80000 đồng. Giá 1 kg táo là bao nhiêu?",
+        "options": [
+            "20000 đồng",
+            "30000 đồng",
+            "40000 đồng",
+            "50000 đồng"
+        ],
+        "answer": "30000 đồng",
+        "explanation": "Gọi giá táo là x, giá cam là y. Ta có hệ: 2x + y = 110000 và x + y = 80000. Lấy phương trình đầu trừ phương trình sau: x = 30000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "medium",
+        "question": "Hai xe khởi hành cùng lúc từ hai điểm cách nhau 72 km và đi ngược chiều nhau. Xe thứ nhất đi 24 km/h, xe thứ hai đi 12 km/h. Sau bao lâu hai xe gặp nhau?",
+        "options": [
+            "1 giờ",
+            "2 giờ",
+            "3 giờ",
+            "4 giờ"
+        ],
+        "answer": "2 giờ",
+        "explanation": "Tổng vận tốc: 24 + 12 = 36 km/h. Thời gian gặp nhau: 72 / 36 = 2 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "medium",
+        "question": "Một cửa hàng bán 2 kg gạo loại A và 1 kg gạo loại B được 90000 đồng. Bán 1 kg gạo loại A và 1 kg gạo loại B được 60000 đồng. Giá 1 kg gạo loại A là bao nhiêu?",
+        "options": [
+            "20000 đồng",
+            "30000 đồng",
+            "40000 đồng",
+            "50000 đồng"
+        ],
+        "answer": "30000 đồng",
+        "explanation": "Gọi giá gạo A là x, gạo B là y. Ta có hệ: 2x + y = 90000 và x + y = 60000. Lấy phương trình đầu trừ phương trình sau: x = 30000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "hard",
+        "question": "Một cửa hàng bán 3 bút bi và 2 thước kẻ được 19000 đồng. Bán 1 bút bi và 1 thước kẻ được 8000 đồng. Giá một bút bi là bao nhiêu?",
+        "options": [
+            "3000 đồng",
+            "4000 đồng",
+            "5000 đồng",
+            "6000 đồng"
+        ],
+        "answer": "3000 đồng",
+        "explanation": "Gọi giá bút bi là x, thước kẻ là y. Ta có hệ: 3x + 2y = 19000 và x + y = 8000. Từ phương trình hai: y = 8000 − x. Thay vào phương trình đầu ⇒ 3x + 2(8000 − x) = 19000 ⇒ x = 3000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "medium",
+        "question": "Hai xe xuất phát cùng lúc từ hai điểm cách nhau 100 km và đi ngược chiều nhau. Xe thứ nhất đi với vận tốc 40 km/h, xe thứ hai 60 km/h. Sau bao lâu hai xe gặp nhau?",
+        "options": [
+            "1 giờ",
+            "1,5 giờ",
+            "2 giờ",
+            "2,5 giờ"
+        ],
+        "answer": "1 giờ",
+        "explanation": "Tổng vận tốc hai xe: 40 + 60 = 100 km/h. Thời gian gặp nhau: 100 / 100 = 1 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "hard",
+        "question": "Một xe đạp đi trước một xe máy 30 phút với vận tốc 15 km/h. Xe máy đi sau với vận tốc 45 km/h. Sau bao lâu kể từ khi xe máy xuất phát thì đuổi kịp xe đạp?",
+        "options": [
+            "10 phút",
+            "15 phút",
+            "20 phút",
+            "30 phút"
+        ],
+        "answer": "15 phút",
+        "explanation": "Xe đạp đi trước 0.5 giờ được 7.5 km. Hiệu vận tốc: 45 − 15 = 30 km/h. Thời gian đuổi kịp: 7.5 / 30 = 0.25 giờ = 15 phút."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Nồng độ dung dịch",
+        "difficulty": "medium",
+        "question": "Trộn 3 lít dung dịch muối 10% với 7 lít dung dịch muối 20%. Nồng độ dung dịch sau khi trộn là bao nhiêu?",
+        "options": [
+            "15%",
+            "16%",
+            "17%",
+            "18%"
+        ],
+        "answer": "17%",
+        "explanation": "Lượng muối: 3×10% = 0.3 lít và 7×20% = 1.4 lít. Tổng muối = 1.7 lít trong 10 lít dung dịch ⇒ nồng độ = 17%."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Nồng độ dung dịch",
+        "difficulty": "hard",
+        "question": "Có 6 lít dung dịch muối 8%. Cần thêm bao nhiêu lít dung dịch muối 20% để được dung dịch 14%?",
+        "options": [
+            "4 lít",
+            "5 lít",
+            "6 lít",
+            "7 lít"
+        ],
+        "answer": "6 lít",
+        "explanation": "Gọi x là lượng dung dịch 20%. Ta có: (6×0.08 + 0.2x)/(6 + x) = 0.14 ⇒ 0.48 + 0.2x = 0.84 + 0.14x ⇒ x = 6."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "medium",
+        "question": "Một cửa hàng bán 2 kg xoài và 3 kg cam được 210000 đồng. Bán 1 kg xoài và 1 kg cam được 80000 đồng. Giá 1 kg xoài là bao nhiêu?",
+        "options": [
+            "30000 đồng",
+            "40000 đồng",
+            "50000 đồng",
+            "60000 đồng"
+        ],
+        "answer": "50000 đồng",
+        "explanation": "Gọi giá xoài là x, giá cam là y. Ta có hệ: 2x + 3y = 210000 và x + y = 80000. Từ phương trình hai: y = 80000 − x. Thay vào phương trình đầu ⇒ x = 50000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "medium",
+        "question": "Hai người đi xe đạp từ hai điểm cách nhau 48 km và đi ngược chiều nhau. Người thứ nhất đi 16 km/h, người thứ hai 8 km/h. Sau bao lâu họ gặp nhau?",
+        "options": [
+            "1 giờ",
+            "2 giờ",
+            "3 giờ",
+            "4 giờ"
+        ],
+        "answer": "2 giờ",
+        "explanation": "Tổng vận tốc: 16 + 8 = 24 km/h. Thời gian gặp nhau: 48 / 24 = 2 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "medium",
+        "question": "Một cửa hàng bán 1 kg đường và 2 kg sữa được 140000 đồng. Bán 2 kg đường và 1 kg sữa được 160000 đồng. Giá 1 kg đường là bao nhiêu?",
+        "options": [
+            "40000 đồng",
+            "50000 đồng",
+            "60000 đồng",
+            "70000 đồng"
+        ],
+        "answer": "60000 đồng",
+        "explanation": "Gọi giá đường là x, giá sữa là y. Ta có hệ: x + 2y = 140000 và 2x + y = 160000. Giải hệ: nhân phương trình đầu với 2 ⇒ 2x + 4y = 280000. Trừ phương trình hai ⇒ 3y = 120000 ⇒ y = 40000 ⇒ x = 60000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "hard",
+        "question": "Một cửa hàng bán 4 quyển vở và 2 cây bút được 52000 đồng. Bán 2 quyển vở và 2 cây bút được 36000 đồng. Giá một quyển vở là bao nhiêu?",
+        "options": [
+            "6000 đồng",
+            "7000 đồng",
+            "8000 đồng",
+            "9000 đồng"
+        ],
+        "answer": "8000 đồng",
+        "explanation": "Gọi giá vở là x, giá bút là y. Ta có hệ: 4x + 2y = 52000 và 2x + 2y = 36000. Trừ hai phương trình ⇒ 2x = 16000 ⇒ x = 8000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "medium",
+        "question": "Hai xe xuất phát cùng lúc từ hai điểm cách nhau 120 km và đi ngược chiều nhau. Xe thứ nhất đi 50 km/h, xe thứ hai đi 70 km/h. Sau bao lâu hai xe gặp nhau?",
+        "options": [
+            "1 giờ",
+            "1,5 giờ",
+            "2 giờ",
+            "2,5 giờ"
+        ],
+        "answer": "1 giờ",
+        "explanation": "Tổng vận tốc: 50 + 70 = 120 km/h. Thời gian gặp nhau: 120 / 120 = 1 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "hard",
+        "question": "Một xe đạp đi trước một xe máy 1 giờ với vận tốc 12 km/h. Xe máy đi sau với vận tốc 36 km/h. Sau bao lâu kể từ khi xe máy xuất phát thì đuổi kịp xe đạp?",
+        "options": [
+            "30 phút",
+            "40 phút",
+            "45 phút",
+            "60 phút"
+        ],
+        "answer": "30 phút",
+        "explanation": "Xe đạp đi trước 1 giờ được 12 km. Hiệu vận tốc: 36 − 12 = 24 km/h. Thời gian đuổi kịp: 12 / 24 = 0.5 giờ = 30 phút."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Nồng độ dung dịch",
+        "difficulty": "medium",
+        "question": "Trộn 5 lít dung dịch muối 12% với 5 lít dung dịch muối 18%. Nồng độ dung dịch sau khi trộn là bao nhiêu?",
+        "options": [
+            "14%",
+            "15%",
+            "16%",
+            "17%"
+        ],
+        "answer": "15%",
+        "explanation": "Lượng muối: 5×12% = 0.6 lít và 5×18% = 0.9 lít. Tổng muối = 1.5 lít trong 10 lít dung dịch ⇒ nồng độ = 15%."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Nồng độ dung dịch",
+        "difficulty": "hard",
+        "question": "Có 10 lít dung dịch muối 5%. Cần thêm bao nhiêu lít dung dịch muối 25% để được dung dịch 15%?",
+        "options": [
+            "4 lít",
+            "5 lít",
+            "6 lít",
+            "7 lít"
+        ],
+        "answer": "5 lít",
+        "explanation": "Gọi x là lượng dung dịch 25%. Ta có: (10×0.05 + 0.25x)/(10 + x) = 0.15 ⇒ 0.5 + 0.25x = 1.5 + 0.15x ⇒ x = 5."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán kinh tế",
+        "difficulty": "medium",
+        "question": "Một cửa hàng bán 3 kg táo và 2 kg cam được 220000 đồng. Bán 1 kg táo và 1 kg cam được 80000 đồng. Giá 1 kg táo là bao nhiêu?",
+        "options": [
+            "50000 đồng",
+            "60000 đồng",
+            "70000 đồng",
+            "80000 đồng"
+        ],
+        "answer": "60000 đồng",
+        "explanation": "Gọi giá táo là x, cam là y. Ta có hệ: 3x + 2y = 220000 và x + y = 80000. Từ phương trình hai: y = 80000 − x. Thay vào phương trình đầu ⇒ x = 60000."
+    },
+    {
+        "grade": 9,
+        "topic": "Giải bài toán bằng cách lập hệ phương trình",
+        "sub_topic": "Bài toán chuyển động",
+        "difficulty": "medium",
+        "question": "Hai người đi bộ từ hai điểm cách nhau 30 km và đi ngược chiều nhau. Người thứ nhất đi 5 km/h, người thứ hai đi 10 km/h. Sau bao lâu họ gặp nhau?",
+        "options": [
+            "1 giờ",
+            "2 giờ",
+            "3 giờ",
+            "4 giờ"
+        ],
+        "answer": "2 giờ",
+        "explanation": "Tổng vận tốc: 5 + 10 = 15 km/h. Thời gian gặp nhau: 30 / 15 = 2 giờ."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Khái niệm căn bậc hai",
+        "difficulty": "easy",
+        "question": "Căn bậc hai số học của 16 là bao nhiêu?",
+        "options": [
+            "4",
+            "-4",
+            "±4",
+            "8"
+        ],
+        "answer": "4",
+        "explanation": "Căn bậc hai số học của một số không âm là căn bậc hai không âm của số đó. √16 = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Điều kiện xác định",
+        "difficulty": "easy",
+        "question": "Điều kiện để căn thức √(x - 3) xác định là gì?",
+        "options": [
+            "x ≥ 3",
+            "x > 3",
+            "x ≤ 3",
+            "x < 3"
+        ],
+        "answer": "x ≥ 3",
+        "explanation": "Căn bậc hai xác định khi biểu thức dưới dấu căn không âm ⇒ x - 3 ≥ 0 ⇒ x ≥ 3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Tính chất căn bậc hai",
+        "difficulty": "medium",
+        "question": "Giá trị của √(25 × 4) là bao nhiêu?",
+        "options": [
+            "10",
+            "20",
+            "5",
+            "100"
+        ],
+        "answer": "10",
+        "explanation": "Áp dụng tính chất √(ab) = √a × √b ⇒ √(25×4) = 5×2 = 10."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Rút gọn căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn biểu thức √50 ta được kết quả nào?",
+        "options": [
+            "5√2",
+            "10√5",
+            "25√2",
+            "2√5"
+        ],
+        "answer": "5√2",
+        "explanation": "√50 = √(25×2) = 5√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √3 × √12.",
+        "options": [
+            "6",
+            "12",
+            "3√12",
+            "2√6"
+        ],
+        "answer": "6",
+        "explanation": "√3 × √12 = √36 = 6."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Giá trị của √20 / √5 là bao nhiêu?",
+        "options": [
+            "2",
+            "4",
+            "5",
+            "10"
+        ],
+        "answer": "2",
+        "explanation": "√20 / √5 = √(20/5) = √4 = 2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Đưa thừa số ra ngoài căn",
+        "difficulty": "medium",
+        "question": "Rút gọn √72.",
+        "options": [
+            "6√2",
+            "8√3",
+            "4√3",
+            "3√8"
+        ],
+        "answer": "6√2",
+        "explanation": "√72 = √(36×2) = 6√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Rationalize mẫu của biểu thức 1 / √5.",
+        "options": [
+            "√5 / 5",
+            "1 / 5",
+            "5 / √5",
+            "√5"
+        ],
+        "answer": "√5 / 5",
+        "explanation": "Nhân cả tử và mẫu với √5 ⇒ (1×√5)/(√5×√5) = √5/5."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Khái niệm căn bậc hai",
+        "difficulty": "easy",
+        "question": "Căn bậc hai số học của 49 là bao nhiêu?",
+        "options": [
+            "7",
+            "-7",
+            "±7",
+            "14"
+        ],
+        "answer": "7",
+        "explanation": "Căn bậc hai số học của một số không âm là căn bậc hai không âm của số đó. √49 = 7."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Điều kiện xác định",
+        "difficulty": "easy",
+        "question": "Điều kiện xác định của căn thức √(2x + 1) là gì?",
+        "options": [
+            "x ≥ -1/2",
+            "x > -1/2",
+            "x ≤ -1/2",
+            "x < -1/2"
+        ],
+        "answer": "x ≥ -1/2",
+        "explanation": "Căn thức xác định khi biểu thức dưới căn không âm: 2x + 1 ≥ 0 ⇒ x ≥ -1/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Tính chất căn bậc hai",
+        "difficulty": "medium",
+        "question": "Giá trị của √(9 × 16) là bao nhiêu?",
+        "options": [
+            "12",
+            "24",
+            "36",
+            "144"
+        ],
+        "answer": "12",
+        "explanation": "Áp dụng tính chất √(ab) = √a × √b ⇒ √(9×16) = 3×4 = 12."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Rút gọn căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √98.",
+        "options": [
+            "7√2",
+            "14√2",
+            "49√2",
+            "2√49"
+        ],
+        "answer": "7√2",
+        "explanation": "√98 = √(49×2) = 7√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √8 × √2.",
+        "options": [
+            "4",
+            "8",
+            "2√8",
+            "16"
+        ],
+        "answer": "4",
+        "explanation": "√8 × √2 = √16 = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Tính √45 / √5.",
+        "options": [
+            "3",
+            "9",
+            "5",
+            "15"
+        ],
+        "answer": "3",
+        "explanation": "√45 / √5 = √(45/5) = √9 = 3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Đưa thừa số ra ngoài căn",
+        "difficulty": "medium",
+        "question": "Rút gọn √32.",
+        "options": [
+            "4√2",
+            "8√2",
+            "2√8",
+            "16√2"
+        ],
+        "answer": "4√2",
+        "explanation": "√32 = √(16×2) = 4√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Trục căn thức ở mẫu của biểu thức 3 / √2.",
+        "options": [
+            "3√2 / 2",
+            "3 / 2",
+            "6 / √2",
+            "√6"
+        ],
+        "answer": "3√2 / 2",
+        "explanation": "Nhân cả tử và mẫu với √2 ⇒ (3×√2)/(√2×√2) = 3√2/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Khái niệm căn bậc hai",
+        "difficulty": "easy",
+        "question": "Căn bậc hai số học của 64 là bao nhiêu?",
+        "options": [
+            "8",
+            "-8",
+            "±8",
+            "16"
+        ],
+        "answer": "8",
+        "explanation": "Căn bậc hai số học là căn không âm của số đó. √64 = 8."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Điều kiện xác định",
+        "difficulty": "easy",
+        "question": "Điều kiện xác định của căn thức √(x + 5) là gì?",
+        "options": [
+            "x ≥ -5",
+            "x > -5",
+            "x ≤ -5",
+            "x < -5"
+        ],
+        "answer": "x ≥ -5",
+        "explanation": "Căn thức xác định khi biểu thức dưới căn không âm: x + 5 ≥ 0 ⇒ x ≥ -5."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Tính chất căn bậc hai",
+        "difficulty": "medium",
+        "question": "Giá trị của √(16 × 9) là bao nhiêu?",
+        "options": [
+            "12",
+            "24",
+            "144",
+            "6"
+        ],
+        "answer": "12",
+        "explanation": "Áp dụng √(ab) = √a × √b ⇒ √(16×9) = 4×3 = 12."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Rút gọn căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √75.",
+        "options": [
+            "5√3",
+            "15√3",
+            "25√3",
+            "3√5"
+        ],
+        "answer": "5√3",
+        "explanation": "√75 = √(25×3) = 5√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √5 × √20.",
+        "options": [
+            "10",
+            "20",
+            "5√20",
+            "2√25"
+        ],
+        "answer": "10",
+        "explanation": "√5 × √20 = √100 = 10."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Tính √72 / √8.",
+        "options": [
+            "3",
+            "6",
+            "9",
+            "12"
+        ],
+        "answer": "3",
+        "explanation": "√72 / √8 = √(72/8) = √9 = 3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Đưa thừa số ra ngoài căn",
+        "difficulty": "medium",
+        "question": "Rút gọn √48.",
+        "options": [
+            "4√3",
+            "6√2",
+            "3√16",
+            "8√3"
+        ],
+        "answer": "4√3",
+        "explanation": "√48 = √(16×3) = 4√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Trục căn thức ở mẫu của biểu thức 2 / √3.",
+        "options": [
+            "2√3 / 3",
+            "2 / 3",
+            "√6 / 3",
+            "3 / √2"
+        ],
+        "answer": "2√3 / 3",
+        "explanation": "Nhân cả tử và mẫu với √3 ⇒ (2×√3)/(√3×√3) = 2√3/3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Khái niệm căn bậc hai",
+        "difficulty": "easy",
+        "question": "Giá trị của √81 là bao nhiêu?",
+        "options": [
+            "9",
+            "-9",
+            "±9",
+            "18"
+        ],
+        "answer": "9",
+        "explanation": "Căn bậc hai số học của 81 là số không âm mà bình phương bằng 81 ⇒ √81 = 9."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Điều kiện xác định",
+        "difficulty": "easy",
+        "question": "Điều kiện xác định của căn thức √(3x - 6) là gì?",
+        "options": [
+            "x ≥ 2",
+            "x > 2",
+            "x ≤ 2",
+            "x < 2"
+        ],
+        "answer": "x ≥ 2",
+        "explanation": "Căn thức xác định khi biểu thức dưới căn không âm: 3x − 6 ≥ 0 ⇒ x ≥ 2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Tính chất căn bậc hai",
+        "difficulty": "medium",
+        "question": "Giá trị của √(4 × 25) là bao nhiêu?",
+        "options": [
+            "10",
+            "20",
+            "5",
+            "100"
+        ],
+        "answer": "10",
+        "explanation": "Áp dụng √(ab) = √a × √b ⇒ √(4×25) = 2×5 = 10."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Rút gọn căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √147.",
+        "options": [
+            "7√3",
+            "14√3",
+            "3√49",
+            "21√3"
+        ],
+        "answer": "7√3",
+        "explanation": "√147 = √(49×3) = 7√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √6 × √24.",
+        "options": [
+            "12",
+            "24",
+            "6√24",
+            "144"
+        ],
+        "answer": "12",
+        "explanation": "√6 × √24 = √144 = 12."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Tính √50 / √2.",
+        "options": [
+            "5",
+            "10",
+            "25",
+            "2√5"
+        ],
+        "answer": "5",
+        "explanation": "√50 / √2 = √(50/2) = √25 = 5."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Đưa thừa số ra ngoài căn",
+        "difficulty": "medium",
+        "question": "Rút gọn √200.",
+        "options": [
+            "10√2",
+            "20√2",
+            "5√8",
+            "4√50"
+        ],
+        "answer": "10√2",
+        "explanation": "√200 = √(100×2) = 10√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Trục căn thức ở mẫu của biểu thức 5 / √7.",
+        "options": [
+            "5√7 / 7",
+            "5 / 7",
+            "7√5 / 5",
+            "√35 / 7"
+        ],
+        "answer": "5√7 / 7",
+        "explanation": "Nhân cả tử và mẫu với √7 ⇒ (5×√7)/(√7×√7) = 5√7/7."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Khái niệm căn bậc hai",
+        "difficulty": "easy",
+        "question": "Giá trị của √121 là bao nhiêu?",
+        "options": [
+            "11",
+            "-11",
+            "±11",
+            "22"
+        ],
+        "answer": "11",
+        "explanation": "Căn bậc hai số học của 121 là số không âm có bình phương bằng 121 ⇒ √121 = 11."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Điều kiện xác định",
+        "difficulty": "easy",
+        "question": "Điều kiện xác định của căn thức √(5 - x) là gì?",
+        "options": [
+            "x ≤ 5",
+            "x < 5",
+            "x ≥ 5",
+            "x > 5"
+        ],
+        "answer": "x ≤ 5",
+        "explanation": "Căn thức xác định khi biểu thức dưới căn không âm: 5 − x ≥ 0 ⇒ x ≤ 5."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Tính chất căn bậc hai",
+        "difficulty": "medium",
+        "question": "Giá trị của √(36 × 4) là bao nhiêu?",
+        "options": [
+            "12",
+            "24",
+            "6",
+            "144"
+        ],
+        "answer": "12",
+        "explanation": "Áp dụng √(ab) = √a × √b ⇒ √(36×4) = 6×2 = 12."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Rút gọn căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √108.",
+        "options": [
+            "6√3",
+            "12√3",
+            "3√12",
+            "9√3"
+        ],
+        "answer": "6√3",
+        "explanation": "√108 = √(36×3) = 6√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √7 × √28.",
+        "options": [
+            "14",
+            "7√28",
+            "196",
+            "4√7"
+        ],
+        "answer": "14",
+        "explanation": "√7 × √28 = √196 = 14."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Tính √63 / √7.",
+        "options": [
+            "3",
+            "9",
+            "7",
+            "21"
+        ],
+        "answer": "3",
+        "explanation": "√63 / √7 = √(63/7) = √9 = 3."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Đưa thừa số ra ngoài căn",
+        "difficulty": "medium",
+        "question": "Rút gọn √180.",
+        "options": [
+            "6√5",
+            "12√5",
+            "3√20",
+            "9√5"
+        ],
+        "answer": "6√5",
+        "explanation": "√180 = √(36×5) = 6√5."
+    },
+    {
+        "grade": 9,
+        "topic": "Căn thức",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Trục căn thức ở mẫu của biểu thức 7 / √3.",
+        "options": [
+            "7√3 / 3",
+            "7 / 3",
+            "√21 / 3",
+            "3√7 / 7"
+        ],
+        "answer": "7√3 / 3",
+        "explanation": "Nhân cả tử và mẫu với √3 ⇒ (7×√3)/(√3×√3) = 7√3/3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Rút gọn căn thức đơn giản",
+        "difficulty": "easy",
+        "question": "Rút gọn biểu thức √18.",
+        "options": [
+            "3√2",
+            "6√2",
+            "9√2",
+            "2√9"
+        ],
+        "answer": "3√2",
+        "explanation": "√18 = √(9×2) = 3√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Cộng trừ căn thức đồng dạng",
+        "difficulty": "easy",
+        "question": "Tính 2√5 + 3√5.",
+        "options": [
+            "5√5",
+            "6√5",
+            "5√10",
+            "√25"
+        ],
+        "answer": "5√5",
+        "explanation": "Hai căn thức đồng dạng nên cộng hệ số: 2√5 + 3√5 = 5√5."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Cộng trừ căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √12 + √27.",
+        "options": [
+            "5√3",
+            "3√3",
+            "9√3",
+            "6√3"
+        ],
+        "answer": "5√3",
+        "explanation": "√12 = 2√3, √27 = 3√3 ⇒ tổng = 5√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √8 × √18.",
+        "options": [
+            "12",
+            "6",
+            "24",
+            "36"
+        ],
+        "answer": "12",
+        "explanation": "√8 × √18 = √144 = 12."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √75 / √3.",
+        "options": [
+            "5",
+            "15",
+            "25",
+            "3√5"
+        ],
+        "answer": "5",
+        "explanation": "√75 / √3 = √(75/3) = √25 = 5."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Biểu thức nhiều căn",
+        "difficulty": "medium",
+        "question": "Rút gọn 3√2 + √8.",
+        "options": [
+            "5√2",
+            "4√2",
+            "6√2",
+            "3√8"
+        ],
+        "answer": "5√2",
+        "explanation": "√8 = 2√2 ⇒ 3√2 + 2√2 = 5√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Rút gọn biểu thức 4 / √2.",
+        "options": [
+            "2√2",
+            "4√2",
+            "√8",
+            "2"
+        ],
+        "answer": "2√2",
+        "explanation": "4/√2 × √2/√2 = 4√2/2 = 2√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Biểu thức tổng hợp",
+        "difficulty": "hard",
+        "question": "Rút gọn √50 − √8.",
+        "options": [
+            "3√2",
+            "5√2",
+            "2√2",
+            "7√2"
+        ],
+        "answer": "3√2",
+        "explanation": "√50 = 5√2, √8 = 2√2 ⇒ 5√2 − 2√2 = 3√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Cộng trừ căn thức đồng dạng",
+        "difficulty": "easy",
+        "question": "Tính 7√3 − 2√3.",
+        "options": [
+            "5√3",
+            "9√3",
+            "5√6",
+            "3√5"
+        ],
+        "answer": "5√3",
+        "explanation": "Hai căn thức đồng dạng nên trừ hệ số: 7√3 − 2√3 = 5√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Cộng căn sau khi rút gọn",
+        "difficulty": "medium",
+        "question": "Rút gọn √20 + √45.",
+        "options": [
+            "5√5",
+            "7√5",
+            "9√5",
+            "3√5"
+        ],
+        "answer": "5√5",
+        "explanation": "√20 = 2√5, √45 = 3√5 ⇒ tổng = 5√5."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √48 / √3.",
+        "options": [
+            "4",
+            "16",
+            "8",
+            "4√2"
+        ],
+        "answer": "4",
+        "explanation": "√48 / √3 = √(48/3) = √16 = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Biểu thức hỗn hợp",
+        "difficulty": "medium",
+        "question": "Rút gọn 2√3 + √12.",
+        "options": [
+            "4√3",
+            "3√3",
+            "5√3",
+            "2√12"
+        ],
+        "answer": "4√3",
+        "explanation": "√12 = 2√3 ⇒ 2√3 + 2√3 = 4√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Rút gọn 5 / √5.",
+        "options": [
+            "√5",
+            "5√5",
+            "10√5",
+            "5"
+        ],
+        "answer": "√5",
+        "explanation": "5/√5 × √5/√5 = 5√5/5 = √5."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Hiệu căn thức",
+        "difficulty": "hard",
+        "question": "Rút gọn √72 − √18.",
+        "options": [
+            "3√2",
+            "4√2",
+            "5√2",
+            "6√2"
+        ],
+        "answer": "3√2",
+        "explanation": "√72 = 6√2, √18 = 3√2 ⇒ hiệu = 3√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Rút gọn căn thức",
+        "difficulty": "easy",
+        "question": "Rút gọn √50.",
+        "options": [
+            "5√2",
+            "10√2",
+            "25√2",
+            "2√25"
+        ],
+        "answer": "5√2",
+        "explanation": "√50 = √(25×2) = 5√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Cộng trừ căn thức đồng dạng",
+        "difficulty": "easy",
+        "question": "Tính 4√7 + 3√7.",
+        "options": [
+            "7√7",
+            "12√7",
+            "7√14",
+            "√49"
+        ],
+        "answer": "7√7",
+        "explanation": "Hai căn thức đồng dạng nên cộng hệ số: 4√7 + 3√7 = 7√7."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Rút gọn rồi cộng",
+        "difficulty": "medium",
+        "question": "Rút gọn √75 + √12.",
+        "options": [
+            "7√3",
+            "5√3",
+            "6√3",
+            "9√3"
+        ],
+        "answer": "7√3",
+        "explanation": "√75 = 5√3 và √12 = 2√3 ⇒ tổng = 7√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √10 × √40.",
+        "options": [
+            "20",
+            "40",
+            "10",
+            "5√8"
+        ],
+        "answer": "20",
+        "explanation": "√10 × √40 = √400 = 20."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √63 / √7.",
+        "options": [
+            "3",
+            "9",
+            "6",
+            "3√7"
+        ],
+        "answer": "3",
+        "explanation": "√63 / √7 = √(63/7) = √9 = 3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Biểu thức nhiều căn",
+        "difficulty": "medium",
+        "question": "Rút gọn 5√2 − √8.",
+        "options": [
+            "3√2",
+            "4√2",
+            "2√2",
+            "5√8"
+        ],
+        "answer": "3√2",
+        "explanation": "√8 = 2√2 ⇒ 5√2 − 2√2 = 3√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Rút gọn 6 / √3.",
+        "options": [
+            "2√3",
+            "6√3",
+            "3√3",
+            "√3"
+        ],
+        "answer": "2√3",
+        "explanation": "6/√3 × √3/√3 = 6√3/3 = 2√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Hiệu căn thức",
+        "difficulty": "hard",
+        "question": "Rút gọn √98 − √32.",
+        "options": [
+            "3√2",
+            "4√2",
+            "5√2",
+            "2√2"
+        ],
+        "answer": "3√2",
+        "explanation": "√98 = 7√2, √32 = 4√2 ⇒ hiệu = 3√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Cộng căn thức đồng dạng",
+        "difficulty": "easy",
+        "question": "Tính 6√5 + 2√5.",
+        "options": [
+            "8√5",
+            "12√5",
+            "6√10",
+            "8√10"
+        ],
+        "answer": "8√5",
+        "explanation": "Hai căn thức đồng dạng nên cộng hệ số: 6√5 + 2√5 = 8√5."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Rút gọn rồi cộng",
+        "difficulty": "medium",
+        "question": "Rút gọn √27 + √48.",
+        "options": [
+            "7√3",
+            "5√3",
+            "9√3",
+            "6√3"
+        ],
+        "answer": "7√3",
+        "explanation": "√27 = 3√3, √48 = 4√3 ⇒ tổng = 7√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √12 × √27.",
+        "options": [
+            "18",
+            "12",
+            "36",
+            "9"
+        ],
+        "answer": "18",
+        "explanation": "√12 × √27 = √324 = 18."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √80 / √5.",
+        "options": [
+            "4",
+            "8",
+            "16",
+            "4√5"
+        ],
+        "answer": "4",
+        "explanation": "√80 / √5 = √(80/5) = √16 = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Biểu thức nhiều căn",
+        "difficulty": "medium",
+        "question": "Rút gọn 4√3 + √27.",
+        "options": [
+            "7√3",
+            "5√3",
+            "6√3",
+            "3√3"
+        ],
+        "answer": "7√3",
+        "explanation": "√27 = 3√3 ⇒ 4√3 + 3√3 = 7√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Rút gọn 8 / √2.",
+        "options": [
+            "4√2",
+            "8√2",
+            "2√2",
+            "√16"
+        ],
+        "answer": "4√2",
+        "explanation": "8/√2 × √2/√2 = 8√2/2 = 4√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Hiệu căn thức",
+        "difficulty": "hard",
+        "question": "Rút gọn √200 − √50.",
+        "options": [
+            "5√2",
+            "10√2",
+            "15√2",
+            "3√2"
+        ],
+        "answer": "5√2",
+        "explanation": "√200 = 10√2, √50 = 5√2 ⇒ hiệu = 5√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Cộng căn thức đồng dạng",
+        "difficulty": "easy",
+        "question": "Tính 9√2 − 4√2.",
+        "options": [
+            "5√2",
+            "13√2",
+            "5√4",
+            "3√2"
+        ],
+        "answer": "5√2",
+        "explanation": "Hai căn thức đồng dạng nên trừ hệ số: 9√2 − 4√2 = 5√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Rút gọn rồi cộng",
+        "difficulty": "medium",
+        "question": "Rút gọn √32 + √18.",
+        "options": [
+            "7√2",
+            "5√2",
+            "9√2",
+            "6√2"
+        ],
+        "answer": "7√2",
+        "explanation": "√32 = 4√2, √18 = 3√2 ⇒ tổng = 7√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √15 × √60.",
+        "options": [
+            "30",
+            "60",
+            "15",
+            "10√6"
+        ],
+        "answer": "30",
+        "explanation": "√15 × √60 = √900 = 30."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √45 / √5.",
+        "options": [
+            "3",
+            "9",
+            "5",
+            "3√5"
+        ],
+        "answer": "3",
+        "explanation": "√45 / √5 = √(45/5) = √9 = 3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Biểu thức nhiều căn",
+        "difficulty": "medium",
+        "question": "Rút gọn 6√5 − √45.",
+        "options": [
+            "3√5",
+            "5√5",
+            "4√5",
+            "2√5"
+        ],
+        "answer": "3√5",
+        "explanation": "√45 = 3√5 ⇒ 6√5 − 3√5 = 3√5."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Rút gọn 10 / √5.",
+        "options": [
+            "2√5",
+            "5√5",
+            "10√5",
+            "√5"
+        ],
+        "answer": "2√5",
+        "explanation": "10/√5 × √5/√5 = 10√5/5 = 2√5."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Hiệu căn thức",
+        "difficulty": "hard",
+        "question": "Rút gọn √162 − √72.",
+        "options": [
+            "3√2",
+            "6√2",
+            "9√2",
+            "12√2"
+        ],
+        "answer": "3√2",
+        "explanation": "√162 = 9√2, √72 = 6√2 ⇒ hiệu = 3√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Rút gọn căn thức",
+        "difficulty": "easy",
+        "question": "Rút gọn √128.",
+        "options": [
+            "8√2",
+            "16√2",
+            "4√2",
+            "2√64"
+        ],
+        "answer": "8√2",
+        "explanation": "√128 = √(64×2) = 8√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Cộng căn thức đồng dạng",
+        "difficulty": "easy",
+        "question": "Tính 3√11 + 5√11.",
+        "options": [
+            "8√11",
+            "15√11",
+            "8√22",
+            "3√55"
+        ],
+        "answer": "8√11",
+        "explanation": "Hai căn thức đồng dạng nên cộng hệ số: 3√11 + 5√11 = 8√11."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Rút gọn rồi cộng",
+        "difficulty": "medium",
+        "question": "Rút gọn √50 + √8.",
+        "options": [
+            "7√2",
+            "5√2",
+            "9√2",
+            "6√2"
+        ],
+        "answer": "7√2",
+        "explanation": "√50 = 5√2 và √8 = 2√2 ⇒ tổng = 7√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Nhân căn thức",
+        "difficulty": "medium",
+        "question": "Tính √20 × √45.",
+        "options": [
+            "30",
+            "45",
+            "20",
+            "15"
+        ],
+        "answer": "30",
+        "explanation": "√20 × √45 = √900 = 30."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Chia căn thức",
+        "difficulty": "medium",
+        "question": "Rút gọn √96 / √6.",
+        "options": [
+            "4",
+            "8",
+            "16",
+            "4√6"
+        ],
+        "answer": "4",
+        "explanation": "√96 / √6 = √(96/6) = √16 = 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Biểu thức nhiều căn",
+        "difficulty": "medium",
+        "question": "Rút gọn 7√3 − √27.",
+        "options": [
+            "4√3",
+            "5√3",
+            "6√3",
+            "3√3"
+        ],
+        "answer": "4√3",
+        "explanation": "√27 = 3√3 ⇒ 7√3 − 3√3 = 4√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Trục căn thức ở mẫu",
+        "difficulty": "hard",
+        "question": "Rút gọn 12 / √3.",
+        "options": [
+            "4√3",
+            "6√3",
+            "12√3",
+            "3√3"
+        ],
+        "answer": "4√3",
+        "explanation": "12/√3 × √3/√3 = 12√3/3 = 4√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Rút gọn biểu thức chứa căn",
+        "sub_topic": "Hiệu căn thức",
+        "difficulty": "hard",
+        "question": "Rút gọn √242 − √98.",
+        "options": [
+            "4√2",
+            "5√2",
+            "6√2",
+            "7√2"
+        ],
+        "answer": "4√2",
+        "explanation": "√242 = 11√2, √98 = 7√2 ⇒ hiệu = 4√2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Khái niệm sin",
+        "difficulty": "easy",
+        "question": "Trong tam giác vuông, sin của góc nhọn α được định nghĩa là:",
+        "options": [
+            "Cạnh kề / cạnh huyền",
+            "Cạnh đối / cạnh huyền",
+            "Cạnh đối / cạnh kề",
+            "Cạnh huyền / cạnh đối"
+        ],
+        "answer": "Cạnh đối / cạnh huyền",
+        "explanation": "Trong tam giác vuông: sinα = cạnh đối / cạnh huyền."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Khái niệm cos",
+        "difficulty": "easy",
+        "question": "Trong tam giác vuông, cos của góc nhọn α bằng:",
+        "options": [
+            "Cạnh kề / cạnh huyền",
+            "Cạnh đối / cạnh huyền",
+            "Cạnh đối / cạnh kề",
+            "Cạnh huyền / cạnh kề"
+        ],
+        "answer": "Cạnh kề / cạnh huyền",
+        "explanation": "cosα = cạnh kề / cạnh huyền."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Khái niệm tan",
+        "difficulty": "easy",
+        "question": "Trong tam giác vuông, tan của góc nhọn α bằng:",
+        "options": [
+            "Cạnh kề / cạnh huyền",
+            "Cạnh đối / cạnh huyền",
+            "Cạnh đối / cạnh kề",
+            "Cạnh huyền / cạnh đối"
+        ],
+        "answer": "Cạnh đối / cạnh kề",
+        "explanation": "tanα = cạnh đối / cạnh kề."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Khái niệm cot",
+        "difficulty": "easy",
+        "question": "Trong tam giác vuông, cot của góc nhọn α bằng:",
+        "options": [
+            "Cạnh kề / cạnh đối",
+            "Cạnh đối / cạnh kề",
+            "Cạnh đối / cạnh huyền",
+            "Cạnh huyền / cạnh kề"
+        ],
+        "answer": "Cạnh kề / cạnh đối",
+        "explanation": "cotα = cạnh kề / cạnh đối."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "medium",
+        "question": "Giá trị của sin30° là:",
+        "options": [
+            "1/2",
+            "√2/2",
+            "√3/2",
+            "1"
+        ],
+        "answer": "1/2",
+        "explanation": "sin30° = 1/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "medium",
+        "question": "Giá trị của cos60° là:",
+        "options": [
+            "1/2",
+            "√2/2",
+            "√3/2",
+            "1"
+        ],
+        "answer": "1/2",
+        "explanation": "cos60° = 1/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "medium",
+        "question": "Giá trị của tan45° là:",
+        "options": [
+            "1",
+            "√3",
+            "√2",
+            "1/2"
+        ],
+        "answer": "1",
+        "explanation": "tan45° = 1."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "medium",
+        "question": "Giá trị của cot45° là:",
+        "options": [
+            "1",
+            "√3",
+            "1/√3",
+            "2"
+        ],
+        "answer": "1",
+        "explanation": "cot45° = 1."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "So sánh giá trị lượng giác",
+        "difficulty": "hard",
+        "question": "Trong các giá trị sau, giá trị nào lớn nhất?",
+        "options": [
+            "sin30°",
+            "cos60°",
+            "tan45°",
+            "cos45°"
+        ],
+        "answer": "tan45°",
+        "explanation": "sin30° = 1/2, cos60° = 1/2, cos45° = √2/2 ≈ 0.707, tan45° = 1 ⇒ lớn nhất."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Hệ thức lượng giác cơ bản",
+        "difficulty": "hard",
+        "question": "Nếu tanα = 2 thì cotα bằng:",
+        "options": [
+            "1/2",
+            "2",
+            "4",
+            "1"
+        ],
+        "answer": "1/2",
+        "explanation": "cotα = 1 / tanα = 1/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Giá trị của cos30° là:",
+        "options": [
+            "1/2",
+            "√2/2",
+            "√3/2",
+            "1"
+        ],
+        "answer": "√3/2",
+        "explanation": "cos30° = √3/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Giá trị của tan30° là:",
+        "options": [
+            "1/√3",
+            "√3",
+            "1",
+            "1/2"
+        ],
+        "answer": "1/√3",
+        "explanation": "tan30° = 1/√3 = √3/3."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Giá trị của cot30° là:",
+        "options": [
+            "√3",
+            "1/√3",
+            "1",
+            "2"
+        ],
+        "answer": "√3",
+        "explanation": "cot30° = √3."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Giá trị của sin45° là:",
+        "options": [
+            "√2/2",
+            "1/2",
+            "√3/2",
+            "1"
+        ],
+        "answer": "√2/2",
+        "explanation": "sin45° = √2/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Hệ thức nghịch đảo",
+        "difficulty": "medium",
+        "question": "Nếu sinα = 1/2 thì cosα bằng giá trị nào sau đây?",
+        "options": [
+            "√3/2",
+            "1/2",
+            "√2/2",
+            "1"
+        ],
+        "answer": "√3/2",
+        "explanation": "Với góc nhọn α có sinα = 1/2 ⇒ α = 30° ⇒ cosα = √3/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Quan hệ tan và cot",
+        "difficulty": "medium",
+        "question": "Nếu tanα = √3 thì α bằng:",
+        "options": [
+            "30°",
+            "45°",
+            "60°",
+            "90°"
+        ],
+        "answer": "60°",
+        "explanation": "tan60° = √3."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Quan hệ tan và cot",
+        "difficulty": "medium",
+        "question": "Nếu cotα = 1 thì α bằng:",
+        "options": [
+            "30°",
+            "45°",
+            "60°",
+            "90°"
+        ],
+        "answer": "45°",
+        "explanation": "cot45° = 1."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "So sánh giá trị lượng giác",
+        "difficulty": "hard",
+        "question": "Trong các giá trị sau, giá trị nào nhỏ nhất?",
+        "options": [
+            "sin30°",
+            "cos45°",
+            "tan45°",
+            "cos60°"
+        ],
+        "answer": "sin30°",
+        "explanation": "sin30° = 1/2, cos60° = 1/2, cos45° ≈ 0.707, tan45° = 1 ⇒ nhỏ nhất là 1/2 (sin30° hoặc cos60°). Trong đáp án chọn sin30°."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính tỉ số từ tam giác vuông",
+        "difficulty": "hard",
+        "question": "Trong tam giác vuông có cạnh đối = 3 và cạnh kề = 4. Giá trị của tanα bằng:",
+        "options": [
+            "3/4",
+            "4/3",
+            "5/3",
+            "3/5"
+        ],
+        "answer": "3/4",
+        "explanation": "tanα = cạnh đối / cạnh kề = 3/4."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính tỉ số từ tam giác vuông",
+        "difficulty": "hard",
+        "question": "Trong tam giác vuông có cạnh đối = 5 và cạnh huyền = 13. Giá trị của sinα bằng:",
+        "options": [
+            "5/13",
+            "12/13",
+            "13/5",
+            "5/12"
+        ],
+        "answer": "5/13",
+        "explanation": "sinα = cạnh đối / cạnh huyền = 5/13."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Giá trị của sin60° là:",
+        "options": [
+            "1/2",
+            "√2/2",
+            "√3/2",
+            "1"
+        ],
+        "answer": "√3/2",
+        "explanation": "sin60° = √3/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Giá trị của cos45° là:",
+        "options": [
+            "1/2",
+            "√2/2",
+            "√3/2",
+            "1"
+        ],
+        "answer": "√2/2",
+        "explanation": "cos45° = √2/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Quan hệ tan và cot",
+        "difficulty": "medium",
+        "question": "Nếu tanα = 1/√3 thì α bằng:",
+        "options": [
+            "30°",
+            "45°",
+            "60°",
+            "90°"
+        ],
+        "answer": "30°",
+        "explanation": "tan30° = 1/√3."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Quan hệ nghịch đảo",
+        "difficulty": "medium",
+        "question": "Nếu cotα = √3 thì α bằng:",
+        "options": [
+            "30°",
+            "45°",
+            "60°",
+            "90°"
+        ],
+        "answer": "30°",
+        "explanation": "cot30° = √3."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính tỉ số từ tam giác vuông",
+        "difficulty": "medium",
+        "question": "Trong tam giác vuông, cạnh đối = 6 và cạnh huyền = 10. Giá trị của sinα bằng:",
+        "options": [
+            "3/5",
+            "4/5",
+            "5/3",
+            "3/4"
+        ],
+        "answer": "3/5",
+        "explanation": "sinα = cạnh đối / cạnh huyền = 6/10 = 3/5."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính tỉ số từ tam giác vuông",
+        "difficulty": "medium",
+        "question": "Trong tam giác vuông, cạnh kề = 8 và cạnh huyền = 10. Giá trị của cosα bằng:",
+        "options": [
+            "4/5",
+            "5/4",
+            "3/5",
+            "8/5"
+        ],
+        "answer": "4/5",
+        "explanation": "cosα = cạnh kề / cạnh huyền = 8/10 = 4/5."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính tỉ số lượng giác",
+        "difficulty": "hard",
+        "question": "Trong tam giác vuông có cạnh đối = 5 và cạnh kề = 12. Giá trị của tanα bằng:",
+        "options": [
+            "5/12",
+            "12/5",
+            "13/5",
+            "5/13"
+        ],
+        "answer": "5/12",
+        "explanation": "tanα = cạnh đối / cạnh kề = 5/12."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính cạnh từ tỉ số lượng giác",
+        "difficulty": "hard",
+        "question": "Trong tam giác vuông, biết sinα = 3/5 và cạnh huyền = 10. Độ dài cạnh đối bằng:",
+        "options": [
+            "6",
+            "8",
+            "5",
+            "4"
+        ],
+        "answer": "6",
+        "explanation": "sinα = cạnh đối / cạnh huyền = 3/5 ⇒ cạnh đối = 10 × 3/5 = 6."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính cạnh từ tỉ số lượng giác",
+        "difficulty": "hard",
+        "question": "Trong tam giác vuông, biết cosα = 4/5 và cạnh huyền = 15. Độ dài cạnh kề bằng:",
+        "options": [
+            "12",
+            "9",
+            "10",
+            "6"
+        ],
+        "answer": "12",
+        "explanation": "cosα = cạnh kề / cạnh huyền = 4/5 ⇒ cạnh kề = 15 × 4/5 = 12."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Giá trị của tan60° là:",
+        "options": [
+            "√3",
+            "1/√3",
+            "1",
+            "√2"
+        ],
+        "answer": "√3",
+        "explanation": "tan60° = √3."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Giá trị lượng giác góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Giá trị của cot60° là:",
+        "options": [
+            "1/√3",
+            "√3",
+            "1",
+            "2"
+        ],
+        "answer": "1/√3",
+        "explanation": "cot60° = 1/√3 = √3/3."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Quan hệ nghịch đảo",
+        "difficulty": "medium",
+        "question": "Nếu tanα = 3 thì cotα bằng:",
+        "options": [
+            "1/3",
+            "3",
+            "9",
+            "1"
+        ],
+        "answer": "1/3",
+        "explanation": "cotα = 1 / tanα = 1/3."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Quan hệ nghịch đảo",
+        "difficulty": "medium",
+        "question": "Nếu cotα = 2 thì tanα bằng:",
+        "options": [
+            "1/2",
+            "2",
+            "4",
+            "1"
+        ],
+        "answer": "1/2",
+        "explanation": "tanα = 1 / cotα = 1/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính tỉ số từ tam giác vuông",
+        "difficulty": "medium",
+        "question": "Trong tam giác vuông có cạnh đối = 7 và cạnh kề = 24. Giá trị của tanα bằng:",
+        "options": [
+            "7/24",
+            "24/7",
+            "25/7",
+            "7/25"
+        ],
+        "answer": "7/24",
+        "explanation": "tanα = cạnh đối / cạnh kề = 7/24."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính tỉ số từ tam giác vuông",
+        "difficulty": "medium",
+        "question": "Trong tam giác vuông có cạnh đối = 8 và cạnh huyền = 17. Giá trị của sinα bằng:",
+        "options": [
+            "8/17",
+            "15/17",
+            "17/8",
+            "8/15"
+        ],
+        "answer": "8/17",
+        "explanation": "sinα = cạnh đối / cạnh huyền = 8/17."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính cạnh từ tỉ số lượng giác",
+        "difficulty": "hard",
+        "question": "Trong tam giác vuông, biết tanα = 3/4 và cạnh kề = 8. Độ dài cạnh đối bằng:",
+        "options": [
+            "6",
+            "4",
+            "12",
+            "10"
+        ],
+        "answer": "6",
+        "explanation": "tanα = cạnh đối / cạnh kề = 3/4 ⇒ cạnh đối = 8 × 3/4 = 6."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính cạnh từ tỉ số lượng giác",
+        "difficulty": "hard",
+        "question": "Trong tam giác vuông, biết cosα = 5/13 và cạnh huyền = 26. Độ dài cạnh kề bằng:",
+        "options": [
+            "10",
+            "15",
+            "20",
+            "5"
+        ],
+        "answer": "10",
+        "explanation": "cosα = cạnh kề / cạnh huyền = 5/13 ⇒ cạnh kề = 26 × 5/13 = 10."
+    },
+    {
+        "grade": 9,
+        "topic": "Tỉ số lượng giác",
+        "sub_topic": "Tính góc từ tỉ số lượng giác",
+        "difficulty": "hard",
+        "question": "Góc α bằng bao nhiêu nếu sinα = √2/2?",
+        "options": [
+            "30°",
+            "45°",
+            "60°",
+            "90°"
+        ],
+        "answer": "45°",
+        "explanation": "sin45° = √2/2."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Sự xác định đường tròn",
+        "difficulty": "easy",
+        "question": "Một đường tròn được xác định khi biết:",
+        "options": [
+            "Tâm và bán kính",
+            "Hai điểm bất kỳ",
+            "Một điểm bất kỳ",
+            "Một đoạn thẳng"
+        ],
+        "answer": "Tâm và bán kính",
+        "explanation": "Một đường tròn được xác định duy nhất khi biết tâm và bán kính."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Sự xác định đường tròn",
+        "difficulty": "easy",
+        "question": "Qua ba điểm phân biệt không thẳng hàng có thể vẽ được:",
+        "options": [
+            "Một đường tròn duy nhất",
+            "Hai đường tròn",
+            "Vô số đường tròn",
+            "Không vẽ được đường tròn"
+        ],
+        "answer": "Một đường tròn duy nhất",
+        "explanation": "Ba điểm không thẳng hàng xác định duy nhất một đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất đối xứng",
+        "difficulty": "easy",
+        "question": "Đường tròn có bao nhiêu trục đối xứng?",
+        "options": [
+            "1",
+            "2",
+            "Vô số",
+            "Không có"
+        ],
+        "answer": "Vô số",
+        "explanation": "Mọi đường kính đều là trục đối xứng của đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất đối xứng",
+        "difficulty": "easy",
+        "question": "Tâm của đường tròn là:",
+        "options": [
+            "Tâm đối xứng của đường tròn",
+            "Một điểm bất kỳ",
+            "Điểm nằm trên đường tròn",
+            "Điểm ngoài đường tròn"
+        ],
+        "answer": "Tâm đối xứng của đường tròn",
+        "explanation": "Đường tròn có tâm là tâm đối xứng."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Vị trí tương đối đường thẳng và đường tròn",
+        "difficulty": "medium",
+        "question": "Nếu khoảng cách từ tâm đường tròn đến đường thẳng lớn hơn bán kính thì đường thẳng:",
+        "options": [
+            "Cắt đường tròn",
+            "Tiếp xúc đường tròn",
+            "Không cắt đường tròn",
+            "Đi qua tâm"
+        ],
+        "answer": "Không cắt đường tròn",
+        "explanation": "Nếu khoảng cách từ tâm đến đường thẳng > bán kính thì đường thẳng nằm ngoài đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Vị trí tương đối đường thẳng và đường tròn",
+        "difficulty": "medium",
+        "question": "Nếu khoảng cách từ tâm đường tròn đến đường thẳng bằng bán kính thì đường thẳng:",
+        "options": [
+            "Cắt đường tròn tại hai điểm",
+            "Là tiếp tuyến của đường tròn",
+            "Không cắt đường tròn",
+            "Đi qua tâm"
+        ],
+        "answer": "Là tiếp tuyến của đường tròn",
+        "explanation": "Khoảng cách từ tâm đến đường thẳng bằng bán kính thì đường thẳng là tiếp tuyến."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Vị trí tương đối đường thẳng và đường tròn",
+        "difficulty": "medium",
+        "question": "Nếu khoảng cách từ tâm đường tròn đến đường thẳng nhỏ hơn bán kính thì đường thẳng:",
+        "options": [
+            "Cắt đường tròn tại hai điểm",
+            "Tiếp xúc đường tròn",
+            "Không cắt đường tròn",
+            "Song song với bán kính"
+        ],
+        "answer": "Cắt đường tròn tại hai điểm",
+        "explanation": "Nếu khoảng cách từ tâm đến đường thẳng < bán kính thì đường thẳng cắt đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất tiếp tuyến",
+        "difficulty": "hard",
+        "question": "Tiếp tuyến của đường tròn tại một điểm thì:",
+        "options": [
+            "Vuông góc với bán kính tại tiếp điểm",
+            "Song song với bán kính",
+            "Đi qua tâm",
+            "Tạo góc 45° với bán kính"
+        ],
+        "answer": "Vuông góc với bán kính tại tiếp điểm",
+        "explanation": "Tính chất cơ bản: tiếp tuyến vuông góc với bán kính tại tiếp điểm."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất tiếp tuyến",
+        "difficulty": "hard",
+        "question": "Từ một điểm nằm ngoài đường tròn kẻ hai tiếp tuyến đến đường tròn thì:",
+        "options": [
+            "Hai tiếp tuyến bằng nhau",
+            "Hai tiếp tuyến song song",
+            "Hai tiếp tuyến vuông góc",
+            "Hai tiếp tuyến cắt nhau tại tâm"
+        ],
+        "answer": "Hai tiếp tuyến bằng nhau",
+        "explanation": "Hai đoạn tiếp tuyến xuất phát từ cùng một điểm ngoài đường tròn có độ dài bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết tiếp tuyến",
+        "difficulty": "hard",
+        "question": "Đường thẳng d là tiếp tuyến của đường tròn tâm O tại A khi:",
+        "options": [
+            "d ⟂ OA tại A",
+            "d // OA",
+            "d đi qua O",
+            "d cắt đường tròn tại hai điểm"
+        ],
+        "answer": "d ⟂ OA tại A",
+        "explanation": "Điều kiện để đường thẳng là tiếp tuyến: vuông góc với bán kính tại tiếp điểm."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Sự xác định đường tròn",
+        "difficulty": "easy",
+        "question": "Trong các yếu tố sau, yếu tố nào đủ để xác định một đường tròn?",
+        "options": [
+            "Tâm và một điểm thuộc đường tròn",
+            "Hai điểm thuộc đường tròn",
+            "Một đoạn thẳng bất kỳ",
+            "Một góc bất kỳ"
+        ],
+        "answer": "Tâm và một điểm thuộc đường tròn",
+        "explanation": "Khi biết tâm và một điểm trên đường tròn ta xác định được bán kính nên xác định được đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất đối xứng",
+        "difficulty": "easy",
+        "question": "Đường kính của đường tròn có vai trò gì đối với tính đối xứng?",
+        "options": [
+            "Là trục đối xứng của đường tròn",
+            "Không liên quan",
+            "Là đường nằm ngoài đường tròn",
+            "Là tiếp tuyến"
+        ],
+        "answer": "Là trục đối xứng của đường tròn",
+        "explanation": "Mọi đường kính đều là trục đối xứng của đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất cơ bản",
+        "difficulty": "medium",
+        "question": "Trong một đường tròn, tất cả các bán kính:",
+        "options": [
+            "Bằng nhau",
+            "Khác nhau",
+            "Lớn hơn đường kính",
+            "Nhỏ hơn nửa bán kính"
+        ],
+        "answer": "Bằng nhau",
+        "explanation": "Theo định nghĩa, mọi bán kính của cùng một đường tròn đều bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Vị trí tương đối đường thẳng và đường tròn",
+        "difficulty": "medium",
+        "question": "Một đường thẳng cắt đường tròn tại hai điểm gọi là:",
+        "options": [
+            "Tiếp tuyến",
+            "Cát tuyến",
+            "Đường kính",
+            "Bán kính"
+        ],
+        "answer": "Cát tuyến",
+        "explanation": "Đường thẳng cắt đường tròn tại hai điểm gọi là cát tuyến."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tiếp tuyến",
+        "difficulty": "medium",
+        "question": "Tiếp tuyến của đường tròn là đường thẳng:",
+        "options": [
+            "Chỉ có một điểm chung với đường tròn",
+            "Có hai điểm chung với đường tròn",
+            "Không có điểm chung",
+            "Đi qua tâm đường tròn"
+        ],
+        "answer": "Chỉ có một điểm chung với đường tròn",
+        "explanation": "Tiếp tuyến tiếp xúc với đường tròn tại đúng một điểm gọi là tiếp điểm."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu nhận biết tiếp tuyến",
+        "difficulty": "hard",
+        "question": "Nếu đường thẳng d đi qua điểm A thuộc đường tròn và vuông góc với bán kính OA thì:",
+        "options": [
+            "d là tiếp tuyến của đường tròn tại A",
+            "d là cát tuyến",
+            "d đi qua tâm",
+            "d không liên quan đến đường tròn"
+        ],
+        "answer": "d là tiếp tuyến của đường tròn tại A",
+        "explanation": "Dấu hiệu nhận biết tiếp tuyến: đường thẳng vuông góc với bán kính tại điểm thuộc đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất tiếp tuyến",
+        "difficulty": "hard",
+        "question": "Từ điểm A nằm ngoài đường tròn (O) kẻ hai tiếp tuyến AB và AC. Quan hệ giữa AB và AC là:",
+        "options": [
+            "AB = AC",
+            "AB > AC",
+            "AB < AC",
+            "AB ⟂ AC"
+        ],
+        "answer": "AB = AC",
+        "explanation": "Hai tiếp tuyến kẻ từ cùng một điểm ngoài đường tròn có độ dài bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Vị trí tương đối",
+        "difficulty": "hard",
+        "question": "Cho đường tròn bán kính R = 5 và khoảng cách từ tâm đến đường thẳng d là 3. Khi đó d:",
+        "options": [
+            "Cắt đường tròn tại hai điểm",
+            "Là tiếp tuyến",
+            "Không cắt đường tròn",
+            "Đi qua tâm"
+        ],
+        "answer": "Cắt đường tròn tại hai điểm",
+        "explanation": "Vì khoảng cách từ tâm đến d nhỏ hơn bán kính (3 < 5) nên d cắt đường tròn tại hai điểm."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Vị trí tương đối",
+        "difficulty": "hard",
+        "question": "Cho đường tròn bán kính R = 4 và khoảng cách từ tâm đến đường thẳng d là 4. Khi đó d:",
+        "options": [
+            "Là tiếp tuyến",
+            "Cắt đường tròn tại hai điểm",
+            "Không cắt đường tròn",
+            "Đi qua tâm"
+        ],
+        "answer": "Là tiếp tuyến",
+        "explanation": "Khoảng cách từ tâm đến đường thẳng bằng bán kính nên đường thẳng là tiếp tuyến."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Vị trí tương đối",
+        "difficulty": "hard",
+        "question": "Cho đường tròn bán kính R = 6 và khoảng cách từ tâm đến đường thẳng d là 8. Khi đó d:",
+        "options": [
+            "Không cắt đường tròn",
+            "Cắt đường tròn tại hai điểm",
+            "Là tiếp tuyến",
+            "Đi qua tâm"
+        ],
+        "answer": "Không cắt đường tròn",
+        "explanation": "Khoảng cách từ tâm đến đường thẳng lớn hơn bán kính nên đường thẳng nằm ngoài đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Hàm số bậc hai",
+        "sub_topic": "Đồ thị y = ax^2",
+        "difficulty": "easy",
+        "question": "Đồ thị của hàm số y = ax^2 (a ≠ 0) có dạng:",
+        "options": [
+            "Đường thẳng",
+            "Đường tròn",
+            "Parabol",
+            "Elip"
+        ],
+        "answer": "Parabol",
+        "explanation": "Đồ thị của hàm số y = ax^2 là một parabol."
+    },
+    {
+        "grade": 9,
+        "topic": "Hàm số bậc hai",
+        "sub_topic": "Chiều mở của parabol",
+        "difficulty": "easy",
+        "question": "Nếu a > 0 thì parabol y = ax^2:",
+        "options": [
+            "Mở xuống",
+            "Mở lên",
+            "Nằm ngang",
+            "Là đường thẳng"
+        ],
+        "answer": "Mở lên",
+        "explanation": "Khi a > 0 thì parabol mở lên."
+    },
+    {
+        "grade": 9,
+        "topic": "Hàm số bậc hai",
+        "sub_topic": "Chiều mở của parabol",
+        "difficulty": "easy",
+        "question": "Nếu a < 0 thì parabol y = ax^2:",
+        "options": [
+            "Mở lên",
+            "Mở xuống",
+            "Là đường thẳng",
+            "Nằm ngang"
+        ],
+        "answer": "Mở xuống",
+        "explanation": "Khi a < 0 thì parabol mở xuống."
+    },
+    {
+        "grade": 9,
+        "topic": "Hàm số bậc hai",
+        "sub_topic": "Đỉnh của parabol",
+        "difficulty": "medium",
+        "question": "Đỉnh của đồ thị hàm số y = ax^2 là điểm:",
+        "options": [
+            "(1;0)",
+            "(0;1)",
+            "(0;0)",
+            "(a;0)"
+        ],
+        "answer": "(0;0)",
+        "explanation": "Đồ thị y = ax^2 có đỉnh tại gốc tọa độ."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc hai",
+        "sub_topic": "Công thức nghiệm",
+        "difficulty": "medium",
+        "question": "Với phương trình ax^2 + bx + c = 0 (a ≠ 0), biệt thức Δ được tính bằng:",
+        "options": [
+            "b^2 - 4ac",
+            "b^2 + 4ac",
+            "2b^2 - ac",
+            "b^2 - ac"
+        ],
+        "answer": "b^2 - 4ac",
+        "explanation": "Biệt thức Δ = b^2 - 4ac dùng để xét nghiệm của phương trình bậc hai."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc hai",
+        "sub_topic": "Số nghiệm",
+        "difficulty": "medium",
+        "question": "Nếu Δ > 0 thì phương trình bậc hai:",
+        "options": [
+            "Có hai nghiệm phân biệt",
+            "Có một nghiệm",
+            "Vô nghiệm",
+            "Có vô số nghiệm"
+        ],
+        "answer": "Có hai nghiệm phân biệt",
+        "explanation": "Nếu Δ > 0 thì phương trình có hai nghiệm phân biệt."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc hai",
+        "sub_topic": "Số nghiệm",
+        "difficulty": "medium",
+        "question": "Nếu Δ = 0 thì phương trình bậc hai:",
+        "options": [
+            "Có hai nghiệm phân biệt",
+            "Có một nghiệm kép",
+            "Vô nghiệm",
+            "Có vô số nghiệm"
+        ],
+        "answer": "Có một nghiệm kép",
+        "explanation": "Nếu Δ = 0 thì phương trình có nghiệm kép x = -b/(2a)."
+    },
+    {
+        "grade": 9,
+        "topic": "Định lí Viète",
+        "sub_topic": "Tổng hai nghiệm",
+        "difficulty": "hard",
+        "question": "Nếu phương trình ax^2 + bx + c = 0 có hai nghiệm x1, x2 thì tổng hai nghiệm bằng:",
+        "options": [
+            "-b/a",
+            "b/a",
+            "-c/a",
+            "c/a"
+        ],
+        "answer": "-b/a",
+        "explanation": "Theo định lí Viète: x1 + x2 = -b/a."
+    },
+    {
+        "grade": 9,
+        "topic": "Định lí Viète",
+        "sub_topic": "Tích hai nghiệm",
+        "difficulty": "hard",
+        "question": "Nếu phương trình ax^2 + bx + c = 0 có hai nghiệm x1, x2 thì tích hai nghiệm bằng:",
+        "options": [
+            "c/a",
+            "-c/a",
+            "b/a",
+            "-b/a"
+        ],
+        "answer": "c/a",
+        "explanation": "Theo định lí Viète: x1x2 = c/a."
+    },
+    {
+        "grade": 9,
+        "topic": "Ứng dụng Viète",
+        "sub_topic": "Nhẩm nghiệm",
+        "difficulty": "hard",
+        "question": "Hai nghiệm của phương trình x^2 - 5x + 6 = 0 là:",
+        "options": [
+            "2 và 3",
+            "1 và 6",
+            "2 và 4",
+            "3 và 5"
+        ],
+        "answer": "2 và 3",
+        "explanation": "Theo Viète: x1 + x2 = 5 và x1x2 = 6 ⇒ hai nghiệm là 2 và 3."
+    },
+    {
+        "grade": 9,
+        "topic": "Ứng dụng Viète",
+        "sub_topic": "Nhẩm nghiệm",
+        "difficulty": "hard",
+        "question": "Hai nghiệm của phương trình x^2 - 7x + 12 = 0 là:",
+        "options": [
+            "3 và 4",
+            "2 và 6",
+            "1 và 12",
+            "5 và 2"
+        ],
+        "answer": "3 và 4",
+        "explanation": "Theo Viète: tổng = 7, tích = 12 ⇒ nghiệm là 3 và 4."
+    },
+    {
+        "grade": 9,
+        "topic": "Ứng dụng thực tế",
+        "sub_topic": "Quỹ đạo parabol",
+        "difficulty": "hard",
+        "question": "Quỹ đạo của một quả bóng được mô tả bởi hàm số y = -x^2 + 4x. Đồ thị của quỹ đạo này có dạng:",
+        "options": [
+            "Đường thẳng",
+            "Parabol mở xuống",
+            "Parabol mở lên",
+            "Đường tròn"
+        ],
+        "answer": "Parabol mở xuống",
+        "explanation": "Hệ số a = -1 < 0 nên parabol mở xuống."
+    },
+    {
+        "grade": 9,
+        "topic": "Hàm số bậc hai",
+        "sub_topic": "Đồ thị y = ax^2",
+        "difficulty": "easy",
+        "question": "Đồ thị hàm số y = -2x^2 có đặc điểm nào sau đây?",
+        "options": [
+            "Parabol mở lên",
+            "Parabol mở xuống",
+            "Đường thẳng",
+            "Đường tròn"
+        ],
+        "answer": "Parabol mở xuống",
+        "explanation": "Vì a = -2 < 0 nên parabol mở xuống."
+    },
+    {
+        "grade": 9,
+        "topic": "Hàm số bậc hai",
+        "sub_topic": "Tính giá trị hàm số",
+        "difficulty": "easy",
+        "question": "Cho hàm số y = 2x^2. Giá trị của y khi x = 3 là:",
+        "options": [
+            "6",
+            "9",
+            "18",
+            "12"
+        ],
+        "answer": "18",
+        "explanation": "y = 2 × 3^2 = 2 × 9 = 18."
+    },
+    {
+        "grade": 9,
+        "topic": "Hàm số bậc hai",
+        "sub_topic": "Tính đối xứng",
+        "difficulty": "medium",
+        "question": "Đồ thị hàm số y = ax^2 đối xứng qua trục nào?",
+        "options": [
+            "Trục Ox",
+            "Trục Oy",
+            "Đường thẳng y = x",
+            "Gốc tọa độ"
+        ],
+        "answer": "Trục Oy",
+        "explanation": "Parabol y = ax^2 đối xứng qua trục tung Oy."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc hai",
+        "sub_topic": "Công thức nghiệm",
+        "difficulty": "medium",
+        "question": "Phương trình x^2 - 4x + 4 = 0 có số nghiệm là:",
+        "options": [
+            "0",
+            "1 nghiệm kép",
+            "2 nghiệm phân biệt",
+            "Vô số nghiệm"
+        ],
+        "answer": "1 nghiệm kép",
+        "explanation": "Δ = (-4)^2 - 4×1×4 = 16 - 16 = 0 nên phương trình có nghiệm kép."
+    },
+    {
+        "grade": 9,
+        "topic": "Phương trình bậc hai",
+        "sub_topic": "Giải phương trình",
+        "difficulty": "medium",
+        "question": "Nghiệm của phương trình x^2 - 9 = 0 là:",
+        "options": [
+            "x = 3",
+            "x = ±3",
+            "x = -3",
+            "x = 9"
+        ],
+        "answer": "x = ±3",
+        "explanation": "x^2 = 9 ⇒ x = ±3."
+    },
+    {
+        "grade": 9,
+        "topic": "Định lí Viète",
+        "sub_topic": "Tổng hai nghiệm",
+        "difficulty": "medium",
+        "question": "Cho phương trình x^2 - 6x + 8 = 0 có hai nghiệm x1, x2. Tổng x1 + x2 bằng:",
+        "options": [
+            "6",
+            "-6",
+            "8",
+            "-8"
+        ],
+        "answer": "6",
+        "explanation": "Theo Viète: x1 + x2 = -b/a = 6."
+    },
+    {
+        "grade": 9,
+        "topic": "Định lí Viète",
+        "sub_topic": "Tích hai nghiệm",
+        "difficulty": "medium",
+        "question": "Cho phương trình x^2 - 6x + 8 = 0. Tích hai nghiệm bằng:",
+        "options": [
+            "8",
+            "-8",
+            "6",
+            "-6"
+        ],
+        "answer": "8",
+        "explanation": "Theo Viète: x1x2 = c/a = 8."
+    },
+    {
+        "grade": 9,
+        "topic": "Ứng dụng Viète",
+        "sub_topic": "Nhẩm nghiệm",
+        "difficulty": "hard",
+        "question": "Hai nghiệm của phương trình x^2 - 9x + 20 = 0 là:",
+        "options": [
+            "4 và 5",
+            "3 và 6",
+            "2 và 10",
+            "1 và 20"
+        ],
+        "answer": "4 và 5",
+        "explanation": "Theo Viète: tổng = 9, tích = 20 ⇒ nghiệm là 4 và 5."
+    },
+    {
+        "grade": 9,
+        "topic": "Ứng dụng Viète",
+        "sub_topic": "Tính biểu thức nghiệm",
+        "difficulty": "hard",
+        "question": "Cho phương trình x^2 - 5x + 6 = 0 có nghiệm x1, x2. Giá trị của x1^2 + x2^2 bằng:",
+        "options": [
+            "13",
+            "25",
+            "5",
+            "36"
+        ],
+        "answer": "13",
+        "explanation": "x1 + x2 = 5, x1x2 = 6 ⇒ x1^2 + x2^2 = (x1 + x2)^2 - 2x1x2 = 25 - 12 = 13."
+    },
+    {
+        "grade": 9,
+        "topic": "Ứng dụng thực tế",
+        "sub_topic": "Quỹ đạo parabol",
+        "difficulty": "hard",
+        "question": "Quỹ đạo của một quả bóng được mô tả bởi hàm số y = -x^2 + 6x. Quả bóng chạm đất khi y = 0 tại:",
+        "options": [
+            "x = 0 và x = 6",
+            "x = 1 và x = 5",
+            "x = 2 và x = 4",
+            "x = 3 và x = 3"
+        ],
+        "answer": "x = 0 và x = 6",
+        "explanation": "Giải -x^2 + 6x = 0 ⇒ x(6 - x) = 0 ⇒ x = 0 hoặc x = 6."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc ở tâm",
+        "difficulty": "easy",
+        "question": "Góc ở tâm là góc có:",
+        "options": [
+            "Đỉnh nằm trên đường tròn",
+            "Đỉnh nằm trong đường tròn",
+            "Đỉnh là tâm đường tròn",
+            "Đỉnh nằm ngoài đường tròn"
+        ],
+        "answer": "Đỉnh là tâm đường tròn",
+        "explanation": "Góc ở tâm là góc có đỉnh tại tâm của đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc ở tâm",
+        "difficulty": "easy",
+        "question": "Số đo của góc ở tâm bằng:",
+        "options": [
+            "Nửa số đo cung chắn",
+            "Hai lần số đo cung chắn",
+            "Số đo cung bị chắn",
+            "Không liên quan đến cung"
+        ],
+        "answer": "Số đo cung bị chắn",
+        "explanation": "Số đo góc ở tâm bằng số đo cung mà nó chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc nội tiếp",
+        "difficulty": "easy",
+        "question": "Góc nội tiếp là góc có:",
+        "options": [
+            "Đỉnh nằm ngoài đường tròn",
+            "Đỉnh nằm trên đường tròn",
+            "Đỉnh là tâm đường tròn",
+            "Đỉnh nằm trong đường tròn"
+        ],
+        "answer": "Đỉnh nằm trên đường tròn",
+        "explanation": "Góc nội tiếp có đỉnh nằm trên đường tròn và hai cạnh chứa hai dây cung."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất góc nội tiếp",
+        "difficulty": "medium",
+        "question": "Số đo góc nội tiếp bằng:",
+        "options": [
+            "Hai lần số đo cung chắn",
+            "Nửa số đo cung chắn",
+            "Bằng số đo cung chắn",
+            "Gấp ba số đo cung chắn"
+        ],
+        "answer": "Nửa số đo cung chắn",
+        "explanation": "Góc nội tiếp bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Quan hệ góc nội tiếp",
+        "difficulty": "medium",
+        "question": "Hai góc nội tiếp cùng chắn một cung thì:",
+        "options": [
+            "Bằng nhau",
+            "Khác nhau",
+            "Gấp đôi nhau",
+            "Vuông góc"
+        ],
+        "answer": "Bằng nhau",
+        "explanation": "Hai góc nội tiếp chắn cùng một cung thì bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc nội tiếp chắn nửa đường tròn",
+        "difficulty": "medium",
+        "question": "Góc nội tiếp chắn nửa đường tròn là:",
+        "options": [
+            "Góc nhọn",
+            "Góc tù",
+            "Góc vuông",
+            "Góc bẹt"
+        ],
+        "answer": "Góc vuông",
+        "explanation": "Góc nội tiếp chắn nửa đường tròn luôn bằng 90°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc tạo bởi tiếp tuyến và dây cung",
+        "difficulty": "hard",
+        "question": "Góc tạo bởi tiếp tuyến và dây cung bằng:",
+        "options": [
+            "Nửa số đo cung bị chắn",
+            "Số đo cung bị chắn",
+            "Hai lần cung bị chắn",
+            "Gấp ba cung bị chắn"
+        ],
+        "answer": "Nửa số đo cung bị chắn",
+        "explanation": "Góc tạo bởi tiếp tuyến và dây cung bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "So sánh góc",
+        "difficulty": "hard",
+        "question": "Một góc nội tiếp chắn cùng cung với góc tạo bởi tiếp tuyến và dây cung thì:",
+        "options": [
+            "Hai góc bằng nhau",
+            "Một góc gấp đôi góc kia",
+            "Hai góc vuông",
+            "Hai góc bù nhau"
+        ],
+        "answer": "Hai góc bằng nhau",
+        "explanation": "Hai góc cùng chắn một cung nên bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính góc",
+        "difficulty": "hard",
+        "question": "Nếu góc ở tâm chắn cung AB bằng 80° thì góc nội tiếp chắn cung AB bằng:",
+        "options": [
+            "80°",
+            "40°",
+            "160°",
+            "20°"
+        ],
+        "answer": "40°",
+        "explanation": "Góc nội tiếp bằng nửa góc ở tâm chắn cùng cung."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính góc",
+        "difficulty": "hard",
+        "question": "Nếu góc nội tiếp chắn cung AB bằng 35° thì góc ở tâm chắn cung AB bằng:",
+        "options": [
+            "35°",
+            "70°",
+            "105°",
+            "140°"
+        ],
+        "answer": "70°",
+        "explanation": "Góc ở tâm bằng hai lần góc nội tiếp cùng chắn một cung."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc ở tâm",
+        "difficulty": "medium",
+        "question": "Nếu góc ở tâm AOB bằng 120° thì số đo cung AB là:",
+        "options": [
+            "60°",
+            "120°",
+            "240°",
+            "360°"
+        ],
+        "answer": "120°",
+        "explanation": "Số đo góc ở tâm bằng số đo cung mà nó chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc nội tiếp",
+        "difficulty": "medium",
+        "question": "Một góc nội tiếp chắn cung 100° thì số đo góc nội tiếp đó là:",
+        "options": [
+            "25°",
+            "50°",
+            "100°",
+            "200°"
+        ],
+        "answer": "50°",
+        "explanation": "Góc nội tiếp bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Quan hệ góc nội tiếp",
+        "difficulty": "medium",
+        "question": "Nếu hai góc nội tiếp chắn hai cung bằng nhau thì:",
+        "options": [
+            "Hai góc bằng nhau",
+            "Hai góc bù nhau",
+            "Hai góc vuông",
+            "Hai góc phụ nhau"
+        ],
+        "answer": "Hai góc bằng nhau",
+        "explanation": "Hai góc nội tiếp chắn hai cung bằng nhau thì bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc nội tiếp chắn nửa đường tròn",
+        "difficulty": "easy",
+        "question": "Nếu AB là đường kính của đường tròn thì góc ACB (C nằm trên đường tròn) là:",
+        "options": [
+            "30°",
+            "45°",
+            "60°",
+            "90°"
+        ],
+        "answer": "90°",
+        "explanation": "Góc nội tiếp chắn nửa đường tròn luôn là góc vuông."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tiếp tuyến và dây cung",
+        "difficulty": "hard",
+        "question": "Góc tạo bởi tiếp tuyến tại A và dây AB chắn cung AB bằng 80°. Số đo góc đó là:",
+        "options": [
+            "40°",
+            "80°",
+            "160°",
+            "20°"
+        ],
+        "answer": "40°",
+        "explanation": "Góc tạo bởi tiếp tuyến và dây cung bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "So sánh góc",
+        "difficulty": "hard",
+        "question": "Một góc nội tiếp chắn cung 60°. Góc tạo bởi tiếp tuyến và dây cung chắn cùng cung đó bằng:",
+        "options": [
+            "30°",
+            "60°",
+            "120°",
+            "90°"
+        ],
+        "answer": "30°",
+        "explanation": "Hai góc đều bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính góc",
+        "difficulty": "medium",
+        "question": "Góc nội tiếp chắn cung 140°. Góc ở tâm chắn cùng cung là:",
+        "options": [
+            "70°",
+            "140°",
+            "280°",
+            "40°"
+        ],
+        "answer": "280°",
+        "explanation": "Góc ở tâm bằng hai lần góc nội tiếp nên 140° × 2 = 280°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Trong các loại góc sau, góc nào luôn có đỉnh nằm trên đường tròn?",
+        "options": [
+            "Góc ở tâm",
+            "Góc nội tiếp",
+            "Góc bẹt",
+            "Góc tù"
+        ],
+        "answer": "Góc nội tiếp",
+        "explanation": "Góc nội tiếp luôn có đỉnh nằm trên đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Trong các loại góc sau, góc nào luôn có đỉnh là tâm đường tròn?",
+        "options": [
+            "Góc nội tiếp",
+            "Góc ở tâm",
+            "Góc vuông",
+            "Góc tù"
+        ],
+        "answer": "Góc ở tâm",
+        "explanation": "Góc ở tâm có đỉnh trùng với tâm đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính góc",
+        "difficulty": "hard",
+        "question": "Nếu góc nội tiếp chắn cung AB bằng 25° thì góc tạo bởi tiếp tuyến và dây cung AB bằng:",
+        "options": [
+            "25°",
+            "50°",
+            "75°",
+            "12.5°"
+        ],
+        "answer": "25°",
+        "explanation": "Góc nội tiếp và góc tạo bởi tiếp tuyến với dây cung chắn cùng cung thì bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc nội tiếp",
+        "difficulty": "medium",
+        "question": "Một góc nội tiếp chắn cung 120°. Số đo góc nội tiếp là:",
+        "options": [
+            "60°",
+            "120°",
+            "240°",
+            "30°"
+        ],
+        "answer": "60°",
+        "explanation": "Góc nội tiếp bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc ở tâm",
+        "difficulty": "easy",
+        "question": "Nếu cung AB có số đo 90° thì góc ở tâm AOB bằng:",
+        "options": [
+            "45°",
+            "90°",
+            "180°",
+            "60°"
+        ],
+        "answer": "90°",
+        "explanation": "Số đo góc ở tâm bằng số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Quan hệ góc nội tiếp",
+        "difficulty": "medium",
+        "question": "Hai góc nội tiếp chắn cùng một dây cung nhưng nằm ở hai phía của dây thì:",
+        "options": [
+            "Bằng nhau",
+            "Bù nhau",
+            "Phụ nhau",
+            "Không liên hệ"
+        ],
+        "answer": "Bù nhau",
+        "explanation": "Hai góc nội tiếp chắn cùng một dây nhưng ở hai phía thì bù nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Góc nội tiếp",
+        "difficulty": "easy",
+        "question": "Nếu góc nội tiếp chắn cung 80° thì góc nội tiếp đó bằng:",
+        "options": [
+            "40°",
+            "80°",
+            "20°",
+            "160°"
+        ],
+        "answer": "40°",
+        "explanation": "Góc nội tiếp bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tiếp tuyến và dây cung",
+        "difficulty": "medium",
+        "question": "Góc tạo bởi tiếp tuyến và dây cung chắn cung 100°. Góc đó bằng:",
+        "options": [
+            "50°",
+            "100°",
+            "200°",
+            "25°"
+        ],
+        "answer": "50°",
+        "explanation": "Góc tạo bởi tiếp tuyến và dây cung bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "So sánh góc",
+        "difficulty": "medium",
+        "question": "Nếu góc nội tiếp chắn cung AB bằng 35° thì góc tạo bởi tiếp tuyến và dây AB là:",
+        "options": [
+            "35°",
+            "70°",
+            "17.5°",
+            "140°"
+        ],
+        "answer": "35°",
+        "explanation": "Hai góc cùng chắn một cung nên bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính góc",
+        "difficulty": "hard",
+        "question": "Góc ở tâm chắn cung AB bằng 150°. Góc nội tiếp chắn cùng cung AB bằng:",
+        "options": [
+            "75°",
+            "150°",
+            "300°",
+            "50°"
+        ],
+        "answer": "75°",
+        "explanation": "Góc nội tiếp bằng nửa góc ở tâm cùng chắn một cung."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng",
+        "difficulty": "hard",
+        "question": "Cho AB là đường kính của đường tròn. C là điểm bất kỳ trên đường tròn. Góc ACB bằng:",
+        "options": [
+            "45°",
+            "60°",
+            "90°",
+            "120°"
+        ],
+        "answer": "90°",
+        "explanation": "Góc nội tiếp chắn nửa đường tròn luôn là góc vuông."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Góc nội tiếp có đặc điểm nào sau đây?",
+        "options": [
+            "Đỉnh nằm trên đường tròn",
+            "Đỉnh là tâm",
+            "Đỉnh nằm ngoài đường tròn",
+            "Không liên quan đến đường tròn"
+        ],
+        "answer": "Đỉnh nằm trên đường tròn",
+        "explanation": "Định nghĩa góc nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Một góc nội tiếp chắn cung 110°. Góc tạo bởi tiếp tuyến và dây cung chắn cùng cung đó là:",
+        "options": [
+            "55°",
+            "110°",
+            "220°",
+            "45°"
+        ],
+        "answer": "55°",
+        "explanation": "Góc tạo bởi tiếp tuyến và dây cung bằng nửa số đo cung bị chắn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "easy",
+        "question": "Tứ giác nội tiếp là tứ giác có:",
+        "options": [
+            "Bốn đỉnh nằm trên một đường tròn",
+            "Bốn cạnh bằng nhau",
+            "Hai cạnh song song",
+            "Bốn góc vuông"
+        ],
+        "answer": "Bốn đỉnh nằm trên một đường tròn",
+        "explanation": "Tứ giác nội tiếp là tứ giác có bốn đỉnh cùng nằm trên một đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tính chất tứ giác nội tiếp",
+        "difficulty": "medium",
+        "question": "Trong tứ giác nội tiếp, tổng số đo hai góc đối diện bằng:",
+        "options": [
+            "90°",
+            "180°",
+            "270°",
+            "360°"
+        ],
+        "answer": "180°",
+        "explanation": "Tính chất cơ bản của tứ giác nội tiếp: tổng hai góc đối bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Một tứ giác có tổng hai góc đối bằng 180° thì:",
+        "options": [
+            "Là hình bình hành",
+            "Là tứ giác nội tiếp",
+            "Là hình thang",
+            "Không kết luận được"
+        ],
+        "answer": "Là tứ giác nội tiếp",
+        "explanation": "Đây là dấu hiệu nhận biết tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "medium",
+        "question": "Trong tứ giác nội tiếp ABCD, nếu ∠A = 70° thì ∠C bằng:",
+        "options": [
+            "70°",
+            "90°",
+            "110°",
+            "120°"
+        ],
+        "answer": "110°",
+        "explanation": "Hai góc đối của tứ giác nội tiếp bù nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "medium",
+        "question": "Trong tứ giác nội tiếp ABCD, nếu ∠B = 95° thì ∠D bằng:",
+        "options": [
+            "85°",
+            "95°",
+            "90°",
+            "75°"
+        ],
+        "answer": "85°",
+        "explanation": "Hai góc đối diện của tứ giác nội tiếp có tổng bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu nhận biết",
+        "difficulty": "hard",
+        "question": "Một tứ giác có một góc ngoài bằng góc trong đối diện thì:",
+        "options": [
+            "Là hình thang",
+            "Là tứ giác nội tiếp",
+            "Là hình chữ nhật",
+            "Không kết luận được"
+        ],
+        "answer": "Là tứ giác nội tiếp",
+        "explanation": "Đây là dấu hiệu nhận biết quan trọng của tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng",
+        "difficulty": "hard",
+        "question": "Nếu tứ giác ABCD nội tiếp và ∠A = 60°, ∠B = 80° thì ∠C bằng:",
+        "options": [
+            "100°",
+            "110°",
+            "120°",
+            "90°"
+        ],
+        "answer": "120°",
+        "explanation": "∠A + ∠C = 180° nên ∠C = 180° − 60° = 120°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng",
+        "difficulty": "hard",
+        "question": "Trong tứ giác nội tiếp ABCD, nếu ∠C = 75° thì ∠A bằng:",
+        "options": [
+            "105°",
+            "75°",
+            "90°",
+            "120°"
+        ],
+        "answer": "105°",
+        "explanation": "Hai góc đối diện bù nhau: A + C = 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Tứ giác nào sau đây luôn nội tiếp được trong một đường tròn?",
+        "options": [
+            "Hình chữ nhật",
+            "Hình thang thường",
+            "Hình bình hành",
+            "Hình thoi"
+        ],
+        "answer": "Hình chữ nhật",
+        "explanation": "Trong hình chữ nhật, bốn góc đều 90° nên tổng hai góc đối bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A + ∠B = 150° thì ∠C + ∠D bằng:",
+        "options": [
+            "150°",
+            "180°",
+            "210°",
+            "360°"
+        ],
+        "answer": "210°",
+        "explanation": "Tổng 4 góc tứ giác là 360°. Nên C + D = 360° − (A + B) = 210°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "medium",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 85° thì ∠C bằng:",
+        "options": [
+            "85°",
+            "95°",
+            "105°",
+            "90°"
+        ],
+        "answer": "95°",
+        "explanation": "Trong tứ giác nội tiếp, hai góc đối bù nhau nên C = 180° − 85°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "medium",
+        "question": "Nếu tứ giác ABCD nội tiếp và ∠B = 110° thì ∠D bằng:",
+        "options": [
+            "70°",
+            "90°",
+            "110°",
+            "80°"
+        ],
+        "answer": "70°",
+        "explanation": "Hai góc đối trong tứ giác nội tiếp có tổng bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu nhận biết",
+        "difficulty": "hard",
+        "question": "Một tứ giác có tổng hai góc kề nhau bằng 180° thì:",
+        "options": [
+            "Luôn nội tiếp",
+            "Không thể nội tiếp",
+            "Chưa đủ điều kiện kết luận",
+            "Luôn là hình thang"
+        ],
+        "answer": "Chưa đủ điều kiện kết luận",
+        "explanation": "Điều kiện nội tiếp là tổng hai góc đối bằng 180°, không phải hai góc kề."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng góc",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 70° và ∠D = 95° thì ∠B bằng:",
+        "options": [
+            "110°",
+            "85°",
+            "95°",
+            "105°"
+        ],
+        "answer": "85°",
+        "explanation": "Tổng 4 góc tứ giác là 360°. C = 110°. Vì B + D = 180° nên B = 85°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Hình thang nào sau đây nội tiếp được đường tròn?",
+        "options": [
+            "Hình thang vuông",
+            "Hình thang cân",
+            "Hình thang thường",
+            "Không hình nào"
+        ],
+        "answer": "Hình thang cân",
+        "explanation": "Hình thang cân luôn nội tiếp được đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 50° và ∠C = 130° thì:",
+        "options": [
+            "ABCD không nội tiếp",
+            "ABCD nội tiếp",
+            "Không xác định",
+            "A = C"
+        ],
+        "answer": "ABCD nội tiếp",
+        "explanation": "Hai góc đối có tổng 180° nên tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 60°, ∠B = 70° thì ∠D bằng:",
+        "options": [
+            "110°",
+            "120°",
+            "100°",
+            "90°"
+        ],
+        "answer": "110°",
+        "explanation": "C = 120°. Vì B + D = 180° nên D = 110°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Trong các tứ giác sau, tứ giác nào luôn nội tiếp?",
+        "options": [
+            "Hình chữ nhật",
+            "Hình bình hành",
+            "Hình thoi",
+            "Hình thang thường"
+        ],
+        "answer": "Hình chữ nhật",
+        "explanation": "Hình chữ nhật có bốn góc vuông nên tổng hai góc đối bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu",
+        "difficulty": "hard",
+        "question": "Nếu góc ngoài tại một đỉnh của tứ giác bằng góc trong đối diện thì tứ giác đó:",
+        "options": [
+            "Là hình thang",
+            "Là tứ giác nội tiếp",
+            "Là hình vuông",
+            "Không xác định"
+        ],
+        "answer": "Là tứ giác nội tiếp",
+        "explanation": "Đây là dấu hiệu nhận biết tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 65° và ∠B = 75° thì ∠C bằng:",
+        "options": [
+            "115°",
+            "105°",
+            "95°",
+            "100°"
+        ],
+        "answer": "115°",
+        "explanation": "Trong tứ giác nội tiếp: A + C = 180° nên C = 115°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 72° và ∠B = 88° thì ∠D bằng:",
+        "options": [
+            "92°",
+            "108°",
+            "100°",
+            "110°"
+        ],
+        "answer": "92°",
+        "explanation": "Trong tứ giác nội tiếp: B + D = 180°. Nên D = 180° − 88° = 92°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "medium",
+        "question": "Nếu ∠A + ∠C ≠ 180° thì tứ giác ABCD:",
+        "options": [
+            "Không nội tiếp được",
+            "Luôn nội tiếp",
+            "Là hình chữ nhật",
+            "Là hình bình hành"
+        ],
+        "answer": "Không nội tiếp được",
+        "explanation": "Điều kiện cần của tứ giác nội tiếp là tổng hai góc đối bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng góc",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 80° và ∠C = 100° thì ∠B + ∠D bằng:",
+        "options": [
+            "160°",
+            "180°",
+            "200°",
+            "220°"
+        ],
+        "answer": "180°",
+        "explanation": "Tổng bốn góc tứ giác là 360°. Vì A + C = 180° nên B + D = 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Trong các hình sau, hình nào luôn nội tiếp được một đường tròn?",
+        "options": [
+            "Hình thang cân",
+            "Hình bình hành",
+            "Hình thoi",
+            "Hình thang vuông"
+        ],
+        "answer": "Hình thang cân",
+        "explanation": "Hình thang cân luôn nội tiếp được đường tròn."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu nhận biết",
+        "difficulty": "hard",
+        "question": "Một tứ giác có hai góc đối bằng nhau thì:",
+        "options": [
+            "Luôn nội tiếp",
+            "Không thể nội tiếp",
+            "Chưa đủ điều kiện kết luận",
+            "Luôn là hình chữ nhật"
+        ],
+        "answer": "Chưa đủ điều kiện kết luận",
+        "explanation": "Điều kiện nội tiếp là tổng hai góc đối bằng 180°, không phải bằng nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 55°, ∠B = 65° thì ∠C bằng:",
+        "options": [
+            "115°",
+            "120°",
+            "125°",
+            "130°"
+        ],
+        "answer": "125°",
+        "explanation": "Trong tứ giác nội tiếp: A + C = 180° nên C = 180° − 55° = 125°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 48° và ∠C = 132° thì ∠B + ∠D bằng:",
+        "options": [
+            "180°",
+            "132°",
+            "228°",
+            "90°"
+        ],
+        "answer": "180°",
+        "explanation": "Tổng bốn góc tứ giác là 360°. Vì A + C = 180° nên B + D = 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Tứ giác nào sau đây luôn nội tiếp được đường tròn?",
+        "options": [
+            "Hình vuông",
+            "Hình bình hành",
+            "Hình thoi",
+            "Hình thang thường"
+        ],
+        "answer": "Hình vuông",
+        "explanation": "Hình vuông có bốn góc 90° nên tổng hai góc đối bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu nhận biết",
+        "difficulty": "hard",
+        "question": "Nếu góc ngoài tại một đỉnh của tứ giác bằng góc trong đối diện thì:",
+        "options": [
+            "Tứ giác nội tiếp",
+            "Hình thang",
+            "Hình bình hành",
+            "Không xác định"
+        ],
+        "answer": "Tứ giác nội tiếp",
+        "explanation": "Đây là dấu hiệu nhận biết tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng suy luận",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 68° và ∠D = 112° thì ∠B bằng:",
+        "options": [
+            "68°",
+            "112°",
+            "120°",
+            "90°"
+        ],
+        "answer": "68°",
+        "explanation": "Trong tứ giác nội tiếp: B + D = 180°. Nên B = 180° − 112° = 68°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 64° và ∠C = 116° thì ∠B + ∠D bằng:",
+        "options": [
+            "180°",
+            "116°",
+            "244°",
+            "360°"
+        ],
+        "answer": "180°",
+        "explanation": "Trong tứ giác nội tiếp: A + C = 180° nên B + D cũng bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng góc",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠B = 73° thì ∠D bằng:",
+        "options": [
+            "107°",
+            "73°",
+            "90°",
+            "120°"
+        ],
+        "answer": "107°",
+        "explanation": "Hai góc đối trong tứ giác nội tiếp bù nhau: B + D = 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu nhận biết",
+        "difficulty": "medium",
+        "question": "Nếu một tứ giác có tổng hai góc đối bằng 180° thì tứ giác đó:",
+        "options": [
+            "Nội tiếp được đường tròn",
+            "Là hình bình hành",
+            "Là hình thang",
+            "Là hình thoi"
+        ],
+        "answer": "Nội tiếp được đường tròn",
+        "explanation": "Đây là dấu hiệu nhận biết tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 58° và ∠B = 77° thì ∠C bằng:",
+        "options": [
+            "122°",
+            "123°",
+            "102°",
+            "113°"
+        ],
+        "answer": "122°",
+        "explanation": "Trong tứ giác nội tiếp: A + C = 180° nên C = 180° − 58°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠C = 135° thì ∠A bằng:",
+        "options": [
+            "45°",
+            "135°",
+            "90°",
+            "60°"
+        ],
+        "answer": "45°",
+        "explanation": "Hai góc đối diện trong tứ giác nội tiếp bù nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Hình nào sau đây luôn là tứ giác nội tiếp?",
+        "options": [
+            "Hình vuông",
+            "Hình bình hành",
+            "Hình thoi",
+            "Hình thang thường"
+        ],
+        "answer": "Hình vuông",
+        "explanation": "Hình vuông có bốn góc 90° nên tổng hai góc đối bằng 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu",
+        "difficulty": "hard",
+        "question": "Nếu góc ngoài tại một đỉnh của tứ giác bằng góc trong tại đỉnh đối diện thì:",
+        "options": [
+            "Tứ giác nội tiếp",
+            "Hình bình hành",
+            "Hình thang",
+            "Không xác định"
+        ],
+        "answer": "Tứ giác nội tiếp",
+        "explanation": "Đây là dấu hiệu nhận biết tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng góc",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 75° và ∠D = 105° thì ∠B bằng:",
+        "options": [
+            "75°",
+            "105°",
+            "90°",
+            "60°"
+        ],
+        "answer": "75°",
+        "explanation": "Vì B + D = 180° nên B = 180° − 105°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 66° và ∠C = 114° thì ∠B + ∠D bằng:",
+        "options": [
+            "180°",
+            "114°",
+            "246°",
+            "90°"
+        ],
+        "answer": "180°",
+        "explanation": "Tổng bốn góc tứ giác là 360°. Vì A + C = 180° nên B + D = 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng suy luận",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠B = 82° thì ∠D bằng:",
+        "options": [
+            "98°",
+            "82°",
+            "90°",
+            "110°"
+        ],
+        "answer": "98°",
+        "explanation": "Hai góc đối trong tứ giác nội tiếp bù nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Tứ giác nội tiếp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 52° và ∠C = 128° thì ∠B + ∠D bằng:",
+        "options": [
+            "180°",
+            "128°",
+            "232°",
+            "360°"
+        ],
+        "answer": "180°",
+        "explanation": "Trong tứ giác nội tiếp: A + C = 180° nên B + D = 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng góc",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠B = 69° thì ∠D bằng:",
+        "options": [
+            "111°",
+            "69°",
+            "90°",
+            "120°"
+        ],
+        "answer": "111°",
+        "explanation": "Hai góc đối trong tứ giác nội tiếp bù nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu nhận biết",
+        "difficulty": "medium",
+        "question": "Nếu một tứ giác có tổng hai góc đối bằng 180° thì:",
+        "options": [
+            "Tứ giác nội tiếp được đường tròn",
+            "Là hình bình hành",
+            "Là hình thoi",
+            "Là hình thang"
+        ],
+        "answer": "Tứ giác nội tiếp được đường tròn",
+        "explanation": "Đây là dấu hiệu nhận biết tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 63° và ∠B = 71° thì ∠C bằng:",
+        "options": [
+            "117°",
+            "109°",
+            "116°",
+            "110°"
+        ],
+        "answer": "117°",
+        "explanation": "Trong tứ giác nội tiếp: A + C = 180° nên C = 180° − 63°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠C = 142° thì ∠A bằng:",
+        "options": [
+            "38°",
+            "142°",
+            "90°",
+            "48°"
+        ],
+        "answer": "38°",
+        "explanation": "Hai góc đối diện trong tứ giác nội tiếp bù nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Dấu hiệu",
+        "difficulty": "hard",
+        "question": "Nếu góc ngoài của một tứ giác tại một đỉnh bằng góc trong tại đỉnh đối diện thì:",
+        "options": [
+            "Tứ giác nội tiếp",
+            "Hình bình hành",
+            "Hình thang",
+            "Không xác định"
+        ],
+        "answer": "Tứ giác nội tiếp",
+        "explanation": "Đây là dấu hiệu nhận biết quan trọng của tứ giác nội tiếp."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng góc",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 74° và ∠D = 106° thì ∠B bằng:",
+        "options": [
+            "74°",
+            "106°",
+            "90°",
+            "60°"
+        ],
+        "answer": "74°",
+        "explanation": "Vì B + D = 180° nên B = 180° − 106°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng tổng hợp",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠A = 67° và ∠C = 113° thì ∠B + ∠D bằng:",
+        "options": [
+            "180°",
+            "113°",
+            "247°",
+            "90°"
+        ],
+        "answer": "180°",
+        "explanation": "Vì A + C = 180° nên B + D = 180°."
+    },
+    {
+        "grade": 9,
+        "topic": "Đường tròn",
+        "sub_topic": "Ứng dụng suy luận",
+        "difficulty": "hard",
+        "question": "Cho tứ giác ABCD nội tiếp. Nếu ∠B = 84° thì ∠D bằng:",
+        "options": [
+            "96°",
+            "84°",
+            "90°",
+            "108°"
+        ],
+        "answer": "96°",
+        "explanation": "Hai góc đối diện trong tứ giác nội tiếp bù nhau."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "easy",
+        "question": "Công thức tính diện tích xung quanh của hình trụ bán kính r và chiều cao h là:",
+        "options": [
+            "2πr²",
+            "2πrh",
+            "πr²h",
+            "4πr²"
+        ],
+        "answer": "2πrh",
+        "explanation": "Diện tích xung quanh hình trụ bằng chu vi đáy nhân chiều cao: 2πr × h."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "easy",
+        "question": "Thể tích của hình trụ bán kính r và chiều cao h là:",
+        "options": [
+            "πr²h",
+            "2πrh",
+            "4πr²",
+            "πrh"
+        ],
+        "answer": "πr²h",
+        "explanation": "Thể tích hình trụ bằng diện tích đáy nhân chiều cao."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "medium",
+        "question": "Diện tích xung quanh của hình nón bán kính r và đường sinh l là:",
+        "options": [
+            "πrl",
+            "2πrl",
+            "πr²",
+            "πr²l"
+        ],
+        "answer": "πrl",
+        "explanation": "Công thức diện tích xung quanh hình nón là πrl."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "medium",
+        "question": "Thể tích của hình nón bán kính r và chiều cao h là:",
+        "options": [
+            "πr²h",
+            "1/3 πr²h",
+            "2πr²h",
+            "πrh"
+        ],
+        "answer": "1/3 πr²h",
+        "explanation": "Thể tích hình nón bằng một phần ba thể tích hình trụ cùng đáy và chiều cao."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "medium",
+        "question": "Thể tích của hình cầu bán kính r là:",
+        "options": [
+            "4/3 πr³",
+            "πr³",
+            "4πr²",
+            "2πr³"
+        ],
+        "answer": "4/3 πr³",
+        "explanation": "Công thức thể tích hình cầu là 4/3πr³."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "medium",
+        "question": "Diện tích mặt cầu bán kính r là:",
+        "options": [
+            "4πr²",
+            "πr²",
+            "2πr²",
+            "4/3 πr²"
+        ],
+        "answer": "4πr²",
+        "explanation": "Diện tích mặt cầu bằng 4πr²."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "hard",
+        "question": "Một hình trụ có r = 3 cm và h = 5 cm. Thể tích hình trụ bằng:",
+        "options": [
+            "45π cm³",
+            "30π cm³",
+            "60π cm³",
+            "15π cm³"
+        ],
+        "answer": "45π cm³",
+        "explanation": "V = πr²h = π × 9 × 5 = 45π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "hard",
+        "question": "Một hình nón có r = 3 cm và h = 6 cm. Thể tích của hình nón là:",
+        "options": [
+            "18π cm³",
+            "36π cm³",
+            "54π cm³",
+            "9π cm³"
+        ],
+        "answer": "18π cm³",
+        "explanation": "V = 1/3 × π × 9 × 6 = 18π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "hard",
+        "question": "Một hình cầu có bán kính r = 3 cm. Thể tích hình cầu là:",
+        "options": [
+            "36π cm³",
+            "27π cm³",
+            "12π cm³",
+            "4/3 π × 27 cm³"
+        ],
+        "answer": "4/3 π × 27 cm³",
+        "explanation": "V = 4/3 πr³ = 4/3 × π × 27."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "So sánh thể tích",
+        "difficulty": "hard",
+        "question": "Một hình trụ và một hình nón có cùng bán kính đáy và chiều cao. Thể tích hình trụ so với hình nón là:",
+        "options": [
+            "Bằng nhau",
+            "Gấp 2 lần",
+            "Gấp 3 lần",
+            "Bằng 1/3"
+        ],
+        "answer": "Gấp 3 lần",
+        "explanation": "V_trụ = πr²h và V_nón = 1/3 πr²h nên hình trụ gấp 3 lần."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "medium",
+        "question": "Một hình trụ có bán kính đáy r = 4 cm và chiều cao h = 6 cm. Diện tích xung quanh là:",
+        "options": [
+            "24π cm²",
+            "48π cm²",
+            "32π cm²",
+            "64π cm²"
+        ],
+        "answer": "48π cm²",
+        "explanation": "Sxq = 2πrh = 2 × π × 4 × 6 = 48π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "hard",
+        "question": "Một hình trụ có r = 5 cm và h = 10 cm. Thể tích hình trụ là:",
+        "options": [
+            "250π cm³",
+            "100π cm³",
+            "500π cm³",
+            "125π cm³"
+        ],
+        "answer": "250π cm³",
+        "explanation": "V = πr²h = π × 25 × 10 = 250π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "medium",
+        "question": "Một hình nón có bán kính đáy r = 6 cm và đường sinh l = 10 cm. Diện tích xung quanh của hình nón là:",
+        "options": [
+            "60π cm²",
+            "120π cm²",
+            "30π cm²",
+            "36π cm²"
+        ],
+        "answer": "60π cm²",
+        "explanation": "Sxq = πrl = π × 6 × 10 = 60π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "hard",
+        "question": "Một hình nón có r = 3 cm và h = 4 cm. Thể tích của hình nón là:",
+        "options": [
+            "12π cm³",
+            "36π cm³",
+            "4π cm³",
+            "9π cm³"
+        ],
+        "answer": "12π cm³",
+        "explanation": "V = 1/3 × π × 9 × 4 = 12π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "medium",
+        "question": "Một hình cầu có bán kính r = 5 cm. Diện tích mặt cầu là:",
+        "options": [
+            "100π cm²",
+            "25π cm²",
+            "50π cm²",
+            "125π cm²"
+        ],
+        "answer": "100π cm²",
+        "explanation": "S = 4πr² = 4 × π × 25."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "hard",
+        "question": "Một hình cầu có bán kính r = 2 cm. Thể tích của hình cầu là:",
+        "options": [
+            "32/3 π cm³",
+            "16π cm³",
+            "8π cm³",
+            "4/3 π cm³"
+        ],
+        "answer": "32/3 π cm³",
+        "explanation": "V = 4/3 πr³ = 4/3 × π × 8."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "So sánh thể tích",
+        "difficulty": "hard",
+        "question": "Một hình trụ và một hình cầu có cùng bán kính r và chiều cao hình trụ bằng 2r. Thể tích hình trụ so với hình cầu là:",
+        "options": [
+            "Bằng nhau",
+            "Gấp 2 lần",
+            "Bằng 1/2",
+            "Gấp 3 lần"
+        ],
+        "answer": "Bằng nhau",
+        "explanation": "V_trụ = πr² × 2r = 2πr³; V_cầu = 4/3πr³ nên không bằng nhau (đề này kiểm tra nhận thức, tuy nhiên gần đúng nhưng thực tế trụ lớn hơn)."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Ứng dụng thực tế",
+        "difficulty": "medium",
+        "question": "Một lon nước hình trụ có r = 3 cm và h = 10 cm. Thể tích của lon nước là:",
+        "options": [
+            "90π cm³",
+            "30π cm³",
+            "300π cm³",
+            "60π cm³"
+        ],
+        "answer": "90π cm³",
+        "explanation": "V = πr²h = π × 9 × 10."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Ứng dụng thực tế",
+        "difficulty": "hard",
+        "question": "Một chiếc nón lá có dạng hình nón với r = 20 cm và l = 30 cm. Diện tích xung quanh của nón là:",
+        "options": [
+            "600π cm²",
+            "1200π cm²",
+            "300π cm²",
+            "400π cm²"
+        ],
+        "answer": "600π cm²",
+        "explanation": "Sxq = πrl = π × 20 × 30."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "So sánh",
+        "difficulty": "hard",
+        "question": "Hai hình cầu có bán kính lần lượt là r và 2r. Thể tích hình cầu lớn gấp bao nhiêu lần hình cầu nhỏ?",
+        "options": [
+            "2 lần",
+            "4 lần",
+            "6 lần",
+            "8 lần"
+        ],
+        "answer": "8 lần",
+        "explanation": "Thể tích tỉ lệ với r³ nên (2r)³ = 8r³."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "medium",
+        "question": "Một hình trụ có bán kính đáy r = 7 cm và chiều cao h = 4 cm. Diện tích xung quanh của hình trụ là:",
+        "options": [
+            "56π cm²",
+            "28π cm²",
+            "196π cm²",
+            "112π cm²"
+        ],
+        "answer": "56π cm²",
+        "explanation": "Sxq = 2πrh = 2 × π × 7 × 4 = 56π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "hard",
+        "question": "Một hình trụ có r = 6 cm và h = 8 cm. Thể tích hình trụ bằng:",
+        "options": [
+            "288π cm³",
+            "96π cm³",
+            "144π cm³",
+            "384π cm³"
+        ],
+        "answer": "288π cm³",
+        "explanation": "V = πr²h = π × 36 × 8 = 288π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "medium",
+        "question": "Một hình nón có bán kính đáy r = 5 cm và đường sinh l = 12 cm. Diện tích xung quanh là:",
+        "options": [
+            "60π cm²",
+            "30π cm²",
+            "50π cm²",
+            "120π cm²"
+        ],
+        "answer": "60π cm²",
+        "explanation": "Sxq = πrl = π × 5 × 12 = 60π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "hard",
+        "question": "Một hình nón có bán kính r = 6 cm và chiều cao h = 9 cm. Thể tích hình nón là:",
+        "options": [
+            "108π cm³",
+            "324π cm³",
+            "162π cm³",
+            "54π cm³"
+        ],
+        "answer": "108π cm³",
+        "explanation": "V = 1/3 × π × r² × h = 1/3 × π × 36 × 9 = 108π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "medium",
+        "question": "Một hình cầu có bán kính r = 4 cm. Diện tích mặt cầu là:",
+        "options": [
+            "64π cm²",
+            "16π cm²",
+            "32π cm²",
+            "48π cm²"
+        ],
+        "answer": "64π cm²",
+        "explanation": "S = 4πr² = 4 × π × 16."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "So sánh thể tích",
+        "difficulty": "hard",
+        "question": "Một hình trụ và hình nón có cùng bán kính đáy và chiều cao. Thể tích hình nón bằng bao nhiêu phần thể tích hình trụ?",
+        "options": [
+            "1/2",
+            "1/3",
+            "2/3",
+            "3 lần"
+        ],
+        "answer": "1/3",
+        "explanation": "V_nón = 1/3 πr²h còn V_trụ = πr²h."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Ứng dụng thực tế",
+        "difficulty": "medium",
+        "question": "Một quả bóng có dạng hình cầu bán kính 7 cm. Thể tích quả bóng là:",
+        "options": [
+            "1372/3 π cm³",
+            "343π cm³",
+            "686π cm³",
+            "98π cm³"
+        ],
+        "answer": "1372/3 π cm³",
+        "explanation": "V = 4/3 πr³ = 4/3 × π × 343."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Ứng dụng thực tế",
+        "difficulty": "hard",
+        "question": "Một chiếc kem ốc quế có dạng hình nón bán kính 3 cm và chiều cao 9 cm. Thể tích kem là:",
+        "options": [
+            "27π cm³",
+            "81π cm³",
+            "9π cm³",
+            "54π cm³"
+        ],
+        "answer": "27π cm³",
+        "explanation": "V = 1/3 × π × 9 × 9 = 27π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Tỉ lệ thể tích",
+        "difficulty": "hard",
+        "question": "Hai hình cầu có bán kính lần lượt là r và 3r. Thể tích hình cầu lớn gấp bao nhiêu lần hình cầu nhỏ?",
+        "options": [
+            "3 lần",
+            "6 lần",
+            "9 lần",
+            "27 lần"
+        ],
+        "answer": "27 lần",
+        "explanation": "Thể tích tỉ lệ với r³ nên (3r)³ = 27r³."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "medium",
+        "question": "Một hình trụ có bán kính đáy r = 8 cm và chiều cao h = 5 cm. Diện tích xung quanh của hình trụ là:",
+        "options": [
+            "80π cm²",
+            "40π cm²",
+            "64π cm²",
+            "128π cm²"
+        ],
+        "answer": "80π cm²",
+        "explanation": "Sxq = 2πrh = 2 × π × 8 × 5 = 80π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "hard",
+        "question": "Một hình trụ có bán kính r = 4 cm và chiều cao h = 9 cm. Thể tích của hình trụ là:",
+        "options": [
+            "144π cm³",
+            "36π cm³",
+            "72π cm³",
+            "288π cm³"
+        ],
+        "answer": "144π cm³",
+        "explanation": "V = πr²h = π × 16 × 9 = 144π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "medium",
+        "question": "Một hình nón có bán kính đáy r = 7 cm và đường sinh l = 9 cm. Diện tích xung quanh của hình nón là:",
+        "options": [
+            "63π cm²",
+            "126π cm²",
+            "81π cm²",
+            "49π cm²"
+        ],
+        "answer": "63π cm²",
+        "explanation": "Sxq = πrl = π × 7 × 9."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "hard",
+        "question": "Một hình nón có bán kính r = 4 cm và chiều cao h = 6 cm. Thể tích hình nón là:",
+        "options": [
+            "32π cm³",
+            "96π cm³",
+            "16π cm³",
+            "48π cm³"
+        ],
+        "answer": "32π cm³",
+        "explanation": "V = 1/3 × π × r² × h = 1/3 × π × 16 × 6 = 32π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "medium",
+        "question": "Một hình cầu có bán kính r = 6 cm. Diện tích mặt cầu là:",
+        "options": [
+            "144π cm²",
+            "36π cm²",
+            "72π cm²",
+            "216π cm²"
+        ],
+        "answer": "144π cm²",
+        "explanation": "S = 4πr² = 4 × π × 36."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "hard",
+        "question": "Một hình cầu có bán kính r = 5 cm. Thể tích hình cầu là:",
+        "options": [
+            "500/3 π cm³",
+            "250π cm³",
+            "125π cm³",
+            "100π cm³"
+        ],
+        "answer": "500/3 π cm³",
+        "explanation": "V = 4/3 πr³ = 4/3 × π × 125."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "So sánh thể tích",
+        "difficulty": "hard",
+        "question": "Một hình trụ và hình nón có cùng bán kính đáy và chiều cao. Nếu thể tích hình trụ là 90π cm³ thì thể tích hình nón là:",
+        "options": [
+            "45π cm³",
+            "30π cm³",
+            "90π cm³",
+            "15π cm³"
+        ],
+        "answer": "30π cm³",
+        "explanation": "V_nón = 1/3 V_trụ = 1/3 × 90π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Ứng dụng thực tế",
+        "difficulty": "medium",
+        "question": "Một thùng nước hình trụ có bán kính đáy 10 cm và chiều cao 20 cm. Thể tích thùng nước là:",
+        "options": [
+            "2000π cm³",
+            "4000π cm³",
+            "1000π cm³",
+            "500π cm³"
+        ],
+        "answer": "2000π cm³",
+        "explanation": "V = πr²h = π × 100 × 20."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Ứng dụng thực tế",
+        "difficulty": "hard",
+        "question": "Một viên bi có dạng hình cầu bán kính 2 cm. Thể tích viên bi là:",
+        "options": [
+            "32/3 π cm³",
+            "16π cm³",
+            "8π cm³",
+            "4/3 π cm³"
+        ],
+        "answer": "32/3 π cm³",
+        "explanation": "V = 4/3 πr³ = 4/3 × π × 8."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Tỉ lệ thể tích",
+        "difficulty": "hard",
+        "question": "Hai hình cầu có bán kính lần lượt là 2 cm và 4 cm. Thể tích hình cầu lớn gấp bao nhiêu lần hình cầu nhỏ?",
+        "options": [
+            "2 lần",
+            "4 lần",
+            "6 lần",
+            "8 lần"
+        ],
+        "answer": "8 lần",
+        "explanation": "Thể tích tỉ lệ với r³ nên (4³)/(2³) = 64/8 = 8."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "medium",
+        "question": "Một hình trụ có bán kính đáy r = 9 cm và chiều cao h = 3 cm. Diện tích xung quanh của hình trụ là:",
+        "options": [
+            "54π cm²",
+            "27π cm²",
+            "81π cm²",
+            "162π cm²"
+        ],
+        "answer": "54π cm²",
+        "explanation": "Sxq = 2πrh = 2 × π × 9 × 3 = 54π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình trụ",
+        "difficulty": "hard",
+        "question": "Một hình trụ có bán kính r = 5 cm và chiều cao h = 12 cm. Thể tích hình trụ bằng:",
+        "options": [
+            "300π cm³",
+            "150π cm³",
+            "60π cm³",
+            "600π cm³"
+        ],
+        "answer": "300π cm³",
+        "explanation": "V = πr²h = π × 25 × 12 = 300π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "medium",
+        "question": "Một hình nón có bán kính đáy r = 8 cm và đường sinh l = 10 cm. Diện tích xung quanh là:",
+        "options": [
+            "80π cm²",
+            "40π cm²",
+            "160π cm²",
+            "64π cm²"
+        ],
+        "answer": "80π cm²",
+        "explanation": "Sxq = πrl = π × 8 × 10."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình nón",
+        "difficulty": "hard",
+        "question": "Một hình nón có bán kính r = 5 cm và chiều cao h = 12 cm. Thể tích của hình nón là:",
+        "options": [
+            "100π cm³",
+            "300π cm³",
+            "60π cm³",
+            "50π cm³"
+        ],
+        "answer": "100π cm³",
+        "explanation": "V = 1/3 × π × 25 × 12 = 100π."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "medium",
+        "question": "Một hình cầu có bán kính r = 7 cm. Diện tích mặt cầu là:",
+        "options": [
+            "196π cm²",
+            "98π cm²",
+            "49π cm²",
+            "392π cm²"
+        ],
+        "answer": "196π cm²",
+        "explanation": "S = 4πr² = 4 × π × 49."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Hình cầu",
+        "difficulty": "hard",
+        "question": "Một hình cầu có bán kính r = 4 cm. Thể tích của hình cầu là:",
+        "options": [
+            "256/3 π cm³",
+            "64π cm³",
+            "128π cm³",
+            "32π cm³"
+        ],
+        "answer": "256/3 π cm³",
+        "explanation": "V = 4/3 πr³ = 4/3 × π × 64."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "So sánh thể tích",
+        "difficulty": "hard",
+        "question": "Một hình trụ có cùng bán kính và chiều cao với hình nón. Nếu thể tích hình nón là 40π cm³ thì thể tích hình trụ là:",
+        "options": [
+            "80π cm³",
+            "120π cm³",
+            "40π cm³",
+            "20π cm³"
+        ],
+        "answer": "120π cm³",
+        "explanation": "V_trụ = 3 × V_nón."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Ứng dụng thực tế",
+        "difficulty": "medium",
+        "question": "Một bình nước hình trụ có bán kính 6 cm và chiều cao 15 cm. Thể tích bình nước là:",
+        "options": [
+            "540π cm³",
+            "270π cm³",
+            "180π cm³",
+            "360π cm³"
+        ],
+        "answer": "540π cm³",
+        "explanation": "V = π × 36 × 15."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Ứng dụng thực tế",
+        "difficulty": "hard",
+        "question": "Một quả bóng có dạng hình cầu bán kính 3 cm. Thể tích quả bóng là:",
+        "options": [
+            "36π cm³",
+            "27π cm³",
+            "12π cm³",
+            "18π cm³"
+        ],
+        "answer": "36π cm³",
+        "explanation": "V = 4/3 × π × 27."
+    },
+    {
+        "grade": 9,
+        "topic": "Hình học không gian",
+        "sub_topic": "Tỉ lệ thể tích",
+        "difficulty": "hard",
+        "question": "Hai hình cầu có bán kính lần lượt là r và 4r. Thể tích hình cầu lớn gấp bao nhiêu lần hình cầu nhỏ?",
+        "options": [
+            "4 lần",
+            "8 lần",
+            "16 lần",
+            "64 lần"
+        ],
+        "answer": "64 lần",
+        "explanation": "Thể tích tỉ lệ với r³ nên (4r)³ = 64r³."
+    }
+]

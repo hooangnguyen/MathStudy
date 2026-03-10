@@ -13,9 +13,15 @@ import { AssignmentResultView } from '../features/classroom/AssignmentResultView
 interface ClassroomProps {
   enrolledClassId?: string;
   onJoinSuccess: (classId: string) => void;
+  deepLink?: {
+    assignmentId?: string;
+    action?: 'take' | 'result' | 'grade' | 'students';
+  };
+  onAssignmentInProgressChange?: (inProgress: boolean) => void;
+  exitAssignmentToken?: number;
 }
 
-export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuccess }) => {
+export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuccess, deepLink, onAssignmentInProgressChange, exitAssignmentToken }) => {
   const { user } = useFirebase();
   const [studentClass, setStudentClass] = useState<ClassData | null>(null);
   const [classCode, setClassCode] = useState('');
@@ -28,6 +34,19 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
   const [studentSubmissions, setStudentSubmissions] = useState<Record<string, SubmissionData>>({});
   const [takingAssignment, setTakingAssignment] = useState<AssignmentData | null>(null);
   const [viewingResult, setViewingResult] = useState<{ submission: SubmissionData, title: string } | null>(null);
+  const deepLinkHandledRef = React.useRef(false);
+  const lastExitTokenRef = React.useRef<number | null>(null);
+
+  React.useEffect(() => {
+    onAssignmentInProgressChange?.(!!takingAssignment);
+  }, [takingAssignment, onAssignmentInProgressChange]);
+
+  React.useEffect(() => {
+    if (exitAssignmentToken == null) return;
+    if (lastExitTokenRef.current === exitAssignmentToken) return;
+    lastExitTokenRef.current = exitAssignmentToken;
+    setTakingAssignment(null);
+  }, [exitAssignmentToken]);
 
   // Stats states
   const [classRankings, setClassRankings] = useState<UserProfile[]>([]);
@@ -81,6 +100,30 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
     };
     fetchSubmissions();
   }, [classAssignments, enrolledClassId, user]);
+
+  // Open assignment/result directly when coming from a notification
+  React.useEffect(() => {
+    if (deepLinkHandledRef.current) return;
+    if (!deepLink?.assignmentId) return;
+    if (!classAssignments || classAssignments.length === 0) return;
+
+    const assignment = classAssignments.find(a => a.id === deepLink.assignmentId);
+    if (!assignment) return;
+
+    const submission = studentSubmissions?.[assignment.id];
+    const isCompleted = !!submission;
+
+    if (deepLink.action === 'result') {
+      if (!submission) return;
+      deepLinkHandledRef.current = true;
+      setViewingResult({ submission, title: assignment.title });
+      return;
+    }
+
+    deepLinkHandledRef.current = true;
+    if (!isCompleted) setTakingAssignment(assignment);
+    else setViewingResult({ submission, title: assignment.title });
+  }, [deepLink, classAssignments, studentSubmissions]);
 
   // Derived Statistics
   const totalAssigned = classAssignments.length;
@@ -337,15 +380,7 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
                 </button>
               </div>
 
-              <div className="p-4 bg-amber-50 rounded-2xl border-2 border-amber-100 flex gap-3 items-start">
-                <Target size={20} className="text-amber-500 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-bold text-amber-900">Gợi ý thử nghiệm</p>
-                  <p className="text-xs font-medium text-amber-700 mt-1">
-                    Sử dụng mã <span className="font-black bg-amber-200 px-1 rounded">MATH5A</span> để dùng thử tính năng.
-                  </p>
-                </div>
-              </div>
+
             </div>
           )}
         </div>

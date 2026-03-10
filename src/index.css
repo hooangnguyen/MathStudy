@@ -2,43 +2,63 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Quicksand", sans-serif;
-  
-  --color-primary: #6366f1;
-  --color-secondary: #f43f5e;
-  --color-accent: #10b981;
-  --color-background: #f8fafc;
+    --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Quicksand", sans-serif;
+
+    --color-primary: #6366f1;
+    --color-secondary: #f43f5e;
+    --color-accent: #10b981;
+    --color-background: #f8fafc;
 }
 
 @layer base {
-  body {
-    @apply bg-background text-slate-900 antialiased;
-    font-family: var(--font-sans);
-  }
+    body {
+        @apply bg-background text-slate-900 antialiased;
+        font-family: var(--font-sans);
+    }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    @apply font-bold;
-  }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-display);
+        @apply font-bold;
+    }
 }
 
 .glass-card {
-  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
 }
 
 .mobile-shadow {
-  box-shadow: 0 0 50px -12px rgb(0 0 0 / 0.25);
+    box-shadow: 0 0 50px -12px rgb(0 0 0 / 0.25);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
+/* Ẩn menu mặc định của MathLive – dùng Sigma riêng của app */
+math-field::part(menu-toggle) {
+    display: none !important;
+}
+
+/* Giữ nút bàn phím kí hiệu (⌨) để mở bàn phím toán MathLive */
+
+/* Thu gọn thanh công cụ nội bộ trên mobile, tránh rối mắt */
+@media (max-width: 640px) {
+    math-field::part(toolbar) {
+        display: none !important;
+    }
+}

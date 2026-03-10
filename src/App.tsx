@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { MobileContainer } from './components/common/MobileContainer';
 import { Navigation } from './components/common/Navigation';
 import { LoadingScreen } from './components/common/LoadingScreen';
@@ -16,6 +16,7 @@ const LessonView = lazy(() => import('./components/common/LessonView').then(m =>
 const TeacherDashboard = lazy(() => import('./pages/TeacherDashboard').then(m => ({ default: m.TeacherDashboard })));
 const TeacherHome = lazy(() => import('./pages/TeacherHome').then(m => ({ default: m.TeacherHome })));
 const Classroom = lazy(() => import('./pages/Classroom').then(m => ({ default: m.Classroom })));
+const ClassQuiz = lazy(() => import('./pages/ClassQuiz').then(m => ({ default: m.ClassQuiz })));
 const Messages = lazy(() => import('./pages/Messages').then(m => ({ default: m.Messages })));
 const Onboarding = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })));
 import { motion, AnimatePresence } from 'motion/react';
@@ -24,11 +25,61 @@ import { useFirebase } from './context/FirebaseProvider';
 import { signOut } from 'firebase/auth';
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { getUserProfile, saveUserProfile, getAchievements, Achievement, UserPreferences, updateProgress } from './services/userService';
+import type { Notification } from './services/notificationService';
+
+// Preload helpers (improves perceived responsiveness)
+const preloadStudentCore = () =>
+  Promise.allSettled([
+    import('./pages/Classroom'),
+    import('./pages/Messages'),
+    import('./pages/Leaderboard'),
+  ]);
+
+const preloadTeacherCore = () =>
+  Promise.allSettled([
+    import('./pages/TeacherDashboard'),
+    import('./pages/TeacherHome'),
+    import('./pages/Messages'),
+  ]);
+
+const preloadCommonOverlays = () =>
+  Promise.allSettled([
+    import('./components/common/Notifications'),
+    import('./components/common/LessonView'),
+    import('./pages/Settings'),
+    import('./pages/EditProfile'),
+  ]);
+
+const runWhenIdle = (fn: () => void, timeoutMs = 1500) => {
+  const w = window as any;
+  if (typeof w.requestIdleCallback === 'function') {
+    return w.requestIdleCallback(fn, { timeout: timeoutMs });
+  }
+  return window.setTimeout(fn, timeoutMs);
+};
+
+const TAB_STORAGE_KEY = 'mathstudy_active_tab';
+const VALID_TABS = ['home', 'classroom', 'quiz', 'messages', 'duel', 'rank', 'profile'];
+
+function getInitialTab(): string {
+  try {
+    const saved = sessionStorage.getItem(TAB_STORAGE_KEY);
+    return saved && VALID_TABS.includes(saved) ? saved : 'home';
+  } catch {
+    return 'home';
+  }
+}
 
 export default function App() {
   const authContext = useFirebase();
   const { user, isAuthReady, auth } = authContext;
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(getInitialTab);
+  const setTab = useCallback((tab: string) => {
+    setActiveTab(tab);
+    try {
+      sessionStorage.setItem(TAB_STORAGE_KEY, tab);
+    } catch (_) {}
+  }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSyncingProfile, setIsSyncingProfile] = useState(true);
   const [userRole, setUserRole] = useState<'student' | 'teacher' | null>(null);
@@ -36,6 +87,18 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [notificationDeepLink, setNotificationDeepLink] = useState<{
+    target: 'classroom' | 'messages' | 'duel' | 'rank' | 'profile' | 'home';
+    role: 'student' | 'teacher';
+    classId?: string;
+    assignmentId?: string;
+    studentId?: string;
+    action?: 'take' | 'result' | 'grade' | 'students';
+  } | null>(null);
+  const [isDuelInProgress, setIsDuelInProgress] = useState(false);
+  const [isAssignmentInProgress, setIsAssignmentInProgress] = useState(false);
+  const [exitDuelToken, setExitDuelToken] = useState(0);
+  const [exitAssignmentToken, setExitAssignmentToken] = useState(0);
   const [currentLesson, setCurrentLesson] = useState<string | null>(null);
   const [currentTopic, setCurrentTopic] = useState<string | null>(null);
   const [currentLessonId, setCurrentLessonId] = useState<number | null>(null);
@@ -53,6 +116,7 @@ export default function App() {
     subject?: string;
     enrolledClasses?: string[];
     completedLessons?: number[];
+    totalCompletedAssignments?: number;
     preferences?: UserPreferences;
   } | null>(null);
 
@@ -116,9 +180,26 @@ export default function App() {
         points: userProfile.points ?? prev?.points ?? 0,
         streak: userProfile.streak ?? prev?.streak ?? 0,
         completedLessons: userProfile.completedLessons ?? prev?.completedLessons ?? [],
+        totalCompletedAssignments: userProfile.totalCompletedAssignments ?? prev?.totalCompletedAssignments ?? 0,
       }));
     }
   }, [userProfile]);
+
+  // Warm up next screens in background after login
+  useEffect(() => {
+    if (!isAuthReady || !user || !userRole) return;
+    const handle = runWhenIdle(() => {
+      preloadCommonOverlays();
+      if (userRole === 'teacher') preloadTeacherCore();
+      else preloadStudentCore();
+    }, 1200);
+
+    return () => {
+      const w = window as any;
+      if (typeof w.cancelIdleCallback === 'function') w.cancelIdleCallback(handle);
+      else window.clearTimeout(handle);
+    };
+  }, [isAuthReady, user, userRole]);
 
   const handleLogin = (role: 'student' | 'teacher' | 'new_user') => {
     // The useEffect will automatically catch the user state change and sync the profile.
@@ -137,7 +218,7 @@ export default function App() {
       streak: prev?.streak || 0,
     }));
     setShowOnboarding(false);
-    setActiveTab('home');
+    setTab('home');
   };
 
   const handleLogout = async () => {
@@ -154,10 +235,85 @@ export default function App() {
   };
 
   const handleTabChange = (tab: string) => {
+    if (tab !== activeTab) {
+      if (isDuelInProgress) {
+        const ok = window.confirm('Bạn đang trong trận đấu. Nếu thoát bây giờ bạn sẽ bị tính là THUA. Bạn có muốn thoát không?');
+        if (!ok) return;
+        // Kết thúc trận đấu cho cả hai nhưng giữ nguyên tab hiện tại,
+        // để học sinh xem màn hình kết quả xong rồi mới tự chuyển tab.
+        setExitDuelToken(t => t + 1);
+        return;
+      }
+
+      if (isAssignmentInProgress) {
+        const ok = window.confirm('Bạn đang làm bài tập dở. Nếu thoát bây giờ bài làm chưa được lưu. Bạn có muốn thoát không?');
+        if (!ok) return;
+        setExitAssignmentToken(t => t + 1);
+      }
+
+      // Xóa deep link khi rời khỏi tab classroom để khi quay lại không bị ép vào danh sách học sinh / grader
+      if (activeTab === 'classroom') {
+        setNotificationDeepLink(null);
+      }
+    }
     if (tab === 'duel') {
       setDuelInitialState('lobby');
     }
-    setActiveTab(tab);
+    setTab(tab);
+  };
+
+  const handleNotificationNavigate = (notif: Notification) => {
+    const meta = (notif.metadata || {}) as Record<string, any>;
+
+    if (notif.type === 'assignment') {
+      setNotificationDeepLink({
+        target: 'classroom',
+        role: 'student',
+        classId: meta.classId,
+        assignmentId: meta.assignmentId,
+        action: 'take',
+      });
+      setTab('classroom');
+      return;
+    }
+
+    if (notif.type === 'submission') {
+      setNotificationDeepLink({
+        target: 'classroom',
+        role: 'teacher',
+        classId: meta.classId,
+        assignmentId: meta.assignmentId,
+        studentId: meta.studentId,
+        action: 'grade',
+      });
+      setTab('classroom');
+      return;
+    }
+
+    if (notif.type === 'student_join') {
+      setNotificationDeepLink({
+        target: 'classroom',
+        role: 'teacher',
+        classId: meta.classId,
+        studentId: meta.studentId,
+        action: 'students',
+      });
+      setTab('classroom');
+      return;
+    }
+
+    if (notif.type === 'duel') {
+      setTab('duel');
+      return;
+    }
+
+    if (notif.type === 'achievement') {
+      setTab('profile');
+      return;
+    }
+
+    // Fallback
+    setTab('home');
   };
 
   const renderContent = () => {
@@ -166,12 +322,9 @@ export default function App() {
         case 'home':
           return userRole === 'teacher' ? (
             <TeacherHome
-              onNavigate={setActiveTab}
+              onNavigate={setTab}
               onShowNotifications={() => setShowNotifications(true)}
-              onCreateRoom={() => {
-                setDuelInitialState('create_room');
-                setActiveTab('duel');
-              }}
+              onCreateRoom={() => setTab('quiz')}
             />
           ) : (
             <Dashboard
@@ -189,17 +342,43 @@ export default function App() {
           );
         case 'classroom':
           return userRole === 'teacher' ? (
-            <TeacherDashboard />
+            <TeacherDashboard
+              deepLink={notificationDeepLink?.role === 'teacher' && notificationDeepLink.target === 'classroom'
+                ? {
+                  classId: notificationDeepLink.classId,
+                  assignmentId: notificationDeepLink.assignmentId,
+                  studentId: notificationDeepLink.studentId,
+                  action: notificationDeepLink.action,
+                }
+                : undefined}
+            />
           ) : (
             <Classroom
               enrolledClassId={userData?.enrolledClasses?.[0]}
+              deepLink={notificationDeepLink?.role === 'student' && notificationDeepLink.target === 'classroom'
+                ? {
+                  assignmentId: notificationDeepLink.assignmentId,
+                  action: notificationDeepLink.action,
+                }
+                : undefined}
               onJoinSuccess={(classId) => setUserData(prev => prev ? { ...prev, enrolledClasses: [...(prev.enrolledClasses || []), classId] } : null)}
+              onAssignmentInProgressChange={setIsAssignmentInProgress}
+              exitAssignmentToken={exitAssignmentToken}
             />
           );
+        case 'quiz':
+          return <ClassQuiz userRole={userRole} />;
         case 'messages':
           return <Messages userRole={userRole} />;
         case 'duel':
-          return <MathDuel userRole={userRole} initialState={duelInitialState} />;
+          return (
+            <MathDuel
+              userRole={userRole}
+              initialState={duelInitialState}
+              onDuelStateChange={(s) => setIsDuelInProgress(s === 'playing' || s === 'room_playing')}
+              exitDuelToken={exitDuelToken}
+            />
+          );
         case 'rank':
           return <Leaderboard />;
         case 'profile':
@@ -215,12 +394,9 @@ export default function App() {
         default:
           return userRole === 'teacher' ? (
             <TeacherHome
-              onNavigate={setActiveTab}
+              onNavigate={setTab}
               onShowNotifications={() => setShowNotifications(true)}
-              onCreateRoom={() => {
-                setDuelInitialState('create_room');
-                setActiveTab('duel');
-              }}
+              onCreateRoom={() => setTab('quiz')}
             />
           ) : (
             <Dashboard
@@ -361,7 +537,11 @@ export default function App() {
         <AnimatePresence>
           {showNotifications && (
             <Suspense fallback={null}>
-              <Notifications onBack={() => setShowNotifications(false)} userRole={userRole} />
+              <Notifications
+                onBack={() => setShowNotifications(false)}
+                userRole={userRole}
+                onNavigateToSource={handleNotificationNavigate}
+              />
             </Suspense>
           )}
         </AnimatePresence>

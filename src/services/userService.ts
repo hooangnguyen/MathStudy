@@ -27,6 +27,7 @@ export interface UserProfile {
     streak: number;
     points: number;
     completedLessons?: number[];
+    totalCompletedAssignments?: number;
     achievements?: Achievement[];
     school?: string;
     subject?: string;

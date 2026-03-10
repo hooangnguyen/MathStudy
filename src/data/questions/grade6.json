@@ -1,0 +1,6152 @@
+[
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "easy",
+        "question": "Cho A = {1,2,3,4}. Số nào thuộc A?",
+        "options": [
+            "5",
+            "6",
+            "3",
+            "7"
+        ],
+        "answer": "3",
+        "explanation": "3 là phần tử của tập hợp A."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "easy",
+        "question": "Cho B = {2,4,6,8}. Số nào không thuộc B?",
+        "options": [
+            "2",
+            "4",
+            "5",
+            "8"
+        ],
+        "answer": "5",
+        "explanation": "5 không phải số chẵn nên không thuộc B."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "easy",
+        "question": "Tập hợp {1,2,3} có bao nhiêu phần tử?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "3",
+        "explanation": "Có 3 phần tử."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "easy",
+        "question": "Tập hợp {5,10,15,20} có bao nhiêu phần tử?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "4",
+        "explanation": "Có 4 phần tử."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Cho A = {0,1,2}. Khẳng định nào đúng?",
+        "options": [
+            "3 ∈ A",
+            "1 ∈ A",
+            "4 ∈ A",
+            "5 ∈ A"
+        ],
+        "answer": "1 ∈ A",
+        "explanation": "1 là phần tử của tập hợp A."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Cho C = {7,8,9}. Phần tử nào thuộc C?",
+        "options": [
+            "6",
+            "7",
+            "10",
+            "11"
+        ],
+        "answer": "7",
+        "explanation": "7 nằm trong tập hợp C."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho A = {x | x là số tự nhiên nhỏ hơn 6}. Phần tử nào thuộc A?",
+        "options": [
+            "6",
+            "7",
+            "5",
+            "8"
+        ],
+        "answer": "5",
+        "explanation": "Các số tự nhiên nhỏ hơn 6 gồm 0,1,2,3,4,5."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho B = {2,3,5,7}. Số nào không thuộc B?",
+        "options": [
+            "2",
+            "5",
+            "7",
+            "9"
+        ],
+        "answer": "9",
+        "explanation": "9 không nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho C = {10,20,30}. Số nào thuộc C?",
+        "options": [
+            "15",
+            "25",
+            "30",
+            "35"
+        ],
+        "answer": "30",
+        "explanation": "30 thuộc tập hợp C."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "medium",
+        "question": "Tập hợp {2,4,6,8,10} có bao nhiêu phần tử?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "5",
+        "explanation": "Có 5 số chẵn."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho D = {a,e,i,o,u}. Phần tử nào thuộc D?",
+        "options": [
+            "b",
+            "c",
+            "d",
+            "i"
+        ],
+        "answer": "i",
+        "explanation": "i là nguyên âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho E = {3,6,9,12}. Số nào thuộc E?",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "6 nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho A = {1,4,9,16}. Số nào không thuộc A?",
+        "options": [
+            "1",
+            "4",
+            "9",
+            "8"
+        ],
+        "answer": "8",
+        "explanation": "8 không phải phần tử của A."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho B = {5,10,15}. Phần tử nào thuộc B?",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "10",
+        "explanation": "10 nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "medium",
+        "question": "Tập hợp {a,b,c,d} có bao nhiêu phần tử?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "4",
+        "explanation": "Có 4 phần tử."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho C = {2,4,6}. Số nào thuộc C?",
+        "options": [
+            "1",
+            "3",
+            "5",
+            "6"
+        ],
+        "answer": "6",
+        "explanation": "6 là số chẵn nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho D = {1,3,5,7}. Số nào không thuộc D?",
+        "options": [
+            "3",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "6 là số chẵn nên không thuộc."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho E = {11,12,13}. Số nào thuộc E?",
+        "options": [
+            "10",
+            "11",
+            "14",
+            "15"
+        ],
+        "answer": "11",
+        "explanation": "11 là phần tử của E."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "medium",
+        "question": "Tập hợp {0,2,4,6,8} có bao nhiêu phần tử?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "5",
+        "explanation": "Có 5 số chẵn."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho A = {100,200,300}. Phần tử nào thuộc A?",
+        "options": [
+            "50",
+            "100",
+            "150",
+            "250"
+        ],
+        "answer": "100",
+        "explanation": "100 là phần tử của A."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho B = {8,16,24}. Số nào thuộc B?",
+        "options": [
+            "12",
+            "16",
+            "18",
+            "20"
+        ],
+        "answer": "16",
+        "explanation": "16 nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho C = {6,12,18}. Số nào không thuộc C?",
+        "options": [
+            "6",
+            "12",
+            "18",
+            "24"
+        ],
+        "answer": "24",
+        "explanation": "24 không nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho D = {a,b,c}. Phần tử nào thuộc D?",
+        "options": [
+            "d",
+            "e",
+            "a",
+            "f"
+        ],
+        "answer": "a",
+        "explanation": "a là phần tử của D."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "medium",
+        "question": "Tập hợp {2,3,5,7,11} có bao nhiêu phần tử?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "5",
+        "explanation": "Có 5 số nguyên tố."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho E = {4,8,12}. Phần tử nào thuộc E?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "8",
+        "explanation": "8 nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho F = {9,18,27}. Số nào không thuộc F?",
+        "options": [
+            "9",
+            "18",
+            "27",
+            "36"
+        ],
+        "answer": "36",
+        "explanation": "36 không nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Tính chất chia hết",
+        "difficulty": "easy",
+        "question": "Trong các số sau, số nào chia hết cho 3?",
+        "options": [
+            "25",
+            "27",
+            "34",
+            "41"
+        ],
+        "answer": "27",
+        "explanation": "Một số chia hết cho 3 khi tổng các chữ số của nó chia hết cho 3. 2 + 7 = 9 chia hết cho 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của số 12 là số nào sau đây?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "6",
+        "explanation": "6 là ước của 12 vì 12 chia hết cho 6."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "medium",
+        "question": "Trong các số sau, số nào là bội của 8?",
+        "options": [
+            "24",
+            "26",
+            "30",
+            "34"
+        ],
+        "answer": "24",
+        "explanation": "24 = 8 × 3 nên 24 là bội của 8."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số nguyên tố",
+        "difficulty": "easy",
+        "question": "Số nào sau đây là số nguyên tố?",
+        "options": [
+            "9",
+            "15",
+            "17",
+            "21"
+        ],
+        "answer": "17",
+        "explanation": "17 chỉ có hai ước là 1 và 17 nên là số nguyên tố."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số nguyên tố",
+        "difficulty": "medium",
+        "question": "Trong các số sau, số nào không phải là số nguyên tố?",
+        "options": [
+            "2",
+            "3",
+            "5",
+            "9"
+        ],
+        "answer": "9",
+        "explanation": "9 có các ước 1, 3, 9 nên không phải số nguyên tố."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "medium",
+        "question": "Ước chung lớn nhất của 12 và 18 là bao nhiêu?",
+        "options": [
+            "2",
+            "3",
+            "6",
+            "9"
+        ],
+        "answer": "6",
+        "explanation": "ƯCLN(12,18) = 6 vì 6 là ước chung lớn nhất của hai số."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "medium",
+        "question": "Bội chung nhỏ nhất của 4 và 6 là bao nhiêu?",
+        "options": [
+            "8",
+            "10",
+            "12",
+            "24"
+        ],
+        "answer": "12",
+        "explanation": "Các bội chung của 4 và 6 là 12, 24, ... Bội nhỏ nhất là 12."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "hard",
+        "question": "BCNN của 6 và 8 là bao nhiêu?",
+        "options": [
+            "12",
+            "18",
+            "24",
+            "48"
+        ],
+        "answer": "24",
+        "explanation": "Phân tích: 6 = 2 × 3, 8 = 2^3. BCNN = 2^3 × 3 = 24."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "easy",
+        "question": "Cho A = {2,4,6,8}. Số nào thuộc A?",
+        "options": [
+            "1",
+            "3",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "6 là số chẵn nằm trong tập hợp A."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "easy",
+        "question": "Cho B = {1,3,5,7}. Số nào không thuộc B?",
+        "options": [
+            "1",
+            "3",
+            "4",
+            "7"
+        ],
+        "answer": "4",
+        "explanation": "4 là số chẵn nên không thuộc tập hợp các số lẻ."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "easy",
+        "question": "Tập hợp {4,5,6} có bao nhiêu phần tử?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "3",
+        "explanation": "Tập hợp có 3 phần tử."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "easy",
+        "question": "Cho D = {a,b,c,d}. Phần tử nào thuộc D?",
+        "options": [
+            "e",
+            "f",
+            "a",
+            "g"
+        ],
+        "answer": "a",
+        "explanation": "a là phần tử của tập hợp D."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho A = {x | x là số tự nhiên nhỏ hơn 4}. Phần tử nào thuộc A?",
+        "options": [
+            "4",
+            "5",
+            "3",
+            "6"
+        ],
+        "answer": "3",
+        "explanation": "Các số tự nhiên nhỏ hơn 4 là 0,1,2,3."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho B = {3,6,9,12}. Số nào thuộc B?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "6",
+        "explanation": "6 nằm trong tập hợp B."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho C = {1,4,7,10}. Số nào không thuộc C?",
+        "options": [
+            "1",
+            "4",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "6 không có trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "medium",
+        "question": "Tập hợp {0,1,2,3,4,5} có bao nhiêu phần tử?",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "Có 6 phần tử."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho D = {5,10,15}. Phần tử nào thuộc D?",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "10 là phần tử của tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho E = {2,3,5,7}. Số nào thuộc E?",
+        "options": [
+            "4",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "7",
+        "explanation": "7 là số nguyên tố nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho F = {6,12,18}. Số nào không thuộc F?",
+        "options": [
+            "6",
+            "12",
+            "15",
+            "18"
+        ],
+        "answer": "15",
+        "explanation": "15 không phải bội của 6."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho A = {11,22,33}. Phần tử nào thuộc A?",
+        "options": [
+            "10",
+            "20",
+            "33",
+            "44"
+        ],
+        "answer": "33",
+        "explanation": "33 nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "medium",
+        "question": "Tập hợp {a,e,i,o,u} có bao nhiêu phần tử?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "5",
+        "explanation": "Có 5 nguyên âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho A = {0,2,4,6}. Số nào thuộc A?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "5"
+        ],
+        "answer": "2",
+        "explanation": "2 là số chẵn trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho B = {9,18,27}. Số nào không thuộc B?",
+        "options": [
+            "9",
+            "18",
+            "21",
+            "27"
+        ],
+        "answer": "21",
+        "explanation": "21 không phải bội của 9."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho C = {4,8,12}. Số nào thuộc C?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "10"
+        ],
+        "answer": "8",
+        "explanation": "8 nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "medium",
+        "question": "Tập hợp {2,3,5,7} có bao nhiêu phần tử?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": "4",
+        "explanation": "Có 4 số nguyên tố."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho D = {1,2,3}. Khẳng định nào đúng?",
+        "options": [
+            "4 ∈ D",
+            "2 ∈ D",
+            "5 ∈ D",
+            "6 ∈ D"
+        ],
+        "answer": "2 ∈ D",
+        "explanation": "2 là phần tử của tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho E = {10,11,12}. Số nào thuộc E?",
+        "options": [
+            "9",
+            "10",
+            "13",
+            "14"
+        ],
+        "answer": "10",
+        "explanation": "10 là phần tử của tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho F = {7,14,21}. Số nào thuộc F?",
+        "options": [
+            "10",
+            "12",
+            "14",
+            "18"
+        ],
+        "answer": "14",
+        "explanation": "14 là bội của 7."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Nhận biết",
+        "difficulty": "medium",
+        "question": "Cho A = {3,6,9}. Số nào không thuộc A?",
+        "options": [
+            "3",
+            "6",
+            "9",
+            "12"
+        ],
+        "answer": "12",
+        "explanation": "12 không nằm trong tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Số phần tử",
+        "difficulty": "medium",
+        "question": "Tập hợp {1,2,3,4,5,6,7} có bao nhiêu phần tử?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "7",
+        "explanation": "Có 7 số."
+    },
+    {
+        "grade": 6,
+        "topic": "Tập hợp",
+        "sub_topic": "Phần tử",
+        "difficulty": "medium",
+        "question": "Cho B = {2,5,8}. Số nào thuộc B?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "7"
+        ],
+        "answer": "5",
+        "explanation": "5 là phần tử của tập hợp."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Số nguyên âm",
+        "difficulty": "easy",
+        "question": "Số nào sau đây là số nguyên âm?",
+        "options": [
+            "-3",
+            "2",
+            "0",
+            "5"
+        ],
+        "answer": "-3",
+        "explanation": "Số nguyên âm là các số nhỏ hơn 0."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Số nguyên âm",
+        "difficulty": "easy",
+        "question": "Trong các số sau, số nào nhỏ nhất?",
+        "options": [
+            "-1",
+            "0",
+            "2",
+            "3"
+        ],
+        "answer": "-1",
+        "explanation": "Số âm nhỏ hơn số 0 và số dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "So sánh số nguyên",
+        "difficulty": "easy",
+        "question": "Số nào lớn hơn?",
+        "options": [
+            "-5",
+            "-2",
+            "-7",
+            "-9"
+        ],
+        "answer": "-2",
+        "explanation": "Trong các số âm, số có giá trị tuyệt đối nhỏ hơn thì lớn hơn."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "easy",
+        "question": "(-3) + 5 bằng bao nhiêu?",
+        "options": [
+            "2",
+            "-2",
+            "8",
+            "-8"
+        ],
+        "answer": "2",
+        "explanation": "Cộng số âm với số dương: lấy 5 - 3 = 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "easy",
+        "question": "(-4) + (-6) bằng bao nhiêu?",
+        "options": [
+            "-10",
+            "10",
+            "2",
+            "-2"
+        ],
+        "answer": "-10",
+        "explanation": "Hai số âm cộng lại: cộng giá trị tuyệt đối và giữ dấu âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "easy",
+        "question": "5 - (-3) bằng bao nhiêu?",
+        "options": [
+            "8",
+            "2",
+            "-8",
+            "-2"
+        ],
+        "answer": "8",
+        "explanation": "Trừ số âm là cộng số dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "easy",
+        "question": "(-7) - 2 bằng bao nhiêu?",
+        "options": [
+            "-9",
+            "-5",
+            "9",
+            "5"
+        ],
+        "answer": "-9",
+        "explanation": "-7 trừ 2 bằng -9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "easy",
+        "question": "(-3) × 4 bằng bao nhiêu?",
+        "options": [
+            "-12",
+            "12",
+            "7",
+            "-7"
+        ],
+        "answer": "-12",
+        "explanation": "Âm nhân dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "easy",
+        "question": "(-5) × (-2) bằng bao nhiêu?",
+        "options": [
+            "10",
+            "-10",
+            "7",
+            "-7"
+        ],
+        "answer": "10",
+        "explanation": "Âm nhân âm bằng dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "easy",
+        "question": "(-12) ÷ 3 bằng bao nhiêu?",
+        "options": [
+            "-4",
+            "4",
+            "-9",
+            "9"
+        ],
+        "answer": "-4",
+        "explanation": "Âm chia dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "easy",
+        "question": "(-16) ÷ (-4) bằng bao nhiêu?",
+        "options": [
+            "4",
+            "-4",
+            "8",
+            "-8"
+        ],
+        "answer": "4",
+        "explanation": "Âm chia âm bằng dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "medium",
+        "question": "(-6) + 9 bằng bao nhiêu?",
+        "options": [
+            "3",
+            "-3",
+            "15",
+            "-15"
+        ],
+        "answer": "3",
+        "explanation": "9 - 6 = 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "medium",
+        "question": "7 - (-5) bằng bao nhiêu?",
+        "options": [
+            "12",
+            "2",
+            "-12",
+            "-2"
+        ],
+        "answer": "12",
+        "explanation": "Trừ số âm thành cộng."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "medium",
+        "question": "(-8) × (-3) bằng bao nhiêu?",
+        "options": [
+            "24",
+            "-24",
+            "11",
+            "-11"
+        ],
+        "answer": "24",
+        "explanation": "Âm nhân âm bằng dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "medium",
+        "question": "18 ÷ (-3) bằng bao nhiêu?",
+        "options": [
+            "-6",
+            "6",
+            "-9",
+            "9"
+        ],
+        "answer": "-6",
+        "explanation": "Dương chia âm bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "5 + (3 - 7) bằng bao nhiêu?",
+        "options": [
+            "1",
+            "-1",
+            "5",
+            "-5"
+        ],
+        "answer": "1",
+        "explanation": "3 - 7 = -4; 5 + (-4) = 1."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "10 - (4 + 3) bằng bao nhiêu?",
+        "options": [
+            "3",
+            "-3",
+            "7",
+            "-7"
+        ],
+        "answer": "3",
+        "explanation": "10 - 7 = 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Quy tắc chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x + 5 = 9",
+        "options": [
+            "4",
+            "14",
+            "-4",
+            "5"
+        ],
+        "answer": "4",
+        "explanation": "Chuyển 5 sang vế phải thành -5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Quy tắc chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x - 3 = 7",
+        "options": [
+            "10",
+            "4",
+            "-4",
+            "-10"
+        ],
+        "answer": "10",
+        "explanation": "Chuyển -3 sang thành +3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Quy tắc chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x + (-4) = 6",
+        "options": [
+            "10",
+            "2",
+            "-2",
+            "-10"
+        ],
+        "answer": "10",
+        "explanation": "x - 4 = 6 nên x = 10."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "8 - (5 - 3) bằng bao nhiêu?",
+        "options": [
+            "6",
+            "0",
+            "10",
+            "2"
+        ],
+        "answer": "6",
+        "explanation": "5 - 3 = 2; 8 - 2 = 6."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "medium",
+        "question": "(-10) + 15 bằng bao nhiêu?",
+        "options": [
+            "5",
+            "-5",
+            "25",
+            "-25"
+        ],
+        "answer": "5",
+        "explanation": "15 - 10 = 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "medium",
+        "question": "(-9) - (-4) bằng bao nhiêu?",
+        "options": [
+            "-5",
+            "5",
+            "13",
+            "-13"
+        ],
+        "answer": "-5",
+        "explanation": "-9 + 4 = -5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "medium",
+        "question": "7 × (-3) bằng bao nhiêu?",
+        "options": [
+            "-21",
+            "21",
+            "-10",
+            "10"
+        ],
+        "answer": "-21",
+        "explanation": "Dương nhân âm bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "medium",
+        "question": "(-20) ÷ 5 bằng bao nhiêu?",
+        "options": [
+            "-4",
+            "4",
+            "-5",
+            "5"
+        ],
+        "answer": "-4",
+        "explanation": "Âm chia dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "So sánh",
+        "difficulty": "easy",
+        "question": "Số nào nhỏ hơn?",
+        "options": [
+            "-8",
+            "-3",
+            "-1",
+            "0"
+        ],
+        "answer": "-8",
+        "explanation": "Số âm càng nhỏ thì giá trị càng bé."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Tính chất chia hết",
+        "difficulty": "easy",
+        "question": "Số nào chia hết cho 2?",
+        "options": [
+            "15",
+            "18",
+            "21",
+            "25"
+        ],
+        "answer": "18",
+        "explanation": "Số chia hết cho 2 là số chẵn."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Tính chất chia hết",
+        "difficulty": "easy",
+        "question": "Số nào chia hết cho 5?",
+        "options": [
+            "32",
+            "40",
+            "27",
+            "33"
+        ],
+        "answer": "40",
+        "explanation": "Số tận cùng 0 hoặc 5 chia hết cho 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Tính chất chia hết",
+        "difficulty": "easy",
+        "question": "Số nào chia hết cho 3?",
+        "options": [
+            "14",
+            "18",
+            "22",
+            "25"
+        ],
+        "answer": "18",
+        "explanation": "1+8=9 chia hết cho 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Tính chất chia hết",
+        "difficulty": "easy",
+        "question": "Số nào chia hết cho 9?",
+        "options": [
+            "27",
+            "25",
+            "34",
+            "41"
+        ],
+        "answer": "27",
+        "explanation": "2+7=9 chia hết cho 9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Tính chất chia hết",
+        "difficulty": "easy",
+        "question": "Số nào chia hết cho cả 2 và 5?",
+        "options": [
+            "20",
+            "12",
+            "14",
+            "18"
+        ],
+        "answer": "20",
+        "explanation": "Chia hết cho 2 và 5 ⇒ tận cùng 0."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Tính chất chia hết",
+        "difficulty": "easy",
+        "question": "Số nào chia hết cho 4?",
+        "options": [
+            "16",
+            "18",
+            "22",
+            "26"
+        ],
+        "answer": "16",
+        "explanation": "16 ÷ 4 = 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của 10 là số nào?",
+        "options": [
+            "2",
+            "3",
+            "7",
+            "9"
+        ],
+        "answer": "2",
+        "explanation": "10 chia hết cho 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của 15 là số nào?",
+        "options": [
+            "3",
+            "4",
+            "8",
+            "11"
+        ],
+        "answer": "3",
+        "explanation": "15 ÷ 3 = 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Bội của 6 là số nào?",
+        "options": [
+            "12",
+            "13",
+            "14",
+            "15"
+        ],
+        "answer": "12",
+        "explanation": "12 = 6 × 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Bội của 7 là số nào?",
+        "options": [
+            "14",
+            "15",
+            "16",
+            "18"
+        ],
+        "answer": "14",
+        "explanation": "14 = 7 × 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của 18 là số nào?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "10"
+        ],
+        "answer": "6",
+        "explanation": "18 ÷ 6 = 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Bội của 9 là số nào?",
+        "options": [
+            "27",
+            "28",
+            "29",
+            "31"
+        ],
+        "answer": "27",
+        "explanation": "27 = 9 × 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của 20 là số nào?",
+        "options": [
+            "5",
+            "7",
+            "9",
+            "11"
+        ],
+        "answer": "5",
+        "explanation": "20 ÷ 5 = 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Bội của 8 là số nào?",
+        "options": [
+            "24",
+            "25",
+            "26",
+            "27"
+        ],
+        "answer": "24",
+        "explanation": "24 = 8 × 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của 21 là số nào?",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "7",
+        "explanation": "21 ÷ 7 = 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Bội của 4 là số nào?",
+        "options": [
+            "16",
+            "18",
+            "19",
+            "21"
+        ],
+        "answer": "16",
+        "explanation": "16 = 4 × 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số nguyên tố",
+        "difficulty": "easy",
+        "question": "Số nào là số nguyên tố?",
+        "options": [
+            "4",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "7",
+        "explanation": "7 chỉ có 2 ước."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số nguyên tố",
+        "difficulty": "easy",
+        "question": "Số nào không phải số nguyên tố?",
+        "options": [
+            "17",
+            "19",
+            "21",
+            "23"
+        ],
+        "answer": "21",
+        "explanation": "21 = 3 × 7."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số nguyên tố",
+        "difficulty": "easy",
+        "question": "Số nguyên tố nhỏ nhất là?",
+        "options": [
+            "0",
+            "1",
+            "2",
+            "3"
+        ],
+        "answer": "2",
+        "explanation": "2 là số nguyên tố nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(6,9) là bao nhiêu?",
+        "options": [
+            "1",
+            "3",
+            "6",
+            "9"
+        ],
+        "answer": "3",
+        "explanation": "Ước chung lớn nhất là 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(8,12) là?",
+        "options": [
+            "2",
+            "4",
+            "6",
+            "8"
+        ],
+        "answer": "4",
+        "explanation": "Ước chung lớn nhất là 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(10,15) là?",
+        "options": [
+            "3",
+            "5",
+            "10",
+            "15"
+        ],
+        "answer": "5",
+        "explanation": "Ước chung lớn nhất là 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(14,21) là?",
+        "options": [
+            "3",
+            "5",
+            "7",
+            "14"
+        ],
+        "answer": "7",
+        "explanation": "7 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(16,24) là?",
+        "options": [
+            "4",
+            "6",
+            "8",
+            "12"
+        ],
+        "answer": "8",
+        "explanation": "8 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "medium",
+        "question": "ƯCLN(18,27) là?",
+        "options": [
+            "3",
+            "6",
+            "9",
+            "18"
+        ],
+        "answer": "9",
+        "explanation": "9 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "medium",
+        "question": "ƯCLN(20,30) là?",
+        "options": [
+            "5",
+            "10",
+            "15",
+            "20"
+        ],
+        "answer": "10",
+        "explanation": "10 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "medium",
+        "question": "ƯCLN(24,36) là?",
+        "options": [
+            "6",
+            "8",
+            "12",
+            "24"
+        ],
+        "answer": "12",
+        "explanation": "12 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "medium",
+        "question": "ƯCLN(21,28) là?",
+        "options": [
+            "3",
+            "5",
+            "7",
+            "14"
+        ],
+        "answer": "7",
+        "explanation": "7 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "medium",
+        "question": "ƯCLN(32,48) là?",
+        "options": [
+            "8",
+            "12",
+            "16",
+            "24"
+        ],
+        "answer": "16",
+        "explanation": "16 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(2,3) là?",
+        "options": [
+            "3",
+            "5",
+            "6",
+            "9"
+        ],
+        "answer": "6",
+        "explanation": "6 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(3,4) là?",
+        "options": [
+            "6",
+            "12",
+            "9",
+            "8"
+        ],
+        "answer": "12",
+        "explanation": "12 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(4,5) là?",
+        "options": [
+            "10",
+            "15",
+            "20",
+            "25"
+        ],
+        "answer": "20",
+        "explanation": "20 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(6,8) là?",
+        "options": [
+            "12",
+            "18",
+            "24",
+            "48"
+        ],
+        "answer": "24",
+        "explanation": "24 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(5,7) là?",
+        "options": [
+            "20",
+            "25",
+            "35",
+            "40"
+        ],
+        "answer": "35",
+        "explanation": "35 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "medium",
+        "question": "BCNN(6,9) là?",
+        "options": [
+            "12",
+            "18",
+            "24",
+            "36"
+        ],
+        "answer": "18",
+        "explanation": "18 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "medium",
+        "question": "BCNN(8,12) là?",
+        "options": [
+            "16",
+            "24",
+            "32",
+            "48"
+        ],
+        "answer": "24",
+        "explanation": "24 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "medium",
+        "question": "BCNN(9,12) là?",
+        "options": [
+            "18",
+            "24",
+            "36",
+            "48"
+        ],
+        "answer": "36",
+        "explanation": "36 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "medium",
+        "question": "BCNN(10,15) là?",
+        "options": [
+            "20",
+            "25",
+            "30",
+            "45"
+        ],
+        "answer": "30",
+        "explanation": "30 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "medium",
+        "question": "BCNN(12,18) là?",
+        "options": [
+            "24",
+            "30",
+            "36",
+            "48"
+        ],
+        "answer": "36",
+        "explanation": "36 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "easy",
+        "question": "(-4) + 6 bằng bao nhiêu?",
+        "options": [
+            "2",
+            "-2",
+            "10",
+            "-10"
+        ],
+        "answer": "2",
+        "explanation": "6 - 4 = 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "easy",
+        "question": "(-5) + (-3) bằng bao nhiêu?",
+        "options": [
+            "-8",
+            "8",
+            "-2",
+            "2"
+        ],
+        "answer": "-8",
+        "explanation": "Hai số âm cộng lại giữ dấu âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "easy",
+        "question": "7 - (-2) bằng bao nhiêu?",
+        "options": [
+            "9",
+            "5",
+            "-9",
+            "-5"
+        ],
+        "answer": "9",
+        "explanation": "Trừ số âm thành cộng."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "easy",
+        "question": "(-6) - 3 bằng bao nhiêu?",
+        "options": [
+            "-9",
+            "9",
+            "-3",
+            "3"
+        ],
+        "answer": "-9",
+        "explanation": "-6 trừ 3 bằng -9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "easy",
+        "question": "(-4) × 5 bằng bao nhiêu?",
+        "options": [
+            "-20",
+            "20",
+            "-9",
+            "9"
+        ],
+        "answer": "-20",
+        "explanation": "Âm nhân dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "easy",
+        "question": "(-3) × (-6) bằng bao nhiêu?",
+        "options": [
+            "18",
+            "-18",
+            "9",
+            "-9"
+        ],
+        "answer": "18",
+        "explanation": "Âm nhân âm bằng dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "easy",
+        "question": "(-12) ÷ 4 bằng bao nhiêu?",
+        "options": [
+            "-3",
+            "3",
+            "-4",
+            "4"
+        ],
+        "answer": "-3",
+        "explanation": "Âm chia dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "easy",
+        "question": "(-15) ÷ (-3) bằng bao nhiêu?",
+        "options": [
+            "5",
+            "-5",
+            "3",
+            "-3"
+        ],
+        "answer": "5",
+        "explanation": "Âm chia âm bằng dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "medium",
+        "question": "(-8) + 10 bằng bao nhiêu?",
+        "options": [
+            "2",
+            "-2",
+            "18",
+            "-18"
+        ],
+        "answer": "2",
+        "explanation": "10 - 8 = 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "medium",
+        "question": "9 - (-6) bằng bao nhiêu?",
+        "options": [
+            "15",
+            "3",
+            "-15",
+            "-3"
+        ],
+        "answer": "15",
+        "explanation": "Trừ số âm thành cộng."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "medium",
+        "question": "6 × (-7) bằng bao nhiêu?",
+        "options": [
+            "-42",
+            "42",
+            "-13",
+            "13"
+        ],
+        "answer": "-42",
+        "explanation": "Dương nhân âm bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "medium",
+        "question": "(-24) ÷ 6 bằng bao nhiêu?",
+        "options": [
+            "-4",
+            "4",
+            "-6",
+            "6"
+        ],
+        "answer": "-4",
+        "explanation": "Âm chia dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "6 + (4 - 9) bằng bao nhiêu?",
+        "options": [
+            "1",
+            "-1",
+            "11",
+            "-11"
+        ],
+        "answer": "1",
+        "explanation": "4 - 9 = -5; 6 + (-5) = 1."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "12 - (5 + 3) bằng bao nhiêu?",
+        "options": [
+            "4",
+            "-4",
+            "8",
+            "-8"
+        ],
+        "answer": "4",
+        "explanation": "12 - 8 = 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x + 7 = 10",
+        "options": [
+            "3",
+            "17",
+            "-3",
+            "7"
+        ],
+        "answer": "3",
+        "explanation": "x = 10 - 7."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x - 4 = 6",
+        "options": [
+            "10",
+            "2",
+            "-10",
+            "-2"
+        ],
+        "answer": "10",
+        "explanation": "x = 6 + 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x + (-3) = 5",
+        "options": [
+            "8",
+            "2",
+            "-8",
+            "-2"
+        ],
+        "answer": "8",
+        "explanation": "x - 3 = 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "9 - (6 - 2) bằng bao nhiêu?",
+        "options": [
+            "5",
+            "1",
+            "11",
+            "-5"
+        ],
+        "answer": "5",
+        "explanation": "6 - 2 = 4; 9 - 4 = 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "medium",
+        "question": "(-12) + 7 bằng bao nhiêu?",
+        "options": [
+            "-5",
+            "5",
+            "19",
+            "-19"
+        ],
+        "answer": "-5",
+        "explanation": "7 - 12 = -5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "medium",
+        "question": "(-10) - (-6) bằng bao nhiêu?",
+        "options": [
+            "-4",
+            "4",
+            "-16",
+            "16"
+        ],
+        "answer": "-4",
+        "explanation": "-10 + 6 = -4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "medium",
+        "question": "(-9) × 3 bằng bao nhiêu?",
+        "options": [
+            "-27",
+            "27",
+            "-12",
+            "12"
+        ],
+        "answer": "-27",
+        "explanation": "Âm nhân dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "medium",
+        "question": "27 ÷ (-3) bằng bao nhiêu?",
+        "options": [
+            "-9",
+            "9",
+            "-6",
+            "6"
+        ],
+        "answer": "-9",
+        "explanation": "Dương chia âm bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "5 + (7 - 10) bằng bao nhiêu?",
+        "options": [
+            "2",
+            "-2",
+            "12",
+            "-12"
+        ],
+        "answer": "2",
+        "explanation": "7 - 10 = -3; 5 + (-3) = 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x - 8 = 2",
+        "options": [
+            "10",
+            "-6",
+            "6",
+            "-10"
+        ],
+        "answer": "10",
+        "explanation": "x = 2 + 8."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x + 9 = 4",
+        "options": [
+            "-5",
+            "5",
+            "13",
+            "-13"
+        ],
+        "answer": "-5",
+        "explanation": "x = 4 - 9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "easy",
+        "question": "(-7) + 9 bằng bao nhiêu?",
+        "options": [
+            "2",
+            "-2",
+            "16",
+            "-16"
+        ],
+        "answer": "2",
+        "explanation": "9 - 7 = 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "easy",
+        "question": "(-8) + (-5) bằng bao nhiêu?",
+        "options": [
+            "-13",
+            "13",
+            "-3",
+            "3"
+        ],
+        "answer": "-13",
+        "explanation": "Hai số âm cộng lại giữ dấu âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "easy",
+        "question": "6 - (-4) bằng bao nhiêu?",
+        "options": [
+            "10",
+            "2",
+            "-10",
+            "-2"
+        ],
+        "answer": "10",
+        "explanation": "Trừ số âm thành cộng."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "easy",
+        "question": "(-9) - 3 bằng bao nhiêu?",
+        "options": [
+            "-12",
+            "12",
+            "-6",
+            "6"
+        ],
+        "answer": "-12",
+        "explanation": "-9 trừ 3 bằng -12."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "easy",
+        "question": "(-6) × 4 bằng bao nhiêu?",
+        "options": [
+            "-24",
+            "24",
+            "-10",
+            "10"
+        ],
+        "answer": "-24",
+        "explanation": "Âm nhân dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "easy",
+        "question": "(-7) × (-3) bằng bao nhiêu?",
+        "options": [
+            "21",
+            "-21",
+            "10",
+            "-10"
+        ],
+        "answer": "21",
+        "explanation": "Âm nhân âm bằng dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "easy",
+        "question": "(-18) ÷ 3 bằng bao nhiêu?",
+        "options": [
+            "-6",
+            "6",
+            "-9",
+            "9"
+        ],
+        "answer": "-6",
+        "explanation": "Âm chia dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "easy",
+        "question": "(-20) ÷ (-5) bằng bao nhiêu?",
+        "options": [
+            "4",
+            "-4",
+            "5",
+            "-5"
+        ],
+        "answer": "4",
+        "explanation": "Âm chia âm bằng dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "7 + (5 - 9) bằng bao nhiêu?",
+        "options": [
+            "3",
+            "-3",
+            "11",
+            "-11"
+        ],
+        "answer": "3",
+        "explanation": "5 - 9 = -4; 7 + (-4) = 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "10 - (3 + 6) bằng bao nhiêu?",
+        "options": [
+            "1",
+            "-1",
+            "7",
+            "-7"
+        ],
+        "answer": "1",
+        "explanation": "10 - 9 = 1."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x + 6 = 11",
+        "options": [
+            "5",
+            "17",
+            "-5",
+            "6"
+        ],
+        "answer": "5",
+        "explanation": "x = 11 - 6."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x - 5 = 7",
+        "options": [
+            "12",
+            "2",
+            "-12",
+            "-2"
+        ],
+        "answer": "12",
+        "explanation": "x = 7 + 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x + (-8) = 4",
+        "options": [
+            "12",
+            "-12",
+            "4",
+            "-4"
+        ],
+        "answer": "12",
+        "explanation": "x - 8 = 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "medium",
+        "question": "(-15) + 6 bằng bao nhiêu?",
+        "options": [
+            "-9",
+            "9",
+            "21",
+            "-21"
+        ],
+        "answer": "-9",
+        "explanation": "6 - 15 = -9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "medium",
+        "question": "(-11) - (-5) bằng bao nhiêu?",
+        "options": [
+            "-6",
+            "6",
+            "-16",
+            "16"
+        ],
+        "answer": "-6",
+        "explanation": "-11 + 5 = -6."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "medium",
+        "question": "8 × (-4) bằng bao nhiêu?",
+        "options": [
+            "-32",
+            "32",
+            "-12",
+            "12"
+        ],
+        "answer": "-32",
+        "explanation": "Dương nhân âm bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "medium",
+        "question": "32 ÷ (-8) bằng bao nhiêu?",
+        "options": [
+            "-4",
+            "4",
+            "-8",
+            "8"
+        ],
+        "answer": "-4",
+        "explanation": "Dương chia âm bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "12 + (4 - 10) bằng bao nhiêu?",
+        "options": [
+            "6",
+            "-6",
+            "16",
+            "-16"
+        ],
+        "answer": "6",
+        "explanation": "4 - 10 = -6; 12 + (-6) = 6."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Dấu ngoặc",
+        "difficulty": "medium",
+        "question": "15 - (7 - 3) bằng bao nhiêu?",
+        "options": [
+            "11",
+            "5",
+            "8",
+            "-5"
+        ],
+        "answer": "11",
+        "explanation": "7 - 3 = 4; 15 - 4 = 11."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x + 12 = 5",
+        "options": [
+            "-7",
+            "7",
+            "17",
+            "-17"
+        ],
+        "answer": "-7",
+        "explanation": "x = 5 - 12."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chuyển vế",
+        "difficulty": "medium",
+        "question": "Tìm x: x - 9 = -2",
+        "options": [
+            "7",
+            "-7",
+            "11",
+            "-11"
+        ],
+        "answer": "7",
+        "explanation": "x = -2 + 9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Cộng số nguyên",
+        "difficulty": "medium",
+        "question": "(-20) + 8 bằng bao nhiêu?",
+        "options": [
+            "-12",
+            "12",
+            "28",
+            "-28"
+        ],
+        "answer": "-12",
+        "explanation": "8 - 20 = -12."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Trừ số nguyên",
+        "difficulty": "medium",
+        "question": "14 - (-6) bằng bao nhiêu?",
+        "options": [
+            "20",
+            "8",
+            "-20",
+            "-8"
+        ],
+        "answer": "20",
+        "explanation": "Trừ số âm thành cộng."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Nhân số nguyên",
+        "difficulty": "medium",
+        "question": "(-11) × 2 bằng bao nhiêu?",
+        "options": [
+            "-22",
+            "22",
+            "-13",
+            "13"
+        ],
+        "answer": "-22",
+        "explanation": "Âm nhân dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số nguyên",
+        "sub_topic": "Chia số nguyên",
+        "difficulty": "medium",
+        "question": "(-45) ÷ 9 bằng bao nhiêu?",
+        "options": [
+            "-5",
+            "5",
+            "-4",
+            "4"
+        ],
+        "answer": "-5",
+        "explanation": "Âm chia dương bằng âm."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của 24 là số nào?",
+        "options": [
+            "6",
+            "7",
+            "9",
+            "11"
+        ],
+        "answer": "6",
+        "explanation": "24 ÷ 6 = 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của 30 là số nào?",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "10",
+        "explanation": "30 ÷ 10 = 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Bội của 11 là số nào?",
+        "options": [
+            "21",
+            "22",
+            "23",
+            "24"
+        ],
+        "answer": "22",
+        "explanation": "22 = 11 × 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Bội của 12 là số nào?",
+        "options": [
+            "36",
+            "37",
+            "38",
+            "39"
+        ],
+        "answer": "36",
+        "explanation": "36 = 12 × 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "easy",
+        "question": "Ước của 28 là số nào?",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "9"
+        ],
+        "answer": "4",
+        "explanation": "28 ÷ 4 = 7."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "medium",
+        "question": "Bội của 13 là số nào?",
+        "options": [
+            "26",
+            "27",
+            "28",
+            "29"
+        ],
+        "answer": "26",
+        "explanation": "26 = 13 × 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "medium",
+        "question": "Ước của 36 là số nào?",
+        "options": [
+            "9",
+            "11",
+            "13",
+            "14"
+        ],
+        "answer": "9",
+        "explanation": "36 ÷ 9 = 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "medium",
+        "question": "Bội của 15 là số nào?",
+        "options": [
+            "45",
+            "46",
+            "47",
+            "48"
+        ],
+        "answer": "45",
+        "explanation": "45 = 15 × 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "medium",
+        "question": "Ước của 40 là số nào?",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "8",
+        "explanation": "40 ÷ 8 = 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Ước và Bội",
+        "difficulty": "medium",
+        "question": "Bội của 14 là số nào?",
+        "options": [
+            "28",
+            "29",
+            "30",
+            "31"
+        ],
+        "answer": "28",
+        "explanation": "28 = 14 × 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(9,15) là?",
+        "options": [
+            "1",
+            "3",
+            "5",
+            "9"
+        ],
+        "answer": "3",
+        "explanation": "Ước chung lớn nhất là 3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(12,20) là?",
+        "options": [
+            "2",
+            "4",
+            "6",
+            "8"
+        ],
+        "answer": "4",
+        "explanation": "Ước chung lớn nhất là 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(14,35) là?",
+        "options": [
+            "5",
+            "7",
+            "14",
+            "21"
+        ],
+        "answer": "7",
+        "explanation": "7 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(18,24) là?",
+        "options": [
+            "3",
+            "6",
+            "9",
+            "12"
+        ],
+        "answer": "6",
+        "explanation": "6 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "ƯCLN",
+        "difficulty": "easy",
+        "question": "ƯCLN(25,30) là?",
+        "options": [
+            "1",
+            "5",
+            "10",
+            "15"
+        ],
+        "answer": "5",
+        "explanation": "5 là ước chung lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(7,8) là?",
+        "options": [
+            "14",
+            "28",
+            "56",
+            "16"
+        ],
+        "answer": "56",
+        "explanation": "56 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(4,7) là?",
+        "options": [
+            "14",
+            "21",
+            "28",
+            "35"
+        ],
+        "answer": "28",
+        "explanation": "28 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(6,7) là?",
+        "options": [
+            "21",
+            "28",
+            "35",
+            "42"
+        ],
+        "answer": "42",
+        "explanation": "42 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(8,9) là?",
+        "options": [
+            "36",
+            "48",
+            "72",
+            "18"
+        ],
+        "answer": "72",
+        "explanation": "72 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "BCNN",
+        "difficulty": "easy",
+        "question": "BCNN(9,10) là?",
+        "options": [
+            "45",
+            "60",
+            "90",
+            "30"
+        ],
+        "answer": "90",
+        "explanation": "90 là bội chung nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Khái niệm phân số",
+        "difficulty": "easy",
+        "question": "Phân số nào sau đây được viết đúng?",
+        "options": [
+            "3/5",
+            "3:5",
+            "3,5",
+            "3-5"
+        ],
+        "answer": "3/5",
+        "explanation": "Phân số được viết dưới dạng a/b với b khác 0."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Khái niệm phân số",
+        "difficulty": "easy",
+        "question": "Trong phân số 5/7, số 5 gọi là gì?",
+        "options": [
+            "Tử số",
+            "Mẫu số",
+            "Thương",
+            "Số chia"
+        ],
+        "answer": "Tử số",
+        "explanation": "Số ở trên gọi là tử số."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Khái niệm phân số",
+        "difficulty": "easy",
+        "question": "Trong phân số 8/9, số 9 gọi là gì?",
+        "options": [
+            "Tử số",
+            "Mẫu số",
+            "Tích",
+            "Số bị chia"
+        ],
+        "answer": "Mẫu số",
+        "explanation": "Số ở dưới gọi là mẫu số."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Khái niệm phân số",
+        "difficulty": "easy",
+        "question": "Điều kiện của mẫu số trong phân số là gì?",
+        "options": [
+            "Khác 0",
+            "Bằng 0",
+            "Lớn hơn tử số",
+            "Nhỏ hơn tử số"
+        ],
+        "answer": "Khác 0",
+        "explanation": "Mẫu số phải khác 0."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "easy",
+        "question": "Phân số nào bằng 1/2?",
+        "options": [
+            "2/4",
+            "3/5",
+            "4/5",
+            "5/6"
+        ],
+        "answer": "2/4",
+        "explanation": "1/2 = 2/4."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "easy",
+        "question": "Phân số nào bằng 3/4?",
+        "options": [
+            "6/8",
+            "4/7",
+            "5/6",
+            "9/10"
+        ],
+        "answer": "6/8",
+        "explanation": "3/4 = 6/8."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "easy",
+        "question": "Phân số nào bằng 2/3?",
+        "options": [
+            "4/6",
+            "3/5",
+            "5/7",
+            "6/7"
+        ],
+        "answer": "4/6",
+        "explanation": "2/3 = 4/6."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "easy",
+        "question": "Phân số nào lớn hơn?",
+        "options": [
+            "1/3",
+            "1/5",
+            "1/7",
+            "1/9"
+        ],
+        "answer": "1/3",
+        "explanation": "Cùng tử số, mẫu số nhỏ hơn thì phân số lớn hơn."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "easy",
+        "question": "Phân số nào nhỏ hơn?",
+        "options": [
+            "3/4",
+            "2/4",
+            "5/4",
+            "6/4"
+        ],
+        "answer": "2/4",
+        "explanation": "2/4 nhỏ hơn 3/4."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "easy",
+        "question": "So sánh: 5/6 và 4/6",
+        "options": [
+            "5/6 > 4/6",
+            "5/6 < 4/6",
+            "5/6 = 4/6",
+            "Không so sánh được"
+        ],
+        "answer": "5/6 > 4/6",
+        "explanation": "Cùng mẫu số, tử số lớn hơn thì phân số lớn hơn."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 4/5?",
+        "options": [
+            "8/10",
+            "6/9",
+            "5/8",
+            "7/9"
+        ],
+        "answer": "8/10",
+        "explanation": "4/5 = 8/10."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 3/7 và 5/7",
+        "options": [
+            "3/7 > 5/7",
+            "3/7 < 5/7",
+            "3/7 = 5/7",
+            "Không so sánh được"
+        ],
+        "answer": "3/7 < 5/7",
+        "explanation": "Cùng mẫu, tử nhỏ hơn thì phân số nhỏ hơn."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 2/5 và 3/5",
+        "options": [
+            "2/5 > 3/5",
+            "2/5 < 3/5",
+            "2/5 = 3/5",
+            "Không xác định"
+        ],
+        "answer": "2/5 < 3/5",
+        "explanation": "Cùng mẫu số."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 5/8?",
+        "options": [
+            "10/16",
+            "6/10",
+            "7/12",
+            "8/15"
+        ],
+        "answer": "10/16",
+        "explanation": "Nhân cả tử và mẫu với 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 7/9 và 5/9",
+        "options": [
+            "7/9 > 5/9",
+            "7/9 < 5/9",
+            "7/9 = 5/9",
+            "Không xác định"
+        ],
+        "answer": "7/9 > 5/9",
+        "explanation": "Cùng mẫu số."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 2/3 và 1/3",
+        "options": [
+            "2/3 > 1/3",
+            "2/3 < 1/3",
+            "2/3 = 1/3",
+            "Không xác định"
+        ],
+        "answer": "2/3 > 1/3",
+        "explanation": "Cùng mẫu số."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 4/9 và 4/7",
+        "options": [
+            "4/9 > 4/7",
+            "4/9 < 4/7",
+            "4/9 = 4/7",
+            "Không xác định"
+        ],
+        "answer": "4/9 < 4/7",
+        "explanation": "Cùng tử số, mẫu số lớn hơn thì phân số nhỏ hơn."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 6/7?",
+        "options": [
+            "12/14",
+            "7/6",
+            "8/10",
+            "10/12"
+        ],
+        "answer": "12/14",
+        "explanation": "Nhân cả tử và mẫu với 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 3/5?",
+        "options": [
+            "6/10",
+            "5/6",
+            "7/9",
+            "9/10"
+        ],
+        "answer": "6/10",
+        "explanation": "3/5 = 6/10."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 8/9 và 7/9",
+        "options": [
+            "8/9 > 7/9",
+            "8/9 < 7/9",
+            "8/9 = 7/9",
+            "Không xác định"
+        ],
+        "answer": "8/9 > 7/9",
+        "explanation": "Cùng mẫu số."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Khái niệm phân số",
+        "difficulty": "easy",
+        "question": "Trong phân số 7/9, số 7 gọi là gì?",
+        "options": [
+            "Tử số",
+            "Mẫu số",
+            "Thương",
+            "Tích"
+        ],
+        "answer": "Tử số",
+        "explanation": "Số ở trên gọi là tử số."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Khái niệm phân số",
+        "difficulty": "easy",
+        "question": "Trong phân số 7/9, số 9 gọi là gì?",
+        "options": [
+            "Tử số",
+            "Mẫu số",
+            "Hiệu",
+            "Thương"
+        ],
+        "answer": "Mẫu số",
+        "explanation": "Số ở dưới gọi là mẫu số."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Khái niệm phân số",
+        "difficulty": "easy",
+        "question": "Điều kiện của mẫu số là gì?",
+        "options": [
+            "Khác 0",
+            "Bằng 0",
+            "Nhỏ hơn tử số",
+            "Lớn hơn tử số"
+        ],
+        "answer": "Khác 0",
+        "explanation": "Mẫu số phải khác 0."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "easy",
+        "question": "Phân số nào lớn nhất?",
+        "options": [
+            "1/2",
+            "1/3",
+            "1/4",
+            "1/5"
+        ],
+        "answer": "1/2",
+        "explanation": "Cùng tử số, mẫu nhỏ hơn thì phân số lớn hơn."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 4/7?",
+        "options": [
+            "8/14",
+            "7/8",
+            "9/10",
+            "6/8"
+        ],
+        "answer": "8/14",
+        "explanation": "Nhân cả tử và mẫu với 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 5/6?",
+        "options": [
+            "10/12",
+            "6/7",
+            "7/8",
+            "8/9"
+        ],
+        "answer": "10/12",
+        "explanation": "Nhân cả tử và mẫu với 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 7/8 và 6/8",
+        "options": [
+            "7/8 > 6/8",
+            "7/8 < 6/8",
+            "7/8 = 6/8",
+            "Không xác định"
+        ],
+        "answer": "7/8 > 6/8",
+        "explanation": "Cùng mẫu."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 3/4 và 3/5",
+        "options": [
+            "3/4 > 3/5",
+            "3/4 < 3/5",
+            "3/4 = 3/5",
+            "Không xác định"
+        ],
+        "answer": "3/4 > 3/5",
+        "explanation": "Cùng tử, mẫu nhỏ hơn thì lớn hơn."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "Phân số nào nhỏ nhất?",
+        "options": [
+            "2/3",
+            "2/5",
+            "2/7",
+            "2/9"
+        ],
+        "answer": "2/9",
+        "explanation": "Cùng tử, mẫu lớn hơn thì nhỏ hơn."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 7/9?",
+        "options": [
+            "14/18",
+            "9/7",
+            "16/18",
+            "12/16"
+        ],
+        "answer": "14/18",
+        "explanation": "Nhân cả tử và mẫu với 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 5/8 và 4/8",
+        "options": [
+            "5/8 > 4/8",
+            "5/8 < 4/8",
+            "5/8 = 4/8",
+            "Không xác định"
+        ],
+        "answer": "5/8 > 4/8",
+        "explanation": "Cùng mẫu."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 6/11 và 5/11",
+        "options": [
+            "6/11 > 5/11",
+            "6/11 < 5/11",
+            "6/11 = 5/11",
+            "Không xác định"
+        ],
+        "answer": "6/11 > 5/11",
+        "explanation": "Cùng mẫu."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Phân số bằng nhau",
+        "difficulty": "medium",
+        "question": "Phân số nào bằng 9/10?",
+        "options": [
+            "18/20",
+            "10/9",
+            "12/20",
+            "15/20"
+        ],
+        "answer": "18/20",
+        "explanation": "Nhân cả tử và mẫu với 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "So sánh phân số",
+        "difficulty": "medium",
+        "question": "So sánh: 1/4 và 1/6",
+        "options": [
+            "1/4 > 1/6",
+            "1/4 < 1/6",
+            "1/4 = 1/6",
+            "Không xác định"
+        ],
+        "answer": "1/4 > 1/6",
+        "explanation": "Cùng tử."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số",
+        "difficulty": "easy",
+        "question": "Kết quả của 1/2 + 1/3 là bao nhiêu?",
+        "options": [
+            "5/6",
+            "2/5",
+            "3/5",
+            "4/6"
+        ],
+        "answer": "5/6",
+        "explanation": "Quy đồng mẫu 2 và 3 được 6: 1/2=3/6, 1/3=2/6 → tổng =5/6."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số",
+        "difficulty": "easy",
+        "question": "Kết quả của 3/4 - 1/4 là bao nhiêu?",
+        "options": [
+            "1/2",
+            "2/4",
+            "1/4",
+            "3/4"
+        ],
+        "answer": "1/2",
+        "explanation": "3/4 - 1/4 = 2/4 = 1/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số",
+        "difficulty": "easy",
+        "question": "1/5 + 2/5 bằng bao nhiêu?",
+        "options": [
+            "3/5",
+            "2/10",
+            "1/5",
+            "4/5"
+        ],
+        "answer": "3/5",
+        "explanation": "Cùng mẫu số nên cộng tử: 1+2=3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số",
+        "difficulty": "easy",
+        "question": "2/3 × 3/4 bằng bao nhiêu?",
+        "options": [
+            "1/2",
+            "6/12",
+            "2/4",
+            "1/3"
+        ],
+        "answer": "1/2",
+        "explanation": "2/3 ×3/4=6/12=1/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số",
+        "difficulty": "easy",
+        "question": "4/5 ÷ 2/5 bằng bao nhiêu?",
+        "options": [
+            "2",
+            "1",
+            "4",
+            "1/2"
+        ],
+        "answer": "2",
+        "explanation": "4/5 ×5/2 =20/10 =2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số âm",
+        "difficulty": "easy",
+        "question": "(-1/2) + 1/2 bằng bao nhiêu?",
+        "options": [
+            "0",
+            "1",
+            "-1",
+            "1/2"
+        ],
+        "answer": "0",
+        "explanation": "Hai số đối nhau nên tổng bằng 0."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số âm",
+        "difficulty": "easy",
+        "question": "(-3/4) + 1/4 bằng bao nhiêu?",
+        "options": [
+            "-1/2",
+            "-2/4",
+            "1/2",
+            "0"
+        ],
+        "answer": "-1/2",
+        "explanation": "(-3+1)/4 = -2/4 = -1/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số âm",
+        "difficulty": "easy",
+        "question": "(-2/3) × 3/5 bằng bao nhiêu?",
+        "options": [
+            "-2/5",
+            "2/5",
+            "-6/15",
+            "3/5"
+        ],
+        "answer": "-2/5",
+        "explanation": "(-2×3)/(3×5) = -6/15 = -2/5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số âm",
+        "difficulty": "easy",
+        "question": "(-4/7) ÷ 2/7 bằng bao nhiêu?",
+        "options": [
+            "-2",
+            "-1",
+            "2",
+            "-4"
+        ],
+        "answer": "-2",
+        "explanation": "(-4/7) × (7/2) = -28/14 = -2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số âm",
+        "difficulty": "easy",
+        "question": "1/3 - 2/3 bằng bao nhiêu?",
+        "options": [
+            "-1/3",
+            "1/3",
+            "-2/3",
+            "0"
+        ],
+        "answer": "-1/3",
+        "explanation": "1/3 − 2/3 = -1/3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "easy",
+        "question": "0.5 + 0.2 bằng bao nhiêu?",
+        "options": [
+            "0.7",
+            "0.6",
+            "0.8",
+            "0.9"
+        ],
+        "answer": "0.7",
+        "explanation": "0.5 + 0.2 = 0.7."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "easy",
+        "question": "1.2 + 0.8 bằng bao nhiêu?",
+        "options": [
+            "2.0",
+            "1.8",
+            "2.2",
+            "1.6"
+        ],
+        "answer": "2.0",
+        "explanation": "1.2 + 0.8 = 2.0."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "easy",
+        "question": "2.5 - 1.3 bằng bao nhiêu?",
+        "options": [
+            "1.2",
+            "1.3",
+            "1.1",
+            "1.5"
+        ],
+        "answer": "1.2",
+        "explanation": "2.5 − 1.3 = 1.2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "easy",
+        "question": "0.4 × 5 bằng bao nhiêu?",
+        "options": [
+            "2",
+            "1",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "0.4 × 5 = 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "easy",
+        "question": "3.6 ÷ 3 bằng bao nhiêu?",
+        "options": [
+            "1.2",
+            "1.3",
+            "1.4",
+            "1.1"
+        ],
+        "answer": "1.2",
+        "explanation": "3.6 ÷ 3 = 1.2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "medium",
+        "question": "0.75 + 0.25 bằng bao nhiêu?",
+        "options": [
+            "1",
+            "0.9",
+            "1.1",
+            "0.75"
+        ],
+        "answer": "1",
+        "explanation": "0.75 + 0.25 = 1."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "medium",
+        "question": "2.4 × 0.5 bằng bao nhiêu?",
+        "options": [
+            "1.2",
+            "2.0",
+            "1.0",
+            "1.5"
+        ],
+        "answer": "1.2",
+        "explanation": "2.4 × 0.5 = 1.2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "medium",
+        "question": "4.5 ÷ 0.5 bằng bao nhiêu?",
+        "options": [
+            "9",
+            "8",
+            "10",
+            "6"
+        ],
+        "answer": "9",
+        "explanation": "Chia cho 0.5 là nhân với 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "medium",
+        "question": "3.2 + 1.8 bằng bao nhiêu?",
+        "options": [
+            "5",
+            "4.8",
+            "4.9",
+            "5.1"
+        ],
+        "answer": "5",
+        "explanation": "3.2 + 1.8 = 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "medium",
+        "question": "6.3 − 2.1 bằng bao nhiêu?",
+        "options": [
+            "4.2",
+            "4.1",
+            "4.3",
+            "3.2"
+        ],
+        "answer": "4.2",
+        "explanation": "6.3 − 2.1 = 4.2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp phân số và thập phân",
+        "difficulty": "medium",
+        "question": "1/2 dưới dạng thập phân là bao nhiêu?",
+        "options": [
+            "0.5",
+            "0.2",
+            "0.25",
+            "0.75"
+        ],
+        "answer": "0.5",
+        "explanation": "1/2 = 0.5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp phân số và thập phân",
+        "difficulty": "medium",
+        "question": "1/4 dưới dạng thập phân là bao nhiêu?",
+        "options": [
+            "0.25",
+            "0.2",
+            "0.4",
+            "0.5"
+        ],
+        "answer": "0.25",
+        "explanation": "1/4 = 0.25."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp phân số và thập phân",
+        "difficulty": "medium",
+        "question": "0.75 dưới dạng phân số tối giản là?",
+        "options": [
+            "3/4",
+            "2/3",
+            "4/5",
+            "5/6"
+        ],
+        "answer": "3/4",
+        "explanation": "0.75 = 75/100 = 3/4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp phân số và thập phân",
+        "difficulty": "medium",
+        "question": "0.2 dưới dạng phân số là?",
+        "options": [
+            "1/5",
+            "2/5",
+            "1/4",
+            "1/2"
+        ],
+        "answer": "1/5",
+        "explanation": "0.2 = 2/10 = 1/5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp phân số và thập phân",
+        "difficulty": "medium",
+        "question": "0.125 dưới dạng phân số tối giản là?",
+        "options": [
+            "1/8",
+            "1/4",
+            "1/6",
+            "1/5"
+        ],
+        "answer": "1/8",
+        "explanation": "0.125 = 125/1000 = 1/8."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "1/2 + 0.25 bằng bao nhiêu?",
+        "options": [
+            "0.75",
+            "0.5",
+            "1",
+            "0.8"
+        ],
+        "answer": "0.75",
+        "explanation": "1/2 = 0.5 → 0.5 + 0.25 = 0.75."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "3/4 + 0.5 bằng bao nhiêu?",
+        "options": [
+            "1.25",
+            "1.0",
+            "1.5",
+            "1.75"
+        ],
+        "answer": "1.25",
+        "explanation": "3/4 = 0.75 → 0.75 + 0.5 = 1.25."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "1.5 − 1/2 bằng bao nhiêu?",
+        "options": [
+            "1",
+            "0.5",
+            "1.5",
+            "2"
+        ],
+        "answer": "1",
+        "explanation": "1/2 = 0.5 → 1.5 − 0.5 = 1."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "2 × 1/4 bằng bao nhiêu?",
+        "options": [
+            "1/2",
+            "1/4",
+            "2/4",
+            "1"
+        ],
+        "answer": "1/2",
+        "explanation": "2 × 1/4 = 2/4 = 1/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "0.8 ÷ 0.2 bằng bao nhiêu?",
+        "options": [
+            "4",
+            "3",
+            "5",
+            "2"
+        ],
+        "answer": "4",
+        "explanation": "0.8 ÷ 0.2 = 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 1/2 của 20",
+        "options": [
+            "5",
+            "10",
+            "15",
+            "20"
+        ],
+        "answer": "10",
+        "explanation": "1/2 × 20 = 10"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 1/3 của 24",
+        "options": [
+            "6",
+            "8",
+            "9",
+            "12"
+        ],
+        "answer": "8",
+        "explanation": "1/3 × 24 = 8"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 3/4 của 20",
+        "options": [
+            "10",
+            "12",
+            "15",
+            "18"
+        ],
+        "answer": "15",
+        "explanation": "3/4 × 20 = 15"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 2/5 của 25",
+        "options": [
+            "5",
+            "8",
+            "10",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "2/5 × 25 = 10"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 3/5 của 50",
+        "options": [
+            "20",
+            "25",
+            "30",
+            "35"
+        ],
+        "answer": "30",
+        "explanation": "3/5 × 50 = 30"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 4/5 của 25",
+        "options": [
+            "15",
+            "18",
+            "20",
+            "22"
+        ],
+        "answer": "20",
+        "explanation": "4/5 × 25 = 20"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 5/6 của 36",
+        "options": [
+            "24",
+            "28",
+            "30",
+            "32"
+        ],
+        "answer": "30",
+        "explanation": "5/6 × 36 = 30"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 2/3 của 30",
+        "options": [
+            "10",
+            "15",
+            "20",
+            "25"
+        ],
+        "answer": "20",
+        "explanation": "2/3 × 30 = 20"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 3/8 của 32",
+        "options": [
+            "10",
+            "12",
+            "14",
+            "16"
+        ],
+        "answer": "12",
+        "explanation": "3/8 × 32 = 12"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm giá trị phân số của một số",
+        "difficulty": "easy",
+        "question": "Tính 7/10 của 50",
+        "options": [
+            "30",
+            "32",
+            "35",
+            "40"
+        ],
+        "answer": "35",
+        "explanation": "7/10 × 50 = 35"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm một số khi biết giá trị phân số của nó",
+        "difficulty": "easy",
+        "question": "1/2 của một số bằng 10. Số đó là bao nhiêu?",
+        "options": [
+            "15",
+            "20",
+            "25",
+            "30"
+        ],
+        "answer": "20",
+        "explanation": "Số cần tìm = 10 ÷ 1/2 = 20"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm một số khi biết giá trị phân số của nó",
+        "difficulty": "easy",
+        "question": "1/3 của một số bằng 8. Số đó là bao nhiêu?",
+        "options": [
+            "18",
+            "20",
+            "24",
+            "30"
+        ],
+        "answer": "24",
+        "explanation": "Số cần tìm = 8 ÷ 1/3 = 24"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm một số khi biết giá trị phân số của nó",
+        "difficulty": "easy",
+        "question": "2/5 của một số bằng 10. Số đó là bao nhiêu?",
+        "options": [
+            "20",
+            "25",
+            "30",
+            "35"
+        ],
+        "answer": "25",
+        "explanation": "Số cần tìm = 10 ÷ 2/5 = 25"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm một số khi biết giá trị phân số của nó",
+        "difficulty": "easy",
+        "question": "3/4 của một số bằng 18. Số đó là bao nhiêu?",
+        "options": [
+            "20",
+            "22",
+            "24",
+            "26"
+        ],
+        "answer": "24",
+        "explanation": "Số cần tìm = 18 ÷ 3/4 = 24"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Tìm một số khi biết giá trị phân số của nó",
+        "difficulty": "easy",
+        "question": "5/6 của một số bằng 25. Số đó là bao nhiêu?",
+        "options": [
+            "30",
+            "32",
+            "35",
+            "36"
+        ],
+        "answer": "30",
+        "explanation": "Số cần tìm = 25 ÷ 5/6 = 30"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Bài toán thực tế phân số",
+        "difficulty": "medium",
+        "question": "Một lớp có 40 học sinh. 3/5 số học sinh là nữ. Hỏi có bao nhiêu học sinh nữ?",
+        "options": [
+            "20",
+            "22",
+            "24",
+            "26"
+        ],
+        "answer": "24",
+        "explanation": "3/5 × 40 = 24"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Bài toán thực tế phân số",
+        "difficulty": "medium",
+        "question": "Một thùng có 60 quả cam. Người ta lấy 2/3 số cam. Hỏi đã lấy bao nhiêu quả?",
+        "options": [
+            "30",
+            "35",
+            "40",
+            "45"
+        ],
+        "answer": "40",
+        "explanation": "2/3 × 60 = 40"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Bài toán thực tế phân số",
+        "difficulty": "medium",
+        "question": "Một số có 3/4 của nó bằng 27. Tìm số đó.",
+        "options": [
+            "30",
+            "34",
+            "36",
+            "40"
+        ],
+        "answer": "36",
+        "explanation": "27 ÷ 3/4 = 36"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Bài toán thực tế phân số",
+        "difficulty": "medium",
+        "question": "2/3 của một số bằng 16. Số đó là bao nhiêu?",
+        "options": [
+            "18",
+            "20",
+            "22",
+            "24"
+        ],
+        "answer": "24",
+        "explanation": "16 ÷ 2/3 = 24"
+    },
+    {
+        "grade": 6,
+        "topic": "Phân số",
+        "sub_topic": "Bài toán thực tế phân số",
+        "difficulty": "medium",
+        "question": "Một đoạn dây dài 45m. Người ta cắt 1/5 đoạn dây. Hỏi đã cắt bao nhiêu mét?",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "9",
+        "explanation": "1/5 × 45 = 9"
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính với phân số",
+        "difficulty": "hard",
+        "question": "Tính: 3/4 + 5/6",
+        "options": [
+            "19/12",
+            "17/12",
+            "7/6",
+            "13/12"
+        ],
+        "answer": "19/12",
+        "explanation": "Quy đồng mẫu 12: 3/4=9/12, 5/6=10/12 → tổng =19/12."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính với phân số",
+        "difficulty": "hard",
+        "question": "Tính: 7/8 − 5/12",
+        "options": [
+            "11/24",
+            "13/24",
+            "17/24",
+            "19/24"
+        ],
+        "answer": "11/24",
+        "explanation": "Quy đồng mẫu 24: 7/8=21/24, 5/12=10/24 → 21−10=11."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính với phân số",
+        "difficulty": "hard",
+        "question": "Tính: 5/6 × 9/10",
+        "options": [
+            "3/4",
+            "3/5",
+            "9/12",
+            "15/20"
+        ],
+        "answer": "3/4",
+        "explanation": "5×9 / (6×10) =45/60=3/4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính với phân số",
+        "difficulty": "hard",
+        "question": "Tính: 8/9 ÷ 4/5",
+        "options": [
+            "10/9",
+            "9/10",
+            "40/36",
+            "5/4"
+        ],
+        "answer": "10/9",
+        "explanation": "8/9 ×5/4=40/36=10/9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số âm",
+        "difficulty": "hard",
+        "question": "Tính: (-3/5) + 7/10",
+        "options": [
+            "1/10",
+            "-1/10",
+            "2/10",
+            "3/10"
+        ],
+        "answer": "1/10",
+        "explanation": "-6/10 +7/10 =1/10."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số âm",
+        "difficulty": "hard",
+        "question": "Tính: (-7/8) × 4/7",
+        "options": [
+            "-1/2",
+            "-1/4",
+            "1/2",
+            "-4/8"
+        ],
+        "answer": "-1/2",
+        "explanation": "(-7×4)/(8×7) = -28/56 = -1/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số âm",
+        "difficulty": "hard",
+        "question": "Tính: (-9/10) ÷ (-3/5)",
+        "options": [
+            "3/2",
+            "1/2",
+            "9/15",
+            "5/3"
+        ],
+        "answer": "3/2",
+        "explanation": "(-9/10)×(-5/3)=45/30=3/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số",
+        "difficulty": "hard",
+        "question": "Tính: 2/3 + 5/9",
+        "options": [
+            "11/9",
+            "7/9",
+            "13/9",
+            "1"
+        ],
+        "answer": "11/9",
+        "explanation": "2/3=6/9 → 6/9+5/9=11/9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số",
+        "difficulty": "hard",
+        "question": "Tính: 4/5 − 7/15",
+        "options": [
+            "1/3",
+            "2/3",
+            "5/15",
+            "7/15"
+        ],
+        "answer": "1/3",
+        "explanation": "12/15 −7/15 =5/15 =1/3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phân số",
+        "difficulty": "hard",
+        "question": "Tính: 6/7 × 14/9",
+        "options": [
+            "4/3",
+            "2/3",
+            "12/9",
+            "3/2"
+        ],
+        "answer": "4/3",
+        "explanation": "6×14 / (7×9)=84/63=4/3."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "hard",
+        "question": "Tính: 2.75 + 3.6",
+        "options": [
+            "6.35",
+            "6.25",
+            "6.45",
+            "6.55"
+        ],
+        "answer": "6.35",
+        "explanation": "2.75 + 3.6 = 6.35."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "hard",
+        "question": "Tính: 7.2 − 3.85",
+        "options": [
+            "3.35",
+            "3.45",
+            "3.25",
+            "3.15"
+        ],
+        "answer": "3.35",
+        "explanation": "7.2 −3.85 =3.35."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "hard",
+        "question": "Tính: 0.75 × 1.2",
+        "options": [
+            "0.9",
+            "0.85",
+            "0.8",
+            "0.95"
+        ],
+        "answer": "0.9",
+        "explanation": "0.75 ×1.2 =0.9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "hard",
+        "question": "Tính: 4.5 ÷ 0.25",
+        "options": [
+            "18",
+            "16",
+            "20",
+            "12"
+        ],
+        "answer": "18",
+        "explanation": "Chia 0.25 tức nhân 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Số thập phân",
+        "difficulty": "hard",
+        "question": "Tính: 6.4 ÷ 0.8",
+        "options": [
+            "8",
+            "7",
+            "9",
+            "6"
+        ],
+        "answer": "8",
+        "explanation": "6.4 ÷0.8 =8."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: 1/2 + 0.75",
+        "options": [
+            "1.25",
+            "1.5",
+            "1.0",
+            "1.75"
+        ],
+        "answer": "1.25",
+        "explanation": "0.5 +0.75=1.25."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: 3/5 + 0.4",
+        "options": [
+            "1",
+            "0.8",
+            "0.9",
+            "1.1"
+        ],
+        "answer": "1",
+        "explanation": "3/5=0.6 → 0.6+0.4=1."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: 1.2 − 3/10",
+        "options": [
+            "0.9",
+            "0.8",
+            "1",
+            "1.1"
+        ],
+        "answer": "0.9",
+        "explanation": "3/10=0.3 → 1.2 −0.3=0.9."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: 0.5 × 3/4",
+        "options": [
+            "3/8",
+            "1/2",
+            "1/4",
+            "3/4"
+        ],
+        "answer": "3/8",
+        "explanation": "0.5=1/2 → 1/2×3/4=3/8."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: 0.8 ÷ 2/5",
+        "options": [
+            "2",
+            "1.6",
+            "4",
+            "0.4"
+        ],
+        "answer": "2",
+        "explanation": "0.8 ÷0.4=2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: (1/2 + 1/3) × 3",
+        "options": [
+            "5/2",
+            "5/3",
+            "3/2",
+            "2"
+        ],
+        "answer": "5/2",
+        "explanation": "1/2+1/3=5/6 → ×3 =15/6=5/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: (3/4 − 1/2) × 8",
+        "options": [
+            "2",
+            "1",
+            "3",
+            "4"
+        ],
+        "answer": "2",
+        "explanation": "1/4×8=2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: (5/6 + 1/3) ÷ 2",
+        "options": [
+            "7/12",
+            "1/2",
+            "2/3",
+            "3/4"
+        ],
+        "answer": "7/12",
+        "explanation": "5/6+2/6=7/6 → ÷2 =7/12."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: (2/5 × 5/4) + 1/2",
+        "options": [
+            "1",
+            "3/4",
+            "1/2",
+            "5/4"
+        ],
+        "answer": "1",
+        "explanation": "2/5×5/4=1/2 → +1/2=1."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Phép tính hỗn hợp",
+        "difficulty": "hard",
+        "question": "Tính: (7/8 ÷ 7/4)",
+        "options": [
+            "1/2",
+            "1/4",
+            "2",
+            "3/4"
+        ],
+        "answer": "1/2",
+        "explanation": "7/8 ×4/7 =28/56=1/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Chuyển đổi",
+        "difficulty": "hard",
+        "question": "0.375 dưới dạng phân số tối giản là?",
+        "options": [
+            "3/8",
+            "5/8",
+            "7/8",
+            "1/8"
+        ],
+        "answer": "3/8",
+        "explanation": "375/1000=3/8."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Chuyển đổi",
+        "difficulty": "hard",
+        "question": "0.6 dưới dạng phân số tối giản là?",
+        "options": [
+            "3/5",
+            "2/5",
+            "1/5",
+            "4/5"
+        ],
+        "answer": "3/5",
+        "explanation": "0.6 = 6/10 =3/5."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Chuyển đổi",
+        "difficulty": "hard",
+        "question": "0.125 dưới dạng phân số là?",
+        "options": [
+            "1/8",
+            "1/4",
+            "1/16",
+            "3/8"
+        ],
+        "answer": "1/8",
+        "explanation": "125/1000=1/8."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Bài toán tổng hợp",
+        "difficulty": "hard",
+        "question": "Tính: 1/2 + 1/3 + 1/6",
+        "options": [
+            "1",
+            "2/3",
+            "5/6",
+            "7/6"
+        ],
+        "answer": "1",
+        "explanation": "3/6+2/6+1/6=6/6=1."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Bài toán tổng hợp",
+        "difficulty": "hard",
+        "question": "Tính: 3/4 × (2/3)",
+        "options": [
+            "1/2",
+            "3/6",
+            "2/3",
+            "3/4"
+        ],
+        "answer": "1/2",
+        "explanation": "6/12=1/2."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Bài toán tổng hợp",
+        "difficulty": "hard",
+        "question": "Tính: 2 − 3/4",
+        "options": [
+            "5/4",
+            "3/4",
+            "1/4",
+            "7/4"
+        ],
+        "answer": "5/4",
+        "explanation": "2 = 8/4 → 8/4 −3/4=5/4."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Bài toán tổng hợp",
+        "difficulty": "hard",
+        "question": "Tính: 5/6 − 1/4",
+        "options": [
+            "7/12",
+            "5/12",
+            "1/2",
+            "2/3"
+        ],
+        "answer": "7/12",
+        "explanation": "10/12−3/12=7/12."
+    },
+    {
+        "grade": 6,
+        "topic": "Số học",
+        "sub_topic": "Bài toán tổng hợp",
+        "difficulty": "hard",
+        "question": "Tính: 3/5 × 10/9",
+        "options": [
+            "2/3",
+            "1/3",
+            "3/2",
+            "5/3"
+        ],
+        "answer": "2/3",
+        "explanation": "30/45=2/3."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Điểm",
+        "difficulty": "easy",
+        "question": "Trong hình học, điểm được kí hiệu bằng:",
+        "options": [
+            "Chữ cái in hoa",
+            "Chữ cái in thường",
+            "Số tự nhiên",
+            "Kí hiệu đặc biệt"
+        ],
+        "answer": "Chữ cái in hoa",
+        "explanation": "Trong hình học, điểm thường được kí hiệu bằng các chữ cái in hoa như A, B, C."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Điểm",
+        "difficulty": "easy",
+        "question": "Hai điểm phân biệt là:",
+        "options": [
+            "Hai điểm trùng nhau",
+            "Hai điểm có vị trí khác nhau",
+            "Hai điểm trên một đường thẳng",
+            "Hai điểm cùng tên"
+        ],
+        "answer": "Hai điểm có vị trí khác nhau",
+        "explanation": "Hai điểm phân biệt là hai điểm có vị trí khác nhau."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Một đường thẳng được xác định bởi:",
+        "options": [
+            "Một điểm",
+            "Hai điểm phân biệt",
+            "Ba điểm",
+            "Bốn điểm"
+        ],
+        "answer": "Hai điểm phân biệt",
+        "explanation": "Qua hai điểm phân biệt chỉ có một đường thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Đường thẳng kéo dài:",
+        "options": [
+            "Về một phía",
+            "Về hai phía vô hạn",
+            "Có độ dài xác định",
+            "Không kéo dài"
+        ],
+        "answer": "Về hai phía vô hạn",
+        "explanation": "Đường thẳng kéo dài vô hạn về hai phía."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Tia AB có:",
+        "options": [
+            "Hai gốc",
+            "Một gốc là A",
+            "Một gốc là B",
+            "Không có gốc"
+        ],
+        "answer": "Một gốc là A",
+        "explanation": "Tia AB có gốc là điểm A và đi qua điểm B."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Hai tia đối nhau phải:",
+        "options": [
+            "Có chung gốc",
+            "Không chung gốc",
+            "Không cùng đường thẳng",
+            "Có độ dài bằng nhau"
+        ],
+        "answer": "Có chung gốc",
+        "explanation": "Hai tia đối nhau phải chung gốc và nằm trên một đường thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Hai tia đối nhau tạo thành:",
+        "options": [
+            "Một đoạn thẳng",
+            "Một đường thẳng",
+            "Hai đoạn thẳng",
+            "Một góc"
+        ],
+        "answer": "Một đường thẳng",
+        "explanation": "Hai tia đối nhau có chung gốc và tạo thành một đường thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Đoạn thẳng AB có:",
+        "options": [
+            "Một đầu mút",
+            "Hai đầu mút",
+            "Ba đầu mút",
+            "Không có đầu mút"
+        ],
+        "answer": "Hai đầu mút",
+        "explanation": "Đoạn thẳng AB có hai đầu mút là A và B."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Độ dài đoạn thẳng luôn là:",
+        "options": [
+            "Số âm",
+            "Số dương",
+            "Số 0",
+            "Không xác định"
+        ],
+        "answer": "Số dương",
+        "explanation": "Độ dài đoạn thẳng luôn là số dương."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Để đo độ dài đoạn thẳng ta dùng:",
+        "options": [
+            "Thước thẳng",
+            "Compa",
+            "Thước đo góc",
+            "Bút"
+        ],
+        "answer": "Thước thẳng",
+        "explanation": "Thước thẳng dùng để đo độ dài đoạn thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Trung điểm của đoạn thẳng là điểm:",
+        "options": [
+            "Nằm ngoài đoạn thẳng",
+            "Nằm giữa và chia đoạn thẳng thành hai phần bằng nhau",
+            "Chỉ nằm giữa",
+            "Nằm trên tia"
+        ],
+        "answer": "Nằm giữa và chia đoạn thẳng thành hai phần bằng nhau",
+        "explanation": "Trung điểm chia đoạn thẳng thành hai đoạn bằng nhau."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Nếu M là trung điểm của AB thì:",
+        "options": [
+            "AM = MB",
+            "AM > MB",
+            "AM < MB",
+            "AM ≠ MB"
+        ],
+        "answer": "AM = MB",
+        "explanation": "Trung điểm chia đoạn thẳng thành hai đoạn bằng nhau."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm đoạn thẳng",
+        "difficulty": "medium",
+        "question": "Đoạn thẳng AB = 10 cm. M là trung điểm AB. AM bằng:",
+        "options": [
+            "4 cm",
+            "5 cm",
+            "6 cm",
+            "7 cm"
+        ],
+        "answer": "5 cm",
+        "explanation": "Trung điểm chia đoạn thẳng thành hai phần bằng nhau nên AM = 10/2 = 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AB = 12 cm. M là trung điểm AB. MB bằng:",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "MB = 12/2 = 6."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "Nếu A, B, C thẳng hàng và B nằm giữa A và C thì:",
+        "options": [
+            "AB + BC = AC",
+            "AB = BC",
+            "AB − BC = AC",
+            "AC + BC = AB"
+        ],
+        "answer": "AB + BC = AC",
+        "explanation": "Nếu B nằm giữa A và C thì AB + BC = AC."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AB = 4 cm, BC = 6 cm và B nằm giữa A và C. AC bằng:",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "10",
+        "explanation": "AC = AB + BC = 4 + 6 = 10."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Điểm",
+        "difficulty": "easy",
+        "question": "Trong hình học, điểm thường được kí hiệu bằng:",
+        "options": [
+            "Chữ cái in hoa",
+            "Chữ cái in thường",
+            "Số",
+            "Kí hiệu đặc biệt"
+        ],
+        "answer": "Chữ cái in hoa",
+        "explanation": "Điểm thường được kí hiệu bằng chữ cái in hoa như A, B, C."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Qua hai điểm phân biệt có bao nhiêu đường thẳng?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "Vô số"
+        ],
+        "answer": "1",
+        "explanation": "Qua hai điểm phân biệt chỉ có một đường thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Tia AB có gốc là:",
+        "options": [
+            "A",
+            "B",
+            "AB",
+            "Không có gốc"
+        ],
+        "answer": "A",
+        "explanation": "Tia AB có gốc tại A."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Dụng cụ đo đoạn thẳng là:",
+        "options": [
+            "Thước thẳng",
+            "Compa",
+            "Thước đo góc",
+            "Bút"
+        ],
+        "answer": "Thước thẳng",
+        "explanation": "Thước thẳng dùng để đo độ dài."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "Nếu M là trung điểm AB thì:",
+        "options": [
+            "AM = MB",
+            "AM > MB",
+            "AM < MB",
+            "AM ≠ MB"
+        ],
+        "answer": "AM = MB",
+        "explanation": "Trung điểm chia đoạn thẳng thành hai phần bằng nhau."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AB = 10 cm. M là trung điểm AB. AM bằng:",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": "5",
+        "explanation": "AM = AB/2 = 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "Nếu B nằm giữa A và C thì:",
+        "options": [
+            "AB + BC = AC",
+            "AB = BC",
+            "AB − BC = AC",
+            "AC + BC = AB"
+        ],
+        "answer": "AB + BC = AC",
+        "explanation": "Điểm nằm giữa tạo tổng đoạn."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AB = 3 cm, BC = 7 cm. B nằm giữa A và C. AC bằng:",
+        "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        "answer": "10",
+        "explanation": "AC = AB + BC = 10."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Khái niệm góc",
+        "difficulty": "easy",
+        "question": "Góc là gì?",
+        "options": [
+            "Hình tạo bởi hai tia chung gốc",
+            "Hình tạo bởi hai đoạn thẳng song song",
+            "Hình tròn",
+            "Hình tam giác"
+        ],
+        "answer": "Hình tạo bởi hai tia chung gốc",
+        "explanation": "Góc được tạo bởi hai tia chung gốc."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "easy",
+        "question": "Đơn vị đo góc thường dùng là gì?",
+        "options": [
+            "Độ",
+            "Mét",
+            "Kilogram",
+            "Lít"
+        ],
+        "answer": "Độ",
+        "explanation": "Góc thường được đo bằng đơn vị độ (°)."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Góc vuông có số đo bao nhiêu?",
+        "options": [
+            "45°",
+            "90°",
+            "180°",
+            "360°"
+        ],
+        "answer": "90°",
+        "explanation": "Góc vuông có số đo 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Góc bẹt có số đo bao nhiêu?",
+        "options": [
+            "90°",
+            "120°",
+            "180°",
+            "360°"
+        ],
+        "answer": "180°",
+        "explanation": "Góc bẹt có số đo 180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Góc đầy có số đo bao nhiêu?",
+        "options": [
+            "180°",
+            "270°",
+            "360°",
+            "90°"
+        ],
+        "answer": "360°",
+        "explanation": "Góc đầy là một vòng tròn hoàn chỉnh 360°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Phân loại góc",
+        "difficulty": "easy",
+        "question": "Góc nhỏ hơn 90° gọi là gì?",
+        "options": [
+            "Góc tù",
+            "Góc nhọn",
+            "Góc bẹt",
+            "Góc đầy"
+        ],
+        "answer": "Góc nhọn",
+        "explanation": "Góc nhọn có số đo nhỏ hơn 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Phân loại góc",
+        "difficulty": "easy",
+        "question": "Góc lớn hơn 90° và nhỏ hơn 180° gọi là gì?",
+        "options": [
+            "Góc vuông",
+            "Góc tù",
+            "Góc nhọn",
+            "Góc bẹt"
+        ],
+        "answer": "Góc tù",
+        "explanation": "Góc tù có số đo >90° và <180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Phân loại góc",
+        "difficulty": "easy",
+        "question": "Góc 45° thuộc loại nào?",
+        "options": [
+            "Góc tù",
+            "Góc vuông",
+            "Góc nhọn",
+            "Góc bẹt"
+        ],
+        "answer": "Góc nhọn",
+        "explanation": "45° nhỏ hơn 90° nên là góc nhọn."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Phân loại góc",
+        "difficulty": "easy",
+        "question": "Góc 120° là loại góc gì?",
+        "options": [
+            "Góc nhọn",
+            "Góc tù",
+            "Góc vuông",
+            "Góc bẹt"
+        ],
+        "answer": "Góc tù",
+        "explanation": "120° lớn hơn 90° và nhỏ hơn 180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Phân loại góc",
+        "difficulty": "easy",
+        "question": "Góc 90° là góc gì?",
+        "options": [
+            "Góc nhọn",
+            "Góc vuông",
+            "Góc tù",
+            "Góc bẹt"
+        ],
+        "answer": "Góc vuông",
+        "explanation": "Góc vuông có số đo đúng bằng 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "1/2 góc bẹt bằng bao nhiêu độ?",
+        "options": [
+            "45°",
+            "90°",
+            "120°",
+            "180°"
+        ],
+        "answer": "90°",
+        "explanation": "Góc bẹt =180° nên một nửa là 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "1/4 góc đầy bằng bao nhiêu độ?",
+        "options": [
+            "45°",
+            "90°",
+            "120°",
+            "180°"
+        ],
+        "answer": "90°",
+        "explanation": "360°/4 =90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "3/4 góc bẹt bằng bao nhiêu?",
+        "options": [
+            "90°",
+            "120°",
+            "135°",
+            "150°"
+        ],
+        "answer": "135°",
+        "explanation": "3/4 ×180° =135°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc kề",
+        "difficulty": "medium",
+        "question": "Hai góc có chung đỉnh và một cạnh chung gọi là gì?",
+        "options": [
+            "Góc đối đỉnh",
+            "Góc kề",
+            "Góc vuông",
+            "Góc bẹt"
+        ],
+        "answer": "Góc kề",
+        "explanation": "Hai góc có chung đỉnh và cạnh gọi là góc kề."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc kề bù",
+        "difficulty": "medium",
+        "question": "Hai góc kề bù có tổng bằng bao nhiêu độ?",
+        "options": [
+            "90°",
+            "180°",
+            "270°",
+            "360°"
+        ],
+        "answer": "180°",
+        "explanation": "Hai góc kề bù có tổng 180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc đối đỉnh",
+        "difficulty": "medium",
+        "question": "Hai góc đối đỉnh có tính chất gì?",
+        "options": [
+            "Bằng nhau",
+            "Tổng 180°",
+            "Tổng 360°",
+            "Luôn vuông"
+        ],
+        "answer": "Bằng nhau",
+        "explanation": "Hai góc đối đỉnh luôn bằng nhau."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Góc nào sau đây là góc tù?",
+        "options": [
+            "80°",
+            "95°",
+            "60°",
+            "45°"
+        ],
+        "answer": "95°",
+        "explanation": "95° >90° và <180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Góc nào sau đây là góc nhọn?",
+        "options": [
+            "100°",
+            "120°",
+            "60°",
+            "180°"
+        ],
+        "answer": "60°",
+        "explanation": "60° nhỏ hơn 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Góc nào sau đây là góc bẹt?",
+        "options": [
+            "90°",
+            "120°",
+            "180°",
+            "270°"
+        ],
+        "answer": "180°",
+        "explanation": "Góc bẹt =180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Tổng các góc quanh một điểm là bao nhiêu?",
+        "options": [
+            "180°",
+            "270°",
+            "360°",
+            "90°"
+        ],
+        "answer": "360°",
+        "explanation": "Các góc quanh một điểm tạo thành góc đầy."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Ba điểm thẳng hàng là:",
+        "options": [
+            "Ba điểm nằm trên cùng một đường thẳng",
+            "Ba điểm bất kỳ",
+            "Ba điểm khác nhau",
+            "Ba điểm tạo thành tam giác"
+        ],
+        "answer": "Ba điểm nằm trên cùng một đường thẳng",
+        "explanation": "Ba điểm thẳng hàng khi chúng nằm trên cùng một đường thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Ba điểm không thẳng hàng là:",
+        "options": [
+            "Ba điểm không cùng nằm trên một đường thẳng",
+            "Ba điểm cùng một đường",
+            "Ba điểm trùng nhau",
+            "Ba điểm bất kỳ"
+        ],
+        "answer": "Ba điểm không cùng nằm trên một đường thẳng",
+        "explanation": "Nếu ba điểm không nằm trên cùng một đường thẳng thì chúng không thẳng hàng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Tia là hình gồm:",
+        "options": [
+            "Một điểm gốc và kéo dài vô hạn về một phía",
+            "Hai đầu mút",
+            "Hai điểm",
+            "Một đoạn thẳng"
+        ],
+        "answer": "Một điểm gốc và kéo dài vô hạn về một phía",
+        "explanation": "Tia có một gốc và kéo dài vô hạn về một phía."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Hai tia trùng nhau khi:",
+        "options": [
+            "Chung gốc và cùng hướng",
+            "Chung gốc",
+            "Cùng đường thẳng",
+            "Không chung gốc"
+        ],
+        "answer": "Chung gốc và cùng hướng",
+        "explanation": "Hai tia trùng nhau nếu có chung gốc và cùng hướng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Đoạn thẳng là hình gồm:",
+        "options": [
+            "Hai điểm và tất cả các điểm nằm giữa chúng",
+            "Một điểm",
+            "Hai tia",
+            "Một đường thẳng"
+        ],
+        "answer": "Hai điểm và tất cả các điểm nằm giữa chúng",
+        "explanation": "Đoạn thẳng gồm hai đầu mút và các điểm nằm giữa."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Nếu AB = 6 cm thì BA bằng:",
+        "options": [
+            "3 cm",
+            "6 cm",
+            "12 cm",
+            "0 cm"
+        ],
+        "answer": "6 cm",
+        "explanation": "Độ dài đoạn thẳng không phụ thuộc thứ tự điểm."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Hai đoạn thẳng bằng nhau khi:",
+        "options": [
+            "Có cùng độ dài",
+            "Có chung điểm",
+            "Cùng đường thẳng",
+            "Cùng gốc"
+        ],
+        "answer": "Có cùng độ dài",
+        "explanation": "Hai đoạn thẳng bằng nhau khi độ dài của chúng bằng nhau."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AB = 5 cm, BC = 4 cm và B nằm giữa A và C. AC bằng:",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "9",
+        "explanation": "AC = AB + BC = 5 + 4."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AC = 12 cm, AB = 7 cm, B nằm giữa A và C. BC bằng:",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "5",
+        "explanation": "BC = AC − AB = 12 − 7."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AB = 14 cm. M là trung điểm AB. AM bằng:",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "7",
+        "explanation": "AM = AB / 2 = 7."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AB = 16 cm. M là trung điểm AB. MB bằng:",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "8",
+        "explanation": "MB = AB / 2 = 8."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "Nếu AM = MB = 4 cm thì AB bằng:",
+        "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "answer": "8",
+        "explanation": "AB = AM + MB = 8."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AB = 9 cm, AC = 15 cm, B nằm giữa A và C. BC bằng:",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "6",
+        "explanation": "BC = AC − AB = 15 − 9."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Kí hiệu của đường thẳng đi qua hai điểm A và B là:",
+        "options": [
+            "AB",
+            "(AB)",
+            "A+B",
+            "A,B"
+        ],
+        "answer": "(AB)",
+        "explanation": "Đường thẳng qua A và B được kí hiệu là (AB)."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Kí hiệu của tia có gốc A đi qua B là:",
+        "options": [
+            "AB",
+            "BA",
+            "(AB)",
+            "A-B"
+        ],
+        "answer": "AB",
+        "explanation": "Tia AB có gốc tại A."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc đặc biệt",
+        "difficulty": "easy",
+        "question": "Góc nào sau đây là góc vuông?",
+        "options": [
+            "90°",
+            "60°",
+            "120°",
+            "45°"
+        ],
+        "answer": "90°",
+        "explanation": "Góc vuông có số đo 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Phân loại góc",
+        "difficulty": "easy",
+        "question": "Góc 30° là loại góc gì?",
+        "options": [
+            "Góc nhọn",
+            "Góc tù",
+            "Góc vuông",
+            "Góc bẹt"
+        ],
+        "answer": "Góc nhọn",
+        "explanation": "30° nhỏ hơn 90° nên là góc nhọn."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Phân loại góc",
+        "difficulty": "easy",
+        "question": "Góc 150° là loại góc gì?",
+        "options": [
+            "Góc nhọn",
+            "Góc tù",
+            "Góc vuông",
+            "Góc bẹt"
+        ],
+        "answer": "Góc tù",
+        "explanation": "150° lớn hơn 90° và nhỏ hơn 180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Phân loại góc",
+        "difficulty": "easy",
+        "question": "Góc 180° gọi là gì?",
+        "options": [
+            "Góc vuông",
+            "Góc nhọn",
+            "Góc bẹt",
+            "Góc tù"
+        ],
+        "answer": "Góc bẹt",
+        "explanation": "180° là góc bẹt."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "easy",
+        "question": "Một vòng tròn có tổng số đo góc là bao nhiêu?",
+        "options": [
+            "90°",
+            "180°",
+            "270°",
+            "360°"
+        ],
+        "answer": "360°",
+        "explanation": "Một vòng tròn tương ứng với 360°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Hai góc có tổng 90° gọi là gì?",
+        "options": [
+            "Góc kề",
+            "Góc bù",
+            "Góc phụ",
+            "Góc đối đỉnh"
+        ],
+        "answer": "Góc phụ",
+        "explanation": "Hai góc phụ nhau có tổng 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Hai góc có tổng 180° gọi là gì?",
+        "options": [
+            "Góc phụ",
+            "Góc bù",
+            "Góc đối đỉnh",
+            "Góc kề"
+        ],
+        "answer": "Góc bù",
+        "explanation": "Hai góc bù nhau có tổng 180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Nếu một góc là 40° thì góc phụ của nó là bao nhiêu?",
+        "options": [
+            "40°",
+            "50°",
+            "60°",
+            "140°"
+        ],
+        "answer": "50°",
+        "explanation": "40° + 50° = 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Nếu một góc là 120° thì góc bù của nó là bao nhiêu?",
+        "options": [
+            "60°",
+            "50°",
+            "90°",
+            "30°"
+        ],
+        "answer": "60°",
+        "explanation": "120° + 60° = 180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc đối đỉnh",
+        "difficulty": "medium",
+        "question": "Nếu hai góc đối đỉnh và một góc bằng 70° thì góc kia bằng bao nhiêu?",
+        "options": [
+            "70°",
+            "110°",
+            "90°",
+            "180°"
+        ],
+        "answer": "70°",
+        "explanation": "Hai góc đối đỉnh bằng nhau."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tính góc",
+        "difficulty": "medium",
+        "question": "Hai góc kề bù, một góc 65°. Góc kia là bao nhiêu?",
+        "options": [
+            "115°",
+            "125°",
+            "95°",
+            "105°"
+        ],
+        "answer": "115°",
+        "explanation": "65° + 115° = 180°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tính góc",
+        "difficulty": "medium",
+        "question": "Hai góc phụ nhau, một góc 35°. Góc kia là bao nhiêu?",
+        "options": [
+            "45°",
+            "55°",
+            "65°",
+            "75°"
+        ],
+        "answer": "55°",
+        "explanation": "35° + 55° = 90°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tính góc",
+        "difficulty": "medium",
+        "question": "Góc nào lớn nhất?",
+        "options": [
+            "45°",
+            "90°",
+            "120°",
+            "60°"
+        ],
+        "answer": "120°",
+        "explanation": "120° là số lớn nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tính góc",
+        "difficulty": "medium",
+        "question": "Góc nào nhỏ nhất?",
+        "options": [
+            "30°",
+            "60°",
+            "45°",
+            "90°"
+        ],
+        "answer": "30°",
+        "explanation": "30° nhỏ nhất."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "medium",
+        "question": "Một nửa góc vuông bằng bao nhiêu?",
+        "options": [
+            "30°",
+            "45°",
+            "60°",
+            "90°"
+        ],
+        "answer": "45°",
+        "explanation": "90° / 2 = 45°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "hard",
+        "question": "1/3 góc bẹt bằng bao nhiêu độ?",
+        "options": [
+            "30°",
+            "45°",
+            "60°",
+            "90°"
+        ],
+        "answer": "60°",
+        "explanation": "180° / 3 = 60°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "hard",
+        "question": "2/3 góc bẹt bằng bao nhiêu độ?",
+        "options": [
+            "120°",
+            "90°",
+            "60°",
+            "150°"
+        ],
+        "answer": "120°",
+        "explanation": "2/3 × 180° = 120°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "hard",
+        "question": "3/4 góc vuông bằng bao nhiêu độ?",
+        "options": [
+            "45°",
+            "60°",
+            "67.5°",
+            "75°"
+        ],
+        "answer": "67.5°",
+        "explanation": "3/4 × 90° = 67.5°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "hard",
+        "question": "1/6 góc đầy bằng bao nhiêu độ?",
+        "options": [
+            "60°",
+            "90°",
+            "45°",
+            "120°"
+        ],
+        "answer": "60°",
+        "explanation": "360° / 6 = 60°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Số đo góc",
+        "difficulty": "hard",
+        "question": "5/6 góc bẹt bằng bao nhiêu độ?",
+        "options": [
+            "150°",
+            "120°",
+            "135°",
+            "160°"
+        ],
+        "answer": "150°",
+        "explanation": "5/6 × 180° = 150°."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc",
+        "difficulty": "easy",
+        "question": "Dụng cụ dùng để đo góc là gì?",
+        "options": [
+            "Thước thẳng",
+            "Compa",
+            "Thước đo góc",
+            "Thước kẻ"
+        ],
+        "answer": "Thước đo góc",
+        "explanation": "Thước đo góc dùng để đo độ lớn của góc."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Góc",
+        "difficulty": "easy",
+        "question": "Đỉnh của góc là gì?",
+        "options": [
+            "Điểm chung của hai tia",
+            "Đoạn thẳng",
+            "Đường tròn",
+            "Trung điểm"
+        ],
+        "answer": "Điểm chung của hai tia",
+        "explanation": "Hai tia chung gốc tạo thành góc."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Qua một điểm có thể vẽ được bao nhiêu đường thẳng?",
+        "options": [
+            "1",
+            "2",
+            "Vô số",
+            "Không có"
+        ],
+        "answer": "Vô số",
+        "explanation": "Qua một điểm có thể vẽ vô số đường thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Qua hai điểm phân biệt có thể vẽ được bao nhiêu đường thẳng?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "Vô số"
+        ],
+        "answer": "1",
+        "explanation": "Qua hai điểm phân biệt chỉ có một đường thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Hai tia chung gốc tạo thành:",
+        "options": [
+            "Một đoạn thẳng",
+            "Một góc",
+            "Một đường thẳng",
+            "Không tạo hình"
+        ],
+        "answer": "Một góc",
+        "explanation": "Hai tia chung gốc tạo thành một góc."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Hai tia đối nhau phải nằm:",
+        "options": [
+            "Trên hai đường khác nhau",
+            "Trên cùng một đường thẳng",
+            "Trên đoạn thẳng",
+            "Không xác định"
+        ],
+        "answer": "Trên cùng một đường thẳng",
+        "explanation": "Hai tia đối nhau nằm trên cùng một đường thẳng."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Nếu AB = 8 cm thì BA bằng:",
+        "options": [
+            "4",
+            "6",
+            "8",
+            "10"
+        ],
+        "answer": "8",
+        "explanation": "Độ dài đoạn thẳng không phụ thuộc thứ tự ký hiệu."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AB = 6 cm, BC = 5 cm và B nằm giữa A và C. AC bằng:",
+        "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        "answer": "11",
+        "explanation": "AC = AB + BC = 6 + 5."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AC = 13 cm, AB = 7 cm, B nằm giữa A và C. BC bằng:",
+        "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+        ],
+        "answer": "6",
+        "explanation": "BC = AC − AB = 13 − 7."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AB = 18 cm. M là trung điểm AB. AM bằng:",
+        "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "answer": "9",
+        "explanation": "AM = AB / 2 = 9."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AB = 20 cm. M là trung điểm AB. MB bằng:",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "10",
+        "explanation": "MB = AB / 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AM = MB = 6 cm. AB bằng:",
+        "options": [
+            "10",
+            "11",
+            "12",
+            "13"
+        ],
+        "answer": "12",
+        "explanation": "AB = AM + MB."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Điểm",
+        "difficulty": "easy",
+        "question": "Điểm là hình:",
+        "options": [
+            "Không có kích thước",
+            "Có chiều dài",
+            "Có chiều rộng",
+            "Có diện tích"
+        ],
+        "answer": "Không có kích thước",
+        "explanation": "Điểm chỉ biểu diễn vị trí, không có kích thước."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đường thẳng",
+        "difficulty": "easy",
+        "question": "Đường thẳng được đặt tên bằng:",
+        "options": [
+            "Một chữ cái",
+            "Hai điểm",
+            "Ba điểm",
+            "Một số"
+        ],
+        "answer": "Hai điểm",
+        "explanation": "Đường thẳng thường đặt tên bằng hai điểm thuộc nó."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Tia",
+        "difficulty": "easy",
+        "question": "Một tia được xác định bởi:",
+        "options": [
+            "Hai điểm",
+            "Một gốc và một điểm khác",
+            "Ba điểm",
+            "Một đoạn"
+        ],
+        "answer": "Một gốc và một điểm khác",
+        "explanation": "Tia xác định bởi gốc và một điểm thuộc tia."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Đoạn thẳng có:",
+        "options": [
+            "1 đầu mút",
+            "2 đầu mút",
+            "3 đầu mút",
+            "Không có"
+        ],
+        "answer": "2 đầu mút",
+        "explanation": "Đoạn thẳng có hai đầu mút."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "easy",
+        "question": "Nếu AB = CD thì:",
+        "options": [
+            "Hai đoạn bằng nhau",
+            "Hai đoạn khác nhau",
+            "Không liên quan",
+            "Không xác định"
+        ],
+        "answer": "Hai đoạn bằng nhau",
+        "explanation": "Hai đoạn có độ dài bằng nhau thì bằng nhau."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AB = 4 cm, BC = 6 cm, B nằm giữa A và C. AC bằng:",
+        "options": [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        "answer": "10",
+        "explanation": "AC = AB + BC."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Đoạn thẳng",
+        "difficulty": "medium",
+        "question": "AC = 15 cm, AB = 9 cm. B nằm giữa A và C. BC bằng:",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": "6",
+        "explanation": "BC = AC − AB."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AB = 24 cm. M là trung điểm AB. AM bằng:",
+        "options": [
+            "10",
+            "11",
+            "12",
+            "13"
+        ],
+        "answer": "12",
+        "explanation": "AM = AB / 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AB = 30 cm. M là trung điểm AB. MB bằng:",
+        "options": [
+            "14",
+            "15",
+            "16",
+            "17"
+        ],
+        "answer": "15",
+        "explanation": "MB = AB / 2."
+    },
+    {
+        "grade": 6,
+        "topic": "Hình học",
+        "sub_topic": "Trung điểm",
+        "difficulty": "medium",
+        "question": "AM = MB = 9 cm. AB bằng:",
+        "options": [
+            "16",
+            "17",
+            "18",
+            "19"
+        ],
+        "answer": "18",
+        "explanation": "AB = AM + MB."
+    }
+]

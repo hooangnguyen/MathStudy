@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, Clock, CheckCircle2, ChevronRight, X, Square, CheckSquare } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../../utils/utils';
+import { MathEquationEditor } from '../../components/common/MathEquationEditor';
 import { AssignmentData, submitAssignment } from '../../services/assignmentService';
 import { useFirebase } from '../../context/FirebaseProvider';
 
@@ -174,44 +175,63 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
             <div className="flex-1 overflow-y-auto p-4 md:p-8 no-scrollbar pb-32">
                 <div className="max-w-3xl mx-auto space-y-8">
 
-                    <div className="bg-white rounded-[2rem] p-6 md:p-10 shadow-sm border-t-8 border-t-indigo-500 border-x border-b border-slate-200 text-left">
-                        <p className="text-xl md:text-2xl font-bold text-slate-900 leading-relaxed">
-                            <span className="text-indigo-600 font-black">Câu {currentQuestionIndex + 1}:</span> {currentQuestion.text}
+                    <div className="bg-white rounded-[2rem] p-6 md:p-10 shadow-sm border-t-8 border-t-indigo-500 border-x border-b border-slate-200 text-left space-y-3">
+                        <p className="text-sm font-black text-indigo-600 uppercase tracking-widest">
+                            Câu {currentQuestionIndex + 1}
                         </p>
+                        <MathEquationEditor
+                            value={currentQuestion.text}
+                            readOnly
+                        />
                     </div>
 
                     <div className="space-y-3">
-                        {(currentQuestion.type === 'multiple_choice' || currentQuestion.type === 'checkbox') && currentQuestion.options?.map((opt, idx) => {
-                            const isSelected = currentQuestion.type === 'multiple_choice'
+                        {(currentQuestion.type === 'multiple_choice' || currentQuestion.type === 'checkbox') && (
+                          <>
+                            <p className="text-sm font-bold text-slate-500">
+                              {currentQuestion.type === 'multiple_choice'
+                                ? 'Chọn một đáp án đúng'
+                                : 'Chọn một hoặc nhiều đáp án đúng'}
+                            </p>
+                            {currentQuestion.options?.map((opt, idx) => {
+                              const isSelected = currentQuestion.type === 'multiple_choice'
                                 ? answers[currentQuestion.id] === idx
                                 : (Array.isArray(answers[currentQuestion.id]) && answers[currentQuestion.id].includes(idx));
 
-                            return (
+                              return (
                                 <button
-                                    key={idx}
-                                    onClick={() => handleAnswerSelect(currentQuestion.id, idx)}
-                                    className={cn(
-                                        "w-full p-5 rounded-2xl border-2 text-left transition-all flex items-center gap-4 active:scale-[0.98]",
-                                        isSelected
-                                            ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                                            : "border-slate-100 bg-white hover:border-indigo-200 text-slate-700 hover:bg-slate-50"
-                                    )}
+                                  key={idx}
+                                  type="button"
+                                  onClick={() => handleAnswerSelect(currentQuestion.id, idx)}
+                                  className={cn(
+                                    "w-full p-5 rounded-2xl border-2 text-left transition-all flex items-center gap-4 active:scale-[0.98]",
+                                    isSelected
+                                      ? "border-indigo-500 bg-indigo-50 text-indigo-700"
+                                      : "border-slate-100 bg-white hover:border-indigo-200 text-slate-700 hover:bg-slate-50"
+                                  )}
                                 >
-                                    <div className={cn(
-                                        "w-6 h-6 flex items-center justify-center shrink-0 transition-colors",
-                                        currentQuestion.type === 'multiple_choice' ? "rounded-full border-2" : "rounded-md border-2",
-                                        isSelected ? "border-indigo-500 bg-indigo-500 text-white" : "border-slate-300"
-                                    )}>
-                                        {isSelected && (
-                                            currentQuestion.type === 'multiple_choice'
-                                                ? <CheckCircle2 size={16} />
-                                                : <CheckSquare size={16} />
-                                        )}
-                                    </div>
-                                    <span className="text-base font-bold">{opt}</span>
+                                  <div className={cn(
+                                    "w-7 h-7 flex items-center justify-center shrink-0 transition-colors",
+                                    currentQuestion.type === 'multiple_choice' ? "rounded-full border-2" : "rounded-lg border-2",
+                                    isSelected ? "border-indigo-500 bg-indigo-500 text-white" : "border-slate-300 bg-white"
+                                  )}>
+                                    {currentQuestion.type === 'multiple_choice' ? (
+                                      isSelected ? <CheckCircle2 size={18} /> : null
+                                    ) : (
+                                      isSelected ? <CheckSquare size={18} /> : <Square size={18} className="text-slate-400" />
+                                    )}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <MathEquationEditor
+                                      value={opt}
+                                      readOnly
+                                    />
+                                  </div>
                                 </button>
-                            );
-                        })}
+                              );
+                            })}
+                          </>
+                        )}
 
                         {/* Support for short answer and essay */}
                         {(currentQuestion.type === 'short_answer' || currentQuestion.type === 'essay') && (

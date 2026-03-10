@@ -7,6 +7,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
 import { MathSymbolPicker } from '../../components/common/MathSymbolPicker';
+import { MathEquationEditor } from '../../components/common/MathEquationEditor';
 
 import { createAssignment, saveDraftAssignment, deleteDraftAssignment, DraftAssignmentData } from '../../services/assignmentService';
 import { subscribeToTeacherClasses, ClassData } from '../../services/classService';
@@ -361,39 +362,54 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
               {/* Questions List */}
               {questions.map((q, index) => (
                 <div key={q.id} className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-200 space-y-6 relative group transition-all focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent">
-                  <div className="flex items-start gap-4">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4">
                     <div className="flex-1 relative">
-                      <input
-                        type="text"
+                      <MathEquationEditor
                         value={q.text}
-                        onChange={(e) => updateQuestion(q.id, 'text', e.target.value)}
-                        className="w-full p-4 pr-12 bg-slate-50 rounded-2xl text-base font-bold border-none outline-none focus:bg-slate-100 transition-colors placeholder:text-slate-400"
-                        placeholder="Nhập câu hỏi..."
+                        onChange={(latex) => updateQuestion(q.id, 'text', latex)}
+                        placeholder="Nhập câu hỏi (góc, cung, phân số... nhấn Σ để chèn)"
+                        className="pr-12"
                       />
                       <button
                         onClick={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'question' ? null : { type: 'question', id: q.id })}
                         className={cn(
-                          "absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-colors",
-                          activePicker?.id === q.id && activePicker?.type === 'question' ? "bg-indigo-600 text-white" : "text-slate-400 hover:bg-slate-200"
+                          "absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-all flex items-center gap-1.5",
+                          activePicker?.id === q.id && activePicker?.type === 'question' ? "bg-indigo-600 text-white shadow-md" : "text-slate-400 hover:bg-indigo-50 hover:text-indigo-600"
                         )}
-                        title="Chèn kí tự toán học"
+                        title="Chèn kí hiệu toán (góc ∠, cung ⌢, phân số...)"
                       >
-                        <Sigma size={18} />
+                        <Sigma size={20} strokeWidth={2.5} />
+                        <span className="text-xs font-bold hidden sm:inline">Công thức</span>
                       </button>
 
                       {activePicker?.id === q.id && activePicker?.type === 'question' && (
-                        <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
+                        <div
+                          className="absolute left-0 right-0 sm:left-auto sm:right-0 top-full mt-2 z-[120] 
+                                     w-full sm:w-[22rem] max-w-[calc(100vw-2rem)]"
+                        >
+                          <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
+                        </div>
                       )}
                     </div>
-                    <select
-                      value={q.type}
-                      onChange={(e) => updateQuestion(q.id, 'type', e.target.value)}
-                      className="p-4 bg-slate-50 rounded-2xl text-sm font-black text-slate-700 border-none outline-none cursor-pointer"
-                    >
-                      <option value="multiple_choice">Trắc nghiệm</option>
-                      <option value="checkbox">Hộp kiểm</option>
-                      <option value="short_answer">Trả lời ngắn</option>
-                    </select>
+                    <div className="flex flex-wrap sm:flex-col gap-2 shrink-0">
+                      <span className="text-xs font-bold text-slate-400 w-full sm:w-auto">Loại câu:</span>
+                      <div className="flex gap-2">
+                        {(['multiple_choice', 'checkbox', 'short_answer'] as const).map((t) => (
+                          <button
+                            key={t}
+                            onClick={() => updateQuestion(q.id, 'type', t)}
+                            className={cn(
+                              "px-3 py-2 rounded-xl text-xs font-black transition-all",
+                              q.type === t
+                                ? "bg-indigo-600 text-white shadow-sm"
+                                : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                            )}
+                          >
+                            {t === 'multiple_choice' ? 'Trắc nghiệm' : t === 'checkbox' ? 'Hộp kiểm' : 'Trả lời ngắn'}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
                   {/* Options for Multiple Choice */}
@@ -408,31 +424,47 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
                               ? "border-emerald-500 bg-emerald-500 text-white"
                               : "border-slate-300 hover:border-indigo-500"
                           )}
-                            onClick={() => updateQuestion(q.id, 'correctAnswer', optIndex)}
+                            onClick={() => {
+                              if (q.type === 'multiple_choice') {
+                                updateQuestion(q.id, 'correctAnswer', optIndex);
+                              } else {
+                                const current = Array.isArray(q.correctAnswer) ? q.correctAnswer : [];
+                                const exists = current.includes(optIndex);
+                                const next = exists ? current.filter(i => i !== optIndex) : [...current, optIndex];
+                                updateQuestion(q.id, 'correctAnswer', next);
+                              }
+                            }}
                           >
-                            {q.correctAnswer === optIndex && <CheckCircle2 size={14} />}
+                            {q.type === 'multiple_choice'
+                              ? (q.correctAnswer === optIndex && <CheckCircle2 size={14} />)
+                              : (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex) && <CheckCircle2 size={14} />)
+                            }
                           </div>
                           <div className="flex-1 relative">
-                            <input
-                              type="text"
+                            <MathEquationEditor
                               value={opt}
-                              onChange={(e) => updateOption(q.id, optIndex, e.target.value)}
-                              className="w-full bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500 outline-none py-2 pr-8 text-sm font-bold text-slate-700 transition-colors"
+                              onChange={(latex) => updateOption(q.id, optIndex, latex)}
                               placeholder={`Tùy chọn ${optIndex + 1}`}
+                              className="pr-8 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500"
                             />
                             <button
                               onClick={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex ? null : { type: 'option', id: q.id, optIndex })}
                               className={cn(
-                                "absolute right-0 top-1/2 -translate-y-1/2 p-1 rounded-lg transition-colors",
-                                activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex ? "bg-indigo-600 text-white" : "text-slate-300 hover:text-indigo-600"
+                                "absolute right-0 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all",
+                                activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex ? "bg-indigo-600 text-white" : "text-slate-300 hover:bg-indigo-50 hover:text-indigo-600"
                               )}
-                              title="Chèn kí tự toán học"
+                              title="Chèn kí hiệu toán"
                             >
-                              <Sigma size={14} />
+                              <Sigma size={16} />
                             </button>
 
                             {activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex && (
-                              <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
+                              <div
+                                className="absolute left-0 right-0 sm:left-auto sm:right-0 top-full mt-2 z-[120] 
+                                           w-full sm:w-[22rem] max-w-[calc(100vw-2rem)]"
+                              >
+                                <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
+                              </div>
                             )}
                           </div>
                           {q.options.length > 1 && (

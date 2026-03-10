@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, BookOpen, User, Trophy, Swords, FileText, GraduationCap, MessageSquare } from 'lucide-react';
+import { Home, BookOpen, User, Trophy, Swords, FileText, GraduationCap, MessageSquare, ClipboardList } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../../utils/utils';
 
@@ -13,12 +13,14 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
   const tabs = userRole === 'teacher' ? [
     { id: 'home', icon: Home, label: 'Trang chủ' },
     { id: 'classroom', icon: GraduationCap, label: 'Lớp học' },
+    { id: 'quiz', icon: ClipboardList, label: 'Quiz' },
     { id: 'messages', icon: MessageSquare, label: 'Tin nhắn' },
     { id: 'profile', icon: User, label: 'Cá nhân' },
   ] : [
     { id: 'home', icon: Home, label: 'Trang chủ' },
     { id: 'classroom', icon: GraduationCap, label: 'Lớp học' },
     { id: 'duel', icon: Swords, label: 'Đối kháng' },
+    { id: 'quiz', icon: ClipboardList, label: 'Quiz' },
     { id: 'messages', icon: MessageSquare, label: 'Tin nhắn' },
     { id: 'profile', icon: User, label: 'Cá nhân' },
   ];

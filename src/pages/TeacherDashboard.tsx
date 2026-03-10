@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useFirebase } from '../context/FirebaseProvider';
 import { createClass, subscribeToTeacherClasses, ClassData, reCalculateClassStats } from '../services/classService';
-import { subscribeToClassAssignments, subscribeToDraftAssignments, AssignmentData, DraftAssignmentData } from '../services/assignmentService';
+import { subscribeToClassAssignments, subscribeToDraftAssignments, AssignmentData, DraftAssignmentData, validateDraftForAutoGrading } from '../services/assignmentService';
 import { getUsersByIds, UserProfile, getOnlineStatus, getUserProfile } from '../services/userService';
 import { getOrCreateConversation } from '../services/messageService';
 import {
@@ -19,7 +19,16 @@ import { AssignmentBuilder } from '../features/classroom/AssignmentBuilder';
 import { Chat } from '../features/chat/Chat';
 import { AssignmentGrader } from '../features/classroom/AssignmentGrader';
 
-export const TeacherDashboard: React.FC = () => {
+interface TeacherDashboardProps {
+  deepLink?: {
+    classId?: string;
+    assignmentId?: string;
+    studentId?: string;
+    action?: 'take' | 'result' | 'grade' | 'students';
+  };
+}
+
+export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) => {
   const { user } = useFirebase();
   const [classesList, setClassesList] = useState<ClassData[]>([]);
   const [isCreatingClass, setIsCreatingClass] = useState(false);
@@ -96,6 +105,30 @@ export const TeacherDashboard: React.FC = () => {
   const [activeChatStudent, setActiveChatStudent] = useState<{ uid: string; name: string } | null>(null);
   const [viewingStudentProfile, setViewingStudentProfile] = useState<any | null>(null);
   const [gradingAssignment, setGradingAssignment] = useState<any | null>(null);
+  const deepLinkHandledRef = React.useRef(false);
+
+  // Deep link from notification: select class, optionally open students tab / grader
+  useEffect(() => {
+    if (deepLinkHandledRef.current) return;
+    if (!deepLink?.classId) return;
+
+    setSelectedClassId(deepLink.classId);
+    if (deepLink.action === 'students') setActiveSubTab('students');
+  }, [deepLink]);
+
+  useEffect(() => {
+    if (deepLinkHandledRef.current) return;
+    if (!deepLink?.classId || !deepLink?.assignmentId) return;
+    if (selectedClassId !== deepLink.classId) return;
+    if (classAssignments.length === 0) return;
+    if (deepLink.action !== 'grade') return;
+
+    const assignment = classAssignments.find(a => a.id === deepLink.assignmentId);
+    if (!assignment) return;
+
+    deepLinkHandledRef.current = true;
+    setGradingAssignment(assignment);
+  }, [deepLink, selectedClassId, classAssignments]);
 
   // Drafts state
   const [draftsList, setDraftsList] = useState<DraftAssignmentData[]>([]);
@@ -147,7 +180,7 @@ export const TeacherDashboard: React.FC = () => {
   };
 
   const renderClassList = () => (
-    <div className="space-y-6 px-6">
+    <div className="space-y-3 px-6">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Danh sách lớp học</h3>
         <button
@@ -158,14 +191,14 @@ export const TeacherDashboard: React.FC = () => {
         </button>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {classesList.map((cls) => (
           <div
             key={cls.id}
             onClick={() => setSelectedClassId(cls.id)}
-            className="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 hover:shadow-md transition-all group"
+            className="bg-white p-4 rounded-[2rem] border border-slate-100 shadow-sm cursor-pointer hover:border-indigo-200 hover:shadow-md transition-all group"
           >
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                   <Users size={24} />
@@ -191,7 +224,7 @@ export const TeacherDashboard: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <div className="bg-slate-50 p-3 rounded-2xl">
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Tỉ lệ nộp bài</p>
                 <div className="flex items-end gap-2">
@@ -213,71 +246,69 @@ export const TeacherDashboard: React.FC = () => {
   );
 
   const renderOverview = () => (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-indigo-50 p-4 rounded-3xl border border-indigo-100 relative overflow-hidden group">
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-indigo-50 p-3 rounded-2xl border border-indigo-100 relative overflow-hidden group">
           <div className="relative z-10">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-500 flex items-center justify-center text-white mb-3 shadow-lg shadow-indigo-200">
-              <Users size={20} />
+            <div className="w-8 h-8 rounded-xl bg-indigo-500 flex items-center justify-center text-white mb-2 shadow-md shadow-indigo-200">
+              <Users size={16} />
             </div>
             <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Sĩ số</p>
-            <p className="text-2xl font-black text-indigo-900">{currentClass?.studentCount || 40}</p>
+            <p className="text-xl font-black text-indigo-900">{currentClass?.studentCount || 40}</p>
           </div>
-          <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/5 rounded-full -mr-10 -mt-10 blur-xl" />
+          <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/5 rounded-full -mr-8 -mt-8 blur-xl" />
         </div>
         <div
-          className="bg-amber-50 p-4 rounded-3xl border border-amber-100 relative overflow-hidden cursor-pointer active:scale-95 transition-transform"
+          className="bg-amber-50 p-3 rounded-2xl border border-amber-100 relative overflow-hidden cursor-pointer active:scale-95 transition-transform"
           onClick={() => {
             navigator.clipboard.writeText(currentClass?.code || 'MATH5A');
             alert(`Đã copy mã lớp: ${currentClass?.code || 'MATH5A'}`);
           }}
         >
           <div className="relative z-10">
-            <div className="w-10 h-10 rounded-2xl bg-amber-500 flex items-center justify-center text-white mb-3 shadow-lg shadow-amber-200">
-              <Target size={20} />
+            <div className="w-8 h-8 rounded-xl bg-amber-500 flex items-center justify-center text-white mb-2 shadow-md shadow-amber-200">
+              <Target size={16} />
             </div>
             <p className="text-[10px] font-black text-amber-400 uppercase tracking-widest">Mã lớp (Nhấn để copy)</p>
-            <p className="text-2xl font-black text-amber-900">{currentClass?.code || 'MATH5A'}</p>
+            <p className="text-xl font-black text-amber-900">{currentClass?.code || 'MATH5A'}</p>
           </div>
-          <div className="absolute top-0 right-0 w-20 h-20 bg-amber-500/5 rounded-full -mr-10 -mt-10 blur-xl" />
+          <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/5 rounded-full -mr-8 -mt-8 blur-xl" />
         </div>
       </div>
 
       {/* Quick Action: Create Assignment */}
       <button
         onClick={() => setShowDraftSelectionModal(true)}
-        className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-dashed border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50/50 transition-all group flex items-center justify-between"
+        className="w-full bg-white p-4 rounded-[2rem] border-2 border-dashed border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50/50 transition-all group flex items-center justify-between"
       >
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Plus size={24} />
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <Plus size={20} />
           </div>
           <div className="text-left">
-            <h4 className="text-lg font-black text-slate-900">Giao bài tập mới</h4>
-            <p className="text-sm font-bold text-slate-400">Tạo câu hỏi và giao cho học sinh ngay</p>
+            <h4 className="text-base font-black text-slate-900">Giao bài tập mới</h4>
+            <p className="text-xs font-bold text-slate-400">Tạo câu hỏi và giao cho học sinh ngay</p>
           </div>
         </div>
-        <ChevronRight size={24} className="text-slate-300 group-hover:translate-x-1 transition-transform" />
+        <ChevronRight size={20} className="text-slate-300 group-hover:translate-x-1 transition-transform" />
       </button>
 
-
-
       {/* Active Assignments Section */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between px-2">
+      <div className="space-y-3">
+        <div className="flex items-center justify-between px-1">
           <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Bài tập đã giao</h3>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {classAssignments.length === 0 ? (
-            <div className="text-center py-10 bg-white rounded-[2rem] border border-slate-100">
-              <FileText size={32} className="mx-auto text-slate-300 mb-2" />
+            <div className="text-center py-8 bg-white rounded-[2rem] border border-slate-100">
+              <FileText size={28} className="mx-auto text-slate-300 mb-2" />
               <p className="text-sm font-bold text-slate-400">Chưa có bài tập nào được giao.</p>
             </div>
           ) : (
             classAssignments.map(assignment => (
-              <div key={assignment.id} className="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm space-y-4">
+              <div key={assignment.id} className="bg-white p-4 rounded-[2rem] border border-slate-100 shadow-sm space-y-3">
                 <div className="flex items-center justify-between">
                   <span className={cn(
                     "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest",
@@ -297,7 +328,7 @@ export const TeacherDashboard: React.FC = () => {
                   <h4 className="text-base font-black text-slate-900">{assignment.title}</h4>
                   <p className="text-xs font-bold text-slate-400">Lớp {currentClass?.name} • {assignment.total} học sinh</p>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex justify-between text-[10px] font-black">
                     <span className="text-slate-400">Tiến độ nộp bài</span>
                     <span className="text-slate-900">{assignment.completed}/{assignment.total}</span>
@@ -311,9 +342,9 @@ export const TeacherDashboard: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setGradingAssignment(assignment)}
-                  className="w-full py-3 bg-indigo-50 text-indigo-600 rounded-xl font-bold text-sm hover:bg-indigo-100 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2.5 bg-indigo-50 text-indigo-600 rounded-xl font-bold text-sm hover:bg-indigo-100 transition-colors flex items-center justify-center gap-2"
                 >
-                  <CheckCircle2 size={18} />
+                  <CheckCircle2 size={16} />
                   Chấm bài chi tiết
                 </button>
               </div>
@@ -345,15 +376,7 @@ export const TeacherDashboard: React.FC = () => {
           </div>
         </div>
 
-        {selectedClassId && (
-          <button
-            onClick={() => setShowDraftSelectionModal(true)}
-            className="px-6 py-2.5 bg-[#1cb0f6] text-white rounded-2xl font-black shadow-[0_4px_0_#1899d6] active:shadow-[0_0_0_#1899d6] active:translate-y-1 transition-all text-sm flex items-center gap-2"
-          >
-            <Plus size={18} />
-            Giao bài
-          </button>
-        )}
+
       </header>
 
       {!selectedClassId ? (
@@ -461,124 +484,137 @@ export const TeacherDashboard: React.FC = () => {
         <AnimatePresence>
           {showCreateClass && (
             <motion.div
-              initial={{ opacity: 0, y: '100%' }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-0 z-[100] bg-white flex flex-col md:rounded-l-3xl md:left-64 md:w-[calc(100%-16rem)]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] bg-slate-900/20 backdrop-blur-sm flex justify-end"
+              onClick={() => {
+                setShowCreateClass(false);
+                setGeneratedCode('');
+                setNewClassName('');
+              }}
             >
-              <div className="p-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white">
-                <button onClick={() => {
-                  setShowCreateClass(false);
-                  setGeneratedCode('');
-                  setNewClassName('');
-                }} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-colors">
-                  <ChevronLeft size={24} />
-                </button>
-                <h3 className="text-xl font-black text-slate-900">Tạo lớp học mới</h3>
-                <div className="w-10" />
-              </div>
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="w-full h-full bg-white flex flex-col md:rounded-l-3xl md:w-[calc(100%-16rem)]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="p-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white">
+                  <button onClick={() => {
+                    setShowCreateClass(false);
+                    setGeneratedCode('');
+                    setNewClassName('');
+                  }} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-colors">
+                    <ChevronLeft size={24} />
+                  </button>
+                  <h3 className="text-xl font-black text-slate-900">Tạo lớp học mới</h3>
+                  <div className="w-10" />
+                </div>
 
-              <div className="flex-1 overflow-y-auto p-6 no-scrollbar bg-slate-50">
-                <div className="max-w-md mx-auto space-y-8">
-                  {!generatedCode ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-6"
-                    >
-                      <div className="w-16 h-16 bg-indigo-50 rounded-[2rem] flex items-center justify-center text-indigo-600 mx-auto mb-6">
-                        <Users size={32} />
-                      </div>
-
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tên lớp học</label>
-                        <input
-                          type="text"
-                          value={newClassName}
-                          onChange={(e) => setNewClassName(e.target.value)}
-                          placeholder="Ví dụ: Toán 5A"
-                          className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-2xl text-base font-bold focus:border-indigo-500 focus:bg-white transition-all outline-none placeholder:text-slate-300"
-                        />
-                      </div>
-
-                      <div className="space-y-3">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Khối lớp</label>
-                        <div className="grid grid-cols-3 gap-3">
-                          {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(grade => (
-                            <button
-                              key={grade}
-                              onClick={() => setNewClassGrade(grade)}
-                              className={cn(
-                                "p-3 rounded-2xl border-2 text-sm font-black transition-all",
-                                newClassGrade === grade
-                                  ? "border-indigo-500 bg-indigo-50 text-indigo-600"
-                                  : "border-slate-100 text-slate-400 hover:border-slate-200 hover:bg-slate-50"
-                              )}
-                            >
-                              Khối {grade}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={handleCreateClass}
-                        disabled={!newClassName.trim() || isCreatingClass}
-                        className="w-full py-5 mt-4 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                <div className="flex-1 overflow-y-auto p-6 no-scrollbar bg-slate-50">
+                  <div className="max-w-md mx-auto space-y-8">
+                    {!generatedCode ? (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-6"
                       >
-                        {isCreatingClass ? 'Đang tạo...' : <>Tạo lớp ngay <Plus size={20} /></>}
-                      </button>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-8 text-center"
-                    >
-                      <div className="w-20 h-20 bg-emerald-50 rounded-[2.5rem] flex items-center justify-center text-emerald-500 mx-auto">
-                        <CheckCircle2 size={40} />
-                      </div>
+                        <div className="w-16 h-16 bg-indigo-50 rounded-[2rem] flex items-center justify-center text-indigo-600 mx-auto mb-6">
+                          <Users size={32} />
+                        </div>
 
-                      <div>
-                        <h3 className="text-2xl font-black text-slate-900 mb-2">Tạo lớp thành công!</h3>
-                        <p className="text-sm font-bold text-slate-400">Lớp <span className="text-indigo-600">{newClassName}</span> đã sẵn sàng.</p>
-                      </div>
+                        <div className="space-y-3">
+                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tên lớp học</label>
+                          <input
+                            type="text"
+                            value={newClassName}
+                            onChange={(e) => setNewClassName(e.target.value)}
+                            placeholder="Ví dụ: Toán 5A"
+                            className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-2xl text-base font-bold focus:border-indigo-500 focus:bg-white transition-all outline-none placeholder:text-slate-300"
+                          />
+                        </div>
 
-                      <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 relative overflow-hidden group">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Mã tham gia lớp học</p>
-                        <p className="text-4xl font-black text-indigo-600 tracking-[0.2em]">{generatedCode}</p>
+                        <div className="space-y-3">
+                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Khối lớp</label>
+                          <div className="grid grid-cols-3 gap-3">
+                            {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(grade => (
+                              <button
+                                key={grade}
+                                onClick={() => setNewClassGrade(grade)}
+                                className={cn(
+                                  "p-3 rounded-2xl border-2 text-sm font-black transition-all",
+                                  newClassGrade === grade
+                                    ? "border-indigo-500 bg-indigo-50 text-indigo-600"
+                                    : "border-slate-100 text-slate-400 hover:border-slate-200 hover:bg-slate-50"
+                                )}
+                              >
+                                Khối {grade}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
 
                         <button
-                          onClick={handleCopyCode}
-                          className="mt-6 w-full py-4 bg-white border-2 border-indigo-100 text-indigo-600 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-indigo-50 transition-colors active:scale-95"
+                          onClick={handleCreateClass}
+                          disabled={!newClassName.trim() || isCreatingClass}
+                          className="w-full py-5 mt-4 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                         >
-                          {isCopied ? (
-                            <><CheckCircle2 size={18} /> Đã sao chép</>
-                          ) : (
-                            <><Copy size={18} /> Sao chép mã</>
-                          )}
+                          {isCreatingClass ? 'Đang tạo...' : <>Tạo lớp ngay <Plus size={20} /></>}
                         </button>
-                      </div>
-
-                      <p className="text-xs font-bold text-slate-400 leading-relaxed px-4">
-                        Hãy gửi mã này cho học sinh để các em có thể tham gia vào lớp học của bạn.
-                      </p>
-
-                      <button
-                        onClick={() => {
-                          setShowCreateClass(false);
-                          setGeneratedCode('');
-                          setNewClassName('');
-                        }}
-                        className="w-full py-5 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all"
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-8 text-center"
                       >
-                        Đóng
-                      </button>
-                    </motion.div>
-                  )}
+                        <div className="w-20 h-20 bg-emerald-50 rounded-[2.5rem] flex items-center justify-center text-emerald-500 mx-auto">
+                          <CheckCircle2 size={40} />
+                        </div>
+
+                        <div>
+                          <h3 className="text-2xl font-black text-slate-900 mb-2">Tạo lớp thành công!</h3>
+                          <p className="text-sm font-bold text-slate-400">Lớp <span className="text-indigo-600">{newClassName}</span> đã sẵn sàng.</p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 relative overflow-hidden group">
+                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Mã tham gia lớp học</p>
+                          <p className="text-4xl font-black text-indigo-600 tracking-[0.2em]">{generatedCode}</p>
+
+                          <button
+                            onClick={handleCopyCode}
+                            className="mt-6 w-full py-4 bg-white border-2 border-indigo-100 text-indigo-600 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-indigo-50 transition-colors active:scale-95"
+                          >
+                            {isCopied ? (
+                              <><CheckCircle2 size={18} /> Đã sao chép</>
+                            ) : (
+                              <><Copy size={18} /> Sao chép mã</>
+                            )}
+                          </button>
+                        </div>
+
+                        <p className="text-xs font-bold text-slate-400 leading-relaxed px-4">
+                          Hãy gửi mã này cho học sinh để các em có thể tham gia vào lớp học của bạn.
+                        </p>
+
+                        <button
+                          onClick={() => {
+                            setShowCreateClass(false);
+                            setGeneratedCode('');
+                            setNewClassName('');
+                          }}
+                          className="w-full py-5 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all"
+                        >
+                          Đóng
+                        </button>
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           )}
 
@@ -590,6 +626,7 @@ export const TeacherDashboard: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 sm:p-6"
+              onClick={() => setShowDraftSelectionModal(false)}
             >
               <motion.div
                 initial={{ y: '100%' }}
@@ -597,6 +634,7 @@ export const TeacherDashboard: React.FC = () => {
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                 className="bg-white w-full max-w-md rounded-[2rem] p-6 shadow-2xl max-h-[80vh] flex flex-col"
+                onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex justify-between items-center mb-6 shrink-0">
                   <h3 className="text-xl font-black text-slate-900">Giao bài cho lớp {currentClass.name}</h3>
@@ -634,6 +672,15 @@ export const TeacherDashboard: React.FC = () => {
                     <button
                       key={draft.id}
                       onClick={() => {
+                        const issues = validateDraftForAutoGrading(draft);
+                        if (issues.length > 0) {
+                          alert(
+                            'Một số câu hỏi trong bản nháp này chưa có đáp án đúng, nên không thể chấm tự động.\n\n' +
+                            issues.join('\n') +
+                            '\n\nVui lòng mở bản nháp và chọn đáp án đúng cho các câu trên trước khi dùng để giao bài hoặc tạo Quiz.'
+                          );
+                          return;
+                        }
                         setSelectedInitialDraft(draft);
                         setShowDraftSelectionModal(false);
                         setShowCreateAssignment(true);
@@ -642,7 +689,13 @@ export const TeacherDashboard: React.FC = () => {
                     >
                       <h4 className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{draft.title}</h4>
                       <div className="flex items-center justify-between mt-2">
-                        <p className="text-xs font-bold text-slate-400">{draft.questions?.length || 0} câu hỏi</p>
+                        <p className="text-xs font-bold text-slate-400">
+                          {draft.questions?.length || 0} câu hỏi • {
+                            (draft.questions || []).filter(
+                              (q) => (q.type === 'multiple_choice' || q.type === 'checkbox') && q.correctAnswer !== undefined && q.correctAnswer !== null
+                            ).length
+                          } có đáp án
+                        </p>
                         <p className="text-[10px] font-bold text-slate-400">Tạo: {draft.updatedAt ? new Date(draft.updatedAt.toMillis()).toLocaleDateString('vi-VN') : ''}</p>
                       </div>
                     </button>
@@ -669,58 +722,67 @@ export const TeacherDashboard: React.FC = () => {
 
           {viewingStudentProfile && (
             <motion.div
-              initial={{ opacity: 0, y: '100%' }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-0 z-[100] bg-white flex flex-col md:rounded-l-3xl md:left-64 md:w-[calc(100%-16rem)]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] bg-slate-900/20 backdrop-blur-sm flex justify-end"
+              onClick={() => setViewingStudentProfile(null)}
             >
-              <div className="p-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white">
-                <button onClick={() => setViewingStudentProfile(null)} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-colors">
-                  <ChevronLeft size={24} />
-                </button>
-                <h3 className="text-xl font-black text-slate-900">Hồ sơ học sinh</h3>
-                <div className="w-10" />
-              </div>
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="w-full h-full bg-white flex flex-col md:rounded-l-3xl md:w-[calc(100%-16rem)]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="p-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white">
+                  <button onClick={() => setViewingStudentProfile(null)} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-colors">
+                    <ChevronLeft size={24} />
+                  </button>
+                  <h3 className="text-xl font-black text-slate-900">Hồ sơ học sinh</h3>
+                  <div className="w-10" />
+                </div>
 
-              <div className="flex-1 overflow-y-auto p-6 no-scrollbar bg-slate-50">
-                <div className="max-w-md mx-auto space-y-6">
-                  <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                    <img
-                      src={viewingStudentProfile.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${viewingStudentProfile.uid}`}
-                      className="w-24 h-24 rounded-[2rem] object-cover bg-slate-50 border border-slate-100 mb-4 shadow-lg"
-                      referrerPolicy="no-referrer"
-                    />
-                    <h2 className="text-2xl font-black text-slate-900">{viewingStudentProfile.name}</h2>
-                    <p className="text-sm font-bold text-slate-400 mt-1">Lớp {currentClass?.name}</p>
+                <div className="flex-1 overflow-y-auto p-6 no-scrollbar bg-slate-50">
+                  <div className="max-w-md mx-auto space-y-6">
+                    <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                      <img
+                        src={viewingStudentProfile.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${viewingStudentProfile.uid}`}
+                        className="w-24 h-24 rounded-[2rem] object-cover bg-slate-50 border border-slate-100 mb-4 shadow-lg"
+                        referrerPolicy="no-referrer"
+                      />
+                      <h2 className="text-2xl font-black text-slate-900">{viewingStudentProfile.name}</h2>
+                      <p className="text-sm font-bold text-slate-400 mt-1">Lớp {currentClass?.name}</p>
 
-                    <div className="grid grid-cols-2 gap-4 w-full mt-6">
-                      <div className="bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
-                        <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Tổng điểm</p>
-                        <p className="text-2xl font-black text-indigo-900">{viewingStudentProfile.points}</p>
-                      </div>
-                      <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
-                        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Chuỗi ngày</p>
-                        <p className="text-2xl font-black text-emerald-900">{viewingStudentProfile.streak}</p>
+                      <div className="grid grid-cols-2 gap-4 w-full mt-6">
+                        <div className="bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
+                          <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Tổng điểm</p>
+                          <p className="text-2xl font-black text-indigo-900">{viewingStudentProfile.points}</p>
+                        </div>
+                        <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                          <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Chuỗi ngày</p>
+                          <p className="text-2xl font-black text-emerald-900">{viewingStudentProfile.streak}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-4">
-                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Thành tích nổi bật</h3>
-                    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
-                      <div className="min-w-[100px] bg-gradient-to-br from-yellow-400 to-orange-500 p-4 rounded-2xl text-white flex flex-col items-center justify-center gap-2 shadow-lg shadow-orange-200">
-                        <span className="text-2xl">⭐</span>
-                        <span className="text-[10px] font-bold text-center">Thợ săn sao</span>
-                      </div>
-                      <div className="min-w-[100px] bg-gradient-to-br from-indigo-400 to-purple-600 p-4 rounded-2xl text-white flex flex-col items-center justify-center gap-2 shadow-lg shadow-purple-200">
-                        <span className="text-2xl">⚔️</span>
-                        <span className="text-[10px] font-bold text-center">Chiến thần</span>
+                    <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-4">
+                      <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Thành tích nổi bật</h3>
+                      <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                        <div className="min-w-[100px] bg-gradient-to-br from-yellow-400 to-orange-500 p-4 rounded-2xl text-white flex flex-col items-center justify-center gap-2 shadow-lg shadow-orange-200">
+                          <span className="text-2xl">⭐</span>
+                          <span className="text-[10px] font-bold text-center">Thợ săn sao</span>
+                        </div>
+                        <div className="min-w-[100px] bg-gradient-to-br from-indigo-400 to-purple-600 p-4 rounded-2xl text-white flex flex-col items-center justify-center gap-2 shadow-lg shadow-purple-200">
+                          <span className="text-2xl">⚔️</span>
+                          <span className="text-[10px] font-bold text-center">Chiến thần</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           )}
 

@@ -4,6 +4,8 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore';
 import { setUserOnline } from '../services/userService';
 
+const PROFILE_CACHE_KEY = 'ms_user_profile';
+
 interface FirebaseContextType {
   user: User | null;
   userProfile: any | null;
@@ -24,8 +26,16 @@ export const useFirebase = () => {
 };
 
 export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Pre-load from cache so UI renders immediately on revisit
   const [user, setUser] = useState<User | null>(null);
-  const [userProfile, setUserProfile] = useState<any | null>(null);
+  const [userProfile, setUserProfile] = useState<any | null>(() => {
+    try {
+      const cached = localStorage.getItem(PROFILE_CACHE_KEY);
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
   const [isAuthReady, setIsAuthReady] = useState(false);
 
   const refreshProfile = async () => {
@@ -34,7 +44,10 @@ export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         const docRef = doc(db, 'users', auth.currentUser.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setUserProfile(docSnap.data());
+          const data = docSnap.data();
+          setUserProfile(data);
+          // Update cache
+          try { localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(data)); } catch { }
         }
       } catch (error) {
         console.error("Error fetching user profile:", error);
@@ -45,14 +58,14 @@ export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      if (user) {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      setUser(firebaseUser);
+      if (firebaseUser) {
         await refreshProfile();
-        // Cập nhật trạng thái online
-        await setUserOnline(user.uid, true);
+        setUserOnline(firebaseUser.uid, true).catch(() => { });
       } else {
         setUserProfile(null);
+        try { localStorage.removeItem(PROFILE_CACHE_KEY); } catch { }
       }
       setIsAuthReady(true);
     });
@@ -60,33 +73,16 @@ export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return () => unsubscribe();
   }, []);
 
-  // Cập nhật offline khi đóng tab
+  // Mark offline when tab closes
   useEffect(() => {
-    const handleBeforeUnload = async () => {
+    const handleBeforeUnload = () => {
       if (user) {
-        await setUserOnline(user.uid, false);
+        setUserOnline(user.uid, false).catch(() => { });
       }
     };
-
     window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [user]);
-
-  // Validate connection to Firestore
-  useEffect(() => {
-    const testConnection = async () => {
-      try {
-        await getDoc(doc(db, 'test', 'connection'));
-      } catch (error) {
-        if (error instanceof Error && error.message.includes('the client is offline')) {
-          console.error("Please check your Firebase configuration. The client is offline.");
-        }
-      }
-    };
-    testConnection();
-  }, []);
 
   return (
     <FirebaseContext.Provider value={{ user, userProfile, isAuthReady, db, auth, refreshProfile }}>

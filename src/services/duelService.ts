@@ -38,6 +38,14 @@ export interface DuelRoom {
     maxPlayers: number;
     currentPlayers: string[]; // array of user IDs
     playerNames: { [uid: string]: string };
+    participantProgress?: {
+        [uid: string]: {
+            score: number;
+            progress: number;
+            finished: boolean;
+        }
+    };
+    roomQuestions?: string; // JSON string of questions for 1v1 room
     createdAt: any;
     startedAt?: any;
     finishedAt?: any;
@@ -53,7 +61,7 @@ export interface DuelMatch {
     player2Name: string;
     player1Score: number;
     player2Score: number;
-    winnerId?: string;
+    winnerId?: string | null;
     isDraw: boolean;
     lpChange?: number; // LP change for ranked
     gameMode: 'quick' | 'room' | 'ranked';
@@ -74,9 +82,14 @@ export interface UserRank {
     avatar?: string;
 }
 
-// Generate random 6-character room code
+// Generate random 6-character room code (alphanumeric)
 const generateRoomCode = (): string => {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
+};
+
+// Generate random 6-digit numeric room code (for quiz)
+export const generateNumericRoomCode = (): string => {
+    return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
 // Get rank tier based on LP
@@ -114,11 +127,12 @@ export const createDuelRoom = async (
     hostName: string,
     gameMode: 'time' | 'questions' = 'time',
     timeLimit: number = 60,
-    maxPlayers: number = 2
+    maxPlayers: number = 2,
+    customCode?: string
 ): Promise<DuelRoom> => {
     const roomRef = doc(collection(db, 'duelRooms'));
     const roomId = roomRef.id;
-    const roomCode = generateRoomCode();
+    const roomCode = customCode ?? generateRoomCode();
 
     const room: DuelRoom = {
         id: roomId,
@@ -131,6 +145,7 @@ export const createDuelRoom = async (
         maxPlayers,
         currentPlayers: [hostId],
         playerNames: { [hostId]: hostName },
+        participantProgress: {},
         createdAt: serverTimestamp()
     };
 
@@ -138,10 +153,11 @@ export const createDuelRoom = async (
     return room;
 };
 
-// Join a duel room
+// Join a duel room (code can be alphanumeric or numeric)
 export const joinDuelRoom = async (roomCode: string, userId: string, userName: string): Promise<DuelRoom | null> => {
     const roomsRef = collection(db, 'duelRooms');
-    const q = query(roomsRef, where('code', '==', roomCode.toUpperCase()), where('status', '==', 'waiting'));
+    const codeToMatch = /^\d+$/.test(roomCode.trim()) ? roomCode.trim() : roomCode.toUpperCase();
+    const q = query(roomsRef, where('code', '==', codeToMatch), where('status', '==', 'waiting'));
     const snapshot = await getDocs(q);
 
     if (snapshot.empty) return null;
@@ -169,12 +185,16 @@ export const joinDuelRoom = async (roomCode: string, userId: string, userName: s
     return { ...room, currentPlayers: updatedPlayers, playerNames: updatedNames };
 };
 
-// Start a duel (host starts the game)
-export const startDuel = async (roomId: string): Promise<void> => {
-    await updateDoc(doc(db, 'duelRooms', roomId), {
+// Start a duel (host starts the game). Optional questions for 1v1 room mode.
+export const startDuel = async (roomId: string, questions?: any[]): Promise<void> => {
+    const updates: Record<string, any> = {
         status: 'playing',
         startedAt: serverTimestamp()
-    });
+    };
+    if (questions && questions.length > 0) {
+        updates.roomQuestions = JSON.stringify(questions);
+    }
+    await updateDoc(doc(db, 'duelRooms', roomId), updates);
 };
 
 // Update room status to finished
@@ -199,7 +219,7 @@ export const saveDuelMatch = async (
     player2Name: string,
     player1Score: number,
     player2Score: number,
-    winnerId: string | undefined,
+    winnerId: string | null | undefined,
     isDraw: boolean,
     gameMode: 'quick' | 'room' | 'ranked' = 'room',
     lpChange?: number
@@ -216,7 +236,7 @@ export const saveDuelMatch = async (
         player2Name,
         player1Score,
         player2Score,
-        winnerId,
+        winnerId: winnerId ?? null,
         isDraw,
         lpChange,
         gameMode,
@@ -507,8 +527,12 @@ export const createRealDuel = async (
         player2Name,
         player1Score: 0,
         player2Score: 0,
+        player1Correct: 0,
+        player2Correct: 0,
         player1Progress: 0,
         player2Progress: 0,
+        player1TimeLeftAtFinish: null,
+        player2TimeLeftAtFinish: null,
         status: 'playing',
         gameMode,
         questions: questions ? JSON.stringify(questions) : null,
@@ -519,26 +543,59 @@ export const createRealDuel = async (
     return duelId;
 };
 
-// Update real-time score and progress
+// Update real-time score + correct count + progress
 export const updateDuelScore = async (
     duelId: string,
     userId: string,
     isPlayer1: boolean,
     score: number,
-    progress: number
+    progress: number,
+    correct: number
 ): Promise<void> => {
     const duelRef = doc(db, 'activeDuels', duelId);
     if (isPlayer1) {
         await updateDoc(duelRef, {
             player1Score: score,
-            player1Progress: progress
+            player1Progress: progress,
+            player1Correct: correct
         });
     } else {
         await updateDoc(duelRef, {
             player2Score: score,
-            player2Progress: progress
+            player2Progress: progress,
+            player2Correct: correct
         });
     }
+};
+
+export const markDuelPlayerFinished = async (
+    duelId: string,
+    isPlayer1: boolean,
+    timeLeftAtFinish: number
+): Promise<void> => {
+    const duelRef = doc(db, 'activeDuels', duelId);
+    if (isPlayer1) {
+        await updateDoc(duelRef, { player1TimeLeftAtFinish: timeLeftAtFinish });
+    } else {
+        await updateDoc(duelRef, { player2TimeLeftAtFinish: timeLeftAtFinish });
+    }
+};
+
+export const updateRoomProgress = async (
+    roomId: string,
+    userId: string,
+    score: number,
+    progress: number,
+    finished: boolean
+): Promise<void> => {
+    const roomRef = doc(db, 'duelRooms', roomId);
+    await updateDoc(roomRef, {
+        [`participantProgress.${userId}`]: {
+            score,
+            progress,
+            finished,
+        }
+    });
 };
 
 // Subscribe to real-time duel updates

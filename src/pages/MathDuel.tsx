@@ -22,10 +22,16 @@ import {
   subscribeToDuel,
   createRealDuel,
   completeRealDuel,
-  findOpponentForDuel
+  findOpponentForDuel,
+  createDuelRoom,
+  joinDuelRoom,
+  subscribeToRoom,
+  startDuel,
+  leaveRoom,
+  updateRoomProgress
 } from '../services/duelService';
 import { getRandomQuestions, DuelQuestion } from '../utils/duelQuestions';
-import { getUserProfile } from '../services/userService';
+import { getUserProfile, getUsersByIds } from '../services/userService';
 
 type DuelState = 'lobby' | 'searching' | 'playing' | 'result' | 'leaderboard' | 'create_room' | 'join_room' | 'waiting_room' | 'room_playing' | 'room_result';
 
@@ -35,7 +41,7 @@ interface MathDuelProps {
 }
 
 interface RoomPlayer {
-  id: number;
+  id: number | string;
   name: string;
   avatar: string;
   isMe: boolean;
@@ -55,7 +61,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
   // Duel game state
   const [duelQuestions, setDuelQuestions] = useState<DuelQuestion[]>([]);
-  const [opponentInfo, setOpponentInfo] = useState<{ id: string; name: string } | null>(null);
+  const [opponentInfo, setOpponentInfo] = useState<{ id: string; name: string; avatar?: string } | null>(null);
   const [availableOpponents, setAvailableOpponents] = useState<{ userId: string; grade?: number }[]>([]);
   const [currentDuelId, setCurrentDuelId] = useState<string | null>(null);
   const [isPlayer1, setIsPlayer1] = useState(true);
@@ -107,38 +113,130 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [searchProgress, setSearchProgress] = useState(0);
 
-  // Room states
+  // Room states (1v1 Firestore)
+  const [roomId, setRoomId] = useState<string | null>(null);
   const [roomCode, setRoomCode] = useState('');
   const [isHost, setIsHost] = useState(false);
   const [gameMode, setGameMode] = useState<'time' | 'questions'>('time');
   const [timeLimit, setTimeLimit] = useState(60);
-  const [roomPlayers, setRoomPlayers] = useState<RoomPlayer[]>([
-    { id: 1, name: 'Bạn (Hoàng Nam)', avatar: 'https://picsum.photos/seed/student/100', isMe: true }
-  ]);
+  const [roomPlayers, setRoomPlayers] = useState<RoomPlayer[]>([]);
   const [roomResults, setRoomResults] = useState<RoomPlayer[]>([]);
+  const [avatarMap, setAvatarMap] = useState<Record<string, string>>({});
+  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
 
-  const handleCreateRoom = () => {
-    setRoomCode(Math.random().toString(36).substring(2, 8).toUpperCase());
-    setIsHost(true);
-    if (userRole === 'teacher') {
-      setRoomPlayers([]);
-    } else {
-      setRoomPlayers([{ id: 1, name: 'Bạn (Hoàng Nam)', avatar: 'https://picsum.photos/seed/student/100', isMe: true }]);
-    }
-    setState('waiting_room');
-  };
-
-  const handleJoinRoom = () => {
-    if (roomCode.length === 6) {
-      setIsHost(false);
-      setRoomPlayers([
-        { id: 2, name: 'Chủ phòng', avatar: 'https://picsum.photos/seed/host/100', isMe: false },
-        { id: 1, name: 'Bạn (Hoàng Nam)', avatar: 'https://picsum.photos/seed/student/100', isMe: true }
-      ]);
+  const handleCreateRoom = async () => {
+    if (!user) return;
+    setIsCreatingRoom(true);
+    try {
+      const room = await createDuelRoom(
+        user.uid,
+        userProfile?.name || user.displayName || 'Người chơi',
+        gameMode,
+        timeLimit,
+        2
+      );
+      setRoomId(room.id);
+      setRoomCode(room.code);
+      setIsHost(true);
       setState('waiting_room');
+      setRoomPlayers([
+        {
+          id: user.uid,
+          name: userProfile?.name || 'Bạn',
+          avatar: userProfile?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.uid}`,
+          isMe: true
+        }
+      ]);
+      if (userProfile?.avatar) setAvatarMap({ [user.uid]: userProfile.avatar });
+    } catch (err) {
+      console.error(err);
+      alert('Không thể tạo phòng. Thử lại.');
+    } finally {
+      setIsCreatingRoom(false);
     }
   };
 
+  const handleJoinRoom = async () => {
+    if (!user || roomCode.trim().length !== 6) return;
+    try {
+      const room = await joinDuelRoom(
+        roomCode.trim(),
+        user.uid,
+        userProfile?.name || user.displayName || 'Người chơi'
+      );
+      if (!room) {
+        alert('Không tìm thấy phòng với mã này.');
+        return;
+      }
+      setRoomId(room.id);
+      setRoomCode(room.code);
+      setIsHost(false);
+      setState('waiting_room');
+      const list: RoomPlayer[] = room.currentPlayers.map((uid, i) => ({
+        id: uid,
+        name: room.playerNames[uid] || (uid === user.uid ? 'Bạn' : 'Chủ phòng'),
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
+        isMe: uid === user.uid
+      }));
+      setRoomPlayers(list);
+    } catch (err) {
+      alert('Không thể vào phòng. Thử lại.');
+    }
+  };
+
+  // Subscribe to room for opponent score during room_playing
+  useEffect(() => {
+    if (!roomId || state !== 'room_playing' || !user) return;
+    const unsub = subscribeToRoom(roomId, (room) => {
+      if (!room) return;
+      if (room.participantProgress) {
+        const other = room.currentPlayers.find((uid) => uid !== user.uid);
+        if (other && room.participantProgress![other]) {
+          setScore((prev) => ({ ...prev, opponent: room.participantProgress![other].score }));
+        }
+      }
+      getUsersByIds(room.currentPlayers).then((profiles) => {
+        const map: Record<string, string> = {};
+        profiles.forEach((p) => { if (p.avatar) map[p.uid] = p.avatar; });
+        setAvatarMap((prev) => ({ ...prev, ...map }));
+      });
+    });
+    return () => unsub();
+  }, [roomId, state, user?.uid]);
+
+  // Subscribe to 1v1 room updates
+  useEffect(() => {
+    if (!roomId || state !== 'waiting_room') return;
+    const unsub = subscribeToRoom(roomId, (room) => {
+      if (!room) return;
+      const list: RoomPlayer[] = room.currentPlayers.map((uid) => ({
+        id: uid,
+        name: room.playerNames[uid] || 'Người chơi',
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
+        isMe: uid === user?.uid
+      }));
+      setRoomPlayers(list);
+      getUsersByIds(room.currentPlayers).then((profiles) => {
+        const map: Record<string, string> = {};
+        profiles.forEach((p) => { if (p.avatar) map[p.uid] = p.avatar; });
+        setAvatarMap((prev) => ({ ...prev, ...map }));
+      });
+      if (room.status === 'playing') {
+        let qList: DuelQuestion[] = [];
+        if (room.roomQuestions) {
+          try { qList = JSON.parse(room.roomQuestions) as DuelQuestion[]; } catch {}
+        }
+        if (qList.length > 0) setDuelQuestions(qList);
+        setTimeLeft(room.timeLimit);
+        setCurrentQuestion(0);
+        setScore({ player: 0, opponent: 0 });
+        const otherUid = room.currentPlayers.find((uid) => uid !== user?.uid);
+        if (otherUid) setOpponentInfo({ id: otherUid, name: room.playerNames[otherUid] || 'Đối thủ' });
+        setState('room_playing');
+      }
+    });
+    return () => unsub();
+  }, [roomId, state, user?.uid]);
 
 
 
@@ -209,7 +307,9 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             loadedQuestions = await getRandomQuestions(userGrade, 10);
           }
 
-          setOpponentInfo({ id: opponentId, name: opponentName });
+          getUserProfile(opponentId).then((oppProfile) => {
+            setOpponentInfo({ id: opponentId, name: opponentName, avatar: oppProfile?.avatar });
+          });
           setDuelQuestions(loadedQuestions);
           setCurrentDuelId(duelData.id);
           setIsPlayer1(false);
@@ -246,7 +346,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
           loadedQuestions // ← pass questions to save in Firestore
         );
 
-        setOpponentInfo({ id: opponent.opponentId, name: opponentName });
+        setOpponentInfo({ id: opponent.opponentId, name: opponentName, avatar: opponentProfile?.avatar });
         setDuelQuestions(loadedQuestions);
         setCurrentDuelId(duelId);
         setIsPlayer1(true);
@@ -362,33 +462,6 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     setState('result');
   };
 
-  // Giả lập thời gian thi đấu cho room
-  useEffect(() => {
-    if (state === 'room_playing') {
-      const timer = setInterval(() => {
-        if (gameMode === 'time') {
-          if (timeLeft > 0) {
-            setTimeLeft(prev => prev - 1);
-          } else {
-            setState('room_result');
-          }
-        } else {
-          // Question mode: count up (elapsed time)
-          setTimeLeft(prev => prev + 1);
-
-          // Check if all players finished
-          const allFinished = roomPlayers.length > 0 && roomPlayers.every(p => (p.progress || 0) >= questions.length);
-          if (allFinished) {
-            setState('room_result');
-          }
-        }
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [state, timeLeft, gameMode, roomPlayers]);
-
-  // Remove simulation interval
-
   const handleAnswer = async (ans: string) => {
     let newScore = score.player;
     if (ans === questions[currentQuestion].a) {
@@ -398,7 +471,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
     // Sync score to Firestore
     if (currentDuelId && user) {
-      updateDuelScore(currentDuelId, user.uid, isPlayer1, newScore, currentQuestion + 1);
+      const correctCount = Math.floor(newScore / 10);
+      updateDuelScore(currentDuelId, user.uid, isPlayer1, newScore, currentQuestion + 1, correctCount);
     }
 
     if (currentQuestion < questions.length - 1) {
@@ -409,32 +483,49 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     }
   };
 
-  const handleRoomAnswer = (ans: string) => {
-    if (ans === questions[currentQuestion].a) {
-      setScore(prev => ({ ...prev, player: prev.player + 10 }));
+  const handleRoomAnswer = async (ans: string) => {
+    const newScore = score.player + (ans === questions[currentQuestion].a ? 10 : 0);
+    const newProgress = currentQuestion + 1;
+    const isLast = newProgress >= questions.length;
+    setScore((prev) => ({ ...prev, player: newScore }));
+    if (roomId && user) {
+      updateRoomProgress(roomId, user.uid, newScore, newProgress, isLast).catch(() => {});
     }
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(prev => prev + 1);
+      setCurrentQuestion((prev) => prev + 1);
     } else {
       setState('room_result');
     }
   };
 
-  // Generate mock room results
+  // Room 1v1 timer - countdown and end when time's up
+  useEffect(() => {
+    if (state !== 'room_playing' || userRole === 'teacher') return;
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          if (roomId && user) {
+            updateRoomProgress(roomId, user.uid, score.player, currentQuestion + 1, true).catch(() => {});
+          }
+          setState('room_result');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [state, roomId, user?.uid, userRole, score.player, currentQuestion]);
+
+  // Generate room results
   useEffect(() => {
     if (state === 'room_result') {
-      let results;
-      if (userRole === 'teacher') {
-        results = [...roomPlayers].sort((a, b) => (b.score || 0) - (a.score || 0));
-      } else {
-        results = roomPlayers.map(p => ({
-          ...p,
-          score: p.isMe ? score.player : (p.score || Math.floor(Math.random() * 40) + 10)
-        })).sort((a, b) => b.score - a.score);
-      }
+      const results = roomPlayers.map((p) => ({
+        ...p,
+        score: p.isMe ? score.player : (p.score ?? score.opponent ?? 0)
+      })).sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
       setRoomResults(results);
     }
-  }, [state, roomPlayers, score.player, userRole]);
+  }, [state, roomPlayers, score.player, score.opponent]);
 
   return (
     <div className="flex flex-col h-full bg-slate-50 overflow-x-hidden overflow-y-auto no-scrollbar pb-20">
@@ -541,7 +632,11 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-32 h-32 bg-white rounded-full shadow-2xl flex items-center justify-center relative overflow-hidden">
-                  <img src="https://picsum.photos/seed/student/200" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  {userProfile?.avatar ? (
+                    <img src={userProfile.avatar} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  ) : (
+                    <span className="text-4xl font-black text-indigo-600">{userProfile?.name?.charAt(0) || user?.email?.charAt(0) || '?'}</span>
+                  )}
                   <div className="absolute inset-0 bg-indigo-600/20" />
                 </div>
               </div>
@@ -669,9 +764,10 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
               <button
                 onClick={handleCreateRoom}
-                className="w-full bg-primary text-white py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-transform"
+                disabled={isCreatingRoom}
+                className="w-full bg-primary text-white py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-transform disabled:opacity-50"
               >
-                TẠO PHÒNG NGAY
+                {isCreatingRoom ? 'Đang tạo...' : 'TẠO PHÒNG NGAY'}
               </button>
             </div>
           </motion.div>
@@ -743,8 +839,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
               <div className="flex-1 overflow-y-auto space-y-3 no-scrollbar">
                 {roomPlayers.map((player) => (
-                  <div key={player.id} className="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
-                    <img src={player.avatar} alt={player.name} className="w-10 h-10 rounded-xl object-cover" referrerPolicy="no-referrer" />
+                  <div key={String(player.id)} className="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                    <img src={avatarMap[String(player.id)] || (player.isMe ? userProfile?.avatar : undefined) || player.avatar} alt={player.name} className="w-10 h-10 rounded-xl object-cover bg-slate-200" referrerPolicy="no-referrer" />
                     <span className={cn("font-bold", player.isMe ? "text-indigo-600" : "text-slate-700")}>
                       {player.name}
                     </span>
@@ -755,11 +851,11 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
               <div className="pt-4 shrink-0 space-y-3">
                 {isHost ? (
                   <button
-                    onClick={() => {
-                      setTimeLeft(gameMode === 'time' ? timeLimit : 0);
-                      setCurrentQuestion(0);
-                      setScore({ player: 0, opponent: 0 });
-                      setState('room_playing');
+                    onClick={async () => {
+                      if (!roomId || roomPlayers.length < 2) return;
+                      const grade = userProfile?.grade || 5;
+                      const qList = await getRandomQuestions(grade, 10);
+                      await startDuel(roomId, qList);
                     }}
                     disabled={roomPlayers.length < 2}
                     className="w-full bg-primary text-white py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-transform disabled:opacity-50 flex items-center justify-center gap-2"
@@ -773,7 +869,13 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                   </div>
                 )}
                 <button
-                  onClick={() => setState('lobby')}
+                  onClick={async () => {
+                    if (roomId && user) {
+                      try { await leaveRoom(roomId, user.uid); } catch (_) {}
+                    }
+                    setRoomId(null);
+                    setState('lobby');
+                  }}
                   className="w-full text-slate-400 font-bold text-sm hover:text-slate-600"
                 >
                   Rời phòng
@@ -794,7 +896,11 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             <div className="bg-white p-6 border-b border-slate-100 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-indigo-100 overflow-hidden border-2 border-indigo-500 flex items-center justify-center">
-                  <span className="text-xl font-black text-indigo-600">{userProfile?.name?.charAt(0) || user?.email?.charAt(0) || 'B'}</span>
+                  {userProfile?.avatar ? (
+                    <img src={userProfile.avatar} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  ) : (
+                    <span className="text-xl font-black text-indigo-600">{userProfile?.name?.charAt(0) || user?.email?.charAt(0) || 'B'}</span>
+                  )}
                 </div>
                 <div>
                   <div className="text-[10px] font-black text-slate-400 uppercase">Bạn ({getUserRankInfo().name})</div>
@@ -817,8 +923,12 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                   <div className="text-[10px] font-black text-slate-400 uppercase">{opponentInfo?.name || 'Đối thủ'}</div>
                   <div className="text-lg font-black text-red-600">{score.opponent}</div>
                 </div>
-                <div className="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center border-2 border-red-500">
-                  <span className="text-xl font-bold text-red-600">{opponentInfo?.name?.charAt(0) || 'Đ'}</span>
+                <div className="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center border-2 border-red-500 overflow-hidden">
+                  {(opponentInfo?.avatar || (opponentInfo?.id && avatarMap[opponentInfo.id])) ? (
+                    <img src={opponentInfo?.avatar || avatarMap[opponentInfo!.id]} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  ) : (
+                    <span className="text-xl font-bold text-red-600">{opponentInfo?.name?.charAt(0) || 'Đ'}</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -1006,8 +1116,12 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                 {/* Room Duel Header */}
                 <div className="bg-white p-6 border-b border-slate-100 flex items-center justify-between shrink-0">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-100 overflow-hidden border-2 border-indigo-500 relative">
-                      <img src="https://picsum.photos/seed/student/100" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <div className="w-12 h-12 rounded-2xl bg-indigo-100 overflow-hidden border-2 border-indigo-500">
+                      {userProfile?.avatar ? (
+                        <img src={userProfile.avatar} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      ) : (
+                        <span className="w-full h-full flex items-center justify-center text-xl font-black text-indigo-600">{userProfile?.name?.charAt(0) || 'B'}</span>
+                      )}
                     </div>
                     <div>
                       <div className="text-[10px] font-black text-slate-400 uppercase">Điểm của bạn</div>
@@ -1094,7 +1208,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                   className="flex flex-col items-center"
                 >
                   <div className="relative mb-2">
-                    <img src={roomResults[1].avatar} className="w-14 h-14 rounded-full border-4 border-slate-300 object-cover" referrerPolicy="no-referrer" />
+                    <img src={avatarMap[String(roomResults[1].id)] || (roomResults[1].isMe ? userProfile?.avatar : undefined) || roomResults[1].avatar} alt="" className="w-14 h-14 rounded-full border-4 border-slate-300 object-cover bg-slate-200" referrerPolicy="no-referrer" />
                     <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-slate-300 rounded-full flex items-center justify-center text-white font-black text-xs border-2 border-white">2</div>
                   </div>
                   <div className="w-20 h-24 bg-gradient-to-t from-slate-200 to-slate-100 rounded-t-2xl flex flex-col items-center justify-start pt-4 border-x border-t border-slate-300/50 shadow-inner">
@@ -1114,7 +1228,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                 >
                   <div className="relative mb-2">
                     <Crown className="absolute -top-6 left-1/2 -translate-x-1/2 text-yellow-500" size={28} />
-                    <img src={roomResults[0].avatar} className="w-16 h-16 rounded-full border-4 border-yellow-400 object-cover" referrerPolicy="no-referrer" />
+                    <img src={avatarMap[String(roomResults[0].id)] || (roomResults[0].isMe ? userProfile?.avatar : undefined) || roomResults[0].avatar} alt="" className="w-16 h-16 rounded-full border-4 border-yellow-400 object-cover bg-slate-200" referrerPolicy="no-referrer" />
                     <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-white font-black text-xs border-2 border-white">1</div>
                   </div>
                   <div className="w-24 h-32 bg-gradient-to-t from-yellow-200 to-yellow-100 rounded-t-2xl flex flex-col items-center justify-start pt-4 border-x border-t border-yellow-300/50 shadow-inner">
@@ -1133,7 +1247,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                   className="flex flex-col items-center"
                 >
                   <div className="relative mb-2">
-                    <img src={roomResults[2].avatar} className="w-14 h-14 rounded-full border-4 border-amber-600 object-cover" referrerPolicy="no-referrer" />
+                    <img src={avatarMap[String(roomResults[2].id)] || (roomResults[2].isMe ? userProfile?.avatar : undefined) || roomResults[2].avatar} alt="" className="w-14 h-14 rounded-full border-4 border-amber-600 object-cover bg-slate-200" referrerPolicy="no-referrer" />
                     <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-amber-600 rounded-full flex items-center justify-center text-white font-black text-xs border-2 border-white">3</div>
                   </div>
                   <div className="w-20 h-20 bg-gradient-to-t from-amber-200/50 to-amber-100/50 rounded-t-2xl flex flex-col items-center justify-start pt-4 border-x border-t border-amber-300/50 shadow-inner">
@@ -1159,7 +1273,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                 >
                   <div className="flex items-center gap-4">
                     <span className="font-black text-slate-400 w-4 text-center">{index + 4}</span>
-                    <img src={player.avatar} className="w-10 h-10 rounded-full object-cover" referrerPolicy="no-referrer" />
+                    <img src={avatarMap[String(player.id)] || (player.isMe ? userProfile?.avatar : undefined) || player.avatar} alt="" className="w-10 h-10 rounded-full object-cover bg-slate-200" referrerPolicy="no-referrer" />
                     <span className={cn("font-bold", player.isMe ? "text-indigo-700" : "text-slate-700")}>
                       {player.name}
                     </span>
@@ -1172,7 +1286,13 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             </div>
 
             <button
-              onClick={() => setState('lobby')}
+              onClick={async () => {
+                if (roomId && user) {
+                  try { await leaveRoom(roomId, user.uid); } catch (_) {}
+                }
+                setRoomId(null);
+                setState('lobby');
+              }}
               className="w-full max-w-md bg-slate-900 text-white py-5 rounded-[2rem] font-black text-lg shadow-xl active:scale-95 transition-transform mt-4"
             >
               QUAY LẠI SẢNH
@@ -1194,3 +1314,4 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     </div>
   );
 };
+

@@ -11,6 +11,7 @@ import {
     runTransaction
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { sendNotification } from './notificationService';
 
 export interface ClassData {
     id: string;
@@ -143,10 +144,23 @@ export const joinClass = async (studentId: string, classCode: string): Promise<C
             if (userDoc.exists()) {
                 const userData = userDoc.data();
                 const enrolledClasses = userData.enrolledClasses || [];
+                const studentName = userData.name || "Học sinh";
+
                 if (!enrolledClasses.includes(classDoc.id)) {
                     transaction.update(userRef, {
                         enrolledClasses: [...enrolledClasses, classDoc.id]
                     });
+                }
+
+                // Send notification to the teacher
+                if (latestClassData.teacherId) {
+                    sendNotification(
+                        latestClassData.teacherId,
+                        'student_join',
+                        'Học sinh mới tham gia',
+                        `Học sinh ${studentName} vừa tham gia lớp "${latestClassData.name}"`,
+                        { classId: classDoc.id, studentId }
+                    ).catch(err => console.error("Error sending teacher notification:", err));
                 }
             } else {
                 // Fallback for missing user profile initially

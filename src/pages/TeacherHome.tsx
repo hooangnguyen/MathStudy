@@ -5,12 +5,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useFirebase } from '../context/FirebaseProvider';
 import { cn } from '../utils/utils';
 import { AssignmentBuilder } from '../features/classroom/AssignmentBuilder';
+import { Notifications } from '../components/common/Notifications';
 import { AssignmentGrader } from '../features/classroom/AssignmentGrader';
 import { subscribeToDraftAssignments, deleteDraftAssignment, DraftAssignmentData, createAssignment } from '../services/assignmentService';
 import { subscribeToTeacherClasses, ClassData } from '../services/classService';
 import { getUserProfile, UserProfile } from '../services/userService';
+import { subscribeToNotifications, Notification } from '../services/notificationService';
 
-export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowNotifications?: () => void; onCreateRoom?: () => void }> = ({ onNavigate, onShowNotifications, onCreateRoom }) => {
+export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNotifications?: boolean; onShowNotifications?: (show: boolean) => void; onCreateRoom?: () => void }> = ({ onNavigate, showNotifications = false, onShowNotifications, onCreateRoom }) => {
   const [showCreateClass, setShowCreateClass] = useState(false);
   const [showCreateAssignment, setShowCreateAssignment] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
@@ -20,9 +22,11 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
   const [newClassName, setNewClassName] = useState('');
   const [newClassGrade, setNewClassGrade] = useState('5');
   const [generatedCode, setGeneratedCode] = useState('');
-  const [selectedDueDate, setSelectedDueDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('23:59');
   const [isSubmittingAssign, setIsSubmittingAssign] = useState(false);
   const [teacherProfile, setTeacherProfile] = useState<UserProfile | null>(null);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const { user } = useFirebase();
 
   // Fetch teacher profile
@@ -64,12 +68,18 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
     const unsubscribeClasses = subscribeToTeacherClasses(user.uid, (classes) => {
       setTeacherClasses(classes);
     });
+    const unsubscribeNotifications = subscribeToNotifications(user.uid, (data) => {
+      setNotifications(data);
+    });
     return () => {
       unsubscribeDrafts();
       unsubscribeClasses();
+      unsubscribeNotifications();
     };
   }, [user]);
   const [isCopied, setIsCopied] = useState(false);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
 
   const handleCreateClass = () => {
     if (!newClassName.trim()) return;
@@ -102,125 +112,138 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
 
   const renderCreateClass = () => (
     <motion.div
-      initial={{ opacity: 0, y: '100%' }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: '100%' }}
-      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-      className="fixed inset-0 z-[100] bg-white flex flex-col md:rounded-l-3xl md:left-64 md:w-[calc(100%-16rem)]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] bg-slate-900/20 backdrop-blur-sm flex justify-end"
+      onClick={() => {
+        setShowCreateClass(false);
+        setGeneratedCode('');
+        setNewClassName('');
+      }}
     >
-      <div className="p-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white">
-        <button onClick={() => {
-          setShowCreateClass(false);
-          setGeneratedCode('');
-          setNewClassName('');
-        }} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-colors">
-          <ChevronLeft size={24} />
-        </button>
-        <h3 className="text-xl font-black text-slate-900">Tạo lớp học mới</h3>
-        <div className="w-10" />
-      </div>
+      <motion.div
+        initial={{ x: '100%' }}
+        animate={{ x: 0 }}
+        exit={{ x: '100%' }}
+        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+        className="w-full h-full bg-white flex flex-col md:rounded-l-3xl md:w-[calc(100%-16rem)]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white">
+          <button onClick={() => {
+            setShowCreateClass(false);
+            setGeneratedCode('');
+            setNewClassName('');
+          }} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-colors">
+            <ChevronLeft size={24} />
+          </button>
+          <h3 className="text-xl font-black text-slate-900">Tạo lớp học mới</h3>
+          <div className="w-10" />
+        </div>
 
-      <div className="flex-1 overflow-y-auto p-6 no-scrollbar bg-slate-50">
-        <div className="max-w-md mx-auto space-y-8">
-          {!generatedCode ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-6"
-            >
-              <div className="w-16 h-16 bg-indigo-50 rounded-[2rem] flex items-center justify-center text-indigo-600 mx-auto mb-6">
-                <Users size={32} />
-              </div>
-
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tên lớp học</label>
-                <input
-                  type="text"
-                  value={newClassName}
-                  onChange={(e) => setNewClassName(e.target.value)}
-                  placeholder="Ví dụ: Toán 5A"
-                  className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-2xl text-base font-bold focus:border-indigo-500 focus:bg-white transition-all outline-none placeholder:text-slate-300"
-                />
-              </div>
-
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Khối lớp</label>
-                <div className="grid grid-cols-3 gap-3">
-                  {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(grade => (
-                    <button
-                      key={grade}
-                      onClick={() => setNewClassGrade(grade)}
-                      className={cn(
-                        "p-3 rounded-2xl border-2 text-sm font-black transition-all",
-                        newClassGrade === grade
-                          ? "border-indigo-500 bg-indigo-50 text-indigo-600"
-                          : "border-slate-100 text-slate-400 hover:border-slate-200 hover:bg-slate-50"
-                      )}
-                    >
-                      Khối {grade}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <button
-                onClick={handleCreateClass}
-                disabled={!newClassName.trim()}
-                className="w-full py-5 mt-4 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all disabled:opacity-50 disabled:active:scale-100 flex items-center justify-center gap-2"
+        <div className="flex-1 overflow-y-auto p-6 no-scrollbar bg-slate-50">
+          <div className="max-w-md mx-auto space-y-8">
+            {!generatedCode ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-6"
               >
-                Tạo lớp ngay <Plus size={20} />
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-8 text-center"
-            >
-              <div className="w-20 h-20 bg-emerald-50 rounded-[2.5rem] flex items-center justify-center text-emerald-500 mx-auto">
-                <CheckCircle2 size={40} />
-              </div>
+                <div className="w-16 h-16 bg-indigo-50 rounded-[2rem] flex items-center justify-center text-indigo-600 mx-auto mb-6">
+                  <Users size={32} />
+                </div>
 
-              <div>
-                <h3 className="text-2xl font-black text-slate-900 mb-2">Tạo lớp thành công!</h3>
-                <p className="text-sm font-bold text-slate-400">Lớp <span className="text-indigo-600">{newClassName}</span> đã sẵn sàng.</p>
-              </div>
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tên lớp học</label>
+                  <input
+                    type="text"
+                    value={newClassName}
+                    onChange={(e) => setNewClassName(e.target.value)}
+                    placeholder="Ví dụ: Toán 5A"
+                    className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-2xl text-base font-bold focus:border-indigo-500 focus:bg-white transition-all outline-none placeholder:text-slate-300"
+                  />
+                </div>
 
-              <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 relative overflow-hidden group">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Mã tham gia lớp học</p>
-                <p className="text-4xl font-black text-indigo-600 tracking-[0.2em]">{generatedCode}</p>
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Khối lớp</label>
+                  <div className="grid grid-cols-3 gap-3">
+                    {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(grade => (
+                      <button
+                        key={grade}
+                        onClick={() => setNewClassGrade(grade)}
+                        className={cn(
+                          "p-3 rounded-2xl border-2 text-sm font-black transition-all",
+                          newClassGrade === grade
+                            ? "border-indigo-500 bg-indigo-50 text-indigo-600"
+                            : "border-slate-100 text-slate-400 hover:border-slate-200 hover:bg-slate-50"
+                        )}
+                      >
+                        Khối {grade}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
                 <button
-                  onClick={handleCopyCode}
-                  className="mt-6 w-full py-4 bg-white border-2 border-indigo-100 text-indigo-600 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-indigo-50 transition-colors active:scale-95"
+                  onClick={handleCreateClass}
+                  disabled={!newClassName.trim()}
+                  className="w-full py-5 mt-4 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all disabled:opacity-50 disabled:active:scale-100 flex items-center justify-center gap-2"
                 >
-                  {isCopied ? (
-                    <><CheckCircle2 size={18} /> Đã sao chép</>
-                  ) : (
-                    <><Copy size={18} /> Sao chép mã</>
-                  )}
+                  Tạo lớp ngay <Plus size={20} />
                 </button>
-              </div>
-
-              <p className="text-xs font-bold text-slate-400 leading-relaxed px-4">
-                Hãy gửi mã này cho học sinh để các em có thể tham gia vào lớp học của bạn.
-              </p>
-
-              <button
-                onClick={() => {
-                  setShowCreateClass(false);
-                  setGeneratedCode('');
-                  setNewClassName('');
-                  onNavigate?.('classroom');
-                }}
-                className="w-full py-5 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all"
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-8 text-center"
               >
-                Đến trang quản lý lớp
-              </button>
-            </motion.div>
-          )}
+                <div className="w-20 h-20 bg-emerald-50 rounded-[2.5rem] flex items-center justify-center text-emerald-500 mx-auto">
+                  <CheckCircle2 size={40} />
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-black text-slate-900 mb-2">Tạo lớp thành công!</h3>
+                  <p className="text-sm font-bold text-slate-400">Lớp <span className="text-indigo-600">{newClassName}</span> đã sẵn sàng.</p>
+                </div>
+
+                <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 relative overflow-hidden group">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Mã tham gia lớp học</p>
+                  <p className="text-4xl font-black text-indigo-600 tracking-[0.2em]">{generatedCode}</p>
+
+                  <button
+                    onClick={handleCopyCode}
+                    className="mt-6 w-full py-4 bg-white border-2 border-indigo-100 text-indigo-600 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-indigo-50 transition-colors active:scale-95"
+                  >
+                    {isCopied ? (
+                      <><CheckCircle2 size={18} /> Đã sao chép</>
+                    ) : (
+                      <><Copy size={18} /> Sao chép mã</>
+                    )}
+                  </button>
+                </div>
+
+                <p className="text-xs font-bold text-slate-400 leading-relaxed px-4">
+                  Hãy gửi mã này cho học sinh để các em có thể tham gia vào lớp học của bạn.
+                </p>
+
+                <button
+                  onClick={() => {
+                    setShowCreateClass(false);
+                    setGeneratedCode('');
+                    setNewClassName('');
+                    onNavigate?.('classroom');
+                  }}
+                  className="w-full py-5 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all"
+                >
+                  Đến trang quản lý lớp
+                </button>
+              </motion.div>
+            )}
+          </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 
@@ -233,11 +256,15 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
           <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{getGreeting()}, {getTeacherTitle()} {teacherName}</p>
         </div>
         <button
-          onClick={() => onShowNotifications?.()}
+          onClick={() => onShowNotifications?.(true)}
           className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors relative"
         >
           <Bell size={24} />
-          <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-slate-50"></span>
+          {unreadCount > 0 && (
+            <span className="absolute top-3 right-3 w-5 h-5 bg-rose-500 rounded-full border-2 border-slate-50 text-[10px] font-black text-white flex items-center justify-center">
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </span>
+          )}
         </button>
       </div>
 
@@ -409,13 +436,10 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {showCreateClass && renderCreateClass()}
-          {showCreateAssignment && (
-            <AssignmentBuilder
-              initialDraft={selectedDraft}
-              onClose={() => {
-                setShowCreateAssignment(false);
-                setSelectedDraft(null); // Clear after close
-              }}
+          {showNotifications && (
+            <Notifications
+              userRole="teacher"
+              onBack={() => onShowNotifications?.(false)}
             />
           )}
           {showAssignModal && selectedDraft && (
@@ -423,14 +447,16 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 sm:p-6"
+              className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
+              onClick={() => setShowAssignModal(false)}
             >
               <motion.div
                 initial={{ y: '100%' }}
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="bg-white w-full max-w-md rounded-[2rem] p-6 shadow-2xl max-h-[90vh] flex flex-col"
+                className="bg-white w-full max-w-md sm:rounded-[2rem] p-6 shadow-2xl flex flex-col max-h-[90vh]"
+                onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex justify-between items-center mb-6 shrink-0">
                   <h3 className="text-xl font-black text-slate-900">Giao bài tập</h3>
@@ -442,10 +468,32 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
                   </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto no-scrollbar min-h-0 space-y-6 pb-2">
+                <div className="flex-1 overflow-y-auto no-scrollbar min-h-0 space-y-6 pb-6">
                   <p className="text-xs font-medium text-indigo-600 mt-1">{selectedDraft.questions?.length || 0} câu hỏi</p>
 
-                  <div className="space-y-4">
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Hạn nộp bài</label>
+                      <div className="flex gap-2">
+                        <div className="flex-1">
+                          <input
+                            type="date"
+                            value={selectedDate}
+                            onChange={(e) => setSelectedDate(e.target.value)}
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all appearance-none cursor-pointer hover:bg-white"
+                          />
+                        </div>
+                        <div className="w-32">
+                          <input
+                            type="time"
+                            value={selectedTime}
+                            onChange={(e) => setSelectedTime(e.target.value)}
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all appearance-none cursor-pointer hover:bg-white"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Chọn lớp giao bài</label>
                       <div className="grid grid-cols-2 gap-2">
@@ -465,17 +513,6 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
                         ))}
                       </div>
                     </div>
-
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Hạn nộp bài</label>
-                      <input
-                        type="datetime-local"
-                        value={selectedDueDate}
-                        onChange={(e) => setSelectedDueDate(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
-                      />
-                    </div>
-
                   </div>
                 </div>
 
@@ -492,11 +529,11 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
                         alert('Vui lòng chọn lớp học.');
                         return;
                       }
-                      if (!selectedDueDate) {
+                      if (!selectedDate || !selectedTime) {
                         alert('Vui lòng chọn hạn nộp bài.');
                         return;
                       }
-                      const dueTime = new Date(selectedDueDate).getTime();
+                      const dueTime = new Date(`${selectedDate}T${selectedTime}`).getTime();
                       if (isNaN(dueTime)) {
                         alert('Hạn nộp bài không hợp lệ.');
                         return;
@@ -519,7 +556,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
                           selectedClass,
                           selectedDraft.title,
                           selectedDraft.description,
-                          new Date(selectedDueDate),
+                          new Date(`${selectedDate}T${selectedTime}`),
                           targetClass.studentCount,
                           selectedDraft.questions,
                           selectedDraft.settings
@@ -527,7 +564,8 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
                         alert('Đã giao bài thành công!');
                         setShowAssignModal(false);
                         setSelectedClass(null);
-                        setSelectedDueDate('');
+                        setSelectedDate('');
+                        setSelectedTime('23:59');
                       } catch (error) {
                         console.error('Error in quick assign:', error);
                         alert('Lỗi khi giao bài.');
@@ -540,7 +578,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
                       "flex-1 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg",
                       isSubmittingAssign
                         ? "bg-slate-300 text-slate-500 cursor-not-allowed shadow-none"
-                        : (!selectedClass || !selectedDueDate)
+                        : (!selectedClass || !selectedDate || !selectedTime)
                           ? "bg-slate-200 text-slate-400 shadow-none"
                           : "bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-200 active:scale-95"
                     )}
@@ -559,6 +597,24 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; onShowN
               className={gradingAssignment.class || 'N/A'}
               classId={gradingAssignment.classId || ''}
               assignmentId={gradingAssignment.id || ''}
+            />
+          )}
+
+          {showCreateAssignment && (
+            <AssignmentBuilder
+              initialDraft={selectedDraft}
+              onClose={() => {
+                setShowCreateAssignment(false);
+                setSelectedDraft(null);
+              }}
+              onAssigned={() => {
+                setShowCreateAssignment(false);
+                setSelectedDraft(null);
+              }}
+              onDraftSaved={() => {
+                setShowCreateAssignment(false);
+                setSelectedDraft(null);
+              }}
             />
           )}
         </AnimatePresence>,

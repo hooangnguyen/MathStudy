@@ -16,6 +16,8 @@ interface ProfileProps {
     points?: number;
     streak?: number;
     achievements?: Achievement[];
+    completedLessons?: number[];
+    totalCompletedAssignments?: number;
     school?: string;
     subject?: string;
   };
@@ -69,11 +71,11 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile, use
   return (
     <div className="flex flex-col h-full bg-slate-50/50">
       {/* Header */}
-      <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-fuchsia-600 pt-8 pb-24 px-6 shrink-0 overflow-hidden rounded-b-[3rem] shadow-lg shadow-purple-500/10">
+      <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-fuchsia-600 pt-6 pb-14 px-6 shrink-0 overflow-hidden rounded-b-[2.5rem] shadow-lg shadow-purple-500/10">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-400/20 rounded-full -ml-10 -mb-10 blur-2xl" />
 
-        <div className="flex items-center justify-between relative z-10 mb-8">
+        <div className="flex items-center justify-between relative z-10 mb-4">
           <h1 className="text-xl font-black text-white tracking-wide">Hồ sơ của tôi</h1>
           <button
             onClick={onSettings}
@@ -85,11 +87,11 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile, use
 
         <div className="flex items-center gap-6 relative z-10">
           <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-white p-1 shadow-xl shadow-black/10">
+            <div className="w-18 h-18 rounded-full bg-white p-1 shadow-xl shadow-black/10">
               <img
                 src={userData?.avatar || "https://picsum.photos/seed/student/200"}
                 alt="Avatar"
-                className="w-full h-full rounded-full object-cover border-2 border-slate-50"
+                className="w-16 h-16 rounded-full object-cover border-2 border-slate-50"
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -101,7 +103,7 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile, use
             </button>
           </div>
           <div className="space-y-1.5">
-            <h2 className="text-2xl font-black text-white drop-shadow-sm">{userData?.name || 'Người dùng'}</h2>
+            <h2 className="text-xl font-black text-white drop-shadow-sm">{userData?.name || 'Người dùng'}</h2>
             <div className="flex items-center gap-3">
               {userData?.role === 'teacher' ? (
                 <span className="px-2.5 py-1 rounded-lg bg-white/20 backdrop-blur-sm text-[10px] font-bold text-white uppercase tracking-widest border border-white/10">
@@ -134,12 +136,12 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile, use
 
       {/* Floating Stats Grid */}
       {userData?.role !== 'teacher' && (
-        <div className="px-6 -mt-12 relative z-20 shrink-0">
+        <div className="px-6 -mt-8 relative z-20 shrink-0">
           <div className="bg-white rounded-3xl p-4 shadow-xl shadow-slate-200/50 border border-slate-100 grid grid-cols-4 gap-2 divide-x divide-slate-100">
             {[
-              { label: 'Bài học', value: '42', icon: BookOpen, color: 'text-indigo-500' },
+              { label: 'Bài học', value: userData?.completedLessons?.length || '0', icon: BookOpen, color: 'text-indigo-500' },
+              { label: 'Bài tập', value: userData?.totalCompletedAssignments || '0', icon: Swords, color: 'text-emerald-500' },
               { label: 'Chuỗi', value: userData?.streak || '0', icon: Flame, color: 'text-orange-500' },
-              { label: 'Trận đấu', value: duelHistory.length, icon: Swords, color: 'text-rose-500' },
               { label: 'Điểm', value: (userData?.points || 0).toLocaleString(), icon: Star, color: 'text-amber-500' },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center justify-center space-y-1.5 px-2">

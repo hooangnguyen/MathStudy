@@ -3,6 +3,7 @@ import { ChevronLeft, CheckCircle2, XCircle, AlertCircle, CheckSquare, Type, Fil
 import { motion } from 'motion/react';
 import { cn } from '../../utils/utils';
 import { SubmissionData } from '../../services/assignmentService';
+import { MathRenderer } from '../../components/common/MathRenderer';
 
 interface AssignmentResultViewProps {
     submission: SubmissionData;
@@ -101,7 +102,9 @@ export const AssignmentResultView: React.FC<AssignmentResultViewProps> = ({ subm
                                                 {getQuestionTypeLabel(answer.type)}
                                             </span>
                                         </div>
-                                        <p className="text-xl font-bold text-slate-900 leading-relaxed">{answer.questionText}</p>
+                                        <div className="text-xl font-bold text-slate-900 leading-relaxed">
+                                            <MathRenderer content={answer.questionText} />
+                                        </div>
                                     </div>
                                     <div className="shrink-0">
                                         {answer.isCorrect === true ? (
@@ -134,7 +137,7 @@ export const AssignmentResultView: React.FC<AssignmentResultViewProps> = ({ subm
                                                 {answer.answer.map((idx: number) => (
                                                     <div key={idx} className="flex items-center gap-3">
                                                         <CheckSquare size={20} className="shrink-0" />
-                                                        <span>{answer.options?.[idx]}</span>
+                                                        <MathRenderer content={answer.options?.[idx]} />
                                                     </div>
                                                 ))}
                                                 {answer.answer.length === 0 && <span className="italic text-slate-400">Không có đáp án nào được chọn</span>}
@@ -142,7 +145,7 @@ export const AssignmentResultView: React.FC<AssignmentResultViewProps> = ({ subm
                                         ) : answer.type === 'multiple_choice' ? (
                                             <div className="flex items-center gap-3">
                                                 <CheckCircle2 size={20} className="shrink-0" />
-                                                <span>{answer.options?.[answer.answer]}</span>
+                                                <MathRenderer content={answer.options?.[answer.answer]} />
                                             </div>
                                         ) : (
                                             <div className="whitespace-pre-wrap">{answer.answer || <span className="italic text-slate-400">Không có câu trả lời</span>}</div>
@@ -158,14 +161,14 @@ export const AssignmentResultView: React.FC<AssignmentResultViewProps> = ({ subm
                                             {answer.type === 'multiple_choice' ? (
                                                 <div className="flex items-center gap-3">
                                                     <CheckCircle2 size={20} className="shrink-0 text-emerald-500" />
-                                                    <span>{answer.options?.[answer.correctAnswer]}</span>
+                                                    <MathRenderer content={answer.options?.[answer.correctAnswer]} />
                                                 </div>
                                             ) : answer.type === 'checkbox' && Array.isArray(answer.correctAnswer) ? (
                                                 <div className="space-y-2">
                                                     {answer.correctAnswer.map((idx: number) => (
                                                         <div key={idx} className="flex items-center gap-3">
                                                             <CheckSquare size={20} className="shrink-0 text-emerald-500" />
-                                                            <span>{answer.options?.[idx]}</span>
+                                                            <MathRenderer content={answer.options?.[idx]} />
                                                         </div>
                                                     ))}
                                                 </div>
