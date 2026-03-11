@@ -112,9 +112,8 @@ export const joinClass = async (studentId: string, classCode: string): Promise<C
     const classDoc = querySnapshot.docs[0];
     const classData = classDoc.data() as ClassData;
 
-    if (classData.studentIds.includes(studentId)) {
-        throw new Error('Bạn đã tham gia lớp này rồi.');
-    }
+    // We remove the early throw here to let the transaction handle potential desyncs
+    // between the class doc and the user doc.
 
     try {
         await runTransaction(db, async (transaction) => {
@@ -130,41 +129,48 @@ export const joinClass = async (studentId: string, classCode: string): Promise<C
             }
 
             const latestClassData = latestClassDoc.data() as ClassData;
-            if (latestClassData.studentIds.includes(studentId)) {
+            const isStudentInClass = latestClassData.studentIds.includes(studentId);
+            const userData = userDoc.exists() ? userDoc.data() : null;
+            const enrolledClasses = userData?.enrolledClasses || [];
+            const isClassInUser = enrolledClasses.includes(classDoc.id);
+
+            // If everything is completely synced and they are already in the class, throw the error
+            if (isStudentInClass && isClassInUser) {
                 throw new Error('Bạn đã tham gia lớp này rồi.');
             }
 
             // 2. Write operations
-            const newStudentIds = [...latestClassData.studentIds, studentId];
-            transaction.update(classRef, {
-                studentIds: newStudentIds,
-                studentCount: newStudentIds.length
-            });
+            
+            // If they aren't in the class's studentIds, add them
+            if (!isStudentInClass) {
+                const newStudentIds = [...latestClassData.studentIds, studentId];
+                transaction.update(classRef, {
+                    studentIds: newStudentIds,
+                    studentCount: newStudentIds.length
+                });
+            }
 
-            if (userDoc.exists()) {
-                const userData = userDoc.data();
-                const enrolledClasses = userData.enrolledClasses || [];
-                const studentName = userData.name || "Học sinh";
-
-                if (!enrolledClasses.includes(classDoc.id)) {
-                    transaction.update(userRef, {
-                        enrolledClasses: [...enrolledClasses, classDoc.id]
-                    });
+            // If the class isn't in the user's enrolledClasses, add it (this also self-heals desyncs)
+            if (!isClassInUser) {
+                if (userDoc.exists()) {
+                   transaction.update(userRef, {
+                       enrolledClasses: [...enrolledClasses, classDoc.id]
+                   });
+                } else {
+                   transaction.set(userRef, { enrolledClasses: [classDoc.id] }, { merge: true });
                 }
+            }
 
-                // Send notification to the teacher
-                if (latestClassData.teacherId) {
-                    sendNotification(
-                        latestClassData.teacherId,
-                        'student_join',
-                        'Học sinh mới tham gia',
-                        `Học sinh ${studentName} vừa tham gia lớp "${latestClassData.name}"`,
-                        { classId: classDoc.id, studentId }
-                    ).catch(err => console.error("Error sending teacher notification:", err));
-                }
-            } else {
-                // Fallback for missing user profile initially
-                transaction.set(userRef, { enrolledClasses: [classDoc.id] }, { merge: true });
+            // Send notification to the teacher ONLY if they were truly a new student to the class
+            if (!isStudentInClass && userDoc.exists() && latestClassData.teacherId) {
+                 const studentName = userData?.name || "Học sinh";
+                 sendNotification(
+                     latestClassData.teacherId,
+                     'student_join',
+                     'Học sinh mới tham gia',
+                     `Học sinh ${studentName} vừa tham gia lớp "${latestClassData.name}"`,
+                     { classId: classDoc.id, studentId }
+                 ).catch(err => console.error("Error sending teacher notification:", err));
             }
         });
 

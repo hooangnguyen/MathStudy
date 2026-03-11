@@ -1,0 +1,2 @@
+﻿src/App.tsx(378,15): error TS2322: Type '{ userRole: "student" | "teacher"; initialState: "lobby" | "create_room" | "join_room" | "waiting_room"; onDuelStateChange: (s: any) => void; exitDuelToken: number; }' is not assignable to type 'IntrinsicAttributes & MathDuelProps'.
+  Property 'onDuelStateChange' does not exist on type 'IntrinsicAttributes & MathDuelProps'.

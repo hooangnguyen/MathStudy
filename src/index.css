@@ -54,7 +54,18 @@ math-field::part(menu-toggle) {
     display: none !important;
 }
 
-/* Giữ nút bàn phím kí hiệu (⌨) để mở bàn phím toán MathLive */
+/* Đưa nút bàn phím kí hiệu (⌨) sang góc phải vùng nhập liệu */
+math-field::part(virtual-keyboard-toggle) {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: #94a3b8 !important; /* Xám nhạt giống icon Sigma */
+    transition: color 0.2s !important;
+}
+math-field::part(virtual-keyboard-toggle):hover {
+    color: #4f46e5 !important; /* Indigo khi hover */
+}
 
 /* Thu gọn thanh công cụ nội bộ trên mobile, tránh rối mắt */
 @media (max-width: 640px) {

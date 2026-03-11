@@ -28,6 +28,7 @@ import {
   type DraftAssignmentData
 } from '../services/assignmentService';
 import { getUsersByIds } from '../services/userService';
+import { audioService } from '../utils/audio';
 
 type QuizState =
   | 'lobby'
@@ -135,7 +136,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
         if (prev <= 1) {
           // Time's up
           if (userRole === 'student' && user) {
-            updateQuizProgress(roomId!, user.uid, score, currentQuestion + 1, true).catch(() => {});
+            updateQuizProgress(roomId!, user.uid, score, currentQuestion + 1, true).catch(() => { });
           }
           setState('result');
           return 0;
@@ -166,8 +167,8 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     if (issues.length > 0) {
       alert(
         'Một số câu hỏi chưa có đáp án đúng:\n\n' +
-          issues.join('\n') +
-          '\n\nVui lòng chỉnh lại bản nháp.'
+        issues.join('\n') +
+        '\n\nVui lòng chỉnh lại bản nháp.'
       );
       return;
     }
@@ -238,6 +239,9 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
 
     const q = questions[currentQuestion];
     const isCorrect = opt.trim() === q.answer.trim();
+    if (isCorrect) audioService.playCorrect(userProfile?.preferences);
+    else audioService.playWrong(userProfile?.preferences);
+
     const newScore = score + (isCorrect ? 10 : 0);
     const newProgress = currentQuestion + 1;
     const isLast = newProgress >= questions.length;
@@ -246,7 +250,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     setCurrentQuestion(newProgress);
     setCheckboxSelections([]);
 
-    updateQuizProgress(roomId, user.uid, newScore, newProgress, isLast).catch(() => {});
+    updateQuizProgress(roomId, user.uid, newScore, newProgress, isLast).catch(() => { });
 
     if (isLast) {
       setState('result');
@@ -267,6 +271,10 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     const selected = [...checkboxSelections].sort((a, b) => a - b);
     const isCorrect =
       selected.length === correct.length && selected.every((v, i) => v === correct[i]);
+
+    if (isCorrect) audioService.playCorrect(userProfile?.preferences);
+    else audioService.playWrong(userProfile?.preferences);
+
     const newScore = score + (isCorrect ? 10 : 0);
     const newProgress = currentQuestion + 1;
     const isLast = newProgress >= questions.length;
@@ -275,7 +283,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     setCurrentQuestion(newProgress);
     setCheckboxSelections([]);
 
-    updateQuizProgress(roomId, user.uid, newScore, newProgress, isLast).catch(() => {});
+    updateQuizProgress(roomId, user.uid, newScore, newProgress, isLast).catch(() => { });
 
     if (isLast) {
       setState('result');
@@ -286,7 +294,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     if (roomId && user) {
       try {
         await leaveQuizRoom(roomId, user.uid);
-      } catch (_) {}
+      } catch (_) { }
     }
     setState('lobby');
     setRoomId(null);

@@ -175,7 +175,7 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
             <div className="flex-1 overflow-y-auto p-4 md:p-8 no-scrollbar pb-32">
                 <div className="max-w-3xl mx-auto space-y-8">
 
-                    <div className="bg-white rounded-[2rem] p-6 md:p-10 shadow-sm border-t-8 border-t-indigo-500 border-x border-b border-slate-200 text-left space-y-3">
+                    <div className="bg-white rounded-3xl p-5 md:p-6 shadow-sm border-t-4 border-t-indigo-500 border-x border-b border-slate-200 text-left space-y-2">
                         <p className="text-sm font-black text-indigo-600 uppercase tracking-widest">
                             Câu {currentQuestionIndex + 1}
                         </p>
@@ -188,48 +188,50 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
                     <div className="space-y-3">
                         {(currentQuestion.type === 'multiple_choice' || currentQuestion.type === 'checkbox') && (
                           <>
-                            <p className="text-sm font-bold text-slate-500">
+                            <p className="text-sm font-bold text-slate-500 mb-2">
                               {currentQuestion.type === 'multiple_choice'
                                 ? 'Chọn một đáp án đúng'
                                 : 'Chọn một hoặc nhiều đáp án đúng'}
                             </p>
-                            {currentQuestion.options?.map((opt, idx) => {
-                              const isSelected = currentQuestion.type === 'multiple_choice'
-                                ? answers[currentQuestion.id] === idx
-                                : (Array.isArray(answers[currentQuestion.id]) && answers[currentQuestion.id].includes(idx));
-
-                              return (
-                                <button
-                                  key={idx}
-                                  type="button"
-                                  onClick={() => handleAnswerSelect(currentQuestion.id, idx)}
-                                  className={cn(
-                                    "w-full p-5 rounded-2xl border-2 text-left transition-all flex items-center gap-4 active:scale-[0.98]",
-                                    isSelected
-                                      ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                                      : "border-slate-100 bg-white hover:border-indigo-200 text-slate-700 hover:bg-slate-50"
-                                  )}
-                                >
-                                  <div className={cn(
-                                    "w-7 h-7 flex items-center justify-center shrink-0 transition-colors",
-                                    currentQuestion.type === 'multiple_choice' ? "rounded-full border-2" : "rounded-lg border-2",
-                                    isSelected ? "border-indigo-500 bg-indigo-500 text-white" : "border-slate-300 bg-white"
-                                  )}>
-                                    {currentQuestion.type === 'multiple_choice' ? (
-                                      isSelected ? <CheckCircle2 size={18} /> : null
-                                    ) : (
-                                      isSelected ? <CheckSquare size={18} /> : <Square size={18} className="text-slate-400" />
-                                    )}
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <MathEquationEditor
-                                      value={opt}
-                                      readOnly
-                                    />
-                                  </div>
-                                </button>
-                              );
-                            })}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {currentQuestion.options?.map((opt, idx) => {
+                                  const isSelected = currentQuestion.type === 'multiple_choice'
+                                    ? answers[currentQuestion.id] === idx
+                                    : (Array.isArray(answers[currentQuestion.id]) && answers[currentQuestion.id].includes(idx));
+    
+                                  return (
+                                    <button
+                                      key={idx}
+                                      type="button"
+                                      onClick={() => handleAnswerSelect(currentQuestion.id, idx)}
+                                      className={cn(
+                                        "w-full p-4 rounded-xl border-2 text-left transition-all flex items-center gap-4 active:scale-[0.98]",
+                                        isSelected
+                                          ? "border-indigo-500 bg-indigo-50 text-indigo-700"
+                                          : "border-slate-100 bg-white hover:border-indigo-200 text-slate-700 hover:bg-slate-50"
+                                      )}
+                                    >
+                                      <div className={cn(
+                                        "w-7 h-7 flex items-center justify-center shrink-0 transition-colors",
+                                        currentQuestion.type === 'multiple_choice' ? "rounded-full border-2" : "rounded-lg border-2",
+                                        isSelected ? "border-indigo-500 bg-indigo-500 text-white" : "border-slate-300 bg-white"
+                                      )}>
+                                        {currentQuestion.type === 'multiple_choice' ? (
+                                          isSelected ? <CheckCircle2 size={18} /> : null
+                                        ) : (
+                                          isSelected ? <CheckSquare size={18} /> : <Square size={18} className="text-slate-400" />
+                                        )}
+                                      </div>
+                                      <div className="flex-1 min-w-0">
+                                        <MathEquationEditor
+                                          value={opt}
+                                          readOnly
+                                        />
+                                      </div>
+                                    </button>
+                                  );
+                                })}
+                            </div>
                           </>
                         )}
 

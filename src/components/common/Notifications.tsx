@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Bell, X, Zap, Trophy, MessageSquare, Star, FileText, Users, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
 import { useFirebase } from '../../context/FirebaseProvider';
 import { subscribeToNotifications, markAsRead, markAllAsRead, Notification } from '../../services/notificationService';
+import { audioService } from '../../utils/audio';
 
 interface NotificationsProps {
   onBack: () => void;
@@ -12,13 +13,16 @@ interface NotificationsProps {
 }
 
 export const Notifications: React.FC<NotificationsProps> = ({ onBack, userRole = 'student', onNavigateToSource }) => {
-  const { user } = useFirebase();
+  const { user, userProfile } = useFirebase();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const prevCountRef = useRef(0);
 
   useEffect(() => {
     if (!user) return;
     const unsubscribe = subscribeToNotifications(user.uid, (data) => {
+      prevCountRef.current = data.length;
       setNotifications(data);
       setIsLoading(false);
     });

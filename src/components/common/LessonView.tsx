@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { X, ChevronRight, CheckCircle2, AlertCircle, Volume2, HelpCircle, Star, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
+import { useFirebase } from '../../context/FirebaseProvider';
+import { audioService } from '../../utils/audio';
 
 interface Question {
   id: number;
@@ -21,6 +23,7 @@ interface LessonViewProps {
 }
 
 export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grade = 1, onClose, onComplete }) => {
+  const { userProfile } = useFirebase();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
@@ -118,6 +121,10 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
         setCorrectCount(prev => prev + 1);
       }
     }
+
+    if (correct) audioService.playCorrect(userProfile?.preferences);
+    else audioService.playWrong(userProfile?.preferences);
+
     setIsCorrect(correct);
     setIsChecked(true);
   };

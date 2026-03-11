@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-// SỬA TẠI ĐÂY: Sử dụng process.env.PORT để Render có thể cấp cổng tự động
+// Đảm bảo PORT luôn lấy từ biến môi trường của Render
 const PORT = process.env.PORT || 3000;
 
 const io = new Server(server, {
@@ -29,13 +29,15 @@ app.use(express.json());
 // OTP Store (In-memory for simplicity)
 const otpStore = new Map<string, { otp: string, expires: number }>();
 
-// Cấu hình Nodemailer
+// Cấu hình Nodemailer tối ưu cho Production
 const transporter = nodemailer.createTransport({
   service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, // Sử dụng SSL
   auth: {
-    // SỬA TẠI ĐÂY: Xóa mật khẩu cứng, sử dụng biến môi trường để bảo mật
     user: process.env.VITE_GMAIL_USER,
-    pass: process.env.VITE_GMAIL_PASS
+    pass: process.env.VITE_GMAIL_PASS // Đây phải là App Password 16 ký tự
   }
 });
 
@@ -140,29 +142,27 @@ app.post("/api/send-otp", async (req, res) => {
   if (!email) return res.status(400).json({ error: "Email is required" });
 
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  const expires = Date.now() + 5 * 60 * 1000; // 5 minutes
+  const expires = Date.now() + 5 * 60 * 1000;
 
   otpStore.set(email, { otp, expires });
 
   try {
     await transporter.sendMail({
-      from: '"MathStudy" <noreply@mathstudy.edu>',
+      from: `"MathStudy" <${process.env.VITE_GMAIL_USER}>`, // Dùng chính mail gửi để tránh bị spam filter
       to: email,
       subject: "Mã xác thực đăng ký MathStudy",
-      text: `Mã OTP của bạn là: ${otp}. Mã này có hiệu lực trong 5 phút.`,
       html: `<div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
           <h2 style="color: #4f46e5;">Chào mừng bạn đến với MathStudy!</h2>
           <p>Mã xác thực OTP của bạn là:</p>
           <div style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #4f46e5; margin: 20px 0;">${otp}</div>
-          <p style="color: #666; font-size: 12px;">Mã này sẽ hết hạn trong 5 phút. Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email.</p>
+          <p style="color: #666; font-size: 12px;">Mã này sẽ hết hạn trong 5 phút.</p>
         </div>`
     });
+    console.log(`OTP sent to ${email}`);
     res.json({ message: "OTP sent successfully" });
   } catch (error) {
     console.error("Error sending email:", error);
-    // For development, we return success but log the OTP
-    console.log(`[DEV] OTP for ${email}: ${otp}`);
-    res.json({ message: "OTP generated (see server logs in dev mode)", dev: true });
+    res.status(500).json({ error: "Could not send OTP email" });
   }
 });
 
@@ -178,14 +178,14 @@ app.post("/api/verify-otp", (req, res) => {
   res.json({ success: true });
 });
 
-// Serve static files from dist folder
+// Phục vụ file tĩnh (Quan trọng cho Render)
 app.use(express.static(path.join(__dirname, "dist")));
 
-// Đảm bảo trả về file index.html cho các route của React/Vite
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
+// Khởi chạy server
 server.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });

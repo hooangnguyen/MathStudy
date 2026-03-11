@@ -32,12 +32,16 @@ import {
 } from '../services/duelService';
 import { getRandomQuestions, DuelQuestion } from '../utils/duelQuestions';
 import { getUserProfile, getUsersByIds } from '../services/userService';
+import { audioService } from '../utils/audio';
 
 type DuelState = 'lobby' | 'searching' | 'playing' | 'result' | 'leaderboard' | 'create_room' | 'join_room' | 'waiting_room' | 'room_playing' | 'room_result';
 
 interface MathDuelProps {
   userRole?: 'student' | 'teacher' | null;
   initialState?: DuelState;
+  onDuelStateChange?: (state: DuelState) => void;
+  onExitDuel?: () => void;
+  exitDuelToken?: number;
 }
 
 interface RoomPlayer {
@@ -224,7 +228,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
       if (room.status === 'playing') {
         let qList: DuelQuestion[] = [];
         if (room.roomQuestions) {
-          try { qList = JSON.parse(room.roomQuestions) as DuelQuestion[]; } catch {}
+          try { qList = JSON.parse(room.roomQuestions) as DuelQuestion[]; } catch { }
         }
         if (qList.length > 0) setDuelQuestions(qList);
         setTimeLeft(room.timeLimit);
@@ -467,6 +471,9 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     if (ans === questions[currentQuestion].a) {
       newScore += 10;
       setScore(prev => ({ ...prev, player: newScore }));
+      audioService.playCorrect(userProfile?.preferences);
+    } else {
+      audioService.playWrong(userProfile?.preferences);
     }
 
     // Sync score to Firestore
@@ -484,12 +491,16 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   };
 
   const handleRoomAnswer = async (ans: string) => {
-    const newScore = score.player + (ans === questions[currentQuestion].a ? 10 : 0);
+    const isCorrect = ans === questions[currentQuestion].a;
+    if (isCorrect) audioService.playCorrect(userProfile?.preferences);
+    else audioService.playWrong(userProfile?.preferences);
+
+    const newScore = score.player + (isCorrect ? 10 : 0);
     const newProgress = currentQuestion + 1;
     const isLast = newProgress >= questions.length;
     setScore((prev) => ({ ...prev, player: newScore }));
     if (roomId && user) {
-      updateRoomProgress(roomId, user.uid, newScore, newProgress, isLast).catch(() => {});
+      updateRoomProgress(roomId, user.uid, newScore, newProgress, isLast).catch(() => { });
     }
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
@@ -505,7 +516,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
       setTimeLeft((prev) => {
         if (prev <= 1) {
           if (roomId && user) {
-            updateRoomProgress(roomId, user.uid, score.player, currentQuestion + 1, true).catch(() => {});
+            updateRoomProgress(roomId, user.uid, score.player, currentQuestion + 1, true).catch(() => { });
           }
           setState('room_result');
           return 0;
@@ -871,7 +882,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                 <button
                   onClick={async () => {
                     if (roomId && user) {
-                      try { await leaveRoom(roomId, user.uid); } catch (_) {}
+                      try { await leaveRoom(roomId, user.uid); } catch (_) { }
                     }
                     setRoomId(null);
                     setState('lobby');
@@ -1288,7 +1299,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             <button
               onClick={async () => {
                 if (roomId && user) {
-                  try { await leaveRoom(roomId, user.uid); } catch (_) {}
+                  try { await leaveRoom(roomId, user.uid); } catch (_) { }
                 }
                 setRoomId(null);
                 setState('lobby');

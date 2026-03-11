@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   ChevronLeft, Plus, Settings, FileText,
   Image as ImageIcon, Trash2, Copy, CheckCircle2,
-  Clock, Calendar, Users, Target, Sigma, X, Keyboard
+  Clock, Calendar, Users, Target, Sigma, X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
@@ -33,8 +33,50 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [activePicker, setActivePicker] = useState<{ type: 'question' | 'option', id: number, optIndex?: number } | null>(null);
+  const [showQuestionTypeDropdown, setShowQuestionTypeDropdown] = useState<number | null>(null);
   const [teacherClasses, setTeacherClasses] = useState<ClassData[]>([]);
   const [selectedClassId, setSelectedClassId] = useState<string>(classId || '');
+
+  // Refs for click outside detection
+  const questionTypeDropdownRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const mathPickerRef = useRef<HTMLDivElement>(null);
+  const questionTriggerRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
+  const optionTriggerRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const questionMathRefs = useRef<Map<number, any>>(new Map());
+  const optionMathRefs = useRef<Map<string, any>>(new Map());
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Close question type dropdown if click is outside any dropdown
+      if (showQuestionTypeDropdown !== null) {
+        const dropdownElement = questionTypeDropdownRefs.current.get(showQuestionTypeDropdown);
+        if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
+          setShowQuestionTypeDropdown(null);
+        }
+      }
+      // Close math symbol picker if click is outside
+      if (activePicker) {
+        if (mathPickerRef.current && !mathPickerRef.current.contains(event.target as Node)) {
+          // Check if the trigger button was clicked (shouldn't close)
+          let triggerButton: HTMLButtonElement | undefined;
+          if (activePicker.type === 'question') {
+            triggerButton = questionTriggerRefs.current.get(activePicker.id);
+          } else if (activePicker.optIndex !== undefined) {
+            triggerButton = optionTriggerRefs.current.get(`${activePicker.id}-${activePicker.optIndex}`);
+          }
+          
+          if (triggerButton && triggerButton.contains(event.target as Node)) {
+            return;
+          }
+          setActivePicker(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showQuestionTypeDropdown, activePicker]);
 
   React.useEffect(() => {
     if (!user) return;
@@ -112,14 +154,24 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
     if (activePicker.type === 'question') {
       const q = questions.find(q => q.id === activePicker.id);
       if (q) {
-        updateQuestion(activePicker.id, 'text', q.text + symbol);
+        const mathField = questionMathRefs.current.get(q.id);
+        if (mathField && mathField.insert) {
+          mathField.insert(symbol);
+        } else {
+          updateQuestion(activePicker.id, 'text', q.text + symbol);
+        }
       }
     } else if (activePicker.type === 'option' && activePicker.optIndex !== undefined) {
       const q = questions.find(q => q.id === activePicker.id);
       if (q) {
-        const newOptions = [...q.options];
-        newOptions[activePicker.optIndex] = (newOptions[activePicker.optIndex] || '') + symbol;
-        updateQuestion(activePicker.id, 'options', newOptions);
+        const mathField = optionMathRefs.current.get(`${q.id}-${activePicker.optIndex}`);
+        if (mathField && mathField.insert) {
+          mathField.insert(symbol);
+        } else {
+          const newOptions = [...q.options];
+          newOptions[activePicker.optIndex] = (newOptions[activePicker.optIndex] || '') + symbol;
+          updateQuestion(activePicker.id, 'options', newOptions);
+        }
       }
     }
   };
@@ -363,55 +415,29 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
               {questions.map((q, index) => (
                 <div key={q.id} className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-200 space-y-6 relative group transition-all focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4">
-                    {/* Question Text with Grouped Actions (Google Forms style) */}
+                    {/* Question Text with MathLive Input */}
                     <div className="flex-1 relative">
                       <MathEquationEditor
+                        ref={(el: any) => { if (el) questionMathRefs.current.set(q.id, el); }}
                         value={q.text}
                         onChange={(latex) => updateQuestion(q.id, 'text', latex)}
                         placeholder="Câu hỏi"
-                        className="bg-transparent border-none rounded-none border-b-2 border-slate-100 focus-within:border-indigo-500 focus-within:bg-slate-50/50 transition-all px-0 py-4 text-xl"
+                        className="bg-transparent border-none rounded-none"
+                        onOpenPicker={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'question' ? null : { type: 'question', id: q.id })}
                       />
-                      <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-1.5 pr-2">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const kb = (window as any).mathVirtualKeyboard;
-                            if (kb) {
-                              if (kb.visible) kb.hide();
-                              else kb.show();
-                            }
-                          }}
-                          className="p-2 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-indigo-600 transition-all bg-white shadow-sm border border-slate-100"
-                          title="Bật/Tắt bàn phím ảo"
-                        >
-                          <Keyboard size={18} strokeWidth={2.5} />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'question' ? null : { type: 'question', id: q.id })}
-                          className={cn(
-                            "p-2 rounded-xl transition-all shadow-sm border border-slate-100",
-                            activePicker?.id === q.id && activePicker?.type === 'question' ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-slate-400 hover:bg-slate-100 hover:text-indigo-600"
-                          )}
-                          title="Chèn kí hiệu toán"
-                        >
-                          <Sigma size={18} strokeWidth={2.5} />
-                        </button>
-                      </div>
 
+                      {/* Math Symbol Picker Popup */}
                       {activePicker?.id === q.id && activePicker?.type === 'question' && (
-                        <div
-                          className="absolute left-0 right-0 sm:left-auto sm:right-0 top-full mt-2 z-[120] 
-                                     w-full sm:w-[22rem] max-w-[calc(100vw-2rem)]"
-                        >
+                        <div className="absolute right-0 top-full mt-2 z-[120] w-[22rem] max-w-[calc(100vw-2rem)]">
                           <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
                         </div>
                       )}
                     </div>
 
-                    {/* Question Type Selector (Dropdown style like Google Forms) */}
-                    <div className="relative group shrink-0 self-center sm:self-start">
+                    {/* Question Type Selector (Google Forms style) */}
+                    <div className="relative shrink-0 self-center sm:self-start">
                       <button
+                        onClick={() => setShowQuestionTypeDropdown(showQuestionTypeDropdown === q.id ? null : q.id)}
                         className={cn(
                           "flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-black transition-all min-w-[180px] justify-between border-2 border-slate-100 hover:border-slate-200 bg-white shadow-sm",
                           q.type === 'multiple_choice' ? "text-indigo-600" : q.type === 'checkbox' ? "text-emerald-600" : "text-amber-600"
@@ -433,66 +459,77 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
                           )}
                           {q.type === 'multiple_choice' ? 'Trắc nghiệm' : q.type === 'checkbox' ? 'Hộp kiểm' : 'Trả lời ngắn'}
                         </span>
-                        <svg className="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={cn("w-4 h-4 text-slate-400 transition-transform", showQuestionTypeDropdown === q.id && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
                         </svg>
                       </button>
 
-                      <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top-right translate-y-2 group-hover:translate-y-0">
-                        <div className="p-2">
-                          <button
-                            onClick={() => updateQuestion(q.id, 'type', 'multiple_choice')}
-                            className={cn(
-                              "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
-                              q.type === 'multiple_choice' ? "bg-indigo-50" : "hover:bg-slate-50"
-                            )}
-                          >
-                            <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
-                              <div className="w-4 h-4 rounded-full border-2 border-indigo-600 flex items-center justify-center">
-                                <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                      {showQuestionTypeDropdown === q.id && (
+                        <div ref={(el) => { if (el) questionTypeDropdownRefs.current.set(q.id, el); }} className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden z-50">
+                          <div className="p-2">
+                            <button
+                              onClick={() => {
+                                updateQuestion(q.id, 'type', 'multiple_choice');
+                                setShowQuestionTypeDropdown(null);
+                              }}
+                              className={cn(
+                                "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
+                                q.type === 'multiple_choice' ? "bg-indigo-50" : "hover:bg-slate-50"
+                              )}
+                            >
+                              <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
+                                <div className="w-4 h-4 rounded-full border-2 border-indigo-600 flex items-center justify-center">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                                </div>
                               </div>
-                            </div>
-                            <div>
-                              <p className="text-sm font-black text-slate-700">Trắc nghiệm</p>
-                              <p className="text-[10px] font-medium text-slate-400">Chọn một đáp án đúng</p>
-                            </div>
-                          </button>
+                              <div>
+                                <p className="text-sm font-black text-slate-700">Trắc nghiệm</p>
+                                <p className="text-[10px] font-medium text-slate-400">Chọn một đáp án đúng</p>
+                              </div>
+                            </button>
 
-                          <button
-                            onClick={() => updateQuestion(q.id, 'type', 'checkbox')}
-                            className={cn(
-                              "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
-                              q.type === 'checkbox' ? "bg-emerald-50" : "hover:bg-slate-50"
-                            )}
-                          >
-                            <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                              <CheckCircle2 size={20} />
-                            </div>
-                            <div>
-                              <p className="text-sm font-black text-slate-700">Hộp kiểm</p>
-                              <p className="text-[10px] font-medium text-slate-400">Chọn nhiều đáp án đúng</p>
-                            </div>
-                          </button>
+                            <button
+                              onClick={() => {
+                                updateQuestion(q.id, 'type', 'checkbox');
+                                setShowQuestionTypeDropdown(null);
+                              }}
+                              className={cn(
+                                "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
+                                q.type === 'checkbox' ? "bg-emerald-50" : "hover:bg-slate-50"
+                              )}
+                            >
+                              <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                                <CheckCircle2 size={20} />
+                              </div>
+                              <div>
+                                <p className="text-sm font-black text-slate-700">Hộp kiểm</p>
+                                <p className="text-[10px] font-medium text-slate-400">Chọn nhiều đáp án đúng</p>
+                              </div>
+                            </button>
 
-                          <button
-                            onClick={() => updateQuestion(q.id, 'type', 'short_answer')}
-                            className={cn(
-                              "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
-                              q.type === 'short_answer' ? "bg-amber-50" : "hover:bg-slate-50"
-                            )}
-                          >
-                            <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16M4 18h7" />
-                              </svg>
-                            </div>
-                            <div>
-                              <p className="text-sm font-black text-slate-700">Trả lời ngắn</p>
-                              <p className="text-[10px] font-medium text-slate-400">Học sinh tự nhập đáp án</p>
-                            </div>
-                          </button>
+                            <button
+                              onClick={() => {
+                                updateQuestion(q.id, 'type', 'short_answer');
+                                setShowQuestionTypeDropdown(null);
+                              }}
+                              className={cn(
+                                "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
+                                q.type === 'short_answer' ? "bg-amber-50" : "hover:bg-slate-50"
+                              )}
+                            >
+                              <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16M4 18h7" />
+                                </svg>
+                              </div>
+                              <div>
+                                <p className="text-sm font-black text-slate-700">Trả lời ngắn</p>
+                                <p className="text-[10px] font-medium text-slate-400">Học sinh tự nhập đáp án</p>
+                              </div>
+                            </button>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
 
@@ -501,13 +538,15 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
                     <div className="space-y-3 pl-2">
                       {q.options.map((opt, optIndex) => (
                         <div key={optIndex} className="flex items-center gap-3">
-                          <div className={cn(
-                            "w-5 h-5 flex items-center justify-center border-2 cursor-pointer transition-colors",
-                            q.type === 'multiple_choice' ? "rounded-full" : "rounded-md",
-                            (q.type === 'multiple_choice' ? q.correctAnswer === optIndex : (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex)))
-                              ? "border-emerald-500 bg-emerald-500 text-white"
-                              : "border-slate-300 hover:border-indigo-500"
-                          )}
+                          <button
+                            type="button"
+                            className={cn(
+                              "w-6 h-6 flex items-center justify-center border-2 transition-colors shrink-0",
+                              q.type === 'multiple_choice' ? "rounded-full" : "rounded-md",
+                              (q.type === 'multiple_choice' ? q.correctAnswer === optIndex : (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex)))
+                                ? "border-emerald-500 bg-emerald-500 text-white"
+                                : "border-slate-300 hover:border-indigo-500 bg-white"
+                            )}
                             onClick={() => {
                               if (q.type === 'multiple_choice') {
                                 updateQuestion(q.id, 'correctAnswer', optIndex);
@@ -520,43 +559,34 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
                             }}
                           >
                             {q.type === 'multiple_choice'
-                              ? (q.correctAnswer === optIndex && <CheckCircle2 size={14} />)
-                              : (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex) && <CheckCircle2 size={14} />)
+                              ? (q.correctAnswer === optIndex && <CheckCircle2 size={16} strokeWidth={3} />)
+                              : (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex) && <CheckCircle2 size={16} strokeWidth={3} />)
                             }
-                          </div>
-                          <div className="flex-1 relative">
+                          </button>
+                          
+                          <div className="flex-1 relative bg-white">
                             <MathEquationEditor
+                              ref={(el: any) => { if (el) optionMathRefs.current.set(`${q.id}-${optIndex}`, el); }}
                               value={opt}
                               onChange={(latex) => updateOption(q.id, optIndex, latex)}
                               placeholder={`Tùy chọn ${optIndex + 1}`}
-                              className="pr-8 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-indigo-500"
+                              className="bg-transparent"
+                              onOpenPicker={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex ? null : { type: 'option', id: q.id, optIndex })}
                             />
-                            <button
-                              onClick={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex ? null : { type: 'option', id: q.id, optIndex })}
-                              className={cn(
-                                "absolute right-0 top-1/2 -translate-y-1/2 p-1.5 rounded-lg transition-all",
-                                activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex ? "bg-indigo-600 text-white" : "text-slate-300 hover:bg-indigo-50 hover:text-indigo-600"
-                              )}
-                              title="Chèn kí hiệu toán"
-                            >
-                              <Sigma size={16} />
-                            </button>
-
+                            {/* Math Symbol Picker Popup for Options */}
                             {activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex && (
-                              <div
-                                className="absolute left-0 right-0 sm:left-auto sm:right-0 top-full mt-2 z-[120] 
-                                           w-full sm:w-[22rem] max-w-[calc(100vw-2rem)]"
-                              >
+                              <div className="absolute right-0 top-full mt-2 z-[120] w-[22rem] max-w-[calc(100vw-2rem)]">
                                 <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
                               </div>
                             )}
                           </div>
+
                           {q.options.length > 1 && (
                             <button
                               onClick={() => removeOption(q.id, optIndex)}
-                              className="p-2 text-slate-400 hover:text-rose-500 transition-colors"
+                              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-400 hover:bg-rose-50 hover:text-rose-500 transition-colors shrink-0"
                             >
-                              <Trash2 size={18} />
+                              <Trash2 size={20} />
                             </button>
                           )}
                         </div>

@@ -25,7 +25,8 @@ import { useFirebase } from './context/FirebaseProvider';
 import { signOut } from 'firebase/auth';
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { getUserProfile, saveUserProfile, getAchievements, Achievement, UserPreferences, updateProgress } from './services/userService';
-import type { Notification } from './services/notificationService';
+import { subscribeToNotifications, Notification } from './services/notificationService';
+import { audioService } from './utils/audio';
 
 // Preload helpers (improves perceived responsiveness)
 const preloadStudentCore = () =>
@@ -200,6 +201,29 @@ export default function App() {
       else window.clearTimeout(handle);
     };
   }, [isAuthReady, user, userRole]);
+
+  // Global notification sound listener
+  useEffect(() => {
+    if (!user) return;
+    let prevUnreadCount = 0;
+    const unsubscribe = subscribeToNotifications(user.uid, (data) => {
+      const currentUnreadCount = data.filter(n => !n.read).length;
+      if (currentUnreadCount > prevUnreadCount && prevUnreadCount > 0) {
+        // Only play sound if the number of UNREAD notifications actually increased
+        // and it's not the initial load (prevUnreadCount > 0 prevents sound on login)
+        audioService.playNotification(userData?.preferences);
+      }
+      // Initialize prevUnreadCount to current count on first load, or update it
+      // if it's the first load (0 to X), we just set the baseline without playing.
+      if (prevUnreadCount === 0 && currentUnreadCount > 0) {
+          prevUnreadCount = currentUnreadCount;
+      } else {
+          prevUnreadCount = currentUnreadCount;
+      }
+    });
+
+    return () => unsubscribe();
+  }, [user, userData?.preferences]);
 
   const handleLogin = (role: 'student' | 'teacher' | 'new_user') => {
     // The useEffect will automatically catch the user state change and sync the profile.
@@ -376,6 +400,7 @@ export default function App() {
               userRole={userRole}
               initialState={duelInitialState}
               onDuelStateChange={(s) => setIsDuelInProgress(s === 'playing' || s === 'room_playing')}
+              onExitDuel={() => setTab('home')}
               exitDuelToken={exitDuelToken}
             />
           );
