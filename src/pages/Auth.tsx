@@ -90,25 +90,26 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="h-full bg-white flex flex-col overflow-x-hidden overflow-y-auto no-scrollbar relative">
+    <div className="h-full bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col overflow-x-hidden overflow-y-auto no-scrollbar relative">
       {/* Background Decorative Elements */}
-      <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-[-20%] right-[-20%] w-[60%] h-[60%] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-[-20%] left-[-20%] w-[60%] h-[60%] bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-[40%] left-[10%] w-[30%] h-[30%] bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="flex-1 flex flex-col p-8 pt-16">
+      <div className="flex-1 flex flex-col p-8 pt-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-2 mb-12"
+          className="space-y-3 mb-10"
         >
-          <div className="w-16 h-16 bg-primary rounded-[2rem] flex items-center justify-center text-white shadow-xl shadow-primary/20 mb-6">
+          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] flex items-center justify-center text-white shadow-xl shadow-indigo-500/20 mb-5">
             <Sparkles size={32} fill="currentColor" />
           </div>
-          <h1 className="text-4xl font-black tracking-tighter text-slate-900">
+          <h1 className="text-4xl font-black tracking-tight text-slate-900">
             {mode === 'login' ? 'Chào mừng trở lại!' : 'Bắt đầu hành trình'}
           </h1>
-          <p className="text-slate-500 font-medium">
+          <p className="text-slate-500 font-medium text-base">
             {mode === 'login'
               ? 'Đăng nhập để tiếp tục chinh phục những đỉnh cao toán học.'
               : 'Tạo tài khoản để tham gia cộng đồng học toán thông minh.'}
@@ -173,7 +174,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Nguyễn Văn A"
-                      className="w-full bg-slate-50 border-2 border-transparent focus:border-primary focus:bg-white rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
+                      className="w-full bg-slate-50/80 border-2 border-transparent focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100/50 rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
                     />
                   </div>
                 </div>
@@ -189,7 +190,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="example@gmail.com"
-                    className="w-full bg-slate-50 border-2 border-transparent focus:border-primary focus:bg-white rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
+                    className="w-full bg-slate-50/80 border-2 border-transparent focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100/50 rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
                   />
                 </div>
               </div>
@@ -198,7 +199,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                 <div className="flex justify-between items-center ml-1">
                   <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Mật khẩu</label>
                   {mode === 'login' && (
-                    <button type="button" className="text-[10px] font-bold text-primary uppercase tracking-wider">Quên mật khẩu?</button>
+                    <button type="button" className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider hover:text-indigo-600">Quên mật khẩu?</button>
                   )}
                 </div>
                 <div className="relative">
@@ -209,7 +210,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full bg-slate-50 border-2 border-transparent focus:border-primary focus:bg-white rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
+                    className="w-full bg-slate-50/80 border-2 border-transparent focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100/50 rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
                   />
                 </div>
               </div>
@@ -225,7 +226,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full bg-slate-50 border-2 border-transparent focus:border-primary focus:bg-white rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
+                      className="w-full bg-slate-50/80 border-2 border-transparent focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100/50 rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
                     />
                   </div>
                 </div>
@@ -234,23 +235,33 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
           )}
 
           {error && (
-            <p className="text-xs font-bold text-rose-500 ml-1">{error}</p>
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-xs font-bold text-rose-500 ml-1"
+            >
+              {error}
+            </motion.p>
           )}
 
           <div className="flex gap-3">
             {mode === 'register' && step !== 'credentials' && (
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 type="button"
                 onClick={() => setStep('credentials')}
                 className="w-20 bg-slate-100 text-slate-900 py-5 rounded-[2rem] font-black text-lg hover:bg-slate-200 active:scale-95 transition-all flex items-center justify-center"
               >
                 <ChevronLeft size={24} />
-              </button>
+              </motion.button>
             )}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary text-white py-5 rounded-[2rem] font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-5 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-500/25 hover:shadow-2xl hover:shadow-indigo-500/30 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
             >
               {isLoading ? (
                 <motion.div
@@ -264,7 +275,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                   <ArrowRight size={20} />
                 </>
               )}
-            </button>
+            </motion.button>
           </div>
         </form>
 
@@ -274,33 +285,37 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
             <div className="w-full border-t border-slate-100"></div>
           </div>
           <div className="relative flex justify-center text-xs uppercase font-bold tracking-widest">
-            <span className="bg-white px-4 text-slate-400">Hoặc tiếp tục với</span>
+            <span className="bg-gradient-to-r from-indigo-50 via-white to-purple-50 px-4 text-slate-400">Hoặc tiếp tục với</span>
           </div>
         </div>
 
         {/* Social Login */}
         <div className="flex justify-center">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             type="button"
             onClick={handleGoogleLogin}
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 py-4 bg-white border-2 border-slate-100 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 py-4 bg-white border-2 border-slate-100 rounded-2xl font-bold text-sm hover:bg-slate-50 hover:border-slate-200 transition-all disabled:opacity-50 shadow-md hover:shadow-lg"
           >
             <Chrome size={18} className="text-rose-500" />
             Google
-          </button>
+          </motion.button>
         </div>
 
         {/* Footer Link */}
         <div className="mt-auto pt-8 text-center">
           <p className="text-sm font-medium text-slate-500">
             {mode === 'login' ? 'Chưa có tài khoản?' : 'Đã có tài khoản?'}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
-              className="ml-2 text-primary font-black hover:underline"
+              className="ml-2 text-indigo-600 font-black hover:underline"
             >
               {mode === 'login' ? 'Đăng ký ngay' : 'Đăng nhập'}
-            </button>
+            </motion.button>
           </p>
         </div>
       </div>

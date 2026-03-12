@@ -152,9 +152,15 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#f7f7f7] font-sans relative">
+    <div className="flex flex-col h-full bg-gradient-to-br from-slate-50 via-indigo-50/20 to-rose-50/10 font-sans relative">
+      {/* Background Decorative */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-200/20 rounded-full blur-[80px]" />
+        <div className="absolute bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-rose-200/20 rounded-full blur-[100px]" />
+      </div>
+
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-4 py-4 sticky top-0 z-40">
+      <div className="bg-white/80 backdrop-blur-xl border-b border-white/20 px-5 py-4 sticky top-0 z-40">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-black text-slate-900">Lớp học</h1>
@@ -163,12 +169,14 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
             )}
           </div>
           {studentClass && (
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => setShowJoinModal(true)}
-              className="w-10 h-10 rounded-2xl bg-[#1cb0f6]/10 flex items-center justify-center text-[#1cb0f6] hover:bg-[#1cb0f6]/20 transition-colors"
+              className="w-11 h-11 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-sky-500/25 hover:shadow-xl transition-all"
             >
               <Plus size={24} />
-            </button>
+            </motion.button>
           )}
         </div>
       </div>
@@ -178,13 +186,20 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
           {studentClass ? (
             <div className="space-y-8">
               {/* Class Stats Card */}
-              <div className="bg-[#58cc02] rounded-3xl p-6 text-white shadow-[0_6px_0_#46a302] relative overflow-hidden block">
+              <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-6 text-white shadow-xl shadow-emerald-500/20 relative overflow-hidden block">
+                {/* Decorative elements */}
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-black/10 rounded-full blur-xl" />
+                <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-white/5 rounded-full blur-xl" />
+
                 <div className="relative z-10">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => setShowLeaderboard(true)}
-                    className="w-full flex items-center justify-between mb-6 text-left active:scale-95 transition-transform"
+                    className="w-full flex items-center justify-between mb-6 text-left"
                   >
-                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm shadow-lg">
                       <Trophy size={28} className="text-white" />
                     </div>
                     <div className="text-right flex items-center gap-2">
@@ -194,43 +209,40 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
                       </div>
                       <ChevronRight size={24} className="text-white/80" />
                     </div>
-                  </button>
+                  </motion.button>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white/10 rounded-2xl p-3 backdrop-blur-sm">
+                    <div className="bg-white/10 rounded-2xl p-3 backdrop-blur-sm shadow-md">
                       <div className="flex items-center gap-2 mb-1">
                         <Star size={16} className="text-yellow-300 fill-yellow-300" />
                         <span className="text-xs font-bold text-white/80 uppercase">Điểm bài gần nhất</span>
                       </div>
                       <p className="text-xl font-black">{latestScore !== null ? `${latestScore}/10` : '--'}</p>
                     </div>
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       onClick={() => setShowCalendar(true)}
-                      className="bg-white/10 rounded-2xl p-3 backdrop-blur-sm text-left active:scale-95 transition-transform"
+                      className="bg-white/10 rounded-2xl p-3 backdrop-blur-sm text-left shadow-md"
                     >
                       <div className="flex items-center gap-2 mb-1">
                         <Flame size={16} className="text-orange-300 fill-orange-300" />
                         <span className="text-xs font-bold text-white/80 uppercase">Chuỗi ngày</span>
                       </div>
-                      {/* Using finding user profile from classRankings to get streak, or fallback to 0 */}
                       <p className="text-xl font-black">{classRankings.find(p => p.uid === user?.uid)?.streak || 0}</p>
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
-
-                {/* Decorative elements */}
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-black/10 rounded-full blur-xl" />
               </div>
 
               {/* Assignments */}
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-black text-slate-900">Bài tập</h2>
-                  <span className="text-sm font-bold text-[#1cb0f6]">{Object.keys(studentSubmissions).length}/{classAssignments.length} Bài đã làm</span>
+                  <span className="text-sm font-bold text-sky-500">{Object.keys(studentSubmissions).length}/{classAssignments.length} Bài đã làm</span>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {classAssignments.length === 0 ? (
                     <div className="text-center py-6">
                       <p className="text-sm font-bold text-slate-400">Chưa có bài tập nào.</p>
@@ -247,18 +259,20 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
                     }
 
                     return (
-                      <div
+                      <motion.div
                         key={assignment.id}
+                        whileHover={{ scale: 1.01, y: -2 }}
+                        whileTap={{ scale: 0.99 }}
                         className={cn(
-                          "bg-white rounded-3xl p-5 border-2 shadow-sm flex items-center gap-4 transition-all",
+                          "bg-white/80 backdrop-blur-sm rounded-[1.5rem] p-5 border border-white/50 shadow-md flex items-center gap-4 transition-all",
                           isCompleted
-                            ? "border-slate-200 opacity-75"
-                            : "border-slate-200 hover:border-[#1cb0f6]"
+                            ? "opacity-75"
+                            : "hover:border-sky-200 hover:shadow-xl"
                         )}
                       >
                         <div className={cn(
-                          "w-12 h-12 rounded-2xl flex items-center justify-center shrink-0",
-                          isCompleted ? "bg-emerald-100 text-emerald-500" : "bg-blue-100 text-blue-500"
+                          "w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-md",
+                          isCompleted ? "bg-emerald-100 text-emerald-500" : "bg-sky-100 text-sky-500"
                         )}>
                           {isCompleted ? <CheckCircle2 size={24} /> : <BookOpen size={24} />}
                         </div>
@@ -279,7 +293,7 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
                               {dueDateStr}
                             </p>
                             {isCompleted && assignment.settings?.showScoreImmediate && (
-                              <p className="text-xs font-bold text-[#58cc02] flex items-center gap-1">
+                              <p className="text-xs font-bold text-emerald-500 flex items-center gap-1">
                                 Điểm: {submission.score}/10
                               </p>
                             )}
@@ -287,21 +301,25 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
                         </div>
 
                         {!isCompleted ? (
-                          <button
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={() => setTakingAssignment(assignment)}
-                            className="px-4 py-2 bg-[#1cb0f6] text-white rounded-xl font-bold text-sm shadow-[0_4px_0_#1899d6] active:shadow-[0_0_0_#1899d6] active:translate-y-1 transition-all shrink-0"
+                            className="px-5 py-2.5 bg-gradient-to-r from-sky-500 to-blue-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-sky-500/25 hover:shadow-xl transition-all shrink-0"
                           >
                             Làm bài
-                          </button>
+                          </motion.button>
                         ) : (
-                          <button
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={() => setViewingResult({ submission, title: assignment.title })}
-                            className="px-4 py-2 bg-slate-100 text-slate-400 rounded-xl font-bold text-sm hover:bg-slate-200 hover:text-slate-600 transition-colors shrink-0"
+                            className="px-5 py-2.5 bg-slate-100 text-slate-400 rounded-xl font-bold text-sm hover:bg-slate-200 hover:text-slate-600 transition-colors shrink-0"
                           >
                             Xem bài
-                          </button>
+                          </motion.button>
                         )}
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
@@ -312,23 +330,35 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClassId, onJoinSuc
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-black text-slate-900">Tiến độ học tập</h2>
                 </div>
-                <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-sm space-y-5">
+                <div className="bg-white/80 backdrop-blur-sm rounded-[1.5rem] p-6 border border-white/50 shadow-lg space-y-5">
                   <div>
                     <div className="flex justify-between text-sm font-bold mb-2">
                       <span className="text-slate-500">Hoàn thành bài tập</span>
-                      <span className={cn(completionPercentage === 100 ? "text-[#58cc02]" : "text-[#1cb0f6]")}>{completionPercentage}%</span>
+                      <span style={{ color: completionPercentage === 100 ? '#58cc02' : '#1cb0f6' }}>{completionPercentage}%</span>
                     </div>
-                    <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
-                      <div className={cn("h-full rounded-full transition-all duration-500", completionPercentage === 100 ? "bg-[#58cc02]" : "bg-[#1cb0f6]")} style={{ width: `${completionPercentage}%` }} />
+                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${completionPercentage}%` }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        style={{ backgroundColor: completionPercentage === 100 ? '#58cc02' : '#1cb0f6' }}
+                        className="h-full rounded-full"
+                      />
                     </div>
                   </div>
                   <div>
                     <div className="flex justify-between text-sm font-bold mb-2">
                       <span className="text-slate-500">Độ chính xác</span>
-                      <span className={cn(accuracyPercentage >= 80 ? "text-[#58cc02]" : accuracyPercentage >= 50 ? "text-orange-400" : "text-rose-500")}>{accuracyPercentage}%</span>
+                      <span style={{ color: accuracyPercentage >= 80 ? '#58cc02' : accuracyPercentage >= 50 ? '#ff9600' : '#ff4d4d' }}>{accuracyPercentage}%</span>
                     </div>
-                    <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
-                      <div className={cn("h-full rounded-full transition-all duration-500", accuracyPercentage >= 80 ? "bg-[#58cc02]" : accuracyPercentage >= 50 ? "bg-orange-400" : "bg-rose-500")} style={{ width: `${accuracyPercentage}%` }} />
+                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${accuracyPercentage}%` }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                        style={{ backgroundColor: accuracyPercentage >= 80 ? '#58cc02' : accuracyPercentage >= 50 ? '#ff9600' : '#ff4d4d' }}
+                        className="h-full rounded-full"
+                      />
                     </div>
                   </div>
                 </div>

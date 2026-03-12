@@ -5,14 +5,17 @@ import path from "path";
 import { fileURLToPath } from "url";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import fs from "fs";
+import { createServer as createViteServer } from "vite";
 
 dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
 
-// Đảm bảo PORT luôn lấy từ biến môi trường của Render
+// Cấu hình PORT cho Render hoặc mặc định 3000 cho Local
 const PORT = process.env.PORT || 3000;
+const isDev = process.env.NODE_ENV === "development" || (!process.env.RENDER && process.env.NODE_ENV !== "production");
 
 const io = new Server(server, {
   cors: {
@@ -178,12 +181,42 @@ app.post("/api/verify-otp", (req, res) => {
   res.json({ success: true });
 });
 
-// Phục vụ file tĩnh (Quan trọng cho Render)
-app.use(express.static(path.join(__dirname, "dist")));
+// Cấu hình phục vụ frontend
+if (isDev) {
+  console.log("Running in DEVELOPMENT mode with Vite middleware");
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    appType: "custom",
+  });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
+  // Sử dụng vite làm middleware
+  app.use(vite.middlewares);
+
+  app.get("*", async (req, res, next) => {
+    const url = req.originalUrl;
+    try {
+      // 1. Đọc index.html
+      let template = fs.readFileSync(path.resolve(__dirname, "index.html"), "utf-8");
+
+      // 2. Áp dụng các chuyển đổi HTML của Vite (bao gồm HMR)
+      template = await vite.transformIndexHtml(url, template);
+
+      // 3. Gửi HTML về trình duyệt
+      res.status(200).set({ "Content-Type": "text/html" }).end(template);
+    } catch (e: any) {
+      vite.ssrFixStacktrace(e);
+      next(e);
+    }
+  });
+} else {
+  console.log("Running in PRODUCTION mode");
+  // Phục vụ file tĩnh (Quan trọng cho Render)
+  app.use(express.static(path.join(__dirname, "dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "dist", "index.html"));
+  });
+}
 
 // Khởi chạy server
 server.listen(Number(PORT), "0.0.0.0", () => {

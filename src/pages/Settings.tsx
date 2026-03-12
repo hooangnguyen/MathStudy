@@ -68,18 +68,20 @@ export const Settings: React.FC<SettingsProps> = ({
   };
 
   const Toggle = ({ active, onToggle }: { active: boolean, onToggle: () => void }) => (
-    <button
+    <motion.button
       onClick={onToggle}
       className={cn(
         "w-12 h-6 rounded-full transition-colors relative",
-        active ? "bg-primary" : "bg-slate-200"
+        active ? "bg-gradient-to-r from-indigo-500 to-purple-500" : "bg-slate-200"
       )}
+      whileTap={{ scale: 0.95 }}
     >
       <motion.div
-        animate={{ x: active ? 24 : 2 }}
-        className="absolute top-1 left-0 w-4 h-4 bg-white rounded-full shadow-sm"
+        animate={{ x: active ? 26 : 2 }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        className="absolute top-1 w-5 h-5 bg-white rounded-full shadow-md"
       />
-    </button>
+    </motion.button>
   );
 
   const SettingItem = ({
@@ -97,15 +99,17 @@ export const Settings: React.FC<SettingsProps> = ({
     toggle?: { active: boolean, onToggle: () => void },
     color?: string
   }) => (
-    <div
+    <motion.div
       onClick={onClick}
+      whileHover={{ scale: 1.01 }}
+      whileTap={onClick ? { scale: 0.99 } : {}}
       className={cn(
-        "flex items-center justify-between p-4 hover:bg-slate-50 transition-colors cursor-pointer",
-        !toggle && "active:bg-slate-100"
+        "flex items-center justify-between p-4 cursor-pointer border-b border-slate-50 last:border-b-0",
+        onClick && !toggle && "hover:bg-slate-50/50"
       )}
     >
       <div className="flex items-center gap-4">
-        <div className={cn("w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center", color)}>
+        <div className={cn("w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center", color)}>
           <Icon size={20} />
         </div>
         <span className="font-bold text-slate-700">{label}</span>
@@ -118,28 +122,30 @@ export const Settings: React.FC<SettingsProps> = ({
           <ChevronRight size={18} className="text-slate-300" />
         )}
       </div>
-    </div>
+    </motion.div>
   );
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-gradient-to-br from-slate-50 via-indigo-50/20 to-rose-50/10">
       {/* Header */}
-      <div className="p-6 bg-white border-b border-slate-100 flex items-center gap-4 shrink-0">
-        <button
+      <div className="p-5 bg-white/80 backdrop-blur-xl border-b border-white/20 flex items-center gap-4 shrink-0">
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           onClick={onBack}
-          className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 active:scale-90 transition-transform"
+          className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 active:scale-90 transition-transform"
         >
           <ChevronLeft size={24} />
-        </button>
+        </motion.button>
         <h1 className="text-xl font-black">Cài đặt</h1>
       </div>
 
       <div className="flex-1 overflow-y-auto no-scrollbar pb-10">
         {/* Account Section */}
-        <div className="p-6 pb-2">
+        <div className="p-5 pb-2">
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Tài khoản</h2>
         </div>
-        <div className="border-y border-slate-50">
+        <div className="mx-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-md overflow-hidden">
           <SettingItem
             icon={User}
             label="Thông tin cá nhân"
@@ -151,10 +157,10 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
 
         {/* Learning Section */}
-        <div className="p-6 pb-2 pt-8">
+        <div className="p-5 pb-2 pt-6">
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Học tập</h2>
         </div>
-        <div className="border-y border-slate-50">
+        <div className="mx-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-md overflow-hidden">
           <SettingItem icon={Type} label="Cỡ chữ" value="Mặc định" color="text-indigo-500" />
           <SettingItem
             icon={Bell}
@@ -165,10 +171,10 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
 
         {/* Audio & Visual Section */}
-        <div className="p-6 pb-2 pt-8">
+        <div className="p-5 pb-2 pt-6">
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Âm thanh & Hiển thị</h2>
         </div>
-        <div className="border-y border-slate-50">
+        <div className="mx-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-md overflow-hidden">
           <SettingItem
             icon={Volume2}
             label="Hiệu ứng âm thanh"
@@ -185,21 +191,23 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
 
         {/* Support Section */}
-        <div className="p-6 pb-2 pt-8">
+        <div className="p-5 pb-2 pt-6">
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Hỗ trợ</h2>
         </div>
-        <div className="border-y border-slate-50">
+        <div className="mx-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-md overflow-hidden">
           <SettingItem icon={HelpCircle} label="Trung tâm trợ giúp" color="text-blue-400" />
           <SettingItem icon={Info} label="Về MathMastery" value="v1.2.4" color="text-slate-400" />
         </div>
 
-        <div className="p-6 mt-4">
-          <button
+        <div className="p-5 mt-4">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={onLogout}
-            className="w-full p-5 bg-rose-50 rounded-[2rem] flex items-center justify-center gap-2 text-rose-600 font-bold hover:bg-rose-100 transition-colors"
+            className="w-full p-5 bg-gradient-to-r from-rose-500 to-red-500 rounded-[2rem] flex items-center justify-center gap-2 text-white font-bold shadow-lg shadow-rose-500/25 hover:shadow-xl transition-all"
           >
             <LogOut size={20} /> Đăng xuất
-          </button>
+          </motion.button>
         </div>
 
         <div className="p-8 text-center">

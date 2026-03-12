@@ -123,21 +123,29 @@ export const Messages: React.FC<MessagesProps> = ({ userRole }) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#f7f7f7] relative font-sans">
+    <div className="flex flex-col h-full bg-gradient-to-br from-slate-50 via-indigo-50/20 to-rose-50/10 relative font-sans">
+      {/* Background Decorative */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-200/20 rounded-full blur-[80px]" />
+        <div className="absolute bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-rose-200/20 rounded-full blur-[100px]" />
+      </div>
+
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-4 py-4 sticky top-0 z-40">
+      <div className="bg-white/80 backdrop-blur-xl border-b border-white/20 px-5 py-4 sticky top-0 z-40">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-2xl font-black text-slate-900">Tin nhắn</h1>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => setShowNewChat(true)}
-            className="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white hover:bg-indigo-700 transition-colors"
+            className="w-11 h-11 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 hover:shadow-xl transition-all"
           >
             <Plus size={20} />
-          </button>
+          </motion.button>
         </div>
 
         <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
             <Search size={18} className="text-slate-400" />
           </div>
           <input
@@ -145,7 +153,7 @@ export const Messages: React.FC<MessagesProps> = ({ userRole }) => {
             placeholder="Tìm kiếm tin nhắn..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-slate-100 border-transparent rounded-2xl text-sm font-medium focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none"
+            className="w-full pl-10 pr-4 py-3 bg-slate-50/80 backdrop-blur-sm border-2 border-transparent rounded-2xl text-sm font-medium focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100/50 transition-all outline-none"
           />
         </div>
       </div>
@@ -158,16 +166,18 @@ export const Messages: React.FC<MessagesProps> = ({ userRole }) => {
           </div>
         ) : filteredConversations.length === 0 ? (
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-white/60 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
               <MessageCircle size={32} className="text-slate-400" />
             </div>
             <p className="text-slate-500 font-medium">Chưa có cuộc trò chuyện nào</p>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setShowNewChat(true)}
-              className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold text-sm hover:bg-indigo-700 transition-colors"
+              className="mt-4 px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-500/25 hover:shadow-xl transition-all"
             >
               Bắt đầu trò chuyện
-            </button>
+            </motion.button>
           </div>
         ) : (
           filteredConversations.map((conv) => {
@@ -179,10 +189,10 @@ export const Messages: React.FC<MessagesProps> = ({ userRole }) => {
             return (
               <motion.button
                 key={conv.id}
-                whileHover={{ scale: 1.01 }}
+                whileHover={{ scale: 1.01, x: 4 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setActiveChat(conv.id)}
-                className="w-full bg-white p-4 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4 hover:border-indigo-100 transition-colors text-left group"
+                className="w-full bg-white/80 backdrop-blur-sm p-4 rounded-[1.5rem] border border-white/50 shadow-md flex items-center gap-4 hover:border-indigo-100 hover:shadow-xl transition-all text-left group"
               >
                 <div
                   className="relative shrink-0 cursor-pointer z-10"
@@ -195,16 +205,19 @@ export const Messages: React.FC<MessagesProps> = ({ userRole }) => {
                     <img
                       src={otherUser.avatar}
                       alt={otherUser.name}
-                      className="w-14 h-14 rounded-2xl object-cover"
+                      className="w-14 h-14 rounded-2xl object-cover shadow-md"
                     />
                   ) : (
-                    <div className="w-14 h-14 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-black text-xl group-hover:bg-indigo-200 transition-colors">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center text-indigo-600 font-black text-xl group-hover:from-indigo-200 group-hover:to-purple-200 transition-colors">
                       {otherUser.name.charAt(0)}
                     </div>
                   )}
                   {/* Online indicator */}
                   {isOnline && (
-                    <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full" />
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow-md" />
                   )}
                 </div>
 
@@ -226,9 +239,13 @@ export const Messages: React.FC<MessagesProps> = ({ userRole }) => {
                       {conv.lastMessage || 'Chưa có tin nhắn'}
                     </p>
                     {unread > 0 && (
-                      <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-black shrink-0">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="w-5 h-5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white flex items-center justify-center text-[10px] font-black shrink-0 shadow-md"
+                      >
                         {unread}
-                      </div>
+                      </motion.div>
                     )}
                   </div>
                 </div>

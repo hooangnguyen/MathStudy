@@ -5,10 +5,32 @@
     --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
     --font-display: "Quicksand", sans-serif;
 
+    /* Primary colors */
     --color-primary: #6366f1;
+    --color-primary-light: #818cf8;
+    --color-primary-dark: #4f46e5;
     --color-secondary: #f43f5e;
     --color-accent: #10b981;
+
+    /* Progress bar colors */
+    --color-progress-green: #58cc02;
+    --color-progress-blue: #1cb0f6;
+    --color-progress-orange: #ff9600;
+    --color-progress-red: #ff4d4d;
+
+    /* Vibrant background colors */
     --color-background: #f8fafc;
+    --color-surface: #ffffff;
+
+    /* Extended color palette */
+    --color-violet: #8b5cf6;
+    --color-fuchsia: #d946ef;
+    --color-cyan: #06b6d4;
+    --color-sky: #0ea5e9;
+    --color-indigo: #6366f1;
+    --color-emerald: #10b981;
+    --color-amber: #f59e0b;
+    --color-rose: #f43f5e;
 }
 
 @layer base {
@@ -17,57 +39,318 @@
         font-family: var(--font-sans);
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1, h2, h3, h4, h5, h6 {
         font-family: var(--font-display);
         @apply font-bold;
     }
+}
+
+/* Modern Glassmorphism */
+.glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20;
 }
 
 .glass-card {
     @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
 }
 
+.glass-card-hover {
+    @apply bg-white/60 backdrop-blur-md border border-white/30 shadow-lg;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+    @apply bg-white/80 shadow-xl border-white/50;
+    transform: translateY(-2px);
+}
+
+/* Modern shadows */
+.shadow-soft {
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-medium {
+    box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.12);
+}
+
+.shadow-strong {
+    box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* Gradient backgrounds */
+.gradient-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.gradient-secondary {
+    background: linear-gradient(135deg, #f43f5e 0%, #d946ef 100%);
+}
+
+.gradient-success {
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+}
+
+.gradient-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #f43f5e 100%);
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #faf5ff 100%);
+}
+
+/* Animated gradient background */
+.gradient-animated {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+.animate-gradient {
+    animation: animate-gradient 8s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes animate-gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating orbs for background decoration */
+.floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: float 20s ease-in-out infinite;
+}
+
+.floating-orb-1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    top: -100px;
+    right: -100px;
+    animation-delay: 0s;
+}
+
+.floating-orb-2 {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, #f43f5e 0%, #d946ef 100%);
+    bottom: -50px;
+    left: -50px;
+    animation-delay: -5s;
+}
+
+.floating-orb-3 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    top: 40%;
+    left: 20%;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(20px, -30px) scale(1.05); }
+    50% { transform: translate(-10px, 20px) scale(0.95); }
+    75% { transform: translate(30px, 10px) scale(1.02); }
+}
+
+/* Modern button styles */
+.btn-primary {
+    @apply bg-primary text-white font-bold py-3 px-6 rounded-2xl shadow-lg shadow-primary/25;
+    @apply hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30 active:scale-95;
+    @apply transition-all duration-200 ease-out;
+}
+
+.btn-secondary {
+    @apply bg-white text-slate-700 font-bold py-3 px-6 rounded-2xl border border-slate-200;
+    @apply hover:bg-slate-50 hover:border-slate-300 active:scale-95;
+    @apply transition-all duration-200 ease-out;
+}
+
+.btn-glass {
+    @apply bg-white/80 backdrop-blur-md text-slate-700 font-bold py-3 px-6 rounded-2xl border border-white/30;
+    @apply hover:bg-white hover:shadow-lg active:scale-95;
+    @apply transition-all duration-200 ease-out;
+}
+
+/* Card styles */
+.card {
+    @apply bg-white rounded-3xl border border-slate-100;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+}
+
+.card-interactive {
+    @apply bg-white rounded-3xl border border-slate-100;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease-out;
+}
+
+.card-interactive:hover {
+    box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+/* Badge styles */
+.badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-bold;
+}
+
+.badge-primary {
+    @apply bg-primary/10 text-primary;
+}
+
+.badge-success {
+    @apply bg-emerald-100 text-emerald-600;
+}
+
+.badge-warning {
+    @apply bg-amber-100 text-amber-600;
+}
+
+.badge-rose {
+    @apply bg-rose-100 text-rose-600;
+}
+
+/* Input styles */
+.input-modern {
+    @apply w-full bg-slate-50 border-2 border-transparent rounded-2xl py-4 px-5;
+    @apply focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10;
+    @apply outline-none transition-all duration-200;
+    @apply placeholder:text-slate-400;
+}
+
+/* Toggle switch */
+.toggle {
+    @apply relative w-14 h-7 rounded-full cursor-pointer transition-colors;
+    @apply bg-slate-200 data-[checked]:bg-primary;
+}
+
+.toggle-knob {
+    @apply absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow-sm;
+    @apply transition-transform duration-200;
+    @apply data-[checked]:translate-x-7;
+}
+
+/* Pulse animation for important elements */
+.pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); }
+}
+
+/* Shake animation for errors */
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
+/* Bounce animation */
+.bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Fade in up animation */
+.fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scale in animation */
+.scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Stagger children animation */
+.stagger-children > * {
+    animation: fadeInUp 0.4s ease-out forwards;
+    opacity: 0;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+
+/* Mobile shadow */
 .mobile-shadow {
     box-shadow: 0 0 50px -12px rgb(0 0 0 / 0.25);
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
 }
 
-/* Ẩn menu mặc định của MathLive – dùng Sigma riêng của app */
+/* MathLive customization */
 math-field::part(menu-toggle) {
     display: none !important;
 }
 
-/* Đưa nút bàn phím kí hiệu (⌨) sang góc phải vùng nhập liệu */
 math-field::part(virtual-keyboard-toggle) {
     position: absolute !important;
     right: 12px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    color: #94a3b8 !important; /* Xám nhạt giống icon Sigma */
+    color: #94a3b8 !important;
     transition: color 0.2s !important;
 }
+
 math-field::part(virtual-keyboard-toggle):hover {
-    color: #4f46e5 !important; /* Indigo khi hover */
+    color: #4f46e5 !important;
 }
 
-/* Thu gọn thanh công cụ nội bộ trên mobile, tránh rối mắt */
 @media (max-width: 640px) {
     math-field::part(toolbar) {
         display: none !important;
