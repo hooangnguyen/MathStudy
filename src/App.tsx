@@ -402,6 +402,7 @@ export default function App() {
               onDuelStateChange={(s) => setIsDuelInProgress(s === 'playing' || s === 'room_playing')}
               onExitDuel={() => setTab('home')}
               exitDuelToken={exitDuelToken}
+              onNavigate={setTab}
             />
           );
         case 'rank':

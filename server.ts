@@ -7,8 +7,11 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import fs from "fs";
 import { createServer as createViteServer } from "vite";
+import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
 
 const app = express();
 const server = http.createServer(app);
@@ -179,6 +182,58 @@ app.post("/api/verify-otp", (req, res) => {
 
   otpStore.delete(email);
   res.json({ success: true });
+});
+
+// AI Endpoint
+app.post("/api/ai/chat", async (req, res) => {
+  try {
+    const { message, image, grade } = req.body;
+
+    // Create system prompt based on grade
+    const systemPrompt = `Bạn là một gia sư Toán thông minh tại ứng dụng MathStudy. 
+Học sinh hiện tại là học sinh lớp ${grade || 'chưa xác định'}. Hãy giải bài toán bằng phương pháp phù hợp với chương trình lớp này.
+Yêu cầu bắt buộc: 
+- Giải bài tập từng bước một (Step-by-step) một cách rõ ràng và dễ hiểu.
+- TẤT CẢ các đoạn mã toán học, công thức, số học phải được bọc trong dấu $...$ (cho công thức inline) hoặc $$...$$ (cho công thức block) để MathRenderer có thể hiển thị bằng KaTeX.
+- Không sử dụng ký hiệu toán học nào ngoài việc bọc trong KaTeX. Viết lời giải bằng tiếng Việt.`;
+
+    const contents: any[] = [
+      { role: 'user', parts: [] }
+    ];
+
+    if (image) {
+      // Expect base64 image data like "data:image/jpeg;base64,/9j/4AAQ..."
+      const match = image.match(/^data:(image\/[a-z]+);base64,(.+)$/);
+      if (match) {
+        const mimeType = match[1];
+        const base64Data = match[2];
+        contents[0].parts.push({
+          inlineData: {
+            data: base64Data,
+            mimeType: mimeType
+          }
+        });
+      }
+    }
+
+    if (message) {
+      contents[0].parts.push({ text: message });
+    }
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: contents,
+      config: {
+        systemInstruction: systemPrompt,
+      }
+    });
+
+    res.json({ success: true, text: response.text });
+
+  } catch (error: any) {
+    console.error("Error calling Gemini API:", error);
+    res.status(500).json({ success: false, error: error.message || "Failed to generate AI response" });
+  }
 });
 
 // Cấu hình phục vụ frontend

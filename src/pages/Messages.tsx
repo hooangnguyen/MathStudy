@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MoreVertical, Circle, ChevronRight, Plus, MessageCircle, Users, Loader2 } from 'lucide-react';
+import { Search, MoreVertical, Circle, ChevronRight, Plus, MessageCircle, Users, Loader2, Bot, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../utils/utils';
 import { Chat } from '../features/chat/Chat';
@@ -164,23 +164,56 @@ export const Messages: React.FC<MessagesProps> = ({ userRole }) => {
           <div className="flex items-center justify-center py-12">
             <Loader2 className="animate-spin text-indigo-600 w-8 h-8" />
           </div>
-        ) : filteredConversations.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-white/60 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-              <MessageCircle size={32} className="text-slate-400" />
-            </div>
-            <p className="text-slate-500 font-medium">Chưa có cuộc trò chuyện nào</p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setShowNewChat(true)}
-              className="mt-4 px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-500/25 hover:shadow-xl transition-all"
-            >
-              Bắt đầu trò chuyện
-            </motion.button>
-          </div>
         ) : (
-          filteredConversations.map((conv) => {
+          <>
+            {/* AI Assistant Static Item */}
+            {'Trợ lý AI Toán học'.toLowerCase().includes(searchQuery.toLowerCase()) && (
+              <motion.button
+                whileHover={{ scale: 1.01, x: 4 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setActiveChat('ai-assistant')}
+                className="w-full bg-gradient-to-r from-indigo-50/50 to-purple-50/50 p-4 rounded-[1.5rem] border border-indigo-100 shadow-sm flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition-all text-left mb-2 group"
+              >
+                <div className="relative shrink-0 z-10">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
+                    <Sparkles size={24} className="text-white fill-white/20" />
+                  </div>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow-md" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="text-base font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 truncate pr-2">Trợ lý AI Toán học</h3>
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-sm font-medium text-slate-500 truncate flex items-center gap-1">
+                      <Bot size={14} /> Sẵn sàng hỗ trợ bạn
+                    </p>
+                  </div>
+                </div>
+              </motion.button>
+            )}
+
+            {filteredConversations.length === 0 && !('Trợ lý AI Toán học'.toLowerCase().includes(searchQuery.toLowerCase())) && (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 bg-white/60 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                  <MessageCircle size={32} className="text-slate-400" />
+                </div>
+                <p className="text-slate-500 font-medium">Chưa có cuộc trò chuyện nào</p>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowNewChat(true)}
+                  className="mt-4 px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-500/25 hover:shadow-xl transition-all"
+                >
+                  Bắt đầu trò chuyện
+                </motion.button>
+              </div>
+            )}
+
+          {filteredConversations.map((conv) => {
             const otherUser = getOtherUser(conv);
             const unread = user ? conv.unreadCount[user.uid] || 0 : 0;
             const otherUserId = conv.participants.find(p => p !== user?.uid);
@@ -251,7 +284,8 @@ export const Messages: React.FC<MessagesProps> = ({ userRole }) => {
                 </div>
               </motion.button>
             );
-          })
+          })}
+          </>
         )}
       </div>
 

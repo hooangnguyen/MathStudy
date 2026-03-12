@@ -9,6 +9,7 @@ import {
   Users, X, Key, Play, Crown, Trophy, Clock, Clipboard, Check,
   GraduationCap, FileText, ChevronLeft, Square, CheckSquare
 } from 'lucide-react';
+import { MathRenderer } from '../components/common/MathRenderer';
 import { useFirebase } from '../context/FirebaseProvider';
 import { cn } from '../utils/utils';
 import {
@@ -101,11 +102,17 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
       }
 
       // Build player list (exclude host/teacher)
-      const list: RoomPlayer[] = r.currentPlayers
+      // We combine currentPlayers and any players who have progress (even if they disconnected)
+      const allPlayerIds = new Set([
+        ...r.currentPlayers,
+        ...Object.keys(r.participantProgress || {})
+      ]);
+      
+      const list: RoomPlayer[] = Array.from(allPlayerIds)
         .filter((uid) => uid !== r.hostId)
         .map((uid, i) => ({
           id: uid,
-          name: r.playerNames[uid] || `Học sinh ${i + 1}`,
+          name: r.playerNames[uid] || `Học sinh`,
           avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
           isMe: uid === user?.uid,
           score: r.participantProgress?.[uid]?.score ?? 0,
@@ -680,7 +687,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
                           : 'Chọn một đáp án đúng'}
                       </p>
                       <h3 className="text-xl sm:text-2xl font-black text-slate-800 text-center mb-8">
-                        {currentQ.question}
+                        <MathRenderer content={currentQ.question} />
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-lg">
                         {currentQ.type === 'checkbox' ? (
@@ -702,7 +709,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
                               ) : (
                                 <Square className="w-7 h-7 shrink-0 text-slate-300" />
                               )}
-                              <span>{opt}</span>
+                              <span><MathRenderer content={opt} /></span>
                             </motion.button>
                           ))
                         ) : (
@@ -713,7 +720,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
                               onClick={() => handleAnswer(opt)}
                               className="p-4 rounded-2xl border-2 border-slate-100 bg-white font-bold text-slate-700 hover:border-primary hover:text-primary text-left"
                             >
-                              {opt}
+                              <MathRenderer content={opt} />
                             </motion.button>
                           ))
                         )}

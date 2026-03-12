@@ -20,7 +20,6 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
     { id: 'home', icon: Home, label: 'Trang chủ' },
     { id: 'classroom', icon: GraduationCap, label: 'Lớp học' },
     { id: 'duel', icon: Swords, label: 'Đối kháng' },
-    { id: 'quiz', icon: ClipboardList, label: 'Quiz' },
     { id: 'messages', icon: MessageSquare, label: 'Tin nhắn' },
     { id: 'profile', icon: User, label: 'Cá nhân' },
   ];

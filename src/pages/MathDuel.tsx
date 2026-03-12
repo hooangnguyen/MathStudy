@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Zap, User, Trophy, X, Timer, Star, Swords, Search, ShieldCheck, Crown, Users, Plus, Key, Play, TrendingUp } from 'lucide-react';
+import { Zap, User, Trophy, X, Timer, Star, Swords, Search, ShieldCheck, Crown, Users, Plus, Key, Play, TrendingUp, ClipboardList } from 'lucide-react';
 import { collection, query, where, limit, onSnapshot } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { cn } from '../utils/utils';
@@ -42,6 +42,7 @@ interface MathDuelProps {
   onDuelStateChange?: (state: DuelState) => void;
   onExitDuel?: () => void;
   exitDuelToken?: number;
+  onNavigate?: (tab: string) => void;
 }
 
 interface RoomPlayer {
@@ -53,7 +54,7 @@ interface RoomPlayer {
   progress?: number;
 }
 
-export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lobby' }) => {
+export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lobby', onDuelStateChange, onExitDuel, exitDuelToken = 0, onNavigate }) => {
   const { user, userProfile } = useFirebase();
   const [state, setState] = useState<DuelState>(initialState);
 
@@ -621,6 +622,14 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                       Vào phòng
                     </button>
                   </div>
+                  
+                  <button
+                    onClick={() => onNavigate?.('quiz')}
+                    className="w-full bg-teal-100 text-teal-700 py-4 rounded-[1.5rem] font-bold text-sm shadow-sm active:scale-95 transition-transform flex items-center justify-center gap-2 mt-3"
+                  >
+                    <ClipboardList size={20} />
+                    Tham gia Quiz Lớp học (Nhập mã)
+                  </button>
                 </div>
               </>
             )}

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   ChevronLeft, Search, MoreVertical, Send,
   Image as ImageIcon, Paperclip, Smile, Phone, Video, X,
-  User, Ban, Trash2, ArrowLeft
+  User, Ban, Trash2, ArrowLeft, Bot
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
@@ -17,6 +17,8 @@ import {
   Message
 } from '../../services/messageService';
 import { getUserProfile, getOnlineStatus, blockUser } from '../../services/userService';
+import { MathRenderer } from '../../components/common/MathRenderer';
+import { saveAIConsultation, getAIConsultationsByUserId } from '../../services/dataService';
 
 interface ChatProps {
   conversationId: string;
@@ -42,10 +44,59 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
   const optionsRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const [isAiMode, setIsAiMode] = useState(false);
+  const [isAiLoading, setIsAiLoading] = useState(false);
+  const [localAiMsgs, setLocalAiMsgs] = useState<Message[]>([]);
+
   // Load messages and conversation info
   useEffect(() => {
     if (!user || !conversationId) return;
 
+    if (conversationId === 'ai-assistant') {
+      setIsAiMode(true);
+      setOtherUser({
+        id: 'ai-bot',
+        name: 'Trợ lý AI Toán học',
+        avatar: '', // We'll render a special icon
+        isOnline: true
+      });
+      
+      // Load history
+      getAIConsultationsByUserId(user.uid).then(logs => {
+        const historyMsgs: Message[] = [];
+        logs.forEach((log, index) => {
+          // 1. User message
+          historyMsgs.push({
+            id: `ai_user_hist_${log.id || index}`,
+            senderId: user.uid,
+            senderName: 'Bạn',
+            senderAvatar: '',
+            text: log.prompt,
+            imageUrl: log.imageUrl || undefined,
+            createdAt: log.timestamp || new Date(),
+            read: true,
+            conversationId: 'ai-assistant'
+          });
+          // 2. AI response
+          historyMsgs.push({
+            id: `ai_bot_hist_${log.id || index}`,
+            senderId: 'ai-bot',
+            senderName: 'Trợ lý AI',
+            senderAvatar: '',
+            text: log.response,
+            createdAt: log.timestamp || new Date(),
+            read: true,
+            conversationId: 'ai-assistant'
+          });
+        });
+        setLocalAiMsgs(historyMsgs);
+        setLoading(false);
+      });
+      
+      return;
+    }
+
+    setIsAiMode(false);
     setLoading(true);
 
     // Load conversation to get other user info
@@ -84,7 +135,7 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
   // Scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, localAiMsgs, isAiLoading]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -110,9 +161,86 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
     }
   };
 
+  const handleSendToAI = async () => {
+    const userMsgText = message;
+    const userMsgImage = selectedImage;
+    
+    // Create temporary message for user
+    const userTempMsg: Message = {
+      id: `ai_user_${Date.now()}`,
+      senderId: user!.uid,
+      senderName: 'Bạn',
+      senderAvatar: '',
+      text: userMsgText,
+      imageUrl: userMsgImage || undefined,
+      createdAt: new Date(),
+      read: true,
+      conversationId: conversationId
+    };
+    
+    setLocalAiMsgs(prev => [...prev, userTempMsg]);
+    setMessage('');
+    setSelectedImage(null);
+    setIsAiLoading(true);
+
+    try {
+      const userProfile = await getUserProfile(user!.uid);
+      const grade = userProfile?.grade || 'chưa xác định';
+      
+      const res = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: userMsgText,
+          image: userMsgImage,
+          grade
+        })
+      });
+      
+      const data = await res.json();
+      
+      if (data.success) {
+        const aiTempMsg: Message = {
+          id: `ai_bot_${Date.now()}`,
+          senderId: 'ai-bot',
+          senderName: 'Trợ lý AI',
+          senderAvatar: '', 
+          text: data.text,
+          createdAt: new Date(),
+          read: true,
+          conversationId: conversationId
+        };
+        
+        setLocalAiMsgs(prev => [...prev, aiTempMsg]);
+        
+        await saveAIConsultation({
+          userId: user!.uid,
+          grade: grade,
+          prompt: userMsgText,
+          imageUrl: userMsgImage || null,
+          response: data.text
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsAiLoading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
   const handleSend = async () => {
     if (!message.trim() && !selectedImage) return;
     if (!user) return;
+
+    if (isAiMode) {
+      await handleSendToAI();
+      return;
+    }
 
     try {
       const userProfile = await getUserProfile(user.uid);
@@ -137,6 +265,8 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
       console.error('Error sending message:', error);
     }
   };
+
+  const displayMessages = isAiMode ? localAiMsgs : messages;
 
   const formatTime = (timestamp: any) => {
     if (!timestamp) return '';
@@ -192,11 +322,15 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
           </button>
           <div
             className="flex items-center gap-3 cursor-pointer hover:bg-slate-50 p-2 rounded-2xl transition-colors -ml-2"
-            onClick={onShowProfile}
+            onClick={!isAiMode ? onShowProfile : undefined}
           >
             <div className="relative">
               {otherUser.avatar ? (
                 <img src={otherUser.avatar} alt={otherUser.name} className="w-10 h-10 rounded-2xl object-cover" />
+              ) : isAiMode ? (
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-md">
+                   <Bot size={20} />
+                </div>
               ) : (
                 <div className="w-10 h-10 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-black">
                   {otherUser.name.charAt(0)}
@@ -214,6 +348,7 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
             </div>
           </div>
         </div>
+        {!isAiMode && (
         <div className="flex items-center gap-2">
           <div className="relative" ref={optionsRef}>
             <button
@@ -281,29 +416,30 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
             </AnimatePresence>
           </div>
         </div>
+        )}
       </div>
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar">
-        {loading ? (
+        {loading && !isAiMode ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-spin w-8 h-8 border-2 border-indigo-200 border-t-indigo-600 rounded-full" />
           </div>
-        ) : messages.length === 0 ? (
+        ) : displayMessages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
-              <Send size={24} className="text-indigo-400" />
+              {isAiMode ? <Bot size={24} className="text-indigo-600" /> : <Send size={24} className="text-indigo-400" />}
             </div>
-            <p className="text-slate-500 font-medium">Chưa có tin nhắn nào</p>
-            <p className="text-slate-400 text-sm">Hãy gửi tin nhắn đầu tiên!</p>
+            <p className="text-slate-500 font-medium">{isAiMode ? "Bắt đầu trò chuyện với Trợ lý AI" : "Chưa có tin nhắn nào"}</p>
+            <p className="text-slate-400 text-sm">{isAiMode ? "Hỏi bất kì bài toán nào!" : "Hãy gửi tin nhắn đầu tiên!"}</p>
           </div>
         ) : (
           <>
             <div className="text-center my-4">
-              <span className="text-[10px] font-bold text-slate-400 bg-slate-200/50 px-3 py-1 rounded-full">Tin nhắn</span>
+              <span className="text-[10px] font-bold text-slate-400 bg-slate-200/50 px-3 py-1 rounded-full">{isAiMode ? "Trợ lý AI" : "Tin nhắn"}</span>
             </div>
 
-            {messages.map((msg) => {
+            {displayMessages.map((msg) => {
               const isMine = msg.senderId === user?.uid;
 
               return (
@@ -329,7 +465,11 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
                           className="max-w-full rounded-2xl mb-2 object-contain max-h-64"
                         />
                       )}
-                      {msg.text && <div className={msg.imageUrl ? "px-2 pb-1" : ""}>{msg.text}</div>}
+                      {msg.text && (
+                        <div className={msg.imageUrl ? "px-2 pb-1" : ""}>
+                          {isAiMode && !isMine ? <MathRenderer content={msg.text} /> : msg.text}
+                        </div>
+                      )}
                     </div>
                     <span className="text-[10px] font-bold text-slate-400 px-2">
                       {msg.senderName} • {formatTime(msg.createdAt)}
@@ -338,6 +478,20 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
                 </div>
               );
             })}
+            
+            {isAiLoading && isAiMode && (
+              <div className="flex w-full justify-start">
+                <div className="max-w-[75%] md:max-w-[60%] flex flex-col gap-1 items-start">
+                  <div className="p-4 rounded-3xl text-sm font-medium bg-white border border-slate-100 text-slate-700 rounded-bl-sm shadow-sm flex items-center gap-2">
+                     <span className="w-2 h-2 bg-slate-300 rounded-full animate-bounce"></span>
+                     <span className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
+                     <span className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-400 px-2">Trợ lý AI • Đang soạn...</span>
+                </div>
+              </div>
+            )}
+            
             <div ref={messagesEndRef} />
           </>
         )}
