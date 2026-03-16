@@ -184,7 +184,59 @@ app.post("/api/verify-otp", (req, res) => {
   res.json({ success: true });
 });
 
-// AI Endpoint
+// Assignment Generation Endpoint
+app.post("/api/ai/generate-questions", async (req, res) => {
+  try {
+    const { topic, grade, count, difficulty, types } = req.body;
+
+    const systemPrompt = `Bạn là một chuyên gia soạn đề kiểm tra Toán cho học sinh từ Lớp 1 đến Lớp 9.
+Hãy tạo ${count} câu hỏi về chủ đề "${topic}" dành cho Lớp ${grade} với độ khó "${difficulty}".
+YÊU CẦU VỀ ĐỘ KHÓ:
+- Cơ bản: Tập trung nhận biết, thông hiểu, số liệu đơn giản.
+- Trung bình: Vận dụng thấp, đòi hỏi tính toán cẩn thận.
+- Nâng cao: Vận dụng cao, tư duy logic, giải quyết vấn đề.
+
+YÊU CẦU ĐỊNH DẠNG BẮT BUỘC:
+1. Trả về DUY NHẤT một mảng JSON. Không được kèm lời dẫn hay giải thích gì thêm ở ngoài JSON.
+2. Cấu trúc mỗi câu hỏi:
+   {
+     "type": "multiple_choice" | "short_answer",
+     "text": "Nội dung câu hỏi (Công thức bọc trong $...$)",
+     "options": ["A", "B", "C", "D"], (Chỉ cho multiple_choice, đủ 4 lựa chọn)
+     "correctAnswer": 0 (chỉ số đáp án đúng cho mc, chuỗi cho short_answer),
+     "points": 10
+   }
+3. GIAO THỨC ĐỊNH DẠNG TOÀN DIỆN (BẮT BUỘC):
+   - TOÀN BỘ nội dung câu hỏi PHẢI nằm trong cặp dấu $ ... $.
+   - Các đoạn văn bản Tiếng Việt PHẢI nằm trong lệnh \text{...}.
+   - Các công thức, biến số, biểu thức toán học nằm TRỰC TIẾP trong dấu $ nhưng NGOÀI lệnh \text.
+   - CHÚ Ý: Phải có khoảng trắng sau/trước lệnh \text để các chữ không dính vào công thức.
+   - VÍ DỤ MẪU: "$ \text{Kết quả của phép nhân } 2x(x^2-3x+1) \text{ là gì?} $"
+   - VÍ DỤ MẪU: "$ \text{Tìm } x \text{ biết } x + 1 = 2 $"
+4. Ngôn ngữ: Tiếng Việt.`;
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: [{ role: 'user', parts: [{ text: "Hãy soạn đề ngay bây giờ theo yêu cầu trên." }] }],
+      config: {
+        systemInstruction: systemPrompt,
+        responseMimeType: 'application/json' // Force JSON mode for better reliability
+      }
+    });
+
+    // Handle potential raw JSON or markdown-wrapped JSON
+    let text = response.text || "[]";
+    text = text.replace(/```json\n?|\n?```/g, "").trim();
+    
+    res.json({ success: true, questions: JSON.parse(text) });
+
+  } catch (error: any) {
+    console.error("Error generating assignment:", error);
+    res.status(500).json({ success: false, error: error.message || "Failed to generate questions" });
+  }
+});
+
+// AI Chat Endpoint
 app.post("/api/ai/chat", async (req, res) => {
   try {
     const { message, image, grade } = req.body;

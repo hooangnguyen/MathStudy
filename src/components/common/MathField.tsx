@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
+import { cn } from '../../utils/utils';
 import 'mathlive';
 
 interface MathFieldProps {
@@ -100,10 +101,11 @@ export const MathField = forwardRef<MathFieldHandle, MathFieldProps>(
         }, [onChange, readOnly, placeholder, onFocus, onBlur]);
 
         return (
-            <div className={className}>
+            <div className={cn("w-full min-w-0", className)}>
                 {/* @ts-ignore */}
                 <math-field
                     ref={internalRef}
+                    line-breaking="auto"
                     style={{
                         position: 'relative',
                         width: '100%',
@@ -114,14 +116,18 @@ export const MathField = forwardRef<MathFieldHandle, MathFieldProps>(
                         outline: 'none',
                         backgroundColor: 'white',
                         minHeight: '60px',
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: 'block',
                         caretColor: '#4f46e5',
                         '--caret-color': '#4f46e5',
                         '--selection-background-color': '#e0e7ff',
                         '--fill-surface': 'transparent',
                         '--keyboard-zindex': '2000',
                         '--outline-color': '#4f46e5',
+                        whiteSpace: 'pre-wrap',
+                        overflowWrap: 'anywhere',
+                        wordBreak: 'break-word',
+                        height: 'auto',
+                        maxWidth: '100%',
                     } as any}
                 />
             </div>

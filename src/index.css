@@ -364,6 +364,26 @@ math-field::part(virtual-keyboard-toggle):hover {
     color: #4f46e5 !important;
 }
 
+math-field::part(content), 
+math-field::part(container) {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    display: inline-block !important;
+    width: 100% !important;
+}
+
+math-field {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    height: auto !important;
+    min-height: 60px;
+    display: block !important;
+}
+
 @media (max-width: 640px) {
     math-field::part(toolbar) {
         display: none !important;

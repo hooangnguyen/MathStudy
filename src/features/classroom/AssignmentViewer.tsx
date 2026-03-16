@@ -175,14 +175,17 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
             <div className="flex-1 overflow-y-auto p-4 md:p-8 no-scrollbar pb-32">
                 <div className="max-w-3xl mx-auto space-y-8">
 
-                    <div className="bg-white rounded-3xl p-5 md:p-6 shadow-sm border-t-4 border-t-indigo-500 border-x border-b border-slate-200 text-left space-y-2">
-                        <p className="text-sm font-black text-indigo-600 uppercase tracking-widest">
+                    <div className="bg-white rounded-3xl p-5 md:p-6 shadow-sm border-t-4 border-t-indigo-500 border-x border-b border-slate-200 text-left flex flex-col gap-2 min-h-fit">
+                        <p className="text-sm font-black text-indigo-600 uppercase tracking-widest shrink-0">
                             Câu {currentQuestionIndex + 1}
                         </p>
-                        <MathEquationEditor
-                            value={currentQuestion.text}
-                            readOnly
-                        />
+                        <div className="w-full">
+                            <MathEquationEditor
+                                value={currentQuestion.text}
+                                readOnly
+                                className="w-full"
+                            />
+                        </div>
                     </div>
 
                     <div className="space-y-3">
@@ -226,6 +229,7 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
                                         <MathEquationEditor
                                           value={opt}
                                           readOnly
+                                          className="w-full"
                                         />
                                       </div>
                                     </button>
