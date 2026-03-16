@@ -43,14 +43,20 @@ export const Settings: React.FC<SettingsProps> = ({
   const [notifications, setNotifications] = useState(preferences?.notifications ?? true);
   const [soundEffects, setSoundEffects] = useState(preferences?.soundEffects ?? true);
   const [darkMode, setDarkMode] = useState(preferences?.darkMode ?? false);
+  const [language, setLanguage] = useState(preferences?.language ?? "Tiếng Việt");
+  const [fontSize, setFontSize] = useState(preferences?.fontSize ?? "Mặc định");
+  const [eyeProtection, setEyeProtection] = useState(preferences?.eyeProtection ?? false);
 
-  const saveSetting = async (key: keyof UserPreferences, value: boolean) => {
+  const saveSetting = async <K extends keyof UserPreferences>(key: K, value: UserPreferences[K]) => {
     if (!uid) return;
     try {
-      const newPrefs = {
+      const newPrefs: UserPreferences = {
         notifications,
         soundEffects,
         darkMode,
+        language,
+        fontSize,
+        eyeProtection,
         ...preferences,
         [key]: value
       };
@@ -65,6 +71,28 @@ export const Settings: React.FC<SettingsProps> = ({
   const handleToggle = (key: keyof UserPreferences, value: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
     setter(value);
     saveSetting(key, value);
+  };
+
+  const handleLanguageChange = () => {
+    const nextLang = language === "Tiếng Việt" ? "English" : "Tiếng Việt";
+    setLanguage(nextLang);
+    saveSetting("language", nextLang);
+  };
+
+  const handleFontSizeChange = () => {
+    const sizes = ["Nhỏ", "Mặc định", "Lớn"];
+    const currentIndex = sizes.indexOf(fontSize);
+    const nextSize = sizes[(currentIndex + 1) % sizes.length] || "Mặc định";
+    setFontSize(nextSize);
+    saveSetting("fontSize", nextSize);
+  };
+
+  const handleHelp = () => {
+    alert("Vui lòng gửi email đến support@mathmastery.vn để được hỗ trợ kịp thời.");
+  };
+
+  const handleInfo = () => {
+    alert("MathMastery v1.2.4\nỨng dụng học tập thông minh dành cho học sinh.");
   };
 
   const Toggle = ({ active, onToggle }: { active: boolean, onToggle: () => void }) => (
@@ -153,7 +181,7 @@ export const Settings: React.FC<SettingsProps> = ({
             color="text-blue-500"
             onClick={onEditProfile}
           />
-          <SettingItem icon={Globe} label="Ngôn ngữ" value="Tiếng Việt" color="text-emerald-500" />
+          <SettingItem icon={Globe} label="Ngôn ngữ" value={language} color="text-emerald-500" onClick={handleLanguageChange} />
         </div>
 
         {/* Learning Section */}
@@ -161,7 +189,7 @@ export const Settings: React.FC<SettingsProps> = ({
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Học tập</h2>
         </div>
         <div className="mx-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-md overflow-hidden">
-          <SettingItem icon={Type} label="Cỡ chữ" value="Mặc định" color="text-indigo-500" />
+          <SettingItem icon={Type} label="Cỡ chữ" value={fontSize} color="text-indigo-500" onClick={handleFontSizeChange} />
           <SettingItem
             icon={Bell}
             label="Thông báo nhắc học"
@@ -187,7 +215,12 @@ export const Settings: React.FC<SettingsProps> = ({
             toggle={{ active: darkMode, onToggle: () => handleToggle('darkMode', !darkMode, setDarkMode) }}
             color="text-slate-800"
           />
-          <SettingItem icon={Eye} label="Chế độ bảo vệ mắt" value="Tắt" color="text-amber-500" />
+          <SettingItem 
+            icon={Eye} 
+            label="Chế độ bảo vệ mắt" 
+            toggle={{ active: eyeProtection, onToggle: () => handleToggle('eyeProtection', !eyeProtection, setEyeProtection) }} 
+            color="text-amber-500" 
+          />
         </div>
 
         {/* Support Section */}
@@ -195,8 +228,8 @@ export const Settings: React.FC<SettingsProps> = ({
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Hỗ trợ</h2>
         </div>
         <div className="mx-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-md overflow-hidden">
-          <SettingItem icon={HelpCircle} label="Trung tâm trợ giúp" color="text-blue-400" />
-          <SettingItem icon={Info} label="Về MathMastery" value="v1.2.4" color="text-slate-400" />
+          <SettingItem icon={HelpCircle} label="Trung tâm trợ giúp" color="text-blue-400" onClick={handleHelp} />
+          <SettingItem icon={Info} label="Về MathMastery" value="v1.2.4" color="text-slate-400" onClick={handleInfo} />
         </div>
 
         <div className="p-5 mt-4">

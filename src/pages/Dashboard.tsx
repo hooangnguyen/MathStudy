@@ -56,7 +56,7 @@ const PathNode = memo(({ node, unitTitle, onStartLesson }: PathNodeProps) => {
         whileTap={!isLocked ? { scale: 0.94 } : {}}
         onClick={!isLocked ? () => onStartLesson(`${unitTitle} - Bài ${node.lessonIndex}`, node.topic, node.id) : undefined}
         className={cn(
-          "w-[82px] h-[82px] rounded-[2rem] flex items-center justify-center relative transition-all duration-300 ease-out",
+          "w-[64px] h-[64px] rounded-[1.6rem] flex items-center justify-center relative transition-all duration-300 ease-out",
           !isLocked ? "cursor-pointer" : "opacity-70 grayscale-[0.4]",
           node.color,
           !isCompleted && !isCurrent && "blur-[0.5px] opacity-50 grayscale-[0.6]"
@@ -67,22 +67,22 @@ const PathNode = memo(({ node, unitTitle, onStartLesson }: PathNodeProps) => {
             : `0 4px 0 ${node.shadow}40`
         }}
       >
-        <div className="w-[56px] h-[56px] rounded-[1.4rem] bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/20 shadow-inner">
+        <div className="w-[44px] h-[44px] rounded-[1.1rem] bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/20 shadow-inner">
           {node.icon === 'star' ? (
-            <Star size={34} className={cn(
+            <Star size={26} className={cn(
               "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]",
               isCompleted ? "fill-white" : isCurrent ? "fill-white/80 animate-pulse" : "fill-transparent opacity-40"
             )} />
           ) : (
-            <span className="text-3xl drop-shadow-lg">{node.icon}</span>
+            <span className="text-2xl drop-shadow-lg">{node.icon}</span>
           )}
         </div>
 
         {/* Lock overlay */}
         {isLocked && (
-          <div className="absolute inset-0 bg-slate-900/20 rounded-[2rem] flex items-center justify-center">
-             <div className="bg-white/90 p-1.5 rounded-full shadow-md">
-                <div className="w-1.5 h-1.5 bg-slate-400 rounded-full" />
+          <div className="absolute inset-0 bg-slate-900/20 rounded-[1.6rem] flex items-center justify-center">
+             <div className="bg-white/90 p-1 rounded-full shadow-md">
+                <div className="w-1 h-1 bg-slate-400 rounded-full" />
              </div>
           </div>
         )}

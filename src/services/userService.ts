@@ -14,6 +14,9 @@ export interface UserPreferences {
     darkMode: boolean;
     soundEffects: boolean;
     notifications: boolean;
+    language?: string;
+    fontSize?: string;
+    eyeProtection?: boolean;
 }
 
 export interface UserProfile {

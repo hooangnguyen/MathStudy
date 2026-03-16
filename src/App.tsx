@@ -225,6 +225,43 @@ export default function App() {
     return () => unsubscribe();
   }, [user, userData?.preferences]);
 
+  // Apply Global Styles based on Preferences
+  useEffect(() => {
+    const prefs = userData?.preferences;
+    const htmlDiv = document.documentElement;
+
+    // Dark Mode
+    if (prefs?.darkMode) {
+      htmlDiv.classList.add('theme-dark');
+    } else {
+      htmlDiv.classList.remove('theme-dark');
+    }
+
+    // Eye Protection
+    if (prefs?.eyeProtection) {
+      htmlDiv.classList.add('theme-eye-protection');
+    } else {
+      htmlDiv.classList.remove('theme-eye-protection');
+    }
+
+    // Font Size (using tailwind rem scaling)
+    if (prefs?.fontSize === 'Nhỏ') {
+      htmlDiv.style.fontSize = '14px';
+    } else if (prefs?.fontSize === 'Lớn') {
+      htmlDiv.style.fontSize = '18px';
+    } else {
+      htmlDiv.style.fontSize = '16px'; // Default
+    }
+
+    // Language (Sets Lang attribute, fully translating app requires i18n)
+    if (prefs?.language === 'English') {
+      htmlDiv.lang = 'en';
+    } else {
+      htmlDiv.lang = 'vi'; // Default
+    }
+
+  }, [userData?.preferences]);
+
   const handleLogin = (role: 'student' | 'teacher' | 'new_user') => {
     // The useEffect will automatically catch the user state change and sync the profile.
     setIsLoggedIn(true);

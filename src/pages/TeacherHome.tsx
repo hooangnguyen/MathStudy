@@ -8,7 +8,7 @@ import { AssignmentBuilder } from '../features/classroom/AssignmentBuilder';
 import { Notifications } from '../components/common/Notifications';
 import { AssignmentGrader } from '../features/classroom/AssignmentGrader';
 import { subscribeToDraftAssignments, deleteDraftAssignment, DraftAssignmentData, createAssignment } from '../services/assignmentService';
-import { subscribeToTeacherClasses, ClassData } from '../services/classService';
+import { subscribeToTeacherClasses, ClassData, createClass } from '../services/classService';
 import { getUserProfile, UserProfile } from '../services/userService';
 import { subscribeToNotifications, Notification } from '../services/notificationService';
 
@@ -16,6 +16,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
   const [showCreateClass, setShowCreateClass] = useState(false);
   const [showCreateAssignment, setShowCreateAssignment] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
+  const [isCreatingClass, setIsCreatingClass] = useState(false);
   const [gradingAssignment, setGradingAssignment] = useState<any | null>(null);
   const [selectedDraft, setSelectedDraft] = useState<any>(null);
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
@@ -81,11 +82,17 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
-  const handleCreateClass = () => {
-    if (!newClassName.trim()) return;
-    // Generate a random 6-character code
-    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-    setGeneratedCode(code);
+  const handleCreateClass = async () => {
+    if (!newClassName.trim() || !user) return;
+    setIsCreatingClass(true);
+    try {
+      const newClass = await createClass(user.uid, newClassName, parseInt(newClassGrade));
+      setGeneratedCode(newClass.code);
+    } catch (error) {
+      console.error("Failed to create class", error);
+    } finally {
+      setIsCreatingClass(false);
+    }
   };
 
   const handleCopyCode = () => {
@@ -187,10 +194,10 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
 
                 <button
                   onClick={handleCreateClass}
-                  disabled={!newClassName.trim()}
+                  disabled={!newClassName.trim() || isCreatingClass}
                   className="w-full py-5 mt-4 bg-indigo-600 text-white rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-200 active:scale-95 transition-all disabled:opacity-50 disabled:active:scale-100 flex items-center justify-center gap-2"
                 >
-                  Tạo lớp ngay <Plus size={20} />
+                  {isCreatingClass ? 'Đang tạo...' : <>Tạo lớp ngay <Plus size={20} /></>}
                 </button>
               </motion.div>
             ) : (

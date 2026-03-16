@@ -45,6 +45,19 @@
     }
 }
 
+/* System-Wide Themes */
+.theme-dark {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+.theme-dark img, .theme-dark video, .theme-dark canvas, .theme-dark svg:not(.icon-dark-invert) {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+.theme-eye-protection {
+    filter: sepia(0.3) contrast(0.9) brightness(0.9);
+}
+
 /* Modern Glassmorphism */
 .glass {
     @apply bg-white/70 backdrop-blur-xl border border-white/20;
