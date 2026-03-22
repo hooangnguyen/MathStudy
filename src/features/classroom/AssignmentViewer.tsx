@@ -215,7 +215,7 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
                                       )}
                                     >
                                       <div className={cn(
-                                        "w-7 h-7 flex items-center justify-center shrink-0 transition-colors",
+                                        "w-7 h-7 flex items-center justify-center shrink-0 transition-colors pointer-events-none",
                                         currentQuestion.type === 'multiple_choice' ? "rounded-full border-2" : "rounded-lg border-2",
                                         isSelected ? "border-indigo-500 bg-indigo-500 text-white" : "border-slate-300 bg-white"
                                       )}>
@@ -225,7 +225,7 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
                                           isSelected ? <CheckSquare size={18} /> : <Square size={18} className="text-slate-400" />
                                         )}
                                       </div>
-                                      <div className="flex-1 min-w-0">
+                                      <div className="flex-1 min-w-0 pointer-events-none">
                                         <MathEquationEditor
                                           value={opt}
                                           readOnly

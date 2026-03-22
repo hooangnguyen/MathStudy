@@ -705,11 +705,11 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
                               )}
                             >
                               {checkboxSelections.includes(i) ? (
-                                <CheckSquare className="w-7 h-7 shrink-0 text-primary" />
+                                <CheckSquare className="w-7 h-7 shrink-0 text-primary pointer-events-none" />
                               ) : (
-                                <Square className="w-7 h-7 shrink-0 text-slate-300" />
+                                <Square className="w-7 h-7 shrink-0 text-slate-300 pointer-events-none" />
                               )}
-                              <span><MathRenderer content={opt} /></span>
+                              <span className="pointer-events-none"><MathRenderer content={opt} /></span>
                             </motion.button>
                           ))
                         ) : (
@@ -720,7 +720,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
                               onClick={() => handleAnswer(opt)}
                               className="p-4 rounded-2xl border-2 border-slate-100 bg-white font-bold text-slate-700 hover:border-primary hover:text-primary text-left"
                             >
-                              <MathRenderer content={opt} />
+                              <span className="pointer-events-none"><MathRenderer content={opt} /></span>
                             </motion.button>
                           ))
                         )}

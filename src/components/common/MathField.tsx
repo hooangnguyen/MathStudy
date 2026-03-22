@@ -128,6 +128,7 @@ export const MathField = forwardRef<MathFieldHandle, MathFieldProps>(
                         wordBreak: 'break-word',
                         height: 'auto',
                         maxWidth: '100%',
+                        pointerEvents: readOnly ? 'none' : 'auto'
                     } as any}
                 />
             </div>

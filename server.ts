@@ -30,7 +30,8 @@ const io = new Server(server, {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // OTP Store (In-memory for simplicity)
 const otpStore = new Map<string, { otp: string, expires: number }>();
@@ -191,30 +192,38 @@ app.post("/api/ai/generate-questions", async (req, res) => {
 
     const systemPrompt = `Bạn là một chuyên gia soạn đề kiểm tra Toán cho học sinh từ Lớp 1 đến Lớp 9.
 Hãy tạo ${count} câu hỏi về chủ đề "${topic}" dành cho Lớp ${grade} với độ khó "${difficulty}".
+
 YÊU CẦU VỀ ĐỘ KHÓ:
 - Cơ bản: Tập trung nhận biết, thông hiểu, số liệu đơn giản.
 - Trung bình: Vận dụng thấp, đòi hỏi tính toán cẩn thận.
 - Nâng cao: Vận dụng cao, tư duy logic, giải quyết vấn đề.
 
-YÊU CẦU ĐỊNH DẠNG BẮT BUỘC:
-1. Trả về DUY NHẤT một mảng JSON. Không được kèm lời dẫn hay giải thích gì thêm ở ngoài JSON.
+YÊU CẦU ĐỊNH DẠNG DỮ LIỆU JSON BẮT BUỘC:
+1. Trả về DUY NHẤT một mảng JSON. Không kèm markdown block (\`\`\`json) hay lời giải thích.
 2. Cấu trúc mỗi câu hỏi:
    {
      "type": "multiple_choice" | "short_answer",
-     "text": "Nội dung câu hỏi (Công thức bọc trong $...$)",
-     "options": ["A", "B", "C", "D"], (Chỉ cho multiple_choice, đủ 4 lựa chọn)
-     "correctAnswer": 0 (chỉ số đáp án đúng cho mc, chuỗi cho short_answer),
+     "text": "Nội dung câu hỏi...",
+     "options": ["A", "B", "C", "D"],
+     "correctAnswer": 0,
      "points": 10
    }
-3. GIAO THỨC ĐỊNH DẠNG TOÀN DIỆN (BẮT BUỘC):
-   - TOÀN BỘ nội dung câu hỏi PHẢI nằm trong cặp dấu $ ... $.
-   - Các đoạn văn bản Tiếng Việt PHẢI nằm trong lệnh \text{...}.
-   - Các công thức, biến số, biểu thức toán học nằm TRỰC TIẾP trong dấu $ nhưng NGOÀI lệnh \text.
-   - CHÚ Ý: Phải có khoảng trắng sau/trước lệnh \text để các chữ không dính vào công thức.
-   - VÍ DỤ MẪU: "$ \text{Kết quả của phép nhân } 2x(x^2-3x+1) \text{ là gì?} $"
-   - VÍ DỤ MẪU: "$ \text{Tìm } x \text{ biết } x + 1 = 2 $"
+3. QUY TẮC VIẾT TOÁN HỌC VÀ CHỮ TIẾNG VIỆT (TUYỆT ĐỐI TUÂN THỦ):
+   - TOÀN BỘ nội dung text của câu hỏi và đáp án phải bọc trong MỘT cặp dấu $ duy nhất ở đầu và cuối chuỗi.
+   - BẤT KỲ đoạn nào là CHỮ TIẾNG VIỆT, BẮT BUỘC phải bọc trong lệnh \\\\text{...}. 
+   - CHÚ Ý: Phải sử dụng 2 dấu gạch chéo ngược (\\\\text) để mã JSON hợp lệ.
+   - CÁC CÔNG THỨC TOÁN học không được bọc trong \\\\text{}, chỉ để xen kẽ giữa các đoạn \\\\text{}.
+   - Phải tự động thêm khoảng trắng (dấu cách) ở cuối hoặc đầu đoạn chữ bên trong \\\\text{...} để chữ không dính vào công thức.
+   
+   CÁC VÍ DỤ MẪU BẮT BUỘC LÀM THEO:
+   - VÍ DỤ CHUẨN 1: "$ \\\\text{Kết quả của phép nhân } 2x(x^2 - 3x + 1) \\\\text{ là gì?} $"
+   - VÍ DỤ CHUẨN 2: "$ \\\\text{Cho phương trình } x^2 - 4 = 0 \\\\text{. Nghiệm dương của phương trình là:} $"
+   - VÍ DỤ SAI (không dùng \\\\text): "$ Kết quả của phép nhân 2x(x^2 - 3x + 1) là gì? $"
+   - VÍ DỤ SAI (không bọc $ ở hai đầu): "Kết quả của phép nhân $2x(x^2 - 3x + 1)$ là gì?"
+
 4. Ngôn ngữ: Tiếng Việt.`;
 
+    // ... phần gọi API AI của bạn ...
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: [{ role: 'user', parts: [{ text: "Hãy soạn đề ngay bây giờ theo yêu cầu trên." }] }],
@@ -227,7 +236,7 @@ YÊU CẦU ĐỊNH DẠNG BẮT BUỘC:
     // Handle potential raw JSON or markdown-wrapped JSON
     let text = response.text || "[]";
     text = text.replace(/```json\n?|\n?```/g, "").trim();
-    
+
     res.json({ success: true, questions: JSON.parse(text) });
 
   } catch (error: any) {
