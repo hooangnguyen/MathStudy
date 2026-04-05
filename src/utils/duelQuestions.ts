@@ -5,9 +5,11 @@ export interface DuelQuestion {
     topic: string;
     sub_topic: string;
     difficulty: string;
-    question: string;
+    question?: string; // Kept as optional just in case any old code accesses it
+    text: string;
     options: string[];
-    answer: string;
+    correctAnswer: number;
+    answer?: string; // Kept as optional just in case
     explanation?: string;
 }
 

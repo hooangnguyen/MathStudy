@@ -885,7 +885,7 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
                       <BrainCircuit size={24} className="sm:w-7 sm:h-7" />
                     </div>
                     <div>
-                      <h3 className="text-lg sm:text-xl font-black text-slate-800 tracking-tight leading-tight">Trợ lý AI MathMastery</h3>
+                      <h3 className="text-lg sm:text-xl font-black text-slate-800 tracking-tight leading-tight">Trợ lý AI Math Study</h3>
                       <div className="flex items-center gap-1.5">
                         <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         <p className="text-[10px] sm:text-xs font-bold text-slate-400">Sẵn sàng soạn bài cho bạn</p>
@@ -922,18 +922,6 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
                       <div className="absolute right-0 top-1/2 -translate-y-1/2 text-purple-400/50">
                         <Sparkles size={20} className="animate-pulse" />
                       </div>
-                    </div>
-                    <div className="flex flex-wrap gap-2 pt-1">
-                      {['Đại số', 'Hình học', 'Giải bài toán', 'Nâng cao'].map(tag => (
-                        <button
-                          key={tag}
-                          onClick={() => setAiTopic(tag)}
-                          className="px-3 py-1.5 bg-white border border-slate-100 text-slate-500 rounded-xl text-[10px] font-bold hover:bg-purple-50 hover:text-purple-600 hover:border-purple-100 transition-all shadow-sm"
-                          disabled={isGeneratingAI}
-                        >
-                          +{tag}
-                        </button>
-                      ))}
                     </div>
                   </div>
 
@@ -1086,10 +1074,6 @@ export const AssignmentBuilder: React.FC<AssignmentBuilderProps> = ({ classId, t
                         </>
                       )}
                     </button>
-                    
-                    <p className="text-[10px] text-center font-bold text-slate-400 uppercase tracking-widest pt-5 flex items-center justify-center gap-2">
-                       Năng lượng từ <span className="text-purple-500">Gemini AI</span> 🔮
-                    </p>
                   </div>
                 </div>
               </div>

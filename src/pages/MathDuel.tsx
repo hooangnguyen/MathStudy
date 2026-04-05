@@ -4,6 +4,7 @@ import { Zap, User, Trophy, X, Timer, Star, Swords, Search, ShieldCheck, Crown, 
 import { collection, query, where, limit, onSnapshot } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { cn } from '../utils/utils';
+import { MathRenderer } from '../components/common/MathRenderer';
 import { MultiplayerLeaderboard } from '../features/duel/MultiplayerLeaderboard';
 import { useFirebase } from '../context/FirebaseProvider';
 import {
@@ -264,14 +265,14 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
   // Questions for duel - loaded from data files
   const questions = duelQuestions.length > 0 ? duelQuestions.map(q => ({
-    q: q.question,
-    a: q.answer,
-    options: q.options
+    q: q.text || q.question || '',
+    options: q.options || [],
+    correctAnswer: q.correctAnswer !== undefined ? q.correctAnswer : q.options.indexOf(q.answer || '')
   })) : [
-    { q: "12 + 15 = ?", a: "27", options: ["25", "27", "29", "31"] },
-    { q: "45 - 18 = ?", a: "27", options: ["23", "25", "27", "29"] },
-    { q: "8 x 7 = ?", a: "56", options: ["54", "56", "58", "60"] },
-    { q: "72 : 9 = ?", a: "8", options: ["7", "8", "9", "10"] },
+    { q: "12 + 15 = ?", correctAnswer: 1, options: ["25", "27", "29", "31"] },
+    { q: "45 - 18 = ?", correctAnswer: 2, options: ["23", "25", "27", "29"] },
+    { q: "8 x 7 = ?", correctAnswer: 1, options: ["54", "56", "58", "60"] },
+    { q: "72 : 9 = ?", correctAnswer: 1, options: ["7", "8", "9", "10"] },
   ];
 
   // Real-time Matchmaking Logic
@@ -467,9 +468,14 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     setState('result');
   };
 
-  const handleAnswer = async (ans: string) => {
+  const handleAnswer = async (ans: string, optIndex: number = -1) => {
     let newScore = score.player;
-    if (ans === questions[currentQuestion].a) {
+    const currentQ = questions[currentQuestion];
+    // Compare index if array, else compare string just in case
+    const isCorrect = (optIndex !== -1 && optIndex === currentQ.correctAnswer) || 
+                      (ans && currentQ.options[currentQ.correctAnswer] === ans);
+    
+    if (isCorrect) {
       newScore += 10;
       setScore(prev => ({ ...prev, player: newScore }));
       audioService.playCorrect(userProfile?.preferences);
@@ -491,8 +497,11 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     }
   };
 
-  const handleRoomAnswer = async (ans: string) => {
-    const isCorrect = ans === questions[currentQuestion].a;
+  const handleRoomAnswer = async (ans: string, optIndex: number = -1) => {
+    const currentQ = questions[currentQuestion];
+    const isCorrect = (optIndex !== -1 && optIndex === currentQ.correctAnswer) || 
+                      (ans && currentQ.options[currentQ.correctAnswer] === ans);
+    
     if (isCorrect) audioService.playCorrect(userProfile?.preferences);
     else audioService.playWrong(userProfile?.preferences);
 
@@ -959,8 +968,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                 <span className="px-4 py-1 bg-slate-100 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest">
                   Câu hỏi {currentQuestion + 1} / {questions.length}
                 </span>
-                <h3 className="text-5xl font-black tracking-tight text-slate-800">
-                  {questions[currentQuestion].q}
+                <h3 className="text-xl sm:text-2xl lg:text-5xl font-black tracking-tight text-slate-800">
+                  <MathRenderer content={questions[currentQuestion].q} />
                 </h3>
               </div>
 
@@ -970,9 +979,9 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                     key={i}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleAnswer(opt)}
-                    className="bg-white border-2 border-slate-100 p-6 rounded-[2rem] text-2xl font-black text-slate-700 hover:border-primary hover:text-primary transition-all shadow-sm"
+                    className="bg-white border-2 border-slate-100 p-4 sm:p-6 rounded-[2rem] text-lg sm:text-2xl font-black text-slate-700 hover:border-primary hover:text-primary transition-all shadow-sm"
                   >
-                    {opt}
+                    <span className="pointer-events-none"><MathRenderer content={opt} /></span>
                   </motion.button>
                 ))}
               </div>
@@ -1178,8 +1187,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                     <span className="px-4 py-1 bg-slate-100 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest">
                       Câu hỏi {currentQuestion + 1} / {questions.length}
                     </span>
-                    <h3 className="text-5xl font-black tracking-tight text-slate-800">
-                      {questions[currentQuestion].q}
+                    <h3 className="text-xl sm:text-2xl lg:text-5xl font-black tracking-tight text-slate-800">
+                      <MathRenderer content={questions[currentQuestion].q} />
                     </h3>
                   </div>
 
@@ -1188,10 +1197,10 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                       <motion.button
                         key={i}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => handleRoomAnswer(opt)}
-                        className="bg-white border-2 border-slate-100 p-6 rounded-[2rem] text-2xl font-black text-slate-700 hover:border-primary hover:text-primary transition-all shadow-sm"
+                        onClick={() => handleRoomAnswer(opt, i)}
+                        className="bg-white border-2 border-slate-100 p-4 sm:p-6 rounded-[2rem] text-lg sm:text-2xl font-black text-slate-700 hover:border-primary hover:text-primary transition-all shadow-sm"
                       >
-                        {opt}
+                        <span className="pointer-events-none"><MathRenderer content={opt} /></span>
                       </motion.button>
                     ))}
                   </div>

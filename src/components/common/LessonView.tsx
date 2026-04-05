@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/utils';
 import { useFirebase } from '../../context/FirebaseProvider';
 import { audioService } from '../../utils/audio';
+import { MathRenderer } from './MathRenderer';
 
 interface Question {
   id: number;
@@ -84,9 +85,9 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
               rawData = shuffled.slice(0, 10).map((q, index) => ({
                 id: index + 1,
                 type: q.options && q.options.length > 0 ? 'multiple-choice' : 'input',
-                question: q.question,
+                question: q.text || q.question,
                 options: q.options,
-                answer: q.answer,
+                answer: q.correctAnswer !== undefined ? q.options[q.correctAnswer] : q.answer,
                 hint: q.explanation || 'Hãy suy nghĩ kỹ nhé!'
               }));
             }
@@ -217,7 +218,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
             </span>
           </div>
           <h2 className="text-xl font-black text-slate-900 leading-tight">
-            {currentQuestion.question}
+            <MathRenderer content={currentQuestion.question} />
           </h2>
         </div>
 
@@ -244,12 +245,12 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
                   )}>
                     {String.fromCharCode(65 + i)}
                   </div>
-                  <span className={cn(
-                    "font-bold text-sm",
+                  <div className={cn(
+                    "font-bold text-sm pointer-events-none",
                     selectedOption === option ? "text-primary" : "text-slate-600"
                   )}>
-                    {option}
-                  </span>
+                    <MathRenderer content={option} />
+                  </div>
                 </div>
               </button>
             ))}
@@ -307,8 +308,13 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
                 <h4 className={cn("font-black text-lg", isCorrect ? "text-emerald-900" : "text-rose-900")}>
                   {isCorrect ? 'Tuyệt vời!' : 'Chưa chính xác'}
                 </h4>
-                <p className={cn("text-xs font-medium", isCorrect ? "text-emerald-700" : "text-rose-700")}>
-                  {isCorrect ? 'Bạn đã trả lời đúng câu hỏi này.' : `Đáp án đúng là: ${currentQuestion.answer}`}
+                <p className={cn("text-xs font-medium flex items-center gap-1", isCorrect ? "text-emerald-700" : "text-rose-700")}>
+                  {isCorrect ? 'Bạn đã trả lời đúng câu hỏi này.' : (
+                    <>
+                      <span>Đáp án đúng là:</span>
+                      <span className="font-bold border px-2 py-0.5 rounded bg-white/50"><MathRenderer content={currentQuestion.answer || ''} /></span>
+                    </>
+                  )}
                 </p>
               </div>
             </div>

@@ -71,7 +71,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
       {/* Desktop Sidebar Nav */}
       <div className="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 bg-white/80 backdrop-blur-xl border-r border-white/20 p-4 z-50 shadow-2xl">
         <div className="text-3xl font-black bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent mb-10 px-4 pt-4 tracking-tight">
-          MathMastery
+          Math Study
         </div>
         <div className="flex flex-col gap-2">
           {tabs.map((tab) => {

@@ -88,11 +88,11 @@ export const Settings: React.FC<SettingsProps> = ({
   };
 
   const handleHelp = () => {
-    alert("Vui lòng gửi email đến support@mathmastery.vn để được hỗ trợ kịp thời.");
+    alert("Vui lòng gửi email đến support@mathstudy.vn để được hỗ trợ kịp thời.");
   };
 
   const handleInfo = () => {
-    alert("MathMastery v1.2.4\nỨng dụng học tập thông minh dành cho học sinh.");
+    alert("Math Study v1.2.4\nỨng dụng học tập thông minh dành cho học sinh.");
   };
 
   const Toggle = ({ active, onToggle }: { active: boolean, onToggle: () => void }) => (
@@ -229,7 +229,7 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
         <div className="mx-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-md overflow-hidden">
           <SettingItem icon={HelpCircle} label="Trung tâm trợ giúp" color="text-blue-400" onClick={handleHelp} />
-          <SettingItem icon={Info} label="Về MathMastery" value="v1.2.4" color="text-slate-400" onClick={handleInfo} />
+          <SettingItem icon={Info} label="Về Math Study" value="v1.2.4" color="text-slate-400" onClick={handleInfo} />
         </div>
 
         <div className="p-5 mt-4">

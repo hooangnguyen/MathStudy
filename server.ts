@@ -155,11 +155,11 @@ app.post("/api/send-otp", async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"MathStudy" <${process.env.VITE_GMAIL_USER}>`, // Dùng chính mail gửi để tránh bị spam filter
+      from: `"Math Study" <${process.env.VITE_GMAIL_USER}>`, // Dùng chính mail gửi để tránh bị spam filter
       to: email,
       subject: "Mã xác thực đăng ký MathStudy",
       html: `<div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-          <h2 style="color: #4f46e5;">Chào mừng bạn đến với MathStudy!</h2>
+          <h2 style="color: #4f46e5;">Chào mừng bạn đến với Math Study!</h2>
           <p>Mã xác thực OTP của bạn là:</p>
           <div style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #4f46e5; margin: 20px 0;">${otp}</div>
           <p style="color: #666; font-size: 12px;">Mã này sẽ hết hạn trong 5 phút.</p>
