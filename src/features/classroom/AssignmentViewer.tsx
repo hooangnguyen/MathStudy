@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, Clock, CheckCircle2, ChevronRight, X, Square, CheckSquare } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../../utils/utils';
-import { MathEquationEditor } from '../../components/common/MathEquationEditor';
+import { MathRenderer } from '../../components/common/MathRenderer';
 import { AssignmentData, submitAssignment } from '../../services/assignmentService';
 import { useFirebase } from '../../context/FirebaseProvider';
 
@@ -179,13 +179,9 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
                         <p className="text-sm font-black text-indigo-600 uppercase tracking-widest shrink-0">
                             Câu {currentQuestionIndex + 1}
                         </p>
-                        <div className="w-full">
-                            <MathEquationEditor
-                                value={currentQuestion.text}
-                                readOnly
-                                className="w-full"
-                            />
-                        </div>
+                        <h2 className="text-lg md:text-xl font-black text-slate-800 leading-tight">
+                            <MathRenderer content={currentQuestion.text} />
+                        </h2>
                     </div>
 
                     <div className="space-y-3">
@@ -225,12 +221,8 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
                                           isSelected ? <CheckSquare size={18} /> : <Square size={18} className="text-slate-400" />
                                         )}
                                       </div>
-                                      <div className="flex-1 min-w-0 pointer-events-none">
-                                        <MathEquationEditor
-                                          value={opt}
-                                          readOnly
-                                          className="w-full"
-                                        />
+                                      <div className="flex-1 min-w-0 font-bold text-sm md:text-base pointer-events-none">
+                                        <MathRenderer content={opt} />
                                       </div>
                                     </button>
                                   );

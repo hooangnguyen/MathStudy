@@ -384,8 +384,31 @@ math-field {
     display: block !important;
 }
 
+/* Ensure MathRenderer and KaTeX don't overflow on small screens */
+.math-renderer {
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+.math-renderer .katex-display {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5rem 0;
+}
+.math-renderer .katex {
+    white-space: normal !important;
+}
+.math-renderer .katex-html {
+    white-space: normal !important;
+}
+.math-renderer .katex .mord.text {
+    white-space: normal !important;
+}
+
+
 @media (max-width: 640px) {
     math-field::part(toolbar) {
         display: none !important;
     }
 }
+

@@ -9,15 +9,6 @@ interface MathRendererProps {
 }
 
 export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }) => {
-    const isRawLatex = (str: string) => {
-        const trimmed = (str || '').trim();
-        if (!trimmed) return false;
-        // Check if already wrapped
-        if (trimmed.startsWith('$') || trimmed.startsWith('\\(') || trimmed.startsWith('\\[')) return false;
-        // If it contains a backslash, it's likely LaTeX from MathLive
-        return /\\/.test(trimmed);
-    };
-
     // Normalize content to avoid runtime errors
     const safeContent = typeof content === 'string'
         ? content
@@ -25,11 +16,62 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }
             ? ''
             : String(content);
 
-    // Wrap raw LaTeX in single $ for inline rendering by KaTeX
-    const processedContent = isRawLatex(safeContent) ? `$${safeContent.trim()}$` : safeContent;
+    let processedContent = safeContent;
+
+    const isRawLatex = (str: string) => {
+        const trimmed = (str || '').trim();
+        if (!trimmed) return false;
+        if (trimmed.startsWith('$') || trimmed.startsWith('\\(') || trimmed.startsWith('\\[')) return false;
+        return /\\/.test(trimmed);
+    };
+
+    const convertLatexToMarkdown = (latexStr: string) => {
+        let s = latexStr.trim();
+        const blockMatch = s.match(/^\$+([\s\S]*?)\$+$/);
+        if (blockMatch) {
+            s = blockMatch[1].trim();
+        }
+
+        let result = '';
+        const regex = /\\text\s*\{([\s\S]*?)\}/g;
+        let lastIndex = 0;
+        let match;
+        let hasMatched = false;
+
+        while ((match = regex.exec(s)) !== null) {
+            hasMatched = true;
+            const mathPart = s.substring(lastIndex, match.index).trim();
+            if (mathPart) {
+                let cleanMath = mathPart.replace(/(^\$+)|(\$+$)/g, '').trim();
+                if (cleanMath) result += ` $${cleanMath}$ `;
+            }
+            result += match[1];
+            lastIndex = regex.lastIndex;
+        }
+
+        if (!hasMatched) {
+            return latexStr;
+        }
+
+        const remainingMath = s.substring(lastIndex).trim();
+        if (remainingMath) {
+            let cleanMath = remainingMath.replace(/(^\$+)|(\$+$)/g, '').trim();
+            if (cleanMath) result += ` $${cleanMath}$ `;
+        }
+
+        return result.replace(/\s+/g, ' ').trim();
+    };
+
+    if (safeContent.includes('\\text')) {
+        processedContent = convertLatexToMarkdown(safeContent);
+    } else if (isRawLatex(safeContent)) {
+        processedContent = `$${safeContent.trim()}$`;
+    }
+
+    processedContent = processedContent.replace(/\$\s+([\s\S]*?)\s+\$/g, '$$$1$$');
 
     return (
-        <div className={`math-renderer inline-block align-middle ${className || ''}`}>
+        <div className={`math-renderer block w-full max-w-full break-words ${className || ''}`}>
             <ReactMarkdown
                 remarkPlugins={[remarkMath]}
                 rehypePlugins={[rehypeKatex]}
