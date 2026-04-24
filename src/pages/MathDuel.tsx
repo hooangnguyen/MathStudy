@@ -58,6 +58,7 @@ interface RoomPlayer {
 export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lobby', onDuelStateChange, onExitDuel, exitDuelToken = 0, onNavigate }) => {
   const { user, userProfile } = useFirebase();
   const [state, setState] = useState<DuelState>(initialState);
+  const [isWaitingForOpponent, setIsWaitingForOpponent] = useState(false);
 
   // User rank data from database
   const [userRank, setUserRank] = useState<UserRank | null>(null);
@@ -324,6 +325,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             setTimeLeft(60);
             setCurrentQuestion(0);
             setScore({ player: 0, opponent: 0 });
+            setIsWaitingForOpponent(false);
             setState('playing');
           }, 500);
         }
@@ -361,6 +363,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
           setTimeLeft(60);
           setCurrentQuestion(0);
           setScore({ player: 0, opponent: 0 });
+          setIsWaitingForOpponent(false);
           setState('playing');
         }, 500);
       }
@@ -400,9 +403,12 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
         setScore(prev => ({ ...prev, opponent: duelData.player1Score ?? 0 }));
       }
 
-      // Handle if opponent finished first
-      if (duelData.status === 'finished' && state === 'playing') {
-        handleDuelEnd();
+      // End game if both players finished
+      if (duelData.player1TimeLeftAtFinish !== null && duelData.player2TimeLeftAtFinish !== null) {
+        handleDuelEnd(duelData.player1Score, duelData.player2Score);
+      } else if (duelData.status === 'finished' && state === 'playing') {
+        // Fallback: if somehow finished
+        handleDuelEnd(duelData.player1Score, duelData.player2Score);
       }
     });
 
@@ -413,7 +419,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   }, [state, currentDuelId, isPlayer1]);
 
   // Handle duel end - save results to database
-  const handleDuelEnd = async () => {
+  const handleDuelEnd = async (finalOpponentScore?: number, forceIsWin?: boolean) => {
     if (state === 'result' || state === 'lobby') return;
 
     // Immediately set state to result to prevent re-triggering
@@ -424,8 +430,9 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
       return;
     }
 
-    const isWin = score.player > score.opponent;
-    const isDraw = score.player === score.opponent;
+    const finalOppScore = finalOpponentScore ?? score.opponent;
+    const isWin = score.player > finalOppScore;
+    const isDraw = score.player === finalOppScore;
     const currentLP = userRank?.lp || 0;
     const userName = userProfile?.name || user.displayName || 'Người chơi';
 
@@ -441,23 +448,24 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
     // Save match result
     try {
-      if (currentDuelId) {
+      // Only player1 writes global match data to prevent duplicates
+      if (isPlayer1 && currentDuelId) {
         await completeRealDuel(currentDuelId);
+        
+        await saveDuelMatch(
+          currentDuelId,
+          user.uid,
+          userName,
+          opponentInfo.id,
+          opponentInfo.name,
+          score.player,
+          finalOppScore,
+          isWin ? user.uid : (isDraw ? undefined : opponentInfo.id),
+          isDraw,
+          'quick',
+          lpChange
+        );
       }
-
-      await saveDuelMatch(
-        currentDuelId || `duel_${Date.now()}`,
-        user.uid,
-        userName,
-        opponentInfo.id,
-        opponentInfo.name,
-        score.player,
-        score.opponent,
-        isWin ? user.uid : (isDraw ? undefined : opponentInfo.id),
-        isDraw,
-        'quick',
-        lpChange
-      );
 
       // Update user rank (save grade so class leaderboard works)
       await updateUserRank(user.uid, userName, isWin, isDraw, currentLP, userProfile?.grade, userProfile?.avatar);
@@ -492,8 +500,13 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
-      // Game finished - save result to database
-      handleDuelEnd();
+      // Finished all questions - Wait for opponent or time out
+      setIsWaitingForOpponent(true);
+      if (currentDuelId && user) {
+        import('../services/duelService').then(({ markDuelPlayerFinished }) => {
+          markDuelPlayerFinished(currentDuelId, isPlayer1, timeLeft);
+        });
+      }
     }
   };
 
@@ -963,29 +976,39 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             </div>
 
             {/* Question Area */}
-            <div className="flex-1 p-6 flex flex-col items-center justify-center space-y-12">
-              <div className="text-center space-y-4">
-                <span className="px-4 py-1 bg-slate-100 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  Câu hỏi {currentQuestion + 1} / {questions.length}
-                </span>
-                <h3 className="text-xl sm:text-2xl lg:text-5xl font-black tracking-tight text-slate-800">
-                  <MathRenderer content={questions[currentQuestion].q} />
-                </h3>
+            {isWaitingForOpponent ? (
+              <div className="flex-1 p-6 flex flex-col items-center justify-center space-y-6">
+                <div className="w-24 h-24 border-8 border-indigo-100 border-t-indigo-500 rounded-full animate-spin" />
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-800">Hoàn thành!</h3>
+                  <p className="text-slate-500 font-medium">Bạn đã hoàn thành xong các câu hỏi. Vui lòng chờ đối thủ...</p>
+                </div>
               </div>
+            ) : (
+              <div className="flex-1 p-6 flex flex-col items-center justify-center space-y-12">
+                <div className="text-center space-y-4">
+                  <span className="px-4 py-1 bg-slate-100 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                    Câu hỏi {currentQuestion + 1} / {questions.length}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl lg:text-5xl font-black tracking-tight text-slate-800">
+                    <MathRenderer content={questions[currentQuestion].q} />
+                  </h3>
+                </div>
 
-              <div className="grid grid-cols-2 gap-4 w-full max-w-md">
-                {questions[currentQuestion].options.map((opt, i) => (
-                  <motion.button
-                    key={i}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleAnswer(opt)}
-                    className="bg-white border-2 border-slate-100 p-4 sm:p-6 rounded-[2rem] text-lg sm:text-2xl font-black text-slate-700 hover:border-primary hover:text-primary transition-all shadow-sm"
-                  >
-                    <span className="pointer-events-none"><MathRenderer content={opt} /></span>
-                  </motion.button>
-                ))}
+                <div className="grid grid-cols-2 gap-4 w-full max-w-md">
+                  {questions[currentQuestion].options.map((opt, i) => (
+                    <motion.button
+                      key={i}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleAnswer(opt)}
+                      className="bg-white border-2 border-slate-100 p-4 sm:p-6 rounded-[2rem] text-lg sm:text-2xl font-black text-slate-700 hover:border-primary hover:text-primary transition-all shadow-sm"
+                    >
+                      <span className="pointer-events-none"><MathRenderer content={opt} /></span>
+                    </motion.button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </motion.div>
         )}
 

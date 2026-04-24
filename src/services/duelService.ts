@@ -478,18 +478,28 @@ export const findOpponentForDuel = async (userId: string, userGrade?: number): P
             return null;
         }
 
-        // Find the first opponent who is not self
+        // Find the first opponent who is not self and joined recently
+        const now = Date.now();
         let opponentData: any = null;
-        for (const doc of snapshot.docs) {
-            const data = doc.data();
-            if (data.userId !== userId) {
-                opponentData = data;
-                break;
+        
+        for (const docSnap of snapshot.docs) {
+            const data = docSnap.data();
+            const createdAtMs = data.createdAt?.toMillis?.() || (data.createdAt?.seconds * 1000) || now;
+            
+            // If the queue entry is older than 15 seconds, assume they disconnected/became a ghost
+            if (now - createdAtMs < 15000) {
+                if (data.userId !== userId) {
+                    opponentData = data;
+                    break;
+                }
+            } else {
+                // Remove ghost user
+                deleteDoc(docSnap.ref).catch(() => {});
             }
         }
 
         if (!opponentData) {
-            // Still no opponent (only self in the fetched list)
+            // Still no active opponent (only self or dead ghosts)
             return null;
         }
 

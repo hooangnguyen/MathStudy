@@ -212,9 +212,14 @@ export const getOnlineStatus = async (uids: string[]): Promise<{ [uid: string]: 
         const promises = uids.map(uid => getDoc(doc(db, 'users', uid)));
         const userDocs = await Promise.all(promises);
         const status: { [uid: string]: boolean } = {};
+        const now = Date.now();
         userDocs.forEach((userDoc, index) => {
             if (userDoc.exists()) {
-                status[uids[index]] = userDoc.data().isOnline || false;
+                const data = userDoc.data();
+                const lastActiveMs = data.lastActive?.toMillis?.() || 0;
+                // Consider online if flag is true AND pinged within the last 4 minutes
+                const isOnlineAndRecent = data.isOnline && (now - lastActiveMs < 4 * 60 * 1000);
+                status[uids[index]] = isOnlineAndRecent || false;
             }
         });
         return status;

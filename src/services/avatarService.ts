@@ -41,6 +41,40 @@ export const uploadAvatar = async (uid: string, imageData: string | Blob): Promi
 };
 
 /**
+ * Upload chat image to Firebase Storage
+ * @param conversationId - Conversation ID
+ * @param imageData - Base64 string or Blob
+ * @returns Download URL of uploaded image
+ */
+export const uploadChatImage = async (conversationId: string, imageData: string | Blob): Promise<string> => {
+  try {
+    let blob: Blob;
+    if (typeof imageData === 'string' && imageData.startsWith('data:')) {
+      const response = await fetch(imageData);
+      blob = await response.blob();
+    } else if (imageData instanceof Blob) {
+      blob = imageData;
+    } else {
+      throw new Error('Invalid image data');
+    }
+
+    const imageId = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+    const imageRef = ref(storage, `chat_images/${conversationId}/${imageId}`);
+
+    await uploadBytes(imageRef, blob, {
+      contentType: blob.type || 'image/jpeg',
+      cacheControl: 'public,max-age=31536000',
+    });
+
+    const downloadURL = await getDownloadURL(imageRef);
+    return downloadURL;
+  } catch (error) {
+    console.error('Error uploading chat image:', error);
+    throw error;
+  }
+};
+
+/**
  * Delete avatar from Firebase Storage
  * @param uid - User ID
  */

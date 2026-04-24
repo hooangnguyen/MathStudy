@@ -66,6 +66,39 @@ export const MathField = forwardRef<MathFieldHandle, MathFieldProps>(
                     mf.value = value;
                 }
                 
+                // Inject custom CSS to force smart wrapping inside MathLive Shadow DOM
+                const applyWrapStyle = () => {
+                    const shadow = mf.shadowRoot;
+                    if (shadow && !shadow.querySelector('#ml-wrap-style')) {
+                        const style = document.createElement('style');
+                        style.id = 'ml-wrap-style';
+                        style.innerHTML = `
+                            .ML__mathlive {
+                                white-space: pre-wrap !important;
+                                word-break: normal !important; 
+                                overflow-wrap: break-word !important;
+                                line-height: 1.8 !important;
+                                padding: 0.5rem 0 !important;
+                                flex-wrap: wrap !important;
+                            }
+                            .ML__base {
+                                white-space: pre-wrap !important;
+                                flex-wrap: wrap !important;
+                                word-break: normal !important;
+                            }
+                            .ML__text {
+                                white-space: pre-wrap !important;
+                                word-break: normal !important;
+                            }
+                        `;
+                        shadow.appendChild(style);
+                    }
+                };
+                
+                // Apply immediately if shadowRoot is ready, or wait a bit
+                if (mf.shadowRoot) applyWrapStyle();
+                else setTimeout(applyWrapStyle, 100);
+
                 // Set text mode as default so user can type normal Vietnamese phrases with spaces
                 mf.defaultMode = 'text';
 

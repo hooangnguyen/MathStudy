@@ -284,6 +284,10 @@ export default function App() {
 
   const handleLogout = async () => {
     try {
+      if (user) {
+        const { setUserOnline } = await import('./services/userService');
+        await setUserOnline(user.uid, false);
+      }
       await signOut(auth);
       setIsLoggedIn(false);
       setUserRole(null);

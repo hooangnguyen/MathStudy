@@ -2,8 +2,8 @@ import React, { useState, useRef, lazy, Suspense } from 'react';
 import { ChevronLeft, Camera, Save, User, Mail, Shield, Book, Upload, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../utils/utils';
-import { isBase64Image } from '../services/avatarService';
-
+import { isBase64Image, uploadAvatar } from '../services/avatarService';
+import { useFirebase } from '../context/FirebaseProvider';
 // Lazy load ImageCropper
 const ImageCropper = lazy(() => import('../components/common/ImageCropper').then(m => ({ default: m.ImageCropper })));
 
@@ -57,6 +57,7 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave, initia
     subject: initialData?.subject || '',
   });
 
+  const { user } = useFirebase();
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [tempAvatar, setTempAvatar] = useState(formData.avatar);
   const [isSaving, setIsSaving] = useState(false);
@@ -115,9 +116,9 @@ export const EditProfile: React.FC<EditProfileProps> = ({ onBack, onSave, initia
       let finalAvatar = formData.avatar;
 
       // Nếu là ảnh base64 (mới upload hoặc từ cropper)
-      if (isBase64Image(tempAvatar)) {
-        // Lưu trực tiếp base64 vào Firestore (đã resize qua cropper nên size nhỏ hơn)
-        finalAvatar = tempAvatar;
+      if (isBase64Image(tempAvatar) && user) {
+        // Tải ảnh lên Firebase Storage và lấy link
+        finalAvatar = await uploadAvatar(user.uid, tempAvatar);
       } else if (tempAvatar !== formData.avatar) {
         // Nếu chọn preset mới
         finalAvatar = tempAvatar;

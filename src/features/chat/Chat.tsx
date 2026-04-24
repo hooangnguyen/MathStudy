@@ -19,6 +19,7 @@ import {
 import { getUserProfile, getOnlineStatus, blockUser } from '../../services/userService';
 import { MathRenderer } from '../../components/common/MathRenderer';
 import { saveAIConsultation, getAIConsultationsByUserId } from '../../services/dataService';
+import { isBase64Image, uploadChatImage } from '../../services/avatarService';
 
 interface ChatProps {
   conversationId: string;
@@ -184,6 +185,10 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
     setIsAiLoading(true);
 
     try {
+      let finalImageUrl = userMsgImage || null;
+      if (userMsgImage && isBase64Image(userMsgImage)) {
+        finalImageUrl = await uploadChatImage(conversationId, userMsgImage);
+      }
       const userProfile = await getUserProfile(user!.uid);
       const grade = userProfile?.grade || 'chưa xác định';
       
@@ -219,7 +224,7 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
           userId: user!.uid,
           grade: grade,
           prompt: userMsgText,
-          imageUrl: userMsgImage || null,
+          imageUrl: finalImageUrl,
           response: data.text
         });
       }
@@ -247,13 +252,18 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
       const senderName = userProfile?.name || 'User';
       const senderAvatar = userProfile?.avatar || '';
 
+      let finalSelectedImage = selectedImage;
+      if (selectedImage && isBase64Image(selectedImage)) {
+        finalSelectedImage = await uploadChatImage(conversationId, selectedImage);
+      }
+
       await sendMessage(
         conversationId,
         user.uid,
         senderName,
         senderAvatar,
         message,
-        selectedImage || undefined
+        finalSelectedImage || undefined
       );
 
       setMessage('');

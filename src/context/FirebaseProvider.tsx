@@ -73,15 +73,39 @@ export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return () => unsubscribe();
   }, []);
 
-  // Mark offline when tab closes
+  // Mark offline when tab closes or app goes to background
   useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (user) {
+        if (document.visibilityState === 'hidden') {
+          setUserOnline(user.uid, false).catch(() => {});
+        } else {
+          setUserOnline(user.uid, true).catch(() => {});
+        }
+      }
+    };
+
     const handleBeforeUnload = () => {
       if (user) {
         setUserOnline(user.uid, false).catch(() => { });
       }
     };
+
+    window.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+
+    // Heartbeat every 3 minutes to keep lastActive fresh
+    const heartbeatInterval = setInterval(() => {
+      if (user && document.visibilityState === 'visible') {
+        setUserOnline(user.uid, true).catch(() => {});
+      }
+    }, 3 * 60 * 1000);
+
+    return () => {
+      window.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      clearInterval(heartbeatInterval);
+    };
   }, [user]);
 
   return (
