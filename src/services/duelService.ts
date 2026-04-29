@@ -12,7 +12,8 @@ import {
     limit,
     onSnapshot,
     serverTimestamp,
-    increment
+    increment,
+    runTransaction
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -466,31 +467,17 @@ export const findOpponentForDuel = async (userId: string, userGrade?: number): P
         );
 
         const snapshot = await getDocs(q);
-
-        if (snapshot.empty) {
-            // No opponent found, add self to queue if not already there
-            await setDoc(doc(db, 'duelQueue', userId), {
-                userId,
-                status: 'waiting',
-                grade: userGrade || 5,
-                createdAt: serverTimestamp()
-            });
-            return null;
-        }
-
-        // Find the first opponent who is not self and joined recently
         const now = Date.now();
-        let opponentData: any = null;
-        
+        const validOpponents = [];
+
         for (const docSnap of snapshot.docs) {
             const data = docSnap.data();
-            const createdAtMs = data.createdAt?.toMillis?.() || (data.createdAt?.seconds * 1000) || now;
+            const lastActiveMs = data.updatedAt?.toMillis?.() || (data.updatedAt?.seconds * 1000) || data.createdAt?.toMillis?.() || (data.createdAt?.seconds * 1000) || now;
             
             // If the queue entry is older than 15 seconds, assume they disconnected/became a ghost
-            if (now - createdAtMs < 15000) {
+            if (now - lastActiveMs < 15000) {
                 if (data.userId !== userId) {
-                    opponentData = data;
-                    break;
+                    validOpponents.push(data);
                 }
             } else {
                 // Remove ghost user
@@ -498,19 +485,55 @@ export const findOpponentForDuel = async (userId: string, userGrade?: number): P
             }
         }
 
-        if (!opponentData) {
-            // Still no active opponent (only self or dead ghosts)
+        if (validOpponents.length === 0) {
+            // No opponent found, add/update self to queue
+            await setDoc(doc(db, 'duelQueue', userId), {
+                userId,
+                status: 'waiting',
+                grade: userGrade || 5,
+                updatedAt: serverTimestamp()
+            }, { merge: true });
+            
+            // Also ensure createdAt is set if it's new
+            const myQueueDoc = await getDoc(doc(db, 'duelQueue', userId));
+            if (!myQueueDoc.data()?.createdAt) {
+                await updateDoc(doc(db, 'duelQueue', userId), { createdAt: serverTimestamp() });
+            }
             return null;
         }
 
-        // Remove opponent from queue
-        await deleteDoc(doc(db, 'duelQueue', opponentData.userId));
+        // Try to claim an opponent using a transaction to prevent race conditions (duplicate matches)
+        for (const opponent of validOpponents) {
+            try {
+                const claimed = await runTransaction(db, async (transaction) => {
+                    const oppRef = doc(db, 'duelQueue', opponent.userId);
+                    const oppDoc = await transaction.get(oppRef);
+                    if (!oppDoc.exists()) {
+                        return false; // Already claimed by someone else
+                    }
+                    
+                    const myRef = doc(db, 'duelQueue', userId);
+                    
+                    // Claim successful: remove both from queue
+                    transaction.delete(oppRef);
+                    transaction.delete(myRef);
+                    return true;
+                });
 
-        return {
-            opponentId: opponentData.userId,
-            opponentName: 'Đối thủ',
-            opponentGrade: opponentData.grade
-        };
+                if (claimed) {
+                    return {
+                        opponentId: opponent.userId,
+                        opponentName: 'Đối thủ',
+                        opponentGrade: opponent.grade
+                    };
+                }
+            } catch (e) {
+                console.error("Transaction failed during matchmaking", e);
+            }
+        }
+
+        // All valid opponents were claimed by others before we could transactionally lock them
+        return null;
     } catch (error) {
         console.error('Error finding opponent:', error);
         return null;

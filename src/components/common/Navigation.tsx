@@ -27,7 +27,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
   return (
     <>
       {/* Mobile Bottom Nav */}
-      <div className="md:hidden h-20 bg-white/80 backdrop-blur-xl border-t border-white/20 flex items-center justify-around px-2 shrink-0 pb-safe z-50 w-full shadow-lg shadow-black/5">
+      <div className="md:hidden h-16 bg-white/80 backdrop-blur-xl border-t border-white/20 flex items-center justify-around px-1 shrink-0 pb-safe z-50 w-full shadow-lg shadow-black/5">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -37,28 +37,28 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={cn(
-                "relative flex flex-col items-center justify-center gap-1 transition-colors duration-300 px-3 py-2 rounded-2xl flex-1",
+                "relative flex flex-col items-center justify-center gap-0.5 transition-colors duration-300 px-2 py-1.5 rounded-xl flex-1",
                 isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-600"
               )}
             >
               {isActive && (
                 <motion.div
                   layoutId="active-nav-tab-mobile"
-                  className="absolute inset-0 bg-indigo-50 rounded-2xl -z-10"
+                  className="absolute inset-0 bg-indigo-50 rounded-xl -z-10"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
               <motion.div
                 animate={{
-                  y: isActive ? -2 : 0,
-                  scale: isActive ? 1.1 : 1
+                  y: isActive ? -1 : 0,
+                  scale: isActive ? 1.05 : 1
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
-                <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
               </motion.div>
               <span className={cn(
-                "text-[10px] uppercase tracking-wider transition-all",
+                "text-[9px] uppercase tracking-wider transition-all",
                 isActive ? "font-black" : "font-bold"
               )}>
                 {tab.label}

@@ -245,23 +245,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* Top Stats Bar */}
       <div className="relative z-40 bg-white/60 backdrop-blur-xl border-b border-indigo-100/50">
         <div className="max-w-md mx-auto px-5 py-3.5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 bg-gradient-to-r from-orange-400 to-orange-500 px-4 py-2 rounded-2xl shadow-lg shadow-orange-500/25 border-b-4 border-orange-700/30"
+              className="flex items-center gap-1.5 md:gap-2 bg-gradient-to-r from-orange-400 to-orange-500 px-3 py-1.5 md:px-4 md:py-2 rounded-xl md:rounded-2xl shadow-lg shadow-orange-500/25 border-b-[3px] md:border-b-4 border-orange-700/30"
             >
-              <Flame size={18} className="text-white fill-white" />
-              <span className="font-black text-white text-[15px]">{streak}</span>
+              <Flame className="w-4 h-4 md:w-[18px] md:h-[18px] text-white fill-white" />
+              <span className="font-black text-white text-sm md:text-[15px]">{streak}</span>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 bg-gradient-to-r from-sky-400 to-indigo-500 px-4 py-2 rounded-2xl shadow-lg shadow-indigo-500/25 border-b-4 border-indigo-700/30"
+              className="flex items-center gap-1.5 md:gap-2 bg-gradient-to-r from-sky-400 to-indigo-500 px-3 py-1.5 md:px-4 md:py-2 rounded-xl md:rounded-2xl shadow-lg shadow-indigo-500/25 border-b-[3px] md:border-b-4 border-indigo-700/30"
             >
-              <Star size={18} className="text-white fill-white" />
-              <span className="font-black text-white text-[15px]">{points.toLocaleString()}</span>
+              <Star className="w-4 h-4 md:w-[18px] md:h-[18px] text-white fill-white" />
+              <span className="font-black text-white text-sm md:text-[15px]">{points.toLocaleString()}</span>
             </motion.div>
           </div>
 
@@ -269,9 +269,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setShowNotifications(true)}
-            className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center text-slate-500 hover:text-primary shadow-md hover:shadow-lg transition-all relative border border-slate-100"
+            className="w-9 h-9 md:w-11 md:h-11 rounded-xl md:rounded-2xl bg-white flex items-center justify-center text-slate-500 hover:text-primary shadow-md hover:shadow-lg transition-all relative border border-slate-100"
           >
-            <Bell size={20} />
+            <Bell className="w-[18px] h-[18px] md:w-5 md:h-5" />
             {unreadCount > 0 && (
               <motion.span
                 initial={{ scale: 0 }}
@@ -294,7 +294,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <div key={unit.id} className="relative">
                 {/* Unit Header Card */}
                 <div className={cn(
-                  "sticky top-0 z-50 p-6 rounded-[2rem] text-white shadow-2xl mb-8 overflow-hidden mx-[-10px]",
+                  "sticky top-0 z-50 p-4 md:p-6 rounded-[1.5rem] md:rounded-[2rem] text-white shadow-2xl mb-6 md:mb-8 overflow-hidden mx-[-10px]",
                   "background-size-[200%_200%] animate-gradient",
                   unit.color,
                   "border-b-4 border-black/10"
@@ -305,16 +305,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-black/10 rounded-full blur-2xl" />
 
                   <div className="relative z-10">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="bg-black/20 backdrop-blur-md px-4 py-1.5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] border border-white/20">
+                    <div className="flex items-center justify-between mb-2 md:mb-3">
+                      <span className="bg-black/20 backdrop-blur-md px-3 py-1 md:px-4 md:py-1.5 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] border border-white/20">
                         Chương {uIndex + 1}
                       </span>
-                      <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm">
-                        <LayoutGrid size={20} className="text-white" />
+                      <div className="bg-white/20 p-1.5 md:p-2 rounded-lg md:rounded-xl backdrop-blur-sm">
+                        <LayoutGrid className="w-[18px] h-[18px] md:w-5 md:h-5 text-white" />
                       </div>
                     </div>
-                    <h2 className="text-2xl font-black mb-1.5 tracking-tight drop-shadow-sm">{unit.title}</h2>
-                    <p className="text-[13px] font-semibold opacity-90 leading-relaxed max-w-[90%] drop-shadow-sm">
+                    <h2 className="text-xl md:text-2xl font-black mb-1 md:mb-1.5 tracking-tight drop-shadow-sm">{unit.title}</h2>
+                    <p className="text-xs md:text-[13px] font-semibold opacity-90 leading-relaxed max-w-[90%] drop-shadow-sm">
                       {unit.description}
                     </p>
                   </div>

@@ -60,6 +60,11 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   const [state, setState] = useState<DuelState>(initialState);
   const [isWaitingForOpponent, setIsWaitingForOpponent] = useState(false);
 
+  // Notify parent of state changes
+  useEffect(() => {
+    onDuelStateChange?.(state);
+  }, [state, onDuelStateChange]);
+
   // User rank data from database
   const [userRank, setUserRank] = useState<UserRank | null>(null);
   const [topRankings, setTopRankings] = useState<UserRank[]>([]);
@@ -291,13 +296,24 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     // 2. Listen for matches where I am player 2 (someone found me)
     const q = query(
       collection(db, 'activeDuels'),
-      where('player2Id', '==', user.uid),
-      limit(10) // Small limit, check status locally
+      where('player2Id', '==', user.uid)
     );
 
     unsubscribeDuel = onSnapshot(q, async (snapshot) => {
       if (!snapshot.empty && !isMatched) {
-        const waitingDuel = snapshot.docs.find(d => d.data().status === 'playing');
+        const now = Date.now();
+        const waitingDuel = snapshot.docs
+          .sort((a, b) => {
+            const timeA = a.data().createdAt?.toMillis?.() || 0;
+            const timeB = b.data().createdAt?.toMillis?.() || 0;
+            return timeB - timeA;
+          })
+          .find(d => {
+            const data = d.data();
+            const createdAt = data.createdAt?.toMillis?.() || now;
+            return data.status === 'playing' && (now - createdAt < 120000); // Only matches created in the last 2 minutes
+          });
+
         if (waitingDuel) {
           isMatched = true;
           const duelData = waitingDuel.data();
@@ -309,9 +325,9 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
           if (duelData.questions) {
             try {
               loadedQuestions = JSON.parse(duelData.questions) as DuelQuestion[];
-            } catch { loadedQuestions = await getRandomQuestions(userGrade, 10); }
+            } catch { loadedQuestions = await getRandomQuestions(userGrade, 100); }
           } else {
-            loadedQuestions = await getRandomQuestions(userGrade, 10);
+            loadedQuestions = await getRandomQuestions(userGrade, 100);
           }
 
           getUserProfile(opponentId).then((oppProfile) => {
@@ -343,7 +359,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
         const opponentName = opponentProfile?.name || opponent.opponentName;
 
         // Player 1: generate questions and store them in Firestore
-        const loadedQuestions = await getRandomQuestions(userGrade, 10);
+        const loadedQuestions = await getRandomQuestions(userGrade, 100);
 
         const duelId = await createRealDuel(
           user.uid,
@@ -431,8 +447,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     }
 
     const finalOppScore = finalOpponentScore ?? score.opponent;
-    const isWin = score.player > finalOppScore;
-    const isDraw = score.player === finalOppScore;
+    const isWin = forceIsWin !== undefined ? forceIsWin : score.player > finalOppScore;
+    const isDraw = forceIsWin !== undefined ? false : score.player === finalOppScore;
     const currentLP = userRank?.lp || 0;
     const userName = userProfile?.name || user.displayName || 'Người chơi';
 
@@ -488,6 +504,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
       setScore(prev => ({ ...prev, player: newScore }));
       audioService.playCorrect(userProfile?.preferences);
     } else {
+      newScore = Math.max(0, newScore - 5);
+      setScore(prev => ({ ...prev, player: newScore }));
       audioService.playWrong(userProfile?.preferences);
     }
 
@@ -518,7 +536,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     if (isCorrect) audioService.playCorrect(userProfile?.preferences);
     else audioService.playWrong(userProfile?.preferences);
 
-    const newScore = score.player + (isCorrect ? 10 : 0);
+    const newScore = Math.max(0, score.player + (isCorrect ? 10 : -5));
     const newProgress = currentQuestion + 1;
     const isLast = newProgress >= questions.length;
     setScore((prev) => ({ ...prev, player: newScore }));
@@ -561,6 +579,21 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     }
   }, [state, roomPlayers, score.player, score.opponent]);
 
+  // Handle explicit surrender/exit from Navigation
+  useEffect(() => {
+    if (exitDuelToken > 0) {
+      if (state === 'playing') {
+        // Pass forceIsWin = false so they always lose when surrendering
+        handleDuelEnd(score.opponent, false);
+      } else if (state === 'room_playing') {
+        if (roomId && user) {
+          updateRoomProgress(roomId, user.uid, score.player, currentQuestion + 1, true).catch(() => { });
+        }
+        setState('room_result');
+      }
+    }
+  }, [exitDuelToken]);
+
   return (
     <div className="flex flex-col h-full bg-slate-50 overflow-x-hidden overflow-y-auto no-scrollbar pb-20">
       <AnimatePresence mode="wait">
@@ -570,14 +603,14 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="flex-1 flex flex-col p-6 items-center justify-center space-y-8"
+            className="flex-1 flex flex-col p-4 md:p-6 items-center justify-center space-y-6 md:space-y-8"
           >
-            <div className="w-32 h-32 bg-indigo-100 rounded-[3rem] flex items-center justify-center text-indigo-600 shadow-xl shadow-indigo-100">
-              <Swords size={64} strokeWidth={2.5} />
+            <div className="w-24 h-24 md:w-32 md:h-32 bg-indigo-100 rounded-3xl md:rounded-[3rem] flex items-center justify-center text-indigo-600 shadow-xl shadow-indigo-100">
+              <Swords className="w-12 h-12 md:w-16 md:h-16" strokeWidth={2.5} />
             </div>
-            <div className="text-center space-y-2">
-              <h1 className="text-3xl font-black tracking-tight">Đấu trường Toán học</h1>
-              <p className="text-slate-500 font-medium">Thách đấu với các bạn cùng lớp ngay!</p>
+            <div className="text-center space-y-1 md:space-y-2">
+              <h1 className="text-2xl md:text-3xl font-black tracking-tight">Đấu trường Toán học</h1>
+              <p className="text-sm md:text-base text-slate-500 font-medium">Thách đấu với các bạn cùng lớp ngay!</p>
             </div>
 
             {userRole === 'teacher' ? (
@@ -593,63 +626,63 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             ) : (
               <>
                 {/* Rank Display */}
-                <div className="flex flex-col items-center space-y-2">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck size={28} className={getUserRankInfo().color} />
-                    <span className={cn("text-2xl font-black uppercase tracking-wider", getUserRankInfo().color)}>
+                <div className="flex flex-col items-center space-y-1 md:space-y-2">
+                  <div className="flex items-center gap-1.5 md:gap-2">
+                    <ShieldCheck className={cn("w-6 h-6 md:w-7 md:h-7", getUserRankInfo().color)} />
+                    <span className={cn("text-xl md:text-2xl font-black uppercase tracking-wider", getUserRankInfo().color)}>
                       {getUserRankInfo().name}
                     </span>
                   </div>
-                  <div className="text-sm font-bold text-slate-400">{userRank?.lp || 0} Điểm Xếp Hạng (LP)</div>
+                  <div className="text-xs md:text-sm font-bold text-slate-400">{userRank?.lp || 0} Điểm Xếp Hạng (LP)</div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
-                  <div className="bg-white p-4 rounded-3xl border border-slate-100 flex flex-col items-center space-y-1">
-                    <Trophy className="text-yellow-500" size={24} />
-                    <span className="text-xs font-black text-slate-400 uppercase">Thắng</span>
-                    <span className="text-xl font-black">{userRank?.wins || 0}</span>
+                <div className="grid grid-cols-2 gap-3 md:gap-4 w-full max-w-sm">
+                  <div className="bg-white p-3 md:p-4 rounded-2xl md:rounded-3xl border border-slate-100 flex flex-col items-center space-y-1">
+                    <Trophy className="text-yellow-500 w-5 h-5 md:w-6 md:h-6" />
+                    <span className="text-[10px] md:text-xs font-black text-slate-400 uppercase">Thắng</span>
+                    <span className="text-lg md:text-xl font-black">{userRank?.wins || 0}</span>
                   </div>
                   <button
                     onClick={() => setState('leaderboard')}
-                    className="bg-white p-4 rounded-3xl border border-slate-100 flex flex-col items-center space-y-1 hover:border-indigo-200 hover:bg-indigo-50 transition-colors active:scale-95"
+                    className="bg-white p-3 md:p-4 rounded-2xl md:rounded-3xl border border-slate-100 flex flex-col items-center space-y-1 hover:border-indigo-200 hover:bg-indigo-50 transition-colors active:scale-95"
                   >
-                    <Crown className="text-indigo-500" size={24} />
-                    <span className="text-xs font-black text-slate-400 uppercase">BXH Hệ thống</span>
-                    <span className="text-xl font-black text-indigo-600">Hạng {userRankPosition || '-'}</span>
+                    <Crown className="text-indigo-500 w-5 h-5 md:w-6 md:h-6" />
+                    <span className="text-[10px] md:text-xs font-black text-slate-400 uppercase">BXH Hệ thống</span>
+                    <span className="text-lg md:text-xl font-black text-indigo-600">Hạng {userRankPosition || '-'}</span>
                   </button>
                 </div>
 
                 <div className="w-full max-w-sm space-y-3">
                   <button
                     onClick={() => setState('searching')}
-                    className="w-full bg-primary text-white py-5 rounded-[2rem] font-black text-lg shadow-xl shadow-primary/30 active:scale-95 transition-transform flex items-center justify-center gap-3"
+                    className="w-full bg-primary text-white py-4 md:py-5 rounded-2xl md:rounded-[2rem] font-black text-base md:text-lg shadow-xl shadow-primary/30 active:scale-95 transition-transform flex items-center justify-center gap-2 md:gap-3"
                   >
-                    <Zap fill="white" size={24} />
+                    <Zap className="w-5 h-5 md:w-6 md:h-6" fill="white" />
                     TÌM ĐỐI THỦ NGẪU NHIÊN
                   </button>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 md:gap-3">
                     <button
                       onClick={() => setState('create_room')}
-                      className="bg-indigo-100 text-indigo-700 py-4 rounded-[1.5rem] font-bold text-sm active:scale-95 transition-transform flex items-center justify-center gap-2"
+                      className="bg-indigo-100 text-indigo-700 py-3 md:py-4 rounded-xl md:rounded-[1.5rem] font-bold text-xs md:text-sm active:scale-95 transition-transform flex items-center justify-center gap-1.5 md:gap-2"
                     >
-                      <Plus size={20} />
+                      <Plus className="w-4 h-4 md:w-5 md:h-5" />
                       Tạo phòng
                     </button>
                     <button
                       onClick={() => setState('join_room')}
-                      className="bg-emerald-100 text-emerald-700 py-4 rounded-[1.5rem] font-bold text-sm active:scale-95 transition-transform flex items-center justify-center gap-2"
+                      className="bg-emerald-100 text-emerald-700 py-3 md:py-4 rounded-xl md:rounded-[1.5rem] font-bold text-xs md:text-sm active:scale-95 transition-transform flex items-center justify-center gap-1.5 md:gap-2"
                     >
-                      <Key size={20} />
+                      <Key className="w-4 h-4 md:w-5 md:h-5" />
                       Vào phòng
                     </button>
                   </div>
                   
                   <button
                     onClick={() => onNavigate?.('quiz')}
-                    className="w-full bg-teal-100 text-teal-700 py-4 rounded-[1.5rem] font-bold text-sm shadow-sm active:scale-95 transition-transform flex items-center justify-center gap-2 mt-3"
+                    className="w-full bg-teal-100 text-teal-700 py-3 md:py-4 rounded-xl md:rounded-[1.5rem] font-bold text-xs md:text-sm shadow-sm active:scale-95 transition-transform flex items-center justify-center gap-1.5 md:gap-2 mt-2 md:mt-3"
                   >
-                    <ClipboardList size={20} />
+                    <ClipboardList className="w-4 h-4 md:w-5 md:h-5" />
                     Tham gia Quiz Lớp học (Nhập mã)
                   </button>
                 </div>
@@ -896,7 +929,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                     onClick={async () => {
                       if (!roomId || roomPlayers.length < 2) return;
                       const grade = userProfile?.grade || 5;
-                      const qList = await getRandomQuestions(grade, 10);
+                      const qList = await getRandomQuestions(grade, gameMode === 'time' ? 100 : 20);
                       await startDuel(roomId, qList);
                     }}
                     disabled={roomPlayers.length < 2}

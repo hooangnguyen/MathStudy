@@ -32,7 +32,13 @@ export const uploadAvatar = async (uid: string, imageData: string | Blob): Promi
     });
 
     // Get download URL
-    const downloadURL = await getDownloadURL(avatarRef);
+    let downloadURL = await getDownloadURL(avatarRef);
+    // Append a cache-busting timestamp to prevent the browser from showing the old cached image
+    if (downloadURL.includes('?')) {
+      downloadURL += `&t=${Date.now()}`;
+    } else {
+      downloadURL += `?t=${Date.now()}`;
+    }
     return downloadURL;
   } catch (error) {
     console.error('Error uploading avatar:', error);

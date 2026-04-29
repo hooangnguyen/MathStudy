@@ -25,6 +25,10 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }
         return /\\/.test(trimmed);
     };
 
+    const formatMathFractions = (mathStr: string) => {
+        return mathStr.replace(/(\d+)\s*\/\s*(\d+)/g, '\\frac{$1}{$2}');
+    };
+
     const convertLatexToMarkdown = (latexStr: string) => {
         let s = latexStr.trim();
         const blockMatch = s.match(/^\$+([\s\S]*?)\$+$/);
@@ -43,6 +47,7 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }
             const mathPart = s.substring(lastIndex, match.index).trim();
             if (mathPart) {
                 let cleanMath = mathPart.replace(/(^\$+)|(\$+$)/g, '').trim();
+                cleanMath = formatMathFractions(cleanMath);
                 if (cleanMath) result += ` $${cleanMath}$ `;
             }
             result += match[1];
@@ -50,12 +55,14 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }
         }
 
         if (!hasMatched) {
-            return latexStr;
+            // No \text found, just format the whole thing if it's math
+            return formatMathFractions(latexStr);
         }
 
         const remainingMath = s.substring(lastIndex).trim();
         if (remainingMath) {
             let cleanMath = remainingMath.replace(/(^\$+)|(\$+$)/g, '').trim();
+            cleanMath = formatMathFractions(cleanMath);
             if (cleanMath) result += ` $${cleanMath}$ `;
         }
 
@@ -65,7 +72,21 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }
     if (safeContent.includes('\\text')) {
         processedContent = convertLatexToMarkdown(safeContent);
     } else if (isRawLatex(safeContent)) {
-        processedContent = `$${safeContent.trim()}$`;
+        let cleanMath = safeContent.trim().replace(/(^\$+)|(\$+$)/g, '').trim();
+        cleanMath = formatMathFractions(cleanMath);
+        processedContent = `$${cleanMath}$`;
+    } else {
+        // Find and replace all inline fractions outside of $...$ into $\frac{...}{...}$
+        // A simple approach is to find (\d+)/(\d+) not inside $...$
+        // To be safe, if the string has NO '$' characters, we can safely replace all
+        if (!processedContent.includes('$')) {
+            processedContent = processedContent.replace(/(\d+)\s*\/\s*(\d+)/g, '$\\frac{$1}{$2}$');
+        } else {
+            // Only replace inside existing $...$ blocks
+            processedContent = processedContent.replace(/\$([\s\S]*?)\$/g, (match, p1) => {
+                return `$${formatMathFractions(p1)}$`;
+            });
+        }
     }
 
     processedContent = processedContent.replace(/\$\s+([\s\S]*?)\s+\$/g, '$$$1$$');
