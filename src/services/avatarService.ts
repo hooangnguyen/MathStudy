@@ -1,100 +1,65 @@
 import { storage } from '../config/firebase';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-
-const AVATARS_FOLDER = 'avatars';
+// Firebase Storage is bypassed since the user does not have a billing account.
+// We will store compressed Base64 strings directly in Firestore instead.
 
 /**
- * Upload avatar image to Firebase Storage
+ * Upload avatar image to Firebase Storage (Bypassed - Returns Base64 directly)
  * @param uid - User ID
  * @param imageData - Base64 string or Blob
- * @returns Download URL of uploaded image
+ * @returns Download URL of uploaded image (or Base64 string)
  */
 export const uploadAvatar = async (uid: string, imageData: string | Blob): Promise<string> => {
   try {
-    // Convert base64 to Blob if needed
-    let blob: Blob;
     if (typeof imageData === 'string' && imageData.startsWith('data:')) {
-      const response = await fetch(imageData);
-      blob = await response.blob();
+      return imageData; // Already base64, return directly to save in Firestore
     } else if (imageData instanceof Blob) {
-      blob = imageData;
-    } else {
-      throw new Error('Invalid image data');
+      return await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(imageData);
+      });
     }
-
-    // Create storage reference
-    const avatarRef = ref(storage, `${AVATARS_FOLDER}/${uid}`);
-
-    // Upload the image
-    await uploadBytes(avatarRef, blob, {
-      contentType: 'image/jpeg',
-      cacheControl: 'public,max-age=31536000',
-    });
-
-    // Get download URL
-    let downloadURL = await getDownloadURL(avatarRef);
-    // Append a cache-busting timestamp to prevent the browser from showing the old cached image
-    if (downloadURL.includes('?')) {
-      downloadURL += `&t=${Date.now()}`;
-    } else {
-      downloadURL += `?t=${Date.now()}`;
-    }
-    return downloadURL;
+    throw new Error('Invalid image data');
   } catch (error) {
-    console.error('Error uploading avatar:', error);
+    console.error('Error processing avatar:', error);
     throw error;
   }
 };
 
 /**
- * Upload chat image to Firebase Storage
+ * Upload chat image to Firebase Storage (Bypassed - Returns Base64 directly)
  * @param conversationId - Conversation ID
  * @param imageData - Base64 string or Blob
- * @returns Download URL of uploaded image
+ * @returns Download URL of uploaded image (or Base64 string)
  */
 export const uploadChatImage = async (conversationId: string, imageData: string | Blob): Promise<string> => {
   try {
-    let blob: Blob;
     if (typeof imageData === 'string' && imageData.startsWith('data:')) {
-      const response = await fetch(imageData);
-      blob = await response.blob();
+      return imageData;
     } else if (imageData instanceof Blob) {
-      blob = imageData;
-    } else {
-      throw new Error('Invalid image data');
+      return await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(imageData);
+      });
     }
-
-    const imageId = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    const imageRef = ref(storage, `chat_images/${conversationId}/${imageId}`);
-
-    await uploadBytes(imageRef, blob, {
-      contentType: blob.type || 'image/jpeg',
-      cacheControl: 'public,max-age=31536000',
-    });
-
-    const downloadURL = await getDownloadURL(imageRef);
-    return downloadURL;
+    throw new Error('Invalid image data');
   } catch (error) {
-    console.error('Error uploading chat image:', error);
+    console.error('Error processing chat image:', error);
     throw error;
   }
 };
 
 /**
- * Delete avatar from Firebase Storage
+ * Delete avatar from Firebase Storage (Bypassed)
  * @param uid - User ID
  */
 export const deleteAvatar = async (uid: string): Promise<void> => {
-  try {
-    const avatarRef = ref(storage, `${AVATARS_FOLDER}/${uid}`);
-    await deleteObject(avatarRef);
-  } catch (error: any) {
-    // Ignore if file doesn't exist
-    if (error.code !== 'storage/object-not-found') {
-      console.error('Error deleting avatar:', error);
-      throw error;
-    }
-  }
+  // Do nothing since we save base64 directly in Firestore. 
+  // It will be overwritten when user changes avatar.
+  return Promise.resolve();
 };
 
 /**
@@ -110,3 +75,4 @@ export const isBase64Image = (str: string): boolean => {
 export const isFirebaseStorageUrl = (url: string): boolean => {
   return url.includes('firebasestorage.googleapis.com');
 };
+
