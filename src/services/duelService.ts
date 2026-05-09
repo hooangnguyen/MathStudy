@@ -487,18 +487,21 @@ export const findOpponentForDuel = async (userId: string, userGrade?: number): P
 
         if (validOpponents.length === 0) {
             // No opponent found, add/update self to queue
-            await setDoc(doc(db, 'duelQueue', userId), {
+            const myRef = doc(db, 'duelQueue', userId);
+            const myQueueDoc = await getDoc(myRef);
+            
+            const queueData: any = {
                 userId,
                 status: 'waiting',
                 grade: userGrade || 5,
                 updatedAt: serverTimestamp()
-            }, { merge: true });
+            };
             
-            // Also ensure createdAt is set if it's new
-            const myQueueDoc = await getDoc(doc(db, 'duelQueue', userId));
-            if (!myQueueDoc.data()?.createdAt) {
-                await updateDoc(doc(db, 'duelQueue', userId), { createdAt: serverTimestamp() });
+            if (!myQueueDoc.exists() || !myQueueDoc.data()?.createdAt) {
+                queueData.createdAt = serverTimestamp();
             }
+            
+            await setDoc(myRef, queueData, { merge: true });
             return null;
         }
 

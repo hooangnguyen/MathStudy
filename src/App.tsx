@@ -419,9 +419,10 @@ export default function App() {
             />
           ) : (
             <Classroom
-              enrolledClassId={userData?.enrolledClasses?.[0]}
+              enrolledClasses={userData?.enrolledClasses || []}
               deepLink={notificationDeepLink?.role === 'student' && notificationDeepLink.target === 'classroom'
                 ? {
+                  classId: notificationDeepLink.classId,
                   assignmentId: notificationDeepLink.assignmentId,
                   action: notificationDeepLink.action,
                 }

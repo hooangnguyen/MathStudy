@@ -27,6 +27,7 @@ export interface ClassData {
     totalAssignments: number;
     totalExpectedSubmissions: number;
     avgScore: number;
+    subject?: string;
 }
 
 // Generate a random 6-character alphanumeric code
@@ -51,7 +52,7 @@ const getUniqueClassCode = async (): Promise<string> => {
     return code;
 };
 
-export const createClass = async (teacherId: string, name: string, grade: number): Promise<ClassData> => {
+export const createClass = async (teacherId: string, name: string, grade: number, subject: string = 'Khác'): Promise<ClassData> => {
     try {
         const code = await getUniqueClassCode();
         const newClassRef = doc(collection(db, 'classes'));
@@ -70,7 +71,8 @@ export const createClass = async (teacherId: string, name: string, grade: number
             submitted: 0,
             totalAssignments: 0,
             totalExpectedSubmissions: 0,
-            avgScore: 0
+            avgScore: 0,
+            subject
         };
 
         await setDoc(newClassRef, classData);

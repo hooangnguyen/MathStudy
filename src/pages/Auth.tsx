@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Lock, User, ArrowRight, Chrome, Sparkles, ChevronLeft } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, Chrome, Sparkles } from 'lucide-react';
 import { auth, googleProvider } from '../config/firebase';
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { sendOTP, verifyOTP } from '../services/authService';
 
 interface AuthProps {
   onLogin: (role: 'student' | 'teacher' | 'new_user') => void;
@@ -11,12 +10,10 @@ interface AuthProps {
 
 export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
   const [mode, setMode] = useState<'login' | 'register'>('login');
-  const [step, setStep] = useState<'credentials' | 'otp'>('credentials');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const [otp, setOtp] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,38 +29,27 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
         // We pass 'new_user' even for existing logins so App.tsx can sync from Firestore
         onLogin('new_user');
       } else {
-        if (step === 'credentials') {
-          if (password !== confirmPassword) {
-            setError('Mật khẩu không khớp');
-            setIsLoading(false);
-            return;
-          }
-          if (!name.trim()) {
-            setError('Vui lòng nhập họ và tên');
-            setIsLoading(false);
-            return;
-          }
-          // Send OTP and move to verification
-          await sendOTP(email);
-          setStep('otp');
-        } else if (step === 'otp') {
-          // Verify OTP and create user
-          const verification = await verifyOTP(email, otp);
-          if (verification.success) {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-
-            // Wait until user is created, then update their Firebase Auth profile
-            await updateProfile(user, { displayName: name });
-
-            // We no longer initialize the user profile in Firestore here.
-            // That will happen during the Onboarding step for ALL new users.
-
-            onLogin('new_user');
-          } else {
-            setError(verification.error || 'Mã OTP không đúng');
-          }
+        if (password !== confirmPassword) {
+          setError('Mật khẩu không khớp');
+          setIsLoading(false);
+          return;
         }
+        if (!name.trim()) {
+          setError('Vui lòng nhập họ và tên');
+          setIsLoading(false);
+          return;
+        }
+
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Wait until user is created, then update their Firebase Auth profile
+        await updateProfile(user, { displayName: name });
+
+        // We no longer initialize the user profile in Firestore here.
+        // That will happen during the Onboarding step for ALL new users.
+
+        onLogin('new_user');
       }
     } catch (err: any) {
       console.error('Auth error:', err);
@@ -119,49 +105,9 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <AnimatePresence mode="wait">
-            {mode === 'register' && step === 'credentials' && (
-              <motion.div
-                key="name-role"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="space-y-4"
-              >
-                {/* Tên và Vai trò đã được chuyển sang phần Onboarding */}
-              </motion.div>
-            )}
-
-            {mode === 'register' && step === 'otp' && (
-              <motion.div
-                key="otp"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="space-y-2"
-              >
-                <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Nhập mã OTP từ Email</label>
-                <input
-                  type="text"
-                  required
-                  maxLength={6}
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
-                  placeholder="000000"
-                  className="w-full bg-slate-50 border-2 border-transparent focus:border-primary focus:bg-white rounded-2xl py-6 text-center text-3xl font-black tracking-[1rem] outline-none transition-all"
-                />
-                <p className="text-center text-[10px] font-bold text-slate-400 mt-2">Mã được gửi tới: {email}</p>
-                <button
-                  type="button"
-                  onClick={() => sendOTP(email)}
-                  className="w-full text-center text-xs font-black text-primary uppercase mt-4 hover:underline"
-                >
-                  Gửi lại mã
-                </button>
-              </motion.div>
-            )}
           </AnimatePresence>
 
-          {(mode === 'login' || (mode === 'register' && step === 'credentials')) && (
+          {(mode === 'login' || mode === 'register') && (
             <>
               {mode === 'register' && (
                 <div className="space-y-2">
@@ -245,17 +191,6 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
           )}
 
           <div className="flex gap-3">
-            {mode === 'register' && step !== 'credentials' && (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="button"
-                onClick={() => setStep('credentials')}
-                className="w-20 bg-slate-100 text-slate-900 py-5 rounded-[2rem] font-black text-lg hover:bg-slate-200 active:scale-95 transition-all flex items-center justify-center"
-              >
-                <ChevronLeft size={24} />
-              </motion.button>
-            )}
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -271,7 +206,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                 />
               ) : (
                 <>
-                  {mode === 'login' ? 'Đăng nhập' : step === 'otp' ? 'Xác nhận & Đăng ký' : 'Tiếp tục'}
+                  {mode === 'login' ? 'Đăng nhập' : 'Đăng ký'}
                   <ArrowRight size={20} />
                 </>
               )}

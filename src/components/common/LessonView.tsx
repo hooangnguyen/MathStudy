@@ -308,14 +308,14 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
                 <h4 className={cn("font-black text-lg", isCorrect ? "text-emerald-900" : "text-rose-900")}>
                   {isCorrect ? 'Tuyệt vời!' : 'Chưa chính xác'}
                 </h4>
-                <p className={cn("text-xs font-medium flex items-center gap-1", isCorrect ? "text-emerald-700" : "text-rose-700")}>
+                <div className={cn("text-xs font-medium flex items-center gap-1", isCorrect ? "text-emerald-700" : "text-rose-700")}>
                   {isCorrect ? 'Bạn đã trả lời đúng câu hỏi này.' : (
                     <>
                       <span>Đáp án đúng là:</span>
                       <span className="font-bold border px-2 py-0.5 rounded bg-white/50"><MathRenderer content={currentQuestion.answer || ''} /></span>
                     </>
                   )}
-                </p>
+                </div>
               </div>
             </div>
           )}

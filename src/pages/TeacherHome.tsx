@@ -22,6 +22,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
   const [newClassName, setNewClassName] = useState('');
   const [newClassGrade, setNewClassGrade] = useState('5');
+  const [newClassSubject, setNewClassSubject] = useState('Toán học');
   const [generatedCode, setGeneratedCode] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('23:59');
@@ -86,7 +87,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
     if (!newClassName.trim() || !user) return;
     setIsCreatingClass(true);
     try {
-      const newClass = await createClass(user.uid, newClassName, parseInt(newClassGrade));
+      const newClass = await createClass(user.uid, newClassName, parseInt(newClassGrade), newClassSubject);
       setGeneratedCode(newClass.code);
     } catch (error) {
       console.error("Failed to create class", error);
@@ -187,6 +188,26 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                         )}
                       >
                         Khối {grade}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Môn học</label>
+                  <div className="flex flex-wrap gap-2">
+                    {['Toán học', 'Tiếng Việt', 'Tiếng Anh', 'Khoa học', 'Lịch sử', 'Địa lý', 'Tin học', 'Khác'].map(subject => (
+                      <button
+                        key={subject}
+                        onClick={() => setNewClassSubject(subject)}
+                        className={cn(
+                          "px-4 py-2 rounded-xl border-2 text-sm font-black transition-all",
+                          newClassSubject === subject
+                            ? "border-indigo-500 bg-indigo-50 text-indigo-600"
+                            : "border-slate-100 text-slate-400 hover:border-slate-200 hover:bg-slate-50"
+                        )}
+                      >
+                        {subject}
                       </button>
                     ))}
                   </div>

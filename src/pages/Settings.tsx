@@ -40,51 +40,57 @@ export const Settings: React.FC<SettingsProps> = ({
   userName = 'Người dùng',
   onPreferencesChanged
 }) => {
-  const [notifications, setNotifications] = useState(preferences?.notifications ?? true);
-  const [soundEffects, setSoundEffects] = useState(preferences?.soundEffects ?? true);
-  const [darkMode, setDarkMode] = useState(preferences?.darkMode ?? false);
-  const [language, setLanguage] = useState(preferences?.language ?? "Tiếng Việt");
-  const [fontSize, setFontSize] = useState(preferences?.fontSize ?? "Mặc định");
-  const [eyeProtection, setEyeProtection] = useState(preferences?.eyeProtection ?? false);
+  // Use a ref to keep the absolute latest preferences synchronously to handle rapid clicks
+  const latestPrefs = React.useRef<UserPreferences>({
+    notifications: preferences?.notifications ?? true,
+    soundEffects: preferences?.soundEffects ?? true,
+    darkMode: preferences?.darkMode ?? false,
+    language: preferences?.language ?? "Tiếng Việt",
+    fontSize: preferences?.fontSize ?? "Mặc định",
+    eyeProtection: preferences?.eyeProtection ?? false,
+  });
 
-  const saveSetting = async <K extends keyof UserPreferences>(key: K, value: UserPreferences[K]) => {
+  const [localPrefs, setLocalPrefs] = useState<UserPreferences>(latestPrefs.current);
+
+  const updateSetting = <K extends keyof UserPreferences>(key: K, value: UserPreferences[K]) => {
     if (!uid) return;
-    try {
-      const newPrefs: UserPreferences = {
-        notifications,
-        soundEffects,
-        darkMode,
-        language,
-        fontSize,
-        eyeProtection,
-        ...preferences,
-        [key]: value
-      };
-      // We do not wait for the API call to finish to keep UI snappy
-      saveUserProfile(uid, { preferences: newPrefs });
-      if (onPreferencesChanged) onPreferencesChanged(newPrefs);
-    } catch (err) {
+    
+    // Update the ref synchronously
+    latestPrefs.current = {
+      ...latestPrefs.current,
+      [key]: value
+    };
+
+    const newPrefs = latestPrefs.current;
+
+    // Update the UI
+    setLocalPrefs(newPrefs);
+    
+    // Fire and forget API call
+    saveUserProfile(uid, { preferences: newPrefs }).catch(err => {
       console.error("Failed to save preference", err);
+    });
+    
+    // Notify parent of changes
+    if (onPreferencesChanged) {
+      onPreferencesChanged(newPrefs);
     }
   };
 
-  const handleToggle = (key: keyof UserPreferences, value: boolean, setter: React.Dispatch<React.SetStateAction<boolean>>) => {
-    setter(value);
-    saveSetting(key, value);
+  const handleToggle = (key: keyof UserPreferences, currentValue: boolean) => {
+    updateSetting(key, !currentValue);
   };
 
   const handleLanguageChange = () => {
-    const nextLang = language === "Tiếng Việt" ? "English" : "Tiếng Việt";
-    setLanguage(nextLang);
-    saveSetting("language", nextLang);
+    const nextLang = localPrefs.language === "Tiếng Việt" ? "English" : "Tiếng Việt";
+    updateSetting("language", nextLang);
   };
 
   const handleFontSizeChange = () => {
     const sizes = ["Nhỏ", "Mặc định", "Lớn"];
-    const currentIndex = sizes.indexOf(fontSize);
+    const currentIndex = sizes.indexOf(localPrefs.fontSize || "Mặc định");
     const nextSize = sizes[(currentIndex + 1) % sizes.length] || "Mặc định";
-    setFontSize(nextSize);
-    saveSetting("fontSize", nextSize);
+    updateSetting("fontSize", nextSize);
   };
 
   const handleHelp = () => {
@@ -181,7 +187,7 @@ export const Settings: React.FC<SettingsProps> = ({
             color="text-blue-500"
             onClick={onEditProfile}
           />
-          <SettingItem icon={Globe} label="Ngôn ngữ" value={language} color="text-emerald-500" onClick={handleLanguageChange} />
+          <SettingItem icon={Globe} label="Ngôn ngữ" value={localPrefs.language} color="text-emerald-500" onClick={handleLanguageChange} />
         </div>
 
         {/* Learning Section */}
@@ -189,11 +195,11 @@ export const Settings: React.FC<SettingsProps> = ({
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Học tập</h2>
         </div>
         <div className="mx-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-md overflow-hidden">
-          <SettingItem icon={Type} label="Cỡ chữ" value={fontSize} color="text-indigo-500" onClick={handleFontSizeChange} />
+          <SettingItem icon={Type} label="Cỡ chữ" value={localPrefs.fontSize} color="text-indigo-500" onClick={handleFontSizeChange} />
           <SettingItem
             icon={Bell}
             label="Thông báo nhắc học"
-            toggle={{ active: notifications, onToggle: () => handleToggle('notifications', !notifications, setNotifications) }}
+            toggle={{ active: localPrefs.notifications, onToggle: () => handleToggle('notifications', localPrefs.notifications) }}
             color="text-rose-500"
           />
         </div>
@@ -206,19 +212,19 @@ export const Settings: React.FC<SettingsProps> = ({
           <SettingItem
             icon={Volume2}
             label="Hiệu ứng âm thanh"
-            toggle={{ active: soundEffects, onToggle: () => handleToggle('soundEffects', !soundEffects, setSoundEffects) }}
+            toggle={{ active: localPrefs.soundEffects, onToggle: () => handleToggle('soundEffects', localPrefs.soundEffects) }}
             color="text-cyan-500"
           />
           <SettingItem
             icon={Moon}
             label="Chế độ tối"
-            toggle={{ active: darkMode, onToggle: () => handleToggle('darkMode', !darkMode, setDarkMode) }}
+            toggle={{ active: localPrefs.darkMode, onToggle: () => handleToggle('darkMode', localPrefs.darkMode) }}
             color="text-slate-800"
           />
           <SettingItem 
             icon={Eye} 
             label="Chế độ bảo vệ mắt" 
-            toggle={{ active: eyeProtection, onToggle: () => handleToggle('eyeProtection', !eyeProtection, setEyeProtection) }} 
+            toggle={{ active: localPrefs.eyeProtection, onToggle: () => handleToggle('eyeProtection', localPrefs.eyeProtection) }} 
             color="text-amber-500" 
           />
         </div>
