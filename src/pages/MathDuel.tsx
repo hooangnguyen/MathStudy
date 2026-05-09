@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Zap, User, Trophy, X, Timer, Star, Swords, Search, ShieldCheck, Crown, Users, Plus, Key, Play, TrendingUp, ClipboardList } from 'lucide-react';
-import { collection, query, where, limit, onSnapshot } from 'firebase/firestore';
+import { collection, query, where, limit, onSnapshot, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { cn } from '../utils/utils';
 import { MathRenderer } from '../components/common/MathRenderer';
@@ -234,6 +234,9 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
         setAvatarMap((prev) => ({ ...prev, ...map }));
       });
       if (room.status === 'playing') {
+        const myProgress = room.participantProgress?.[user?.uid || ''];
+        if (myProgress?.finished) return;
+
         let qList: DuelQuestion[] = [];
         if (room.roomQuestions) {
           try { qList = JSON.parse(room.roomQuestions) as DuelQuestion[]; } catch { }
@@ -1388,15 +1391,20 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
             <button
               onClick={async () => {
-                if (roomId && user) {
-                  try { await leaveRoom(roomId, user.uid); } catch (_) { }
+                if (isHost && roomId) {
+                  try {
+                    await updateDoc(doc(db, 'duelRooms', roomId), {
+                      status: 'waiting',
+                      participantProgress: {},
+                      roomQuestions: null
+                    });
+                  } catch (e) {}
                 }
-                setRoomId(null);
-                setState('lobby');
+                setState('waiting_room');
               }}
               className="w-full max-w-md bg-slate-900 text-white py-5 rounded-[2rem] font-black text-lg shadow-xl active:scale-95 transition-transform mt-4"
             >
-              QUAY LẠI SẢNH
+              VỀ PHÒNG CHỜ
             </button>
           </motion.div>
         )}
