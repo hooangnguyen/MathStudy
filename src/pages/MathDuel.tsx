@@ -130,7 +130,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   const [roomCode, setRoomCode] = useState('');
   const [isHost, setIsHost] = useState(false);
   const [gameMode, setGameMode] = useState<'time' | 'questions'>('time');
-  const [timeLimit, setTimeLimit] = useState(60);
+  const [timeLimit, setTimeLimit] = useState(300);
   const [roomPlayers, setRoomPlayers] = useState<RoomPlayer[]>([]);
   const [roomResults, setRoomResults] = useState<RoomPlayer[]>([]);
   const [avatarMap, setAvatarMap] = useState<Record<string, string>>({});
@@ -338,7 +338,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
           setIsPlayer1(false);
 
           setTimeout(() => {
-            setTimeLeft(60);
+            setTimeLeft(300);
             setCurrentQuestion(0);
             setScore({ player: 0, opponent: 0 });
             setIsWaitingForOpponent(false);
@@ -376,7 +376,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
         setIsPlayer1(true);
 
         setTimeout(() => {
-          setTimeLeft(60);
+          setTimeLeft(300);
           setCurrentQuestion(0);
           setScore({ player: 0, opponent: 0 });
           setIsWaitingForOpponent(false);
@@ -826,13 +826,29 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                     )}
                   </>
                 ) : (
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-2">Số câu hỏi</label>
-                    <select className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:border-primary">
-                      <option>10 câu</option>
-                      <option>20 câu</option>
-                      <option>30 câu</option>
-                    </select>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-2">Số câu hỏi</label>
+                      <select className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:border-primary">
+                        <option>10 câu</option>
+                        <option>20 câu</option>
+                        <option>30 câu</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-2">Thời gian (phút)</label>
+                      <select
+                        value={timeLimit}
+                        onChange={(e) => setTimeLimit(Number(e.target.value))}
+                        className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:border-primary"
+                      >
+                        <option value={60}>1 phút</option>
+                        <option value={180}>3 phút</option>
+                        <option value={300}>5 phút</option>
+                        <option value={600}>10 phút</option>
+                      </select>
+                    </div>
                   </div>
                 )}
               </div>
