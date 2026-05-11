@@ -100,6 +100,13 @@ export default function App() {
   const [isAssignmentInProgress, setIsAssignmentInProgress] = useState(false);
   const [exitDuelToken, setExitDuelToken] = useState(0);
   const [exitAssignmentToken, setExitAssignmentToken] = useState(0);
+  const [confirmModal, setConfirmModal] = useState<{
+    title: string;
+    message: string;
+    confirmText?: string;
+    cancelText?: string;
+    onConfirm: () => void;
+  } | null>(null);
   const [currentLesson, setCurrentLesson] = useState<string | null>(null);
   const [currentTopic, setCurrentTopic] = useState<string | null>(null);
   const [currentLessonId, setCurrentLessonId] = useState<number | null>(null);
@@ -302,18 +309,32 @@ export default function App() {
   const handleTabChange = (tab: string) => {
     if (tab !== activeTab) {
       if (isDuelInProgress) {
-        const ok = window.confirm('Bạn đang trong trận đấu. Nếu thoát bây giờ bạn sẽ bị tính là THUA. Bạn có muốn thoát không?');
-        if (!ok) return;
-        // Kết thúc trận đấu cho cả hai nhưng giữ nguyên tab hiện tại,
-        // để học sinh xem màn hình kết quả xong rồi mới tự chuyển tab.
-        setExitDuelToken(t => t + 1);
+        setConfirmModal({
+          title: 'Thoát trận đấu?',
+          message: 'Bạn đang trong trận đấu. Nếu thoát bây giờ bạn sẽ bị tính là THUA. Bạn có chắc chắn muốn thoát không?',
+          confirmText: 'Đầu hàng',
+          onConfirm: () => {
+            setExitDuelToken(t => t + 1);
+            setConfirmModal(null);
+          }
+        });
         return;
       }
 
       if (isAssignmentInProgress) {
-        const ok = window.confirm('Bạn đang làm bài tập dở. Nếu thoát bây giờ bài làm chưa được lưu. Bạn có muốn thoát không?');
-        if (!ok) return;
-        setExitAssignmentToken(t => t + 1);
+        setConfirmModal({
+          title: 'Thoát làm bài?',
+          message: 'Bạn đang làm bài tập dở. Nếu thoát bây giờ bài làm chưa được lưu. Bạn có muốn thoát không?',
+          confirmText: 'Thoát',
+          onConfirm: () => {
+            setExitAssignmentToken(t => t + 1);
+            if (activeTab === 'classroom') setNotificationDeepLink(null);
+            if (tab === 'duel') setDuelInitialState('lobby');
+            setTab(tab);
+            setConfirmModal(null);
+          }
+        });
+        return;
       }
 
       // Xóa deep link khi rời khỏi tab classroom để khi quay lại không bị ép vào danh sách học sinh / grader
@@ -661,6 +682,49 @@ export default function App() {
                 }}
               />
             </Suspense>
+          )}
+        </AnimatePresence>
+
+        {/* Global Confirm Modal */}
+        <AnimatePresence>
+          {confirmModal && (
+            <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+                onClick={() => setConfirmModal(null)}
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="bg-white rounded-[2rem] p-6 md:p-8 w-full max-w-sm relative z-10 shadow-2xl flex flex-col items-center text-center space-y-4"
+              >
+                <div className="w-16 h-16 bg-red-100 rounded-[1.5rem] flex items-center justify-center text-red-500 mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                </div>
+                <h3 className="text-xl font-black text-slate-800">{confirmModal.title}</h3>
+                <p className="text-slate-500 font-medium text-sm leading-relaxed">
+                  {confirmModal.message}
+                </p>
+                <div className="w-full flex gap-3 mt-4 pt-4">
+                  <button
+                    onClick={() => setConfirmModal(null)}
+                    className="flex-1 py-3 px-4 rounded-2xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 active:scale-95 transition-all"
+                  >
+                    {confirmModal.cancelText || 'Hủy bỏ'}
+                  </button>
+                  <button
+                    onClick={confirmModal.onConfirm}
+                    className="flex-1 py-3 px-4 rounded-2xl font-bold text-white bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/30 active:scale-95 transition-all"
+                  >
+                    {confirmModal.confirmText || 'Đồng ý'}
+                  </button>
+                </div>
+              </motion.div>
+            </div>
           )}
         </AnimatePresence>
       </div>

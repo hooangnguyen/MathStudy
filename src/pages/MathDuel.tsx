@@ -59,6 +59,17 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   const { user, userProfile } = useFirebase();
   const [state, setState] = useState<DuelState>(initialState);
   const [isWaitingForOpponent, setIsWaitingForOpponent] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(30);
+  const [score, setScore] = useState({ player: 0, opponent: 0 });
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [matchOutcome, setMatchOutcome] = useState<'win' | 'lose' | 'draw' | null>(null);
+  const [opponentSurrendered, setOpponentSurrendered] = useState(false);
+
+  // Common Refs to prevent stale closure bugs
+  const stateRef = React.useRef({ state, score, currentQuestion });
+  useEffect(() => {
+    stateRef.current = { state, score, currentQuestion };
+  }, [state, score, currentQuestion]);
 
   // Notify parent of state changes
   useEffect(() => {
@@ -120,9 +131,6 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     return RANKS[userRank.rankTier] || RANKS.bronze;
   };
 
-  const [timeLeft, setTimeLeft] = useState(30);
-  const [score, setScore] = useState({ player: 0, opponent: 0 });
-  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [searchProgress, setSearchProgress] = useState(0);
 
   // Room states (1v1 Firestore)
@@ -135,6 +143,12 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   const [roomResults, setRoomResults] = useState<RoomPlayer[]>([]);
   const [avatarMap, setAvatarMap] = useState<Record<string, string>>({});
   const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+
+  // Refs for stable timer access
+  const playerStateRef = React.useRef({ score: 0, currentQuestion: 0 });
+  useEffect(() => {
+    playerStateRef.current = { score: score.player, currentQuestion };
+  }, [score.player, currentQuestion]);
 
   const handleCreateRoom = async () => {
     if (!user) return;
@@ -245,6 +259,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
         setTimeLeft(room.timeLimit);
         setCurrentQuestion(0);
         setScore({ player: 0, opponent: 0 });
+        setMatchOutcome(null);
+        setOpponentSurrendered(false);
         const otherUid = room.currentPlayers.find((uid) => uid !== user?.uid);
         if (otherUid) setOpponentInfo({ id: otherUid, name: room.playerNames[otherUid] || 'Đối thủ' });
         setState('room_playing');
@@ -344,6 +360,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             setTimeLeft(300);
             setCurrentQuestion(0);
             setScore({ player: 0, opponent: 0 });
+            setMatchOutcome(null);
+            setOpponentSurrendered(false);
             setIsWaitingForOpponent(false);
             setState('playing');
           }, 500);
@@ -382,6 +400,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
           setTimeLeft(300);
           setCurrentQuestion(0);
           setScore({ player: 0, opponent: 0 });
+          setMatchOutcome(null);
+          setOpponentSurrendered(false);
           setIsWaitingForOpponent(false);
           setState('playing');
         }, 500);
@@ -424,10 +444,13 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
       // End game if both players finished
       if (duelData.player1TimeLeftAtFinish !== null && duelData.player2TimeLeftAtFinish !== null) {
-        handleDuelEnd(duelData.player1Score, duelData.player2Score);
+        handleDuelEnd(isPlayer1 ? duelData.player2Score : duelData.player1Score);
+      } else if (duelData.surrenderedBy && duelData.surrenderedBy !== user?.uid && state === 'playing') {
+        // Opponent surrendered, force win
+        handleDuelEnd(isPlayer1 ? duelData.player2Score : duelData.player1Score, true);
       } else if (duelData.status === 'finished' && state === 'playing') {
         // Fallback: if somehow finished
-        handleDuelEnd(duelData.player1Score, duelData.player2Score);
+        handleDuelEnd(isPlayer1 ? duelData.player2Score : duelData.player1Score);
       }
     });
 
@@ -435,11 +458,14 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
       clearInterval(timer);
       unsubscribe();
     };
-  }, [state, currentDuelId, isPlayer1]);
+  }, [state, currentDuelId, isPlayer1, user?.uid]);
 
   // Handle duel end - save results to database
   const handleDuelEnd = async (finalOpponentScore?: number, forceIsWin?: boolean) => {
-    if (state === 'result' || state === 'lobby') return;
+    const currentScore = stateRef.current.score;
+    const currentState = stateRef.current.state;
+
+    if (currentState === 'result' || currentState === 'lobby') return;
 
     // Immediately set state to result to prevent re-triggering
     setState('result');
@@ -449,11 +475,19 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
       return;
     }
 
-    const finalOppScore = finalOpponentScore ?? score.opponent;
-    const isWin = forceIsWin !== undefined ? forceIsWin : score.player > finalOppScore;
-    const isDraw = forceIsWin !== undefined ? false : score.player === finalOppScore;
+    const finalOppScore = finalOpponentScore ?? currentScore.opponent;
+    const isWin = forceIsWin !== undefined ? forceIsWin : currentScore.player > finalOppScore;
+    const isDraw = forceIsWin !== undefined ? false : currentScore.player === finalOppScore;
     const currentLP = userRank?.lp || 0;
     const userName = userProfile?.name || user.displayName || 'Người chơi';
+
+    if (isWin) setMatchOutcome('win');
+    else if (isDraw) setMatchOutcome('draw');
+    else setMatchOutcome('lose');
+
+    if (forceIsWin === true) {
+      setOpponentSurrendered(true);
+    }
 
     // Calculate LP change
     let lpChange = 0;
@@ -477,7 +511,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
           userName,
           opponentInfo.id,
           opponentInfo.name,
-          score.player,
+          currentScore.player,
           finalOppScore,
           isWin ? user.uid : (isDraw ? undefined : opponentInfo.id),
           isDraw,
@@ -560,7 +594,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
       setTimeLeft((prev) => {
         if (prev <= 1) {
           if (roomId && user) {
-            updateRoomProgress(roomId, user.uid, score.player, currentQuestion + 1, true).catch(() => { });
+            const { score: currentScore, currentQuestion: progress } = playerStateRef.current;
+            updateRoomProgress(roomId, user.uid, currentScore, progress + 1, true).catch(() => { });
           }
           setState('room_result');
           return 0;
@@ -569,7 +604,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [state, roomId, user?.uid, userRole, score.player, currentQuestion]);
+  }, [state, roomId, user?.uid, userRole]);
 
   // Generate room results
   useEffect(() => {
@@ -583,19 +618,26 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   }, [state, roomPlayers, score.player, score.opponent]);
 
   // Handle explicit surrender/exit from Navigation
+  // Handle explicit surrender/exit from Navigation
   useEffect(() => {
     if (exitDuelToken > 0) {
-      if (state === 'playing') {
+      const { state: currentState, score: currentScore, currentQuestion: progress } = stateRef.current;
+      if (currentState === 'playing') {
+        if (currentDuelId && user) {
+          import('../services/duelService').then(({ surrenderDuel }) => {
+            surrenderDuel(currentDuelId, user.uid).catch(() => {});
+          });
+        }
         // Pass forceIsWin = false so they always lose when surrendering
-        handleDuelEnd(score.opponent, false);
-      } else if (state === 'room_playing') {
+        handleDuelEnd(currentScore.opponent, false);
+      } else if (currentState === 'room_playing') {
         if (roomId && user) {
-          updateRoomProgress(roomId, user.uid, score.player, currentQuestion + 1, true).catch(() => { });
+          updateRoomProgress(roomId, user.uid, currentScore.player, progress + 1, true).catch(() => { });
         }
         setState('room_result');
       }
     }
-  }, [exitDuelToken]);
+  }, [exitDuelToken, roomId, user]);
 
   return (
     <div className="flex flex-col h-full bg-slate-50 overflow-x-hidden overflow-y-auto no-scrollbar pb-20">
@@ -1078,12 +1120,12 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                 transition={{ type: "spring", damping: 12 }}
                 className={cn(
                   "w-40 h-40 rounded-[3.5rem] flex items-center justify-center shadow-2xl",
-                  score.player >= score.opponent ? "bg-yellow-400 text-white" : "bg-slate-200 text-slate-400"
+                  matchOutcome === 'win' ? "bg-yellow-400 text-white" : "bg-slate-200 text-slate-400"
                 )}
               >
-                {score.player >= score.opponent ? <Trophy size={80} /> : <X size={80} />}
+                {matchOutcome === 'win' ? <Trophy size={80} /> : <X size={80} />}
               </motion.div>
-              {score.player >= score.opponent && (
+              {matchOutcome === 'win' && (
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -1094,12 +1136,21 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
               )}
             </div>
 
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-3">
+              {opponentSurrendered && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="inline-block bg-red-100 border border-red-200 text-red-600 px-4 py-1.5 rounded-full font-bold text-sm"
+                >
+                  Đối thủ đã đầu hàng!
+                </motion.div>
+              )}
               <h2 className="text-4xl font-black tracking-tight">
-                {score.player > score.opponent ? "CHIẾN THẮNG!" : score.player === score.opponent ? "HÒA NHAU!" : "THẤT BẠI!"}
+                {matchOutcome === 'win' ? "CHIẾN THẮNG!" : matchOutcome === 'draw' ? "HÒA NHAU!" : "THẤT BẠI!"}
               </h2>
               <p className="text-slate-500 font-bold">
-                {score.player > score.opponent ? "+20 Điểm Xếp Hạng (LP)" : score.player === score.opponent ? "+5 Điểm Xếp Hạng (LP)" : "-15 Điểm Xếp Hạng (LP)"}
+                {matchOutcome === 'win' ? "+20 Điểm Xếp Hạng (LP)" : matchOutcome === 'draw' ? "+5 Điểm Xếp Hạng (LP)" : "-15 Điểm Xếp Hạng (LP)"}
               </p>
             </div>
 

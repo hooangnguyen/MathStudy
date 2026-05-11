@@ -1,2378 +1,2378 @@
 [
-    {
-        "id": 1775408745556,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nào sau đây là số có } 5 \\text{ chữ số?} $",
-        "options": [
-            "$ 9999 $",
-            "$ 10000 $",
-            "$ 999 $",
-            "$ 1000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Số có 5 chữ số",
-        "difficulty": "easy",
-        "explanation": "10000 là số nhỏ nhất có 5 chữ số."
-    },
-    {
-        "id": 1775408745557,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số lớn nhất có } 5 \\text{ chữ số là số nào?} $",
-        "options": [
-            "$ 99999 $",
-            "$ 10000 $",
-            "$ 9999 $",
-            "$ 90000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Số có 5 chữ số",
-        "difficulty": "easy",
-        "explanation": "99999 là số lớn nhất có 5 chữ số."
-    },
-    {
-        "id": 1775408745558,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 34567 \\text{, chữ số } 7 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng đơn vị} $",
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng nghìn} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số cuối cùng là hàng đơn vị."
-    },
-    {
-        "id": 1775408745559,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 45678 \\text{, chữ số } 7 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng đơn vị} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số thứ hai từ phải sang là hàng chục."
-    },
-    {
-        "id": 1775408745561,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 34567 \\text{, chữ số } 5 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng đơn vị} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số thứ ba từ phải sang là hàng trăm."
-    },
-    {
-        "id": 1775408745562,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 54321 \\text{, chữ số } 4 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng đơn vị} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số thứ tư từ phải sang là hàng nghìn."
-    },
-    {
-        "id": 1775408745563,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 98765 \\text{, chữ số } 9 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng chục nghìn} $",
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng chục} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số đầu tiên của số có 5 chữ số là hàng chục nghìn."
-    },
-    {
-        "id": 1775408745564,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số } 34567 \\text{ có mấy lớp?} $",
-        "options": [
-            "$ 1 $",
-            "$ 2 $",
-            "$ 3 $",
-            "$ 4 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Lớp",
-        "difficulty": "easy",
-        "explanation": "Gồm lớp nghìn và lớp đơn vị."
-    },
-    {
-        "id": 1775408745565,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 34567 \\text{, lớp nghìn là số nào?} $",
-        "options": [
-            "$ 34 $",
-            "$ 345 $",
-            "$ 3 $",
-            "$ 567 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Lớp",
-        "difficulty": "easy",
-        "explanation": "Lớp nghìn gồm hai chữ số đầu."
-    },
-    {
-        "id": 1775408745566,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 34567 \\text{, lớp đơn vị là số nào?} $",
-        "options": [
-            "$ 567 $",
-            "$ 34 $",
-            "$ 345 $",
-            "$ 67 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Lớp",
-        "difficulty": "easy",
-        "explanation": "Ba chữ số cuối thuộc lớp đơn vị."
-    },
-    {
-        "id": 1775408745567,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số } 34567 \\text{ đọc là gì?} $",
-        "options": [
-            "$ \\text{Ba mươi bốn nghìn năm trăm sáu mươi bảy} $",
-            "$ \\text{Ba mươi bốn nghìn năm trăm sáu mươi} $",
-            "$ \\text{Ba nghìn bốn trăm năm mươi sáu} $",
-            "$ \\text{Ba mươi bốn nghìn sáu mươi bảy} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Đọc số",
-        "difficulty": "easy",
-        "explanation": "Đọc theo từng lớp."
-    },
-    {
-        "id": 1775408745568,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nào lớn hơn?} $",
-        "options": [
-            "$ 34567 $",
-            "$ 34667 $",
-            "$ 34000 $",
-            "$ 34500 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "So sánh số",
-        "difficulty": "easy",
-        "explanation": "34667 lớn nhất."
-    },
-    {
-        "id": 1775408745569,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nào nhỏ nhất?} $",
-        "options": [
-            "$ 12345 $",
-            "$ 12354 $",
-            "$ 12435 $",
-            "$ 13245 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "So sánh số",
-        "difficulty": "easy",
-        "explanation": "12345 nhỏ nhất."
-    },
-    {
-        "id": 1775408745570,
-        "type": "multiple_choice",
-        "text": "$ \\text{Viết số: ba mươi nghìn không trăm năm mươi} $",
-        "options": [
-            "$ 30050 $",
-            "$ 30500 $",
-            "$ 30005 $",
-            "$ 35000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Viết số",
-        "difficulty": "easy",
-        "explanation": "30 050."
-    },
-    {
-        "id": 1775408745571,
-        "type": "multiple_choice",
-        "text": "$ \\text{Viết số: bốn mươi hai nghìn} $",
-        "options": [
-            "$ 42000 $",
-            "$ 40200 $",
-            "$ 4200 $",
-            "$ 4020 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Viết số",
-        "difficulty": "easy",
-        "explanation": "42 nghìn = 42000."
-    },
-    {
-        "id": 1775408745572,
-        "type": "multiple_choice",
-        "text": "$ 34567 \\text{ = ?} $",
-        "options": [
-            "$ 30000 + 4000 + 500 + 60 + 7 $",
-            "$ 30000 + 4000 + 600 + 50 + 7 $",
-            "$ 30000 + 5000 + 400 + 60 + 7 $",
-            "$ 30000 + 4000 + 500 + 70 + 6 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Phân tích số",
-        "difficulty": "medium",
-        "explanation": "Phân tích theo hàng."
-    },
-    {
-        "id": 1775408745573,
-        "type": "multiple_choice",
-        "text": "$ 56000 \\text{ = ?} $",
-        "options": [
-            "$ 50000 + 6000 $",
-            "$ 50000 + 600 $",
-            "$ 5000 + 6000 $",
-            "$ 5600 + 0 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Phân tích số",
-        "difficulty": "medium",
-        "explanation": "Phân tích theo hàng."
-    },
-    {
-        "id": 1775408745574,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 45678 \\text{, giá trị của chữ số } 5 \\text{ là bao nhiêu?} $",
-        "options": [
-            "$ 500 $",
-            "$ 5000 $",
-            "$ 50 $",
-            "$ 5 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "medium",
-        "explanation": "Chữ số 5 ở hàng nghìn."
-    },
-    {
-        "id": 1775408745575,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 34782 \\text{, giá trị của chữ số } 8 \\text{ là bao nhiêu?} $",
-        "options": [
-            "$ 8 $",
-            "$ 80 $",
-            "$ 800 $",
-            "$ 8000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "medium",
-        "explanation": "8 ở hàng chục."
-    },
-    {
-        "id": 1775408745576,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số } 456789 \\text{ có bao nhiêu lớp?} $",
-        "options": [
-            "$ 1 $",
-            "$ 2 $",
-            "$ 3 $",
-            "$ 4 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Lớp",
-        "difficulty": "medium",
-        "explanation": "Lớp nghìn và lớp đơn vị."
-    },
-    {
-        "id": 1775408745577,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 567890 \\text{ ... } 567809 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "easy",
-        "explanation": "567890 lớn hơn 567809."
-    },
-    {
-        "id": 1775408745578,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 900000 \\text{ ... } 899999 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "easy",
-        "explanation": "900000 lớn hơn 899999."
-    },
-    {
-        "id": 1775408745579,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 456123 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 400000 $",
-            "$ 450000 $",
-            "$ 460000 $",
-            "$ 500000 $"
-        ],
-        "correctAnswer": 3,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "456123 ≥ 450000 nên làm tròn lên 500000."
-    },
-    {
-        "id": 1775408745580,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 342567 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 300000 $",
-            "$ 350000 $",
-            "$ 400000 $",
-            "$ 340000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "342567 < 350000 nên làm tròn xuống 300000."
-    },
-    {
-        "id": 1775408745581,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 678900 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 600000 $",
-            "$ 700000 $",
-            "$ 680000 $",
-            "$ 650000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "678900 gần 700000 hơn."
-    },
-    {
-        "id": 1775408745582,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 812345 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 800000 $",
-            "$ 810000 $",
-            "$ 820000 $",
-            "$ 900000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "812345 gần 800000 hơn."
-    },
-    {
-        "id": 1775408745583,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 945678 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 900000 $",
-            "$ 950000 $",
-            "$ 1000000 $",
-            "$ 940000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "945678 < 950000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745584,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 3456789 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 3000000 $",
-            "$ 3500000 $",
-            "$ 4000000 $",
-            "$ 3400000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "3456789 < 3500000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745585,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 6789123 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 6000000 $",
-            "$ 7000000 $",
-            "$ 6800000 $",
-            "$ 6900000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "6789123 ≥ 6500000 nên làm tròn lên."
-    },
-    {
-        "id": 1775408745586,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 5234567 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 5000000 $",
-            "$ 5200000 $",
-            "$ 5300000 $",
-            "$ 6000000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "5234567 gần 5000000 hơn."
-    },
-    {
-        "id": 1775408745587,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 7890123 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 7000000 $",
-            "$ 8000000 $",
-            "$ 7900000 $",
-            "$ 7800000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "7890123 ≥ 7500000 nên làm tròn lên."
-    },
-    {
-        "id": 1775408745588,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 9123456 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 9000000 $",
-            "$ 9100000 $",
-            "$ 9200000 $",
-            "$ 10000000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "9123456 gần 9000000 hơn."
-    },
-    {
-        "id": 1775408745589,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nào lớn nhất?} $",
-        "options": [
-            "$ 3456789 $",
-            "$ 3546789 $",
-            "$ 3457689 $",
-            "$ 3456798 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "medium",
-        "explanation": "So sánh từ hàng triệu."
-    },
-    {
-        "id": 1775408745590,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nào bé nhất?} $",
-        "options": [
-            "$ 7654321 $",
-            "$ 7651234 $",
-            "$ 7654320 $",
-            "$ 7654322 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "medium",
-        "explanation": "So sánh từ trái sang phải."
-    },
-    {
-        "id": 1775408745591,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 4567890 \\text{ ... } 4567809 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "medium",
-        "explanation": "4567890 lớn hơn 4567809."
-    },
-    {
-        "id": 1775408745592,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 9000000 \\text{ ... } 8999999 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "medium",
-        "explanation": "9000000 lớn hơn 8999999."
-    },
-    {
-        "id": 1775408745593,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nào sau đây có } 5 \\text{ chữ số?} $",
-        "options": [
-            "$ 9999 $",
-            "$ 12000 $",
-            "$ 800 $",
-            "$ 4500 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Số có 5 chữ số",
-        "difficulty": "easy",
-        "explanation": "12000 có 5 chữ số."
-    },
-    {
-        "id": 1775408745594,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nhỏ nhất có } 5 \\text{ chữ số là gì?} $",
-        "options": [
-            "$ 10000 $",
-            "$ 9999 $",
-            "$ 1000 $",
-            "$ 99999 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Số có 5 chữ số",
-        "difficulty": "easy",
-        "explanation": "10000 là số nhỏ nhất có 5 chữ số."
-    },
-    {
-        "id": 1775408745595,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 1 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng đơn vị} $",
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng nghìn} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số cuối cùng là hàng đơn vị."
-    },
-    {
-        "id": 1775408745596,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 9 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng đơn vị} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số thứ hai từ phải sang là hàng chục."
-    },
-    {
-        "id": 1775408745597,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 8 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng đơn vị} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số thứ ba từ phải sang là hàng trăm."
-    },
-    {
-        "id": 1775408745598,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 7 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng đơn vị} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số thứ tư từ phải sang là hàng nghìn."
-    },
-    {
-        "id": 1775408745599,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 6 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng chục nghìn} $",
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng chục} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "easy",
-        "explanation": "Chữ số đầu tiên của số có 5 chữ số."
-    },
-    {
-        "id": 1775408745600,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số } 45678 \\text{ đọc là gì?} $",
-        "options": [
-            "$ \\text{Bốn mươi lăm nghìn sáu trăm bảy mươi tám} $",
-            "$ \\text{Bốn nghìn năm trăm sáu mươi bảy} $",
-            "$ \\text{Bốn mươi lăm nghìn sáu trăm bảy mươi} $",
-            "$ \\text{Bốn mươi lăm nghìn bảy trăm sáu mươi tám} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Đọc số",
-        "difficulty": "easy",
-        "explanation": "Đọc theo từng lớp."
-    },
-    {
-        "id": 1775408745601,
-        "type": "multiple_choice",
-        "text": "$ \\text{Viết số: năm mươi nghìn} $",
-        "options": [
-            "$ 50000 $",
-            "$ 5000 $",
-            "$ 500 $",
-            "$ 500000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Viết số",
-        "difficulty": "easy",
-        "explanation": "50 nghìn = 50000."
-    },
-    {
-        "id": 1775408745602,
-        "type": "multiple_choice",
-        "text": "$ \\text{Viết số: sáu mươi ba nghìn} $",
-        "options": [
-            "$ 63000 $",
-            "$ 60300 $",
-            "$ 60030 $",
-            "$ 6300 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Viết số",
-        "difficulty": "easy",
-        "explanation": "63 nghìn = 63000."
-    },
-    {
-        "id": 1775408745603,
-        "type": "multiple_choice",
-        "text": "$ 45678 \\text{ = ?} $",
-        "options": [
-            "$ 40000 + 5000 + 600 + 70 + 8 $",
-            "$ 40000 + 6000 + 500 + 70 + 8 $",
-            "$ 40000 + 5000 + 700 + 60 + 8 $",
-            "$ 40000 + 5000 + 600 + 80 + 7 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Phân tích số",
-        "difficulty": "medium",
-        "explanation": "Phân tích theo giá trị từng hàng."
-    },
-    {
-        "id": 1775408745604,
-        "type": "multiple_choice",
-        "text": "$ 72000 \\text{ = ?} $",
-        "options": [
-            "$ 70000 + 2000 $",
-            "$ 70000 + 200 $",
-            "$ 7200 + 0 $",
-            "$ 7000 + 2000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Phân tích số",
-        "difficulty": "medium",
-        "explanation": "Phân tích theo hàng."
-    },
-    {
-        "id": 1775408745605,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 56342 \\text{, giá trị của chữ số } 6 \\text{ là bao nhiêu?} $",
-        "options": [
-            "$ 6 $",
-            "$ 60 $",
-            "$ 600 $",
-            "$ 6000 $"
-        ],
-        "correctAnswer": 3,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "medium",
-        "explanation": "6 ở hàng nghìn."
-    },
-    {
-        "id": 1775408745606,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 56342 \\text{, giá trị của chữ số } 3 \\text{ là bao nhiêu?} $",
-        "options": [
-            "$ 3 $",
-            "$ 30 $",
-            "$ 300 $",
-            "$ 3000 $"
-        ],
-        "correctAnswer": 2,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Hàng",
-        "difficulty": "medium",
-        "explanation": "3 ở hàng trăm."
-    },
-    {
-        "id": 1775408745607,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số } 345678 \\text{ có bao nhiêu lớp?} $",
-        "options": [
-            "$ 1 $",
-            "$ 2 $",
-            "$ 3 $",
-            "$ 4 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Lớp",
-        "difficulty": "medium",
-        "explanation": "Gồm lớp nghìn và lớp đơn vị."
-    },
-    {
-        "id": 1775408745608,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 456789 \\text{, lớp nghìn là gì?} $",
-        "options": [
-            "$ 456 $",
-            "$ 4567 $",
-            "$ 456789 $",
-            "$ 789 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "Lớp",
-        "difficulty": "medium",
-        "explanation": "Ba chữ số trước lớp đơn vị."
-    },
-    {
-        "id": 1775408745609,
-        "type": "multiple_choice",
-        "text": "$ \\text{Sắp xếp tăng dần: } 34567 \\text{, } 34576 \\text{, } 34506 $",
-        "options": [
-            "$ 34506 \\text{, } 34567 \\text{, } 34576 $",
-            "$ 34576 \\text{, } 34567 \\text{, } 34506 $",
-            "$ 34567 \\text{, } 34506 \\text{, } 34576 $",
-            "$ 34506 \\text{, } 34576 \\text{, } 34567 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "So sánh số",
-        "difficulty": "medium",
-        "explanation": "So sánh từ trái sang phải."
-    },
-    {
-        "id": 1775408745610,
-        "type": "multiple_choice",
-        "text": "$ \\text{Sắp xếp giảm dần: } 78901 \\text{, } 78091 \\text{, } 78910 $",
-        "options": [
-            "$ 78910 \\text{, } 78901 \\text{, } 78091 $",
-            "$ 78091 \\text{, } 78901 \\text{, } 78910 $",
-            "$ 78901 \\text{, } 78910 \\text{, } 78091 $",
-            "$ 78910 \\text{, } 78091 \\text{, } 78901 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số học",
-        "sub_topic": "So sánh số",
-        "difficulty": "medium",
-        "explanation": "So sánh giá trị."
-    },
-    {
-        "id": 1775408745611,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 345678 \\text{ ... } 345679 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "easy",
-        "explanation": "345678 nhỏ hơn 345679."
-    },
-    {
-        "id": 1775408745612,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 789456 \\text{ ... } 789455 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "easy",
-        "explanation": "789456 lớn hơn 789455."
-    },
-    {
-        "id": 1775408745613,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 562345 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 500000 $",
-            "$ 600000 $",
-            "$ 560000 $",
-            "$ 570000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "562345 ≥ 550000 nên làm tròn lên 600000."
-    },
-    {
-        "id": 1775408745614,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 412345 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 400000 $",
-            "$ 410000 $",
-            "$ 420000 $",
-            "$ 500000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "412345 < 450000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745615,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 789654 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 700000 $",
-            "$ 800000 $",
-            "$ 790000 $",
-            "$ 780000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "789654 gần 800000 hơn."
-    },
-    {
-        "id": 1775408745616,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 645321 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 600000 $",
-            "$ 650000 $",
-            "$ 700000 $",
-            "$ 640000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "645321 < 650000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745617,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 950123 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 900000 $",
-            "$ 950000 $",
-            "$ 1000000 $",
-            "$ 960000 $"
-        ],
-        "correctAnswer": 2,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "950123 ≥ 950000 nên làm tròn lên 1000000."
-    },
-    {
-        "id": 1775408745618,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 2345678 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 2000000 $",
-            "$ 2300000 $",
-            "$ 2400000 $",
-            "$ 3000000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "2345678 < 2500000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745619,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 5678123 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 5000000 $",
-            "$ 6000000 $",
-            "$ 5700000 $",
-            "$ 5800000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "5678123 ≥ 5500000 nên làm tròn lên."
-    },
-    {
-        "id": 1775408745620,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 3499999 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 3000000 $",
-            "$ 3500000 $",
-            "$ 4000000 $",
-            "$ 3400000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "3499999 < 3500000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745621,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 4500000 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 4000000 $",
-            "$ 5000000 $",
-            "$ 4500000 $",
-            "$ 4600000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "4500000 nằm giữa nên làm tròn lên."
-    },
-    {
-        "id": 1775408745622,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 3456789 \\text{ ... } 3456790 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "medium",
-        "explanation": "3456789 nhỏ hơn 3456790."
-    },
-    {
-        "id": 1775408745623,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 8000000 \\text{ ... } 7999999 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "medium",
-        "explanation": "8000000 lớn hơn 7999999."
-    },
-    {
-        "id": 1775408745624,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 456789 \\text{ ... } 456788 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "easy",
-        "explanation": "456789 lớn hơn 456788."
-    },
-    {
-        "id": 1775408745625,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 900001 \\text{ ... } 900010 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "easy",
-        "explanation": "900001 nhỏ hơn 900010."
-    },
-    {
-        "id": 1775408745626,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 612345 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 600000 $",
-            "$ 610000 $",
-            "$ 620000 $",
-            "$ 700000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "612345 < 650000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745627,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 678123 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 600000 $",
-            "$ 700000 $",
-            "$ 680000 $",
-            "$ 670000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "678123 gần 700000 hơn."
-    },
-    {
-        "id": 1775408745628,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 432567 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 400000 $",
-            "$ 430000 $",
-            "$ 440000 $",
-            "$ 500000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "432567 < 450000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745629,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 854321 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 800000 $",
-            "$ 850000 $",
-            "$ 900000 $",
-            "$ 860000 $"
-        ],
-        "correctAnswer": 2,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "854321 ≥ 850000 nên làm tròn lên."
-    },
-    {
-        "id": 1775408745630,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 745678 \\text{ đến hàng trăm nghìn} $",
-        "options": [
-            "$ 700000 $",
-            "$ 750000 $",
-            "$ 800000 $",
-            "$ 740000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "easy",
-        "explanation": "745678 < 750000 nên làm tròn xuống."
-    },
-    {
-        "id": 1775408745631,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 7891234 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 7000000 $",
-            "$ 8000000 $",
-            "$ 7900000 $",
-            "$ 7800000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "7891234 ≥ 7500000 nên làm tròn lên."
-    },
-    {
-        "id": 1775408745632,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 5123456 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 5000000 $",
-            "$ 6000000 $",
-            "$ 5100000 $",
-            "$ 5200000 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "5123456 gần 5000000 hơn."
-    },
-    {
-        "id": 1775408745633,
-        "type": "multiple_choice",
-        "text": "$ \\text{Làm tròn } 9678901 \\text{ đến hàng triệu} $",
-        "options": [
-            "$ 9000000 $",
-            "$ 10000000 $",
-            "$ 9600000 $",
-            "$ 9700000 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Làm tròn số",
-        "difficulty": "medium",
-        "explanation": "9678901 ≥ 9500000 nên làm tròn lên."
-    },
-    {
-        "id": 1775408745634,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 4567891 \\text{ ... } 4567889 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "medium",
-        "explanation": "4567891 lớn hơn 4567889."
-    },
-    {
-        "id": 1775408745635,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 7000000 \\text{ ... } 6999999 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≠} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số lớn",
-        "difficulty": "medium",
-        "explanation": "7000000 lớn hơn 6999999."
-    },
-    {
-        "id": 1775408745636,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nhỏ nhất có } 5 \\text{ chữ số là số nào?} $",
-        "options": [
-            "$ 10000 $",
-            "$ 9999 $",
-            "$ 1000 $",
-            "$ 10001 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Số có 5 chữ số",
-        "difficulty": "easy",
-        "explanation": "Số có 5 chữ số nhỏ nhất là 10000."
-    },
-    {
-        "id": 1775408745637,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số nào bé hơn?} $",
-        "options": [
-            "$ 54321 $",
-            "$ 52341 $",
-            "$ 53421 $",
-            "$ 54231 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số",
-        "difficulty": "easy",
-        "explanation": "So sánh chữ số hàng nghìn."
-    },
-    {
-        "id": 1775408745638,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 68245 \\text{, chữ số } 8 \\text{ có giá trị là bao nhiêu?} $",
-        "options": [
-            "$ 8 $",
-            "$ 80 $",
-            "$ 800 $",
-            "$ 8000 $"
-        ],
-        "correctAnswer": 3,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Giá trị chữ số",
-        "difficulty": "medium",
-        "explanation": "8 nằm ở hàng nghìn."
-    },
-    {
-        "id": 1775408745639,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 75021 \\text{, chữ số } 5 \\text{ có giá trị là bao nhiêu?} $",
-        "options": [
-            "$ 5 $",
-            "$ 50 $",
-            "$ 500 $",
-            "$ 5000 $"
-        ],
-        "correctAnswer": 3,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Giá trị chữ số",
-        "difficulty": "medium",
-        "explanation": "5 nằm ở hàng nghìn."
-    },
-    {
-        "id": 1775408745640,
-        "type": "multiple_choice",
-        "text": "$ 63421 \\text{ được viết dưới dạng tổng nào?} $",
-        "options": [
-            "$ 60000 + 3000 + 400 + 20 + 1 $",
-            "$ 60000 + 3000 + 200 + 40 + 1 $",
-            "$ 60000 + 2000 + 300 + 40 + 1 $",
-            "$ 60000 + 3000 + 400 + 10 + 1 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Tách số",
-        "difficulty": "medium",
-        "explanation": "Tách theo giá trị từng hàng."
-    },
-    {
-        "id": 1775408745641,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số gồm } 8 \\text{ chục nghìn, } 4 \\text{ nghìn, } 2 \\text{ trăm, } 3 \\text{ chục và } 6 \\text{ đơn vị là số nào?} $",
-        "options": [
-            "$ 84236 $",
-            "$ 82436 $",
-            "$ 84263 $",
-            "$ 83426 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Cấu tạo số",
-        "difficulty": "medium",
-        "explanation": "Ghép giá trị từng hàng."
-    },
-    {
-        "id": 1775408745642,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số } 50823 \\text{ đọc là gì?} $",
-        "options": [
-            "$ \\text{Năm mươi nghìn tám trăm hai mươi ba} $",
-            "$ \\text{Năm mươi nghìn không trăm tám mươi ba} $",
-            "$ \\text{Năm mươi nghìn tám trăm hai mươi ba} $",
-            "$ \\text{Năm mươi nghìn tám trăm ba} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Đọc số",
-        "difficulty": "easy",
-        "explanation": "Đọc theo từng lớp."
-    },
-    {
-        "id": 1775408745643,
-        "type": "multiple_choice",
-        "text": "$ \\text{Số } 70015 \\text{ đọc là gì?} $",
-        "options": [
-            "$ \\text{Bảy mươi nghìn mười lăm} $",
-            "$ \\text{Bảy mươi nghìn không trăm mười lăm} $",
-            "$ \\text{Bảy mươi nghìn mười năm} $",
-            "$ \\text{Bảy mươi nghìn không trăm mười năm} $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Đọc số",
-        "difficulty": "easy",
-        "explanation": "Có 0 ở hàng trăm."
-    },
-    {
-        "id": 1775408745644,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 65432 \\text{ ... } 65423 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≤} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số",
-        "difficulty": "medium",
-        "explanation": "65432 lớn hơn 65423."
-    },
-    {
-        "id": 1775408745645,
-        "type": "multiple_choice",
-        "text": "$ \\text{Chọn dấu đúng: } 72015 \\text{ ... } 72051 $",
-        "options": [
-            "$ \\text{>} $",
-            "$ \\text{<} $",
-            "$ \\text{=} $",
-            "$ \\text{≥} $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "So sánh số",
-        "difficulty": "medium",
-        "explanation": "72015 nhỏ hơn 72051."
-    },
-    {
-        "id": 1775408745646,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 92345 \\text{ có bao nhiêu nghìn?} $",
-        "options": [
-            "$ 92 \\text{ nghìn} $",
-            "$ 9 \\text{ nghìn} $",
-            "$ 23 \\text{ nghìn} $",
-            "$ 93 \\text{ nghìn} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Hàng và lớp",
-        "difficulty": "medium",
-        "explanation": "92345 = 92 nghìn 345."
-    },
-    {
-        "id": 1775408745647,
-        "type": "multiple_choice",
-        "text": "$ \\text{Trong số } 84567 \\text{, chữ số } 4 \\text{ thuộc hàng nào?} $",
-        "options": [
-            "$ \\text{Hàng nghìn} $",
-            "$ \\text{Hàng trăm} $",
-            "$ \\text{Hàng chục} $",
-            "$ \\text{Hàng đơn vị} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Hàng và lớp",
-        "difficulty": "medium",
-        "explanation": "84567 = 8 chục nghìn + 4 nghìn + ..."
-    },
-    {
-        "id": 1775408745648,
-        "type": "multiple_choice",
-        "text": "$ \\text{Giá trị của chữ số } 2 \\text{ trong số } 32456 \\text{ là bao nhiêu?} $",
-        "options": [
-            "$ 2 $",
-            "$ 20 $",
-            "$ 200 $",
-            "$ 2000 $"
-        ],
-        "correctAnswer": 3,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Giá trị chữ số",
-        "difficulty": "medium",
-        "explanation": "2 ở hàng nghìn."
-    },
-    {
-        "id": 1775408745649,
-        "type": "multiple_choice",
-        "text": "$ 3456 + 2345 = \\text{?} $",
-        "options": [
-            "$ 5801 $",
-            "$ 5791 $",
-            "$ 5811 $",
-            "$ 5901 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "easy",
-        "explanation": "3456 + 2345 = 5801."
-    },
-    {
-        "id": 1775408745650,
-        "type": "multiple_choice",
-        "text": "$ 6789 + 1234 = \\text{?} $",
-        "options": [
-            "$ 8013 $",
-            "$ 8023 $",
-            "$ 8033 $",
-            "$ 8043 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "easy",
-        "explanation": "6789 + 1234 = 8023."
-    },
-    {
-        "id": 1775408745651,
-        "type": "multiple_choice",
-        "text": "$ 5678 \\text{ − } 2345 \\text{ = ?} $",
-        "options": [
-            "$ 3323 $",
-            "$ 3333 $",
-            "$ 3343 $",
-            "$ 3353 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "easy",
-        "explanation": "5678 − 2345 = 3333."
-    },
-    {
-        "id": 1775408745652,
-        "type": "multiple_choice",
-        "text": "$ 9000 \\text{ − } 3456 \\text{ = ?} $",
-        "options": [
-            "$ 5544 $",
-            "$ 5554 $",
-            "$ 5564 $",
-            "$ 5574 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "easy",
-        "explanation": "9000 − 3456 = 5544."
-    },
-    {
-        "id": 1775408745653,
-        "type": "multiple_choice",
-        "text": "$ 4567 + 3210 = \\text{?} $",
-        "options": [
-            "$ 7767 $",
-            "$ 7777 $",
-            "$ 7787 $",
-            "$ 7797 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "easy",
-        "explanation": "4567 + 3210 = 7777."
-    },
-    {
-        "id": 1775408745654,
-        "type": "multiple_choice",
-        "text": "$ 12345 + 6789 = \\text{?} $",
-        "options": [
-            "$ 19124 $",
-            "$ 19134 $",
-            "$ 19144 $",
-            "$ 19154 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "12345 + 6789 = 19134."
-    },
-    {
-        "id": 1775408745655,
-        "type": "multiple_choice",
-        "text": "$ 20000 \\text{ − } 8765 \\text{ = ?} $",
-        "options": [
-            "$ 11235 $",
-            "$ 11335 $",
-            "$ 11435 $",
-            "$ 11535 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "20000 − 8765 = 11235."
-    },
-    {
-        "id": 1775408745656,
-        "type": "multiple_choice",
-        "text": "$ 45678 + 12345 = \\text{?} $",
-        "options": [
-            "$ 57923 $",
-            "$ 58023 $",
-            "$ 58123 $",
-            "$ 58223 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "45678 + 12345 = 58023."
-    },
-    {
-        "id": 1775408745657,
-        "type": "multiple_choice",
-        "text": "$ 98765 \\text{ − } 43210 \\text{ = ?} $",
-        "options": [
-            "$ 55555 $",
-            "$ 55655 $",
-            "$ 55755 $",
-            "$ 55855 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "98765 − 43210 = 55555."
-    },
-    {
-        "id": 1775408745658,
-        "type": "multiple_choice",
-        "text": "$ 34567 + 23456 = \\text{?} $",
-        "options": [
-            "$ 57923 $",
-            "$ 58023 $",
-            "$ 58123 $",
-            "$ 58223 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "34567 + 23456 = 58023."
-    },
-    {
-        "id": 1775408745659,
-        "type": "multiple_choice",
-        "text": "$ 76543 \\text{ − } 23456 \\text{ = ?} $",
-        "options": [
-            "$ 53087 $",
-            "$ 53187 $",
-            "$ 53287 $",
-            "$ 53387 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "76543 − 23456 = 53087."
-    },
-    {
-        "id": 1775408745660,
-        "type": "multiple_choice",
-        "text": "$ 67890 + 12345 = \\text{?} $",
-        "options": [
-            "$ 80135 $",
-            "$ 80235 $",
-            "$ 80335 $",
-            "$ 80435 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "67890 + 12345 = 80235."
-    },
-    {
-        "id": 1775408745661,
-        "type": "multiple_choice",
-        "text": "$ 65432 \\text{ − } 12345 \\text{ = ?} $",
-        "options": [
-            "$ 53087 $",
-            "$ 53187 $",
-            "$ 53287 $",
-            "$ 53387 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "65432 − 12345 = 53087."
-    },
-    {
-        "id": 1775408745662,
-        "type": "multiple_choice",
-        "text": "$ 78901 + 21098 = \\text{?} $",
-        "options": [
-            "$ 99999 $",
-            "$ 100000 $",
-            "$ 99899 $",
-            "$ 100099 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "78901 + 21098 = 99999."
-    },
-    {
-        "id": 1775408745663,
-        "type": "multiple_choice",
-        "text": "$ 100000 \\text{ − } 45678 \\text{ = ?} $",
-        "options": [
-            "$ 54322 $",
-            "$ 54422 $",
-            "$ 54522 $",
-            "$ 54622 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "medium",
-        "explanation": "100000 − 45678 = 54322."
-    },
-    {
-        "id": 1775408745664,
-        "type": "multiple_choice",
-        "text": "$ 234567 + 345678 = \\text{?} $",
-        "options": [
-            "$ 579245 $",
-            "$ 580245 $",
-            "$ 581245 $",
-            "$ 582245 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "hard",
-        "explanation": "234567 + 345678 = 580245."
-    },
-    {
-        "id": 1775408745665,
-        "type": "multiple_choice",
-        "text": "$ 876543 \\text{ − } 234567 \\text{ = ?} $",
-        "options": [
-            "$ 641976 $",
-            "$ 642976 $",
-            "$ 643976 $",
-            "$ 644976 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "hard",
-        "explanation": "876543 − 234567 = 641976."
-    },
-    {
-        "id": 1775408745666,
-        "type": "multiple_choice",
-        "text": "$ 456789 + 123456 = \\text{?} $",
-        "options": [
-            "$ 579245 $",
-            "$ 580245 $",
-            "$ 581245 $",
-            "$ 582245 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "hard",
-        "explanation": "456789 + 123456 = 580245."
-    },
-    {
-        "id": 1775408745668,
-        "type": "multiple_choice",
-        "text": "$ 900000 \\text{ − } 345678 \\text{ = ?} $",
-        "options": [
-            "$ 554322 $",
-            "$ 555322 $",
-            "$ 556322 $",
-            "$ 557322 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép trừ nhiều chữ số",
-        "difficulty": "hard",
-        "explanation": "900000 − 345678 = 554322."
-    },
-    {
-        "id": 1775408745669,
-        "type": "multiple_choice",
-        "text": "$ 678901 + 210987 = \\text{?} $",
-        "options": [
-            "$ 889888 $",
-            "$ 890888 $",
-            "$ 891888 $",
-            "$ 892888 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Số tự nhiên",
-        "sub_topic": "Phép cộng nhiều chữ số",
-        "difficulty": "hard",
-        "explanation": "678901 + 210987 = 889888."
-    },
-    {
-        "id": 1775408745670,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình bình hành có mấy cặp cạnh đối song song?} $",
-        "options": [
-            "$ 1 $",
-            "$ 2 $",
-            "$ 3 $",
-            "$ 4 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình bình hành",
-        "difficulty": "easy",
-        "explanation": "Hình bình hành có 2 cặp cạnh đối song song."
-    },
-    {
-        "id": 1775408745671,
-        "type": "multiple_choice",
-        "text": "$ \\text{Các cạnh đối của hình bình hành có đặc điểm gì?} $",
-        "options": [
-            "$ \\text{Song song và bằng nhau} $",
-            "$ \\text{Chỉ song song} $",
-            "$ \\text{Chỉ bằng nhau} $",
-            "$ \\text{Không liên quan} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình bình hành",
-        "difficulty": "easy",
-        "explanation": "Trong hình bình hành, các cạnh đối vừa song song vừa bằng nhau."
-    },
-    {
-        "id": 1775408745672,
-        "type": "multiple_choice",
-        "text": "$ \\text{Diện tích hình bình hành được tính bằng công thức nào?} $",
-        "options": [
-            "$ S = a \\text{ × h} $",
-            "$ S = a \\text{ × a} $",
-            "$ S = a \\text{ + h} $",
-            "$ S = a \\text{ × b × h} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình bình hành",
-        "difficulty": "easy",
-        "explanation": "Diện tích hình bình hành bằng đáy nhân chiều cao."
-    },
-    {
-        "id": 1775408745673,
-        "type": "multiple_choice",
-        "text": "$ \\text{Một hình bình hành có đáy } 8 \\text{ cm và chiều cao } 5 \\text{ cm. Diện tích là bao nhiêu?} $",
-        "options": [
-            "$ 40 \\text{ cm²} $",
-            "$ 13 \\text{ cm²} $",
-            "$ 20 \\text{ cm²} $",
-            "$ 30 \\text{ cm²} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình bình hành",
-        "difficulty": "easy",
-        "explanation": "S = 8 × 5 = 40 cm²."
-    },
-    {
-        "id": 1775408745674,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình bình hành có bao nhiêu cạnh?} $",
-        "options": [
-            "$ 3 $",
-            "$ 4 $",
-            "$ 5 $",
-            "$ 6 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình bình hành",
-        "difficulty": "easy",
-        "explanation": "Hình bình hành là tứ giác."
-    },
-    {
-        "id": 1775408745675,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình thoi có đặc điểm gì về cạnh?} $",
-        "options": [
-            "$ 4 \\text{ cạnh bằng nhau} $",
-            "$ 2 \\text{ cạnh bằng nhau} $",
-            "$ 3 \\text{ cạnh bằng nhau} $",
-            "$ \\text{Không cạnh nào bằng nhau} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình thoi",
-        "difficulty": "easy",
-        "explanation": "Hình thoi có 4 cạnh bằng nhau."
-    },
-    {
-        "id": 1775408745676,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình thoi có bao nhiêu đường chéo?} $",
-        "options": [
-            "$ 1 $",
-            "$ 2 $",
-            "$ 3 $",
-            "$ 4 $"
-        ],
-        "correctAnswer": 1,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình thoi",
-        "difficulty": "easy",
-        "explanation": "Hình thoi có 2 đường chéo."
-    },
-    {
-        "id": 1775408745677,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hai đường chéo của hình thoi có đặc điểm gì?} $",
-        "options": [
-            "$ \\text{Vuông góc với nhau} $",
-            "$ \\text{Song song} $",
-            "$ \\text{Bằng nhau} $",
-            "$ \\text{Không cắt nhau} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình thoi",
-        "difficulty": "easy",
-        "explanation": "Hai đường chéo của hình thoi cắt nhau vuông góc."
-    },
-    {
-        "id": 1775408745678,
-        "type": "multiple_choice",
-        "text": "$ \\text{Diện tích hình thoi được tính bằng công thức nào?} $",
-        "options": [
-            "$ \\text{S = (d1 × d2) / } 2 $",
-            "$ S = a \\text{ × h} $",
-            "$ S = a \\text{ × a} $",
-            "$ S = a \\text{ × b} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình thoi",
-        "difficulty": "easy",
-        "explanation": "Diện tích hình thoi bằng tích hai đường chéo chia 2."
-    },
-    {
-        "id": 1775408745679,
-        "type": "multiple_choice",
-        "text": "$ \\text{Một hình thoi có d} 1 = 6 \\text{cm, d} 2 = 8 \\text{cm. Diện tích là?} $",
-        "options": [
-            "$ 24 \\text{ cm²} $",
-            "$ 48 \\text{ cm²} $",
-            "$ 14 \\text{ cm²} $",
-            "$ 20 \\text{ cm²} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình thoi",
-        "difficulty": "easy",
-        "explanation": "S = (6 × 8) / 2 = 24."
-    },
-    {
-        "id": 1775408745680,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình nào có } 4 \\text{ cạnh bằng nhau?} $",
-        "options": [
-            "$ \\text{Hình thoi} $",
-            "$ \\text{Hình bình hành} $",
-            "$ \\text{Hình chữ nhật} $",
-            "$ \\text{Tam giác} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Nhận biết hình",
-        "difficulty": "medium",
-        "explanation": "Hình thoi có 4 cạnh bằng nhau."
-    },
-    {
-        "id": 1775408745681,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình nào có diện tích tính bằng đáy × chiều cao?} $",
-        "options": [
-            "$ \\text{Hình bình hành} $",
-            "$ \\text{Hình thoi} $",
-            "$ \\text{Hình vuông} $",
-            "$ \\text{Hình tròn} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Nhận biết hình",
-        "difficulty": "medium",
-        "explanation": "Công thức diện tích hình bình hành."
-    },
-    {
-        "id": 1775408745682,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình bình hành có đáy } 9 \\text{ cm, chiều cao } 4 \\text{ cm. Diện tích?} $",
-        "options": [
-            "$ 36 \\text{ cm²} $",
-            "$ 13 \\text{ cm²} $",
-            "$ 18 \\text{ cm²} $",
-            "$ 40 \\text{ cm²} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình bình hành",
-        "difficulty": "medium",
-        "explanation": "S = 9 × 4 = 36."
-    },
-    {
-        "id": 1775408745683,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình thoi có d} 1 = 10 \\text{cm, d} 2 = 6 \\text{cm. Diện tích?} $",
-        "options": [
-            "$ 30 \\text{ cm²} $",
-            "$ 60 \\text{ cm²} $",
-            "$ 16 \\text{ cm²} $",
-            "$ 40 \\text{ cm²} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình thoi",
-        "difficulty": "medium",
-        "explanation": "S = (10 × 6)/2."
-    },
-    {
-        "id": 1775408745684,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình thoi có mấy cặp cạnh đối song song?} $",
-        "options": [
-            "$ 2 $",
-            "$ 1 $",
-            "$ 3 $",
-            "$ 0 $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình thoi",
-        "difficulty": "medium",
-        "explanation": "Hình thoi là một dạng hình bình hành."
-    },
-    {
-        "id": 1775408745685,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình nào vừa có } 4 \\text{ cạnh bằng nhau vừa có } 2 \\text{ cặp cạnh đối song song?} $",
-        "options": [
-            "$ \\text{Hình thoi} $",
-            "$ \\text{Hình bình hành} $",
-            "$ \\text{Hình chữ nhật} $",
-            "$ \\text{Tam giác} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "So sánh hình",
-        "difficulty": "medium",
-        "explanation": "Hình thoi có các tính chất này."
-    },
-    {
-        "id": 1775408745686,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình bình hành có đáy } 12 \\text{ cm, chiều cao } 5 \\text{ cm. Diện tích?} $",
-        "options": [
-            "$ 60 \\text{ cm²} $",
-            "$ 17 \\text{ cm²} $",
-            "$ 24 \\text{ cm²} $",
-            "$ 30 \\text{ cm²} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình bình hành",
-        "difficulty": "medium",
-        "explanation": "S = 12 × 5."
-    },
-    {
-        "id": 1775408745687,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình thoi có d} 1 = 12 \\text{cm, d} 2 = 8 \\text{cm. Diện tích?} $",
-        "options": [
-            "$ 48 \\text{ cm²} $",
-            "$ 96 \\text{ cm²} $",
-            "$ 20 \\text{ cm²} $",
-            "$ 40 \\text{ cm²} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình thoi",
-        "difficulty": "medium",
-        "explanation": "S = (12 × 8)/2."
-    },
-    {
-        "id": 1775408745688,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình nào có } 2 \\text{ cặp cạnh đối song song nhưng không nhất thiết bằng nhau?} $",
-        "options": [
-            "$ \\text{Hình bình hành} $",
-            "$ \\text{Hình thoi} $",
-            "$ \\text{Hình vuông} $",
-            "$ \\text{Hình tròn} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Nhận biết hình",
-        "difficulty": "medium",
-        "explanation": "Đặc điểm cơ bản của hình bình hành."
-    },
-    {
-        "id": 1775408745689,
-        "type": "multiple_choice",
-        "text": "$ \\text{Hình bình hành có đáy } 15 \\text{ cm và chiều cao } 6 \\text{ cm. Diện tích?} $",
-        "options": [
-            "$ 90 \\text{ cm²} $",
-            "$ 21 \\text{ cm²} $",
-            "$ 30 \\text{ cm²} $",
-            "$ 75 \\text{ cm²} $"
-        ],
-        "correctAnswer": 0,
-        "points": 10,
-        "grade": 4,
-        "topic": "Hình học",
-        "sub_topic": "Hình bình hành",
-        "difficulty": "medium",
-        "explanation": "S = 15 × 6."
-    }
+  {
+    "id": 1775408745556,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nào sau đây là số có } 5 \\text{ chữ số?} $",
+    "options": [
+      "$ 9999 $",
+      "$ 10000 $",
+      "$ 999 $",
+      "$ 1000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Số có 5 chữ số",
+    "difficulty": "easy",
+    "explanation": "10000 là số nhỏ nhất có 5 chữ số."
+  },
+  {
+    "id": 1775408745557,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số lớn nhất có } 5 \\text{ chữ số là số nào?} $",
+    "options": [
+      "$ 99999 $",
+      "$ 90000 $",
+      "$ 10000 $",
+      "$ 9999 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Số có 5 chữ số",
+    "difficulty": "easy",
+    "explanation": "99999 là số lớn nhất có 5 chữ số."
+  },
+  {
+    "id": 1775408745558,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 34567 \\text{, chữ số } 7 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng đơn vị} $",
+      "$ \\text{Hàng chục} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số cuối cùng là hàng đơn vị."
+  },
+  {
+    "id": 1775408745559,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 45678 \\text{, chữ số } 7 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng đơn vị} $",
+      "$ \\text{Hàng chục} $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số thứ hai từ phải sang là hàng chục."
+  },
+  {
+    "id": 1775408745561,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 34567 \\text{, chữ số } 5 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng chục} $",
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng đơn vị} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số thứ ba từ phải sang là hàng trăm."
+  },
+  {
+    "id": 1775408745562,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 54321 \\text{, chữ số } 4 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng chục} $",
+      "$ \\text{Hàng đơn vị} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số thứ tư từ phải sang là hàng nghìn."
+  },
+  {
+    "id": 1775408745563,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 98765 \\text{, chữ số } 9 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng chục nghìn} $",
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng chục} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số đầu tiên của số có 5 chữ số là hàng chục nghìn."
+  },
+  {
+    "id": 1775408745564,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số } 34567 \\text{ có mấy lớp?} $",
+    "options": [
+      "$ 4 $",
+      "$ 2 $",
+      "$ 1 $",
+      "$ 3 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Lớp",
+    "difficulty": "easy",
+    "explanation": "Gồm lớp nghìn và lớp đơn vị."
+  },
+  {
+    "id": 1775408745565,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 34567 \\text{, lớp nghìn là số nào?} $",
+    "options": [
+      "$ 345 $",
+      "$ 567 $",
+      "$ 34 $",
+      "$ 3 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Lớp",
+    "difficulty": "easy",
+    "explanation": "Lớp nghìn gồm hai chữ số đầu."
+  },
+  {
+    "id": 1775408745566,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 34567 \\text{, lớp đơn vị là số nào?} $",
+    "options": [
+      "$ 67 $",
+      "$ 345 $",
+      "$ 567 $",
+      "$ 34 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Lớp",
+    "difficulty": "easy",
+    "explanation": "Ba chữ số cuối thuộc lớp đơn vị."
+  },
+  {
+    "id": 1775408745567,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số } 34567 \\text{ đọc là gì?} $",
+    "options": [
+      "$ \\text{Ba mươi bốn nghìn năm trăm sáu mươi bảy} $",
+      "$ \\text{Ba nghìn bốn trăm năm mươi sáu} $",
+      "$ \\text{Ba mươi bốn nghìn năm trăm sáu mươi} $",
+      "$ \\text{Ba mươi bốn nghìn sáu mươi bảy} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Đọc số",
+    "difficulty": "easy",
+    "explanation": "Đọc theo từng lớp."
+  },
+  {
+    "id": 1775408745568,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nào lớn hơn?} $",
+    "options": [
+      "$ 34500 $",
+      "$ 34567 $",
+      "$ 34667 $",
+      "$ 34000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "So sánh số",
+    "difficulty": "easy",
+    "explanation": "34667 lớn nhất."
+  },
+  {
+    "id": 1775408745569,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nào nhỏ nhất?} $",
+    "options": [
+      "$ 13245 $",
+      "$ 12345 $",
+      "$ 12435 $",
+      "$ 12354 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "So sánh số",
+    "difficulty": "easy",
+    "explanation": "12345 nhỏ nhất."
+  },
+  {
+    "id": 1775408745570,
+    "type": "multiple_choice",
+    "text": "$ \\text{Viết số: ba mươi nghìn không trăm năm mươi} $",
+    "options": [
+      "$ 30500 $",
+      "$ 30005 $",
+      "$ 35000 $",
+      "$ 30050 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Viết số",
+    "difficulty": "easy",
+    "explanation": "30 050."
+  },
+  {
+    "id": 1775408745571,
+    "type": "multiple_choice",
+    "text": "$ \\text{Viết số: bốn mươi hai nghìn} $",
+    "options": [
+      "$ 4020 $",
+      "$ 40200 $",
+      "$ 42000 $",
+      "$ 4200 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Viết số",
+    "difficulty": "easy",
+    "explanation": "42 nghìn = 42000."
+  },
+  {
+    "id": 1775408745572,
+    "type": "multiple_choice",
+    "text": "$ 34567 \\text{ = ?} $",
+    "options": [
+      "$ 30000 + 4000 + 500 + 70 + 6 $",
+      "$ 30000 + 4000 + 600 + 50 + 7 $",
+      "$ 30000 + 5000 + 400 + 60 + 7 $",
+      "$ 30000 + 4000 + 500 + 60 + 7 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Phân tích số",
+    "difficulty": "medium",
+    "explanation": "Phân tích theo hàng."
+  },
+  {
+    "id": 1775408745573,
+    "type": "multiple_choice",
+    "text": "$ 56000 \\text{ = ?} $",
+    "options": [
+      "$ 50000 + 600 $",
+      "$ 5000 + 6000 $",
+      "$ 5600 + 0 $",
+      "$ 50000 + 6000 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Phân tích số",
+    "difficulty": "medium",
+    "explanation": "Phân tích theo hàng."
+  },
+  {
+    "id": 1775408745574,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 45678 \\text{, giá trị của chữ số } 5 \\text{ là bao nhiêu?} $",
+    "options": [
+      "$ 5 $",
+      "$ 50 $",
+      "$ 5000 $",
+      "$ 500 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "medium",
+    "explanation": "Chữ số 5 ở hàng nghìn."
+  },
+  {
+    "id": 1775408745575,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 34782 \\text{, giá trị của chữ số } 8 \\text{ là bao nhiêu?} $",
+    "options": [
+      "$ 80 $",
+      "$ 8 $",
+      "$ 800 $",
+      "$ 8000 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "medium",
+    "explanation": "8 ở hàng chục."
+  },
+  {
+    "id": 1775408745576,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số } 456789 \\text{ có bao nhiêu lớp?} $",
+    "options": [
+      "$ 1 $",
+      "$ 4 $",
+      "$ 2 $",
+      "$ 3 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Lớp",
+    "difficulty": "medium",
+    "explanation": "Lớp nghìn và lớp đơn vị."
+  },
+  {
+    "id": 1775408745577,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 567890 \\text{ ... } 567809 $",
+    "options": [
+      "$ \\text{≠} $",
+      "$ \\text{<} $",
+      "$ \\text{>} $",
+      "$ \\text{=} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "easy",
+    "explanation": "567890 lớn hơn 567809."
+  },
+  {
+    "id": 1775408745578,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 900000 \\text{ ... } 899999 $",
+    "options": [
+      "$ \\text{≠} $",
+      "$ \\text{=} $",
+      "$ \\text{<} $",
+      "$ \\text{>} $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "easy",
+    "explanation": "900000 lớn hơn 899999."
+  },
+  {
+    "id": 1775408745579,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 456123 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 460000 $",
+      "$ 450000 $",
+      "$ 500000 $",
+      "$ 400000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "456123 ≥ 450000 nên làm tròn lên 500000."
+  },
+  {
+    "id": 1775408745580,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 342567 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 340000 $",
+      "$ 350000 $",
+      "$ 300000 $",
+      "$ 400000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "342567 < 350000 nên làm tròn xuống 300000."
+  },
+  {
+    "id": 1775408745581,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 678900 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 700000 $",
+      "$ 600000 $",
+      "$ 680000 $",
+      "$ 650000 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "678900 gần 700000 hơn."
+  },
+  {
+    "id": 1775408745582,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 812345 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 810000 $",
+      "$ 820000 $",
+      "$ 900000 $",
+      "$ 800000 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "812345 gần 800000 hơn."
+  },
+  {
+    "id": 1775408745583,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 945678 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 940000 $",
+      "$ 950000 $",
+      "$ 900000 $",
+      "$ 1000000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "945678 < 950000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745584,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 3456789 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 4000000 $",
+      "$ 3000000 $",
+      "$ 3400000 $",
+      "$ 3500000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "3456789 < 3500000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745585,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 6789123 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 6800000 $",
+      "$ 7000000 $",
+      "$ 6000000 $",
+      "$ 6900000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "6789123 ≥ 6500000 nên làm tròn lên."
+  },
+  {
+    "id": 1775408745586,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 5234567 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 5000000 $",
+      "$ 5300000 $",
+      "$ 6000000 $",
+      "$ 5200000 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "5234567 gần 5000000 hơn."
+  },
+  {
+    "id": 1775408745587,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 7890123 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 7800000 $",
+      "$ 7900000 $",
+      "$ 8000000 $",
+      "$ 7000000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "7890123 ≥ 7500000 nên làm tròn lên."
+  },
+  {
+    "id": 1775408745588,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 9123456 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 9200000 $",
+      "$ 9000000 $",
+      "$ 9100000 $",
+      "$ 10000000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "9123456 gần 9000000 hơn."
+  },
+  {
+    "id": 1775408745589,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nào lớn nhất?} $",
+    "options": [
+      "$ 3456798 $",
+      "$ 3457689 $",
+      "$ 3546789 $",
+      "$ 3456789 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "medium",
+    "explanation": "So sánh từ hàng triệu."
+  },
+  {
+    "id": 1775408745590,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nào bé nhất?} $",
+    "options": [
+      "$ 7651234 $",
+      "$ 7654321 $",
+      "$ 7654320 $",
+      "$ 7654322 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "medium",
+    "explanation": "So sánh từ trái sang phải."
+  },
+  {
+    "id": 1775408745591,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 4567890 \\text{ ... } 4567809 $",
+    "options": [
+      "$ \\text{≠} $",
+      "$ \\text{=} $",
+      "$ \\text{<} $",
+      "$ \\text{>} $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "medium",
+    "explanation": "4567890 lớn hơn 4567809."
+  },
+  {
+    "id": 1775408745592,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 9000000 \\text{ ... } 8999999 $",
+    "options": [
+      "$ \\text{≠} $",
+      "$ \\text{<} $",
+      "$ \\text{=} $",
+      "$ \\text{>} $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "medium",
+    "explanation": "9000000 lớn hơn 8999999."
+  },
+  {
+    "id": 1775408745593,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nào sau đây có } 5 \\text{ chữ số?} $",
+    "options": [
+      "$ 4500 $",
+      "$ 800 $",
+      "$ 12000 $",
+      "$ 9999 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Số có 5 chữ số",
+    "difficulty": "easy",
+    "explanation": "12000 có 5 chữ số."
+  },
+  {
+    "id": 1775408745594,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nhỏ nhất có } 5 \\text{ chữ số là gì?} $",
+    "options": [
+      "$ 1000 $",
+      "$ 99999 $",
+      "$ 10000 $",
+      "$ 9999 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Số có 5 chữ số",
+    "difficulty": "easy",
+    "explanation": "10000 là số nhỏ nhất có 5 chữ số."
+  },
+  {
+    "id": 1775408745595,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 1 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng đơn vị} $",
+      "$ \\text{Hàng chục} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số cuối cùng là hàng đơn vị."
+  },
+  {
+    "id": 1775408745596,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 9 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng đơn vị} $",
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng chục} $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số thứ hai từ phải sang là hàng chục."
+  },
+  {
+    "id": 1775408745597,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 8 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng chục} $",
+      "$ \\text{Hàng đơn vị} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số thứ ba từ phải sang là hàng trăm."
+  },
+  {
+    "id": 1775408745598,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 7 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng đơn vị} $",
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng chục} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số thứ tư từ phải sang là hàng nghìn."
+  },
+  {
+    "id": 1775408745599,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 67891 \\text{, chữ số } 6 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng chục} $",
+      "$ \\text{Hàng chục nghìn} $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "easy",
+    "explanation": "Chữ số đầu tiên của số có 5 chữ số."
+  },
+  {
+    "id": 1775408745600,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số } 45678 \\text{ đọc là gì?} $",
+    "options": [
+      "$ \\text{Bốn mươi lăm nghìn sáu trăm bảy mươi} $",
+      "$ \\text{Bốn mươi lăm nghìn bảy trăm sáu mươi tám} $",
+      "$ \\text{Bốn mươi lăm nghìn sáu trăm bảy mươi tám} $",
+      "$ \\text{Bốn nghìn năm trăm sáu mươi bảy} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Đọc số",
+    "difficulty": "easy",
+    "explanation": "Đọc theo từng lớp."
+  },
+  {
+    "id": 1775408745601,
+    "type": "multiple_choice",
+    "text": "$ \\text{Viết số: năm mươi nghìn} $",
+    "options": [
+      "$ 500 $",
+      "$ 5000 $",
+      "$ 500000 $",
+      "$ 50000 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Viết số",
+    "difficulty": "easy",
+    "explanation": "50 nghìn = 50000."
+  },
+  {
+    "id": 1775408745602,
+    "type": "multiple_choice",
+    "text": "$ \\text{Viết số: sáu mươi ba nghìn} $",
+    "options": [
+      "$ 63000 $",
+      "$ 60030 $",
+      "$ 60300 $",
+      "$ 6300 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Viết số",
+    "difficulty": "easy",
+    "explanation": "63 nghìn = 63000."
+  },
+  {
+    "id": 1775408745603,
+    "type": "multiple_choice",
+    "text": "$ 45678 \\text{ = ?} $",
+    "options": [
+      "$ 40000 + 5000 + 600 + 80 + 7 $",
+      "$ 40000 + 5000 + 600 + 70 + 8 $",
+      "$ 40000 + 5000 + 700 + 60 + 8 $",
+      "$ 40000 + 6000 + 500 + 70 + 8 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Phân tích số",
+    "difficulty": "medium",
+    "explanation": "Phân tích theo giá trị từng hàng."
+  },
+  {
+    "id": 1775408745604,
+    "type": "multiple_choice",
+    "text": "$ 72000 \\text{ = ?} $",
+    "options": [
+      "$ 7200 + 0 $",
+      "$ 70000 + 2000 $",
+      "$ 70000 + 200 $",
+      "$ 7000 + 2000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Phân tích số",
+    "difficulty": "medium",
+    "explanation": "Phân tích theo hàng."
+  },
+  {
+    "id": 1775408745605,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 56342 \\text{, giá trị của chữ số } 6 \\text{ là bao nhiêu?} $",
+    "options": [
+      "$ 6000 $",
+      "$ 6 $",
+      "$ 60 $",
+      "$ 600 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "medium",
+    "explanation": "6 ở hàng nghìn."
+  },
+  {
+    "id": 1775408745606,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 56342 \\text{, giá trị của chữ số } 3 \\text{ là bao nhiêu?} $",
+    "options": [
+      "$ 3000 $",
+      "$ 30 $",
+      "$ 3 $",
+      "$ 300 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Hàng",
+    "difficulty": "medium",
+    "explanation": "3 ở hàng trăm."
+  },
+  {
+    "id": 1775408745607,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số } 345678 \\text{ có bao nhiêu lớp?} $",
+    "options": [
+      "$ 4 $",
+      "$ 1 $",
+      "$ 3 $",
+      "$ 2 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Lớp",
+    "difficulty": "medium",
+    "explanation": "Gồm lớp nghìn và lớp đơn vị."
+  },
+  {
+    "id": 1775408745608,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 456789 \\text{, lớp nghìn là gì?} $",
+    "options": [
+      "$ 456789 $",
+      "$ 4567 $",
+      "$ 456 $",
+      "$ 789 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "Lớp",
+    "difficulty": "medium",
+    "explanation": "Ba chữ số trước lớp đơn vị."
+  },
+  {
+    "id": 1775408745609,
+    "type": "multiple_choice",
+    "text": "$ \\text{Sắp xếp tăng dần: } 34567 \\text{, } 34576 \\text{, } 34506 $",
+    "options": [
+      "$ 34576 \\text{, } 34567 \\text{, } 34506 $",
+      "$ 34506 \\text{, } 34576 \\text{, } 34567 $",
+      "$ 34567 \\text{, } 34506 \\text{, } 34576 $",
+      "$ 34506 \\text{, } 34567 \\text{, } 34576 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "So sánh số",
+    "difficulty": "medium",
+    "explanation": "So sánh từ trái sang phải."
+  },
+  {
+    "id": 1775408745610,
+    "type": "multiple_choice",
+    "text": "$ \\text{Sắp xếp giảm dần: } 78901 \\text{, } 78091 \\text{, } 78910 $",
+    "options": [
+      "$ 78910 \\text{, } 78091 \\text{, } 78901 $",
+      "$ 78901 \\text{, } 78910 \\text{, } 78091 $",
+      "$ 78091 \\text{, } 78901 \\text{, } 78910 $",
+      "$ 78910 \\text{, } 78901 \\text{, } 78091 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số học",
+    "sub_topic": "So sánh số",
+    "difficulty": "medium",
+    "explanation": "So sánh giá trị."
+  },
+  {
+    "id": 1775408745611,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 345678 \\text{ ... } 345679 $",
+    "options": [
+      "$ \\text{≠} $",
+      "$ \\text{<} $",
+      "$ \\text{>} $",
+      "$ \\text{=} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "easy",
+    "explanation": "345678 nhỏ hơn 345679."
+  },
+  {
+    "id": 1775408745612,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 789456 \\text{ ... } 789455 $",
+    "options": [
+      "$ \\text{=} $",
+      "$ \\text{<} $",
+      "$ \\text{≠} $",
+      "$ \\text{>} $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "easy",
+    "explanation": "789456 lớn hơn 789455."
+  },
+  {
+    "id": 1775408745613,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 562345 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 570000 $",
+      "$ 600000 $",
+      "$ 500000 $",
+      "$ 560000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "562345 ≥ 550000 nên làm tròn lên 600000."
+  },
+  {
+    "id": 1775408745614,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 412345 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 500000 $",
+      "$ 420000 $",
+      "$ 400000 $",
+      "$ 410000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "412345 < 450000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745615,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 789654 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 800000 $",
+      "$ 700000 $",
+      "$ 790000 $",
+      "$ 780000 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "789654 gần 800000 hơn."
+  },
+  {
+    "id": 1775408745616,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 645321 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 700000 $",
+      "$ 640000 $",
+      "$ 600000 $",
+      "$ 650000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "645321 < 650000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745617,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 950123 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 900000 $",
+      "$ 950000 $",
+      "$ 960000 $",
+      "$ 1000000 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "950123 ≥ 950000 nên làm tròn lên 1000000."
+  },
+  {
+    "id": 1775408745618,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 2345678 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 3000000 $",
+      "$ 2000000 $",
+      "$ 2300000 $",
+      "$ 2400000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "2345678 < 2500000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745619,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 5678123 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 5000000 $",
+      "$ 6000000 $",
+      "$ 5700000 $",
+      "$ 5800000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "5678123 ≥ 5500000 nên làm tròn lên."
+  },
+  {
+    "id": 1775408745620,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 3499999 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 4000000 $",
+      "$ 3000000 $",
+      "$ 3500000 $",
+      "$ 3400000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "3499999 < 3500000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745621,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 4500000 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 4500000 $",
+      "$ 5000000 $",
+      "$ 4000000 $",
+      "$ 4600000 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "4500000 nằm giữa nên làm tròn lên."
+  },
+  {
+    "id": 1775408745622,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 3456789 \\text{ ... } 3456790 $",
+    "options": [
+      "$ \\text{≠} $",
+      "$ \\text{<} $",
+      "$ \\text{>} $",
+      "$ \\text{=} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "medium",
+    "explanation": "3456789 nhỏ hơn 3456790."
+  },
+  {
+    "id": 1775408745623,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 8000000 \\text{ ... } 7999999 $",
+    "options": [
+      "$ \\text{≠} $",
+      "$ \\text{>} $",
+      "$ \\text{<} $",
+      "$ \\text{=} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "medium",
+    "explanation": "8000000 lớn hơn 7999999."
+  },
+  {
+    "id": 1775408745624,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 456789 \\text{ ... } 456788 $",
+    "options": [
+      "$ \\text{=} $",
+      "$ \\text{>} $",
+      "$ \\text{≠} $",
+      "$ \\text{<} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "easy",
+    "explanation": "456789 lớn hơn 456788."
+  },
+  {
+    "id": 1775408745625,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 900001 \\text{ ... } 900010 $",
+    "options": [
+      "$ \\text{>} $",
+      "$ \\text{<} $",
+      "$ \\text{=} $",
+      "$ \\text{≠} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "easy",
+    "explanation": "900001 nhỏ hơn 900010."
+  },
+  {
+    "id": 1775408745626,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 612345 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 700000 $",
+      "$ 610000 $",
+      "$ 600000 $",
+      "$ 620000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "612345 < 650000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745627,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 678123 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 680000 $",
+      "$ 600000 $",
+      "$ 670000 $",
+      "$ 700000 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "678123 gần 700000 hơn."
+  },
+  {
+    "id": 1775408745628,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 432567 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 430000 $",
+      "$ 440000 $",
+      "$ 500000 $",
+      "$ 400000 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "432567 < 450000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745629,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 854321 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 850000 $",
+      "$ 860000 $",
+      "$ 800000 $",
+      "$ 900000 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "854321 ≥ 850000 nên làm tròn lên."
+  },
+  {
+    "id": 1775408745630,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 745678 \\text{ đến hàng trăm nghìn} $",
+    "options": [
+      "$ 750000 $",
+      "$ 800000 $",
+      "$ 740000 $",
+      "$ 700000 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "easy",
+    "explanation": "745678 < 750000 nên làm tròn xuống."
+  },
+  {
+    "id": 1775408745631,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 7891234 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 7900000 $",
+      "$ 7800000 $",
+      "$ 8000000 $",
+      "$ 7000000 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "7891234 ≥ 7500000 nên làm tròn lên."
+  },
+  {
+    "id": 1775408745632,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 5123456 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 5000000 $",
+      "$ 5200000 $",
+      "$ 6000000 $",
+      "$ 5100000 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "5123456 gần 5000000 hơn."
+  },
+  {
+    "id": 1775408745633,
+    "type": "multiple_choice",
+    "text": "$ \\text{Làm tròn } 9678901 \\text{ đến hàng triệu} $",
+    "options": [
+      "$ 10000000 $",
+      "$ 9700000 $",
+      "$ 9600000 $",
+      "$ 9000000 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Làm tròn số",
+    "difficulty": "medium",
+    "explanation": "9678901 ≥ 9500000 nên làm tròn lên."
+  },
+  {
+    "id": 1775408745634,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 4567891 \\text{ ... } 4567889 $",
+    "options": [
+      "$ \\text{<} $",
+      "$ \\text{>} $",
+      "$ \\text{=} $",
+      "$ \\text{≠} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "medium",
+    "explanation": "4567891 lớn hơn 4567889."
+  },
+  {
+    "id": 1775408745635,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 7000000 \\text{ ... } 6999999 $",
+    "options": [
+      "$ \\text{=} $",
+      "$ \\text{≠} $",
+      "$ \\text{>} $",
+      "$ \\text{<} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số lớn",
+    "difficulty": "medium",
+    "explanation": "7000000 lớn hơn 6999999."
+  },
+  {
+    "id": 1775408745636,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nhỏ nhất có } 5 \\text{ chữ số là số nào?} $",
+    "options": [
+      "$ 1000 $",
+      "$ 10000 $",
+      "$ 9999 $",
+      "$ 10001 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Số có 5 chữ số",
+    "difficulty": "easy",
+    "explanation": "Số có 5 chữ số nhỏ nhất là 10000."
+  },
+  {
+    "id": 1775408745637,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số nào bé hơn?} $",
+    "options": [
+      "$ 52341 $",
+      "$ 54321 $",
+      "$ 53421 $",
+      "$ 54231 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số",
+    "difficulty": "easy",
+    "explanation": "So sánh chữ số hàng nghìn."
+  },
+  {
+    "id": 1775408745638,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 68245 \\text{, chữ số } 8 \\text{ có giá trị là bao nhiêu?} $",
+    "options": [
+      "$ 8000 $",
+      "$ 80 $",
+      "$ 8 $",
+      "$ 800 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Giá trị chữ số",
+    "difficulty": "medium",
+    "explanation": "8 nằm ở hàng nghìn."
+  },
+  {
+    "id": 1775408745639,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 75021 \\text{, chữ số } 5 \\text{ có giá trị là bao nhiêu?} $",
+    "options": [
+      "$ 500 $",
+      "$ 5 $",
+      "$ 5000 $",
+      "$ 50 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Giá trị chữ số",
+    "difficulty": "medium",
+    "explanation": "5 nằm ở hàng nghìn."
+  },
+  {
+    "id": 1775408745640,
+    "type": "multiple_choice",
+    "text": "$ 63421 \\text{ được viết dưới dạng tổng nào?} $",
+    "options": [
+      "$ 60000 + 3000 + 200 + 40 + 1 $",
+      "$ 60000 + 3000 + 400 + 20 + 1 $",
+      "$ 60000 + 3000 + 400 + 10 + 1 $",
+      "$ 60000 + 2000 + 300 + 40 + 1 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Tách số",
+    "difficulty": "medium",
+    "explanation": "Tách theo giá trị từng hàng."
+  },
+  {
+    "id": 1775408745641,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số gồm } 8 \\text{ chục nghìn, } 4 \\text{ nghìn, } 2 \\text{ trăm, } 3 \\text{ chục và } 6 \\text{ đơn vị là số nào?} $",
+    "options": [
+      "$ 82436 $",
+      "$ 83426 $",
+      "$ 84263 $",
+      "$ 84236 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Cấu tạo số",
+    "difficulty": "medium",
+    "explanation": "Ghép giá trị từng hàng."
+  },
+  {
+    "id": 1775408745642,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số } 50823 \\text{ đọc là gì?} $",
+    "options": [
+      "$ \\text{Năm mươi nghìn tám trăm ba} $",
+      "$ \\text{Năm mươi nghìn tám trăm hai mươi ba} $",
+      "$ \\text{Năm mươi nghìn tám trăm ba mươi hai} $",
+      "$ \\text{Năm mươi nghìn không trăm tám mươi ba} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Đọc số",
+    "difficulty": "easy",
+    "explanation": "Đọc theo từng lớp."
+  },
+  {
+    "id": 1775408745643,
+    "type": "multiple_choice",
+    "text": "$ \\text{Số } 70015 \\text{ đọc là gì?} $",
+    "options": [
+      "$ \\text{Bảy mươi nghìn mười lăm} $",
+      "$ \\text{Bảy mươi nghìn không trăm mười lăm} $",
+      "$ \\text{Bảy mươi nghìn mười năm} $",
+      "$ \\text{Bảy mươi nghìn không trăm mười năm} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Đọc số",
+    "difficulty": "easy",
+    "explanation": "Có 0 ở hàng trăm."
+  },
+  {
+    "id": 1775408745644,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 65432 \\text{ ... } 65423 $",
+    "options": [
+      "$ \\text{=} $",
+      "$ \\text{>} $",
+      "$ \\text{<} $",
+      "$ \\text{≤} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số",
+    "difficulty": "medium",
+    "explanation": "65432 lớn hơn 65423."
+  },
+  {
+    "id": 1775408745645,
+    "type": "multiple_choice",
+    "text": "$ \\text{Chọn dấu đúng: } 72015 \\text{ ... } 72051 $",
+    "options": [
+      "$ \\text{>} $",
+      "$ \\text{≥} $",
+      "$ \\text{<} $",
+      "$ \\text{=} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "So sánh số",
+    "difficulty": "medium",
+    "explanation": "72015 nhỏ hơn 72051."
+  },
+  {
+    "id": 1775408745646,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 92345 \\text{ có bao nhiêu nghìn?} $",
+    "options": [
+      "$ 9 \\text{ nghìn} $",
+      "$ 92 \\text{ nghìn} $",
+      "$ 23 \\text{ nghìn} $",
+      "$ 93 \\text{ nghìn} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Hàng và lớp",
+    "difficulty": "medium",
+    "explanation": "92345 = 92 nghìn 345."
+  },
+  {
+    "id": 1775408745647,
+    "type": "multiple_choice",
+    "text": "$ \\text{Trong số } 84567 \\text{, chữ số } 4 \\text{ thuộc hàng nào?} $",
+    "options": [
+      "$ \\text{Hàng chục} $",
+      "$ \\text{Hàng nghìn} $",
+      "$ \\text{Hàng trăm} $",
+      "$ \\text{Hàng đơn vị} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Hàng và lớp",
+    "difficulty": "medium",
+    "explanation": "84567 = 8 chục nghìn + 4 nghìn + ..."
+  },
+  {
+    "id": 1775408745648,
+    "type": "multiple_choice",
+    "text": "$ \\text{Giá trị của chữ số } 2 \\text{ trong số } 32456 \\text{ là bao nhiêu?} $",
+    "options": [
+      "$ 2000 $",
+      "$ 20 $",
+      "$ 2 $",
+      "$ 200 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Giá trị chữ số",
+    "difficulty": "medium",
+    "explanation": "2 ở hàng nghìn."
+  },
+  {
+    "id": 1775408745649,
+    "type": "multiple_choice",
+    "text": "$ 3456 + 2345 = \\text{?} $",
+    "options": [
+      "$ 5801 $",
+      "$ 5791 $",
+      "$ 5811 $",
+      "$ 5901 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "easy",
+    "explanation": "3456 + 2345 = 5801."
+  },
+  {
+    "id": 1775408745650,
+    "type": "multiple_choice",
+    "text": "$ 6789 + 1234 = \\text{?} $",
+    "options": [
+      "$ 8013 $",
+      "$ 8033 $",
+      "$ 8023 $",
+      "$ 8043 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "easy",
+    "explanation": "6789 + 1234 = 8023."
+  },
+  {
+    "id": 1775408745651,
+    "type": "multiple_choice",
+    "text": "$ 5678 \\text{ − } 2345 \\text{ = ?} $",
+    "options": [
+      "$ 3333 $",
+      "$ 3353 $",
+      "$ 3323 $",
+      "$ 3343 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "easy",
+    "explanation": "5678 − 2345 = 3333."
+  },
+  {
+    "id": 1775408745652,
+    "type": "multiple_choice",
+    "text": "$ 9000 \\text{ − } 3456 \\text{ = ?} $",
+    "options": [
+      "$ 5554 $",
+      "$ 5574 $",
+      "$ 5544 $",
+      "$ 5564 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "easy",
+    "explanation": "9000 − 3456 = 5544."
+  },
+  {
+    "id": 1775408745653,
+    "type": "multiple_choice",
+    "text": "$ 4567 + 3210 = \\text{?} $",
+    "options": [
+      "$ 7777 $",
+      "$ 7767 $",
+      "$ 7797 $",
+      "$ 7787 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "easy",
+    "explanation": "4567 + 3210 = 7777."
+  },
+  {
+    "id": 1775408745654,
+    "type": "multiple_choice",
+    "text": "$ 12345 + 6789 = \\text{?} $",
+    "options": [
+      "$ 19134 $",
+      "$ 19144 $",
+      "$ 19124 $",
+      "$ 19154 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "12345 + 6789 = 19134."
+  },
+  {
+    "id": 1775408745655,
+    "type": "multiple_choice",
+    "text": "$ 20000 \\text{ − } 8765 \\text{ = ?} $",
+    "options": [
+      "$ 11535 $",
+      "$ 11435 $",
+      "$ 11335 $",
+      "$ 11235 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "20000 − 8765 = 11235."
+  },
+  {
+    "id": 1775408745656,
+    "type": "multiple_choice",
+    "text": "$ 45678 + 12345 = \\text{?} $",
+    "options": [
+      "$ 58023 $",
+      "$ 57923 $",
+      "$ 58123 $",
+      "$ 58223 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "45678 + 12345 = 58023."
+  },
+  {
+    "id": 1775408745657,
+    "type": "multiple_choice",
+    "text": "$ 98765 \\text{ − } 43210 \\text{ = ?} $",
+    "options": [
+      "$ 55855 $",
+      "$ 55655 $",
+      "$ 55755 $",
+      "$ 55555 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "98765 − 43210 = 55555."
+  },
+  {
+    "id": 1775408745658,
+    "type": "multiple_choice",
+    "text": "$ 34567 + 23456 = \\text{?} $",
+    "options": [
+      "$ 57923 $",
+      "$ 58123 $",
+      "$ 58223 $",
+      "$ 58023 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "34567 + 23456 = 58023."
+  },
+  {
+    "id": 1775408745659,
+    "type": "multiple_choice",
+    "text": "$ 76543 \\text{ − } 23456 \\text{ = ?} $",
+    "options": [
+      "$ 53287 $",
+      "$ 53387 $",
+      "$ 53087 $",
+      "$ 53187 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "76543 − 23456 = 53087."
+  },
+  {
+    "id": 1775408745660,
+    "type": "multiple_choice",
+    "text": "$ 67890 + 12345 = \\text{?} $",
+    "options": [
+      "$ 80235 $",
+      "$ 80435 $",
+      "$ 80135 $",
+      "$ 80335 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "67890 + 12345 = 80235."
+  },
+  {
+    "id": 1775408745661,
+    "type": "multiple_choice",
+    "text": "$ 65432 \\text{ − } 12345 \\text{ = ?} $",
+    "options": [
+      "$ 53087 $",
+      "$ 53287 $",
+      "$ 53187 $",
+      "$ 53387 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "65432 − 12345 = 53087."
+  },
+  {
+    "id": 1775408745662,
+    "type": "multiple_choice",
+    "text": "$ 78901 + 21098 = \\text{?} $",
+    "options": [
+      "$ 99999 $",
+      "$ 99899 $",
+      "$ 100000 $",
+      "$ 100099 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "78901 + 21098 = 99999."
+  },
+  {
+    "id": 1775408745663,
+    "type": "multiple_choice",
+    "text": "$ 100000 \\text{ − } 45678 \\text{ = ?} $",
+    "options": [
+      "$ 54422 $",
+      "$ 54622 $",
+      "$ 54322 $",
+      "$ 54522 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "medium",
+    "explanation": "100000 − 45678 = 54322."
+  },
+  {
+    "id": 1775408745664,
+    "type": "multiple_choice",
+    "text": "$ 234567 + 345678 = \\text{?} $",
+    "options": [
+      "$ 580245 $",
+      "$ 579245 $",
+      "$ 581245 $",
+      "$ 582245 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "hard",
+    "explanation": "234567 + 345678 = 580245."
+  },
+  {
+    "id": 1775408745665,
+    "type": "multiple_choice",
+    "text": "$ 876543 \\text{ − } 234567 \\text{ = ?} $",
+    "options": [
+      "$ 641976 $",
+      "$ 644976 $",
+      "$ 643976 $",
+      "$ 642976 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "hard",
+    "explanation": "876543 − 234567 = 641976."
+  },
+  {
+    "id": 1775408745666,
+    "type": "multiple_choice",
+    "text": "$ 456789 + 123456 = \\text{?} $",
+    "options": [
+      "$ 581245 $",
+      "$ 582245 $",
+      "$ 579245 $",
+      "$ 580245 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "hard",
+    "explanation": "456789 + 123456 = 580245."
+  },
+  {
+    "id": 1775408745668,
+    "type": "multiple_choice",
+    "text": "$ 900000 \\text{ − } 345678 \\text{ = ?} $",
+    "options": [
+      "$ 554322 $",
+      "$ 556322 $",
+      "$ 557322 $",
+      "$ 555322 $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép trừ nhiều chữ số",
+    "difficulty": "hard",
+    "explanation": "900000 − 345678 = 554322."
+  },
+  {
+    "id": 1775408745669,
+    "type": "multiple_choice",
+    "text": "$ 678901 + 210987 = \\text{?} $",
+    "options": [
+      "$ 890888 $",
+      "$ 892888 $",
+      "$ 889888 $",
+      "$ 891888 $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Số tự nhiên",
+    "sub_topic": "Phép cộng nhiều chữ số",
+    "difficulty": "hard",
+    "explanation": "678901 + 210987 = 889888."
+  },
+  {
+    "id": 1775408745670,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình bình hành có mấy cặp cạnh đối song song?} $",
+    "options": [
+      "$ 3 $",
+      "$ 1 $",
+      "$ 4 $",
+      "$ 2 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình bình hành",
+    "difficulty": "easy",
+    "explanation": "Hình bình hành có 2 cặp cạnh đối song song."
+  },
+  {
+    "id": 1775408745671,
+    "type": "multiple_choice",
+    "text": "$ \\text{Các cạnh đối của hình bình hành có đặc điểm gì?} $",
+    "options": [
+      "$ \\text{Song song và bằng nhau} $",
+      "$ \\text{Chỉ song song} $",
+      "$ \\text{Chỉ bằng nhau} $",
+      "$ \\text{Không liên quan} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình bình hành",
+    "difficulty": "easy",
+    "explanation": "Trong hình bình hành, các cạnh đối vừa song song vừa bằng nhau."
+  },
+  {
+    "id": 1775408745672,
+    "type": "multiple_choice",
+    "text": "$ \\text{Diện tích hình bình hành được tính bằng công thức nào?} $",
+    "options": [
+      "$ S = a \\text{ + h} $",
+      "$ S = a \\text{ × h} $",
+      "$ S = a \\text{ × b × h} $",
+      "$ S = a \\text{ × a} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình bình hành",
+    "difficulty": "easy",
+    "explanation": "Diện tích hình bình hành bằng đáy nhân chiều cao."
+  },
+  {
+    "id": 1775408745673,
+    "type": "multiple_choice",
+    "text": "$ \\text{Một hình bình hành có đáy } 8 \\text{ cm và chiều cao } 5 \\text{ cm. Diện tích là bao nhiêu?} $",
+    "options": [
+      "$ 13 \\text{ cm²} $",
+      "$ 30 \\text{ cm²} $",
+      "$ 40 \\text{ cm²} $",
+      "$ 20 \\text{ cm²} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình bình hành",
+    "difficulty": "easy",
+    "explanation": "S = 8 × 5 = 40 cm²."
+  },
+  {
+    "id": 1775408745674,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình bình hành có bao nhiêu cạnh?} $",
+    "options": [
+      "$ 5 $",
+      "$ 4 $",
+      "$ 3 $",
+      "$ 6 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình bình hành",
+    "difficulty": "easy",
+    "explanation": "Hình bình hành là tứ giác."
+  },
+  {
+    "id": 1775408745675,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình thoi có đặc điểm gì về cạnh?} $",
+    "options": [
+      "$ \\text{Không cạnh nào bằng nhau} $",
+      "$ 4 \\text{ cạnh bằng nhau} $",
+      "$ 2 \\text{ cạnh bằng nhau} $",
+      "$ 3 \\text{ cạnh bằng nhau} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình thoi",
+    "difficulty": "easy",
+    "explanation": "Hình thoi có 4 cạnh bằng nhau."
+  },
+  {
+    "id": 1775408745676,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình thoi có bao nhiêu đường chéo?} $",
+    "options": [
+      "$ 1 $",
+      "$ 2 $",
+      "$ 4 $",
+      "$ 3 $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình thoi",
+    "difficulty": "easy",
+    "explanation": "Hình thoi có 2 đường chéo."
+  },
+  {
+    "id": 1775408745677,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hai đường chéo của hình thoi có đặc điểm gì?} $",
+    "options": [
+      "$ \\text{Vuông góc với nhau} $",
+      "$ \\text{Bằng nhau} $",
+      "$ \\text{Không cắt nhau} $",
+      "$ \\text{Song song} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình thoi",
+    "difficulty": "easy",
+    "explanation": "Hai đường chéo của hình thoi cắt nhau vuông góc."
+  },
+  {
+    "id": 1775408745678,
+    "type": "multiple_choice",
+    "text": "$ \\text{Diện tích hình thoi được tính bằng công thức nào?} $",
+    "options": [
+      "$ S = a \\text{ × b} $",
+      "$ S = a \\text{ × a} $",
+      "$ S = a \\text{ × h} $",
+      "$ \\text{S = (d1 × d2) / } 2 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình thoi",
+    "difficulty": "easy",
+    "explanation": "Diện tích hình thoi bằng tích hai đường chéo chia 2."
+  },
+  {
+    "id": 1775408745679,
+    "type": "multiple_choice",
+    "text": "$ \\text{Một hình thoi có d} 1 = 6 \\text{cm, d} 2 = 8 \\text{cm. Diện tích là?} $",
+    "options": [
+      "$ 20 \\text{ cm²} $",
+      "$ 14 \\text{ cm²} $",
+      "$ 48 \\text{ cm²} $",
+      "$ 24 \\text{ cm²} $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình thoi",
+    "difficulty": "easy",
+    "explanation": "S = (6 × 8) / 2 = 24."
+  },
+  {
+    "id": 1775408745680,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình nào có } 4 \\text{ cạnh bằng nhau?} $",
+    "options": [
+      "$ \\text{Hình bình hành} $",
+      "$ \\text{Tam giác} $",
+      "$ \\text{Hình thoi} $",
+      "$ \\text{Hình chữ nhật} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Nhận biết hình",
+    "difficulty": "medium",
+    "explanation": "Hình thoi có 4 cạnh bằng nhau."
+  },
+  {
+    "id": 1775408745681,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình nào có diện tích tính bằng đáy × chiều cao?} $",
+    "options": [
+      "$ \\text{Hình vuông} $",
+      "$ \\text{Hình tròn} $",
+      "$ \\text{Hình bình hành} $",
+      "$ \\text{Hình thoi} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Nhận biết hình",
+    "difficulty": "medium",
+    "explanation": "Công thức diện tích hình bình hành."
+  },
+  {
+    "id": 1775408745682,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình bình hành có đáy } 9 \\text{ cm, chiều cao } 4 \\text{ cm. Diện tích?} $",
+    "options": [
+      "$ 40 \\text{ cm²} $",
+      "$ 18 \\text{ cm²} $",
+      "$ 36 \\text{ cm²} $",
+      "$ 13 \\text{ cm²} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình bình hành",
+    "difficulty": "medium",
+    "explanation": "S = 9 × 4 = 36."
+  },
+  {
+    "id": 1775408745683,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình thoi có d} 1 = 10 \\text{cm, d} 2 = 6 \\text{cm. Diện tích?} $",
+    "options": [
+      "$ 30 \\text{ cm²} $",
+      "$ 16 \\text{ cm²} $",
+      "$ 40 \\text{ cm²} $",
+      "$ 60 \\text{ cm²} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình thoi",
+    "difficulty": "medium",
+    "explanation": "S = (10 × 6)/2."
+  },
+  {
+    "id": 1775408745684,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình thoi có mấy cặp cạnh đối song song?} $",
+    "options": [
+      "$ 1 $",
+      "$ 3 $",
+      "$ 0 $",
+      "$ 2 $"
+    ],
+    "correctAnswer": 3,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình thoi",
+    "difficulty": "medium",
+    "explanation": "Hình thoi là một dạng hình bình hành."
+  },
+  {
+    "id": 1775408745685,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình nào vừa có } 4 \\text{ cạnh bằng nhau vừa có } 2 \\text{ cặp cạnh đối song song?} $",
+    "options": [
+      "$ \\text{Hình chữ nhật} $",
+      "$ \\text{Hình bình hành} $",
+      "$ \\text{Hình thoi} $",
+      "$ \\text{Tam giác} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "So sánh hình",
+    "difficulty": "medium",
+    "explanation": "Hình thoi có các tính chất này."
+  },
+  {
+    "id": 1775408745686,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình bình hành có đáy } 12 \\text{ cm, chiều cao } 5 \\text{ cm. Diện tích?} $",
+    "options": [
+      "$ 60 \\text{ cm²} $",
+      "$ 30 \\text{ cm²} $",
+      "$ 17 \\text{ cm²} $",
+      "$ 24 \\text{ cm²} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình bình hành",
+    "difficulty": "medium",
+    "explanation": "S = 12 × 5."
+  },
+  {
+    "id": 1775408745687,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình thoi có d} 1 = 12 \\text{cm, d} 2 = 8 \\text{cm. Diện tích?} $",
+    "options": [
+      "$ 40 \\text{ cm²} $",
+      "$ 20 \\text{ cm²} $",
+      "$ 48 \\text{ cm²} $",
+      "$ 96 \\text{ cm²} $"
+    ],
+    "correctAnswer": 2,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình thoi",
+    "difficulty": "medium",
+    "explanation": "S = (12 × 8)/2."
+  },
+  {
+    "id": 1775408745688,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình nào có } 2 \\text{ cặp cạnh đối song song nhưng không nhất thiết bằng nhau?} $",
+    "options": [
+      "$ \\text{Hình bình hành} $",
+      "$ \\text{Hình thoi} $",
+      "$ \\text{Hình vuông} $",
+      "$ \\text{Hình tròn} $"
+    ],
+    "correctAnswer": 0,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Nhận biết hình",
+    "difficulty": "medium",
+    "explanation": "Đặc điểm cơ bản của hình bình hành."
+  },
+  {
+    "id": 1775408745689,
+    "type": "multiple_choice",
+    "text": "$ \\text{Hình bình hành có đáy } 15 \\text{ cm và chiều cao } 6 \\text{ cm. Diện tích?} $",
+    "options": [
+      "$ 75 \\text{ cm²} $",
+      "$ 90 \\text{ cm²} $",
+      "$ 21 \\text{ cm²} $",
+      "$ 30 \\text{ cm²} $"
+    ],
+    "correctAnswer": 1,
+    "points": 10,
+    "grade": 4,
+    "topic": "Hình học",
+    "sub_topic": "Hình bình hành",
+    "difficulty": "medium",
+    "explanation": "S = 15 × 6."
+  }
 ]

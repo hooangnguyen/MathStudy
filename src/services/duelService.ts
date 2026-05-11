@@ -654,6 +654,15 @@ export const completeRealDuel = async (duelId: string): Promise<void> => {
     });
 };
 
+// Surrender real-time duel
+export const surrenderDuel = async (duelId: string, userId: string): Promise<void> => {
+    await updateDoc(doc(db, 'activeDuels', duelId), {
+        status: 'finished',
+        surrenderedBy: userId,
+        finishedAt: serverTimestamp()
+    });
+};
+
 // Join duel queue
 export const joinDuelQueue = async (userId: string, grade?: number): Promise<void> => {
     await setDoc(doc(collection(db, 'duelQueue'), userId), {
