@@ -1,4 +1,5 @@
 import express from "express";
+import compression from "compression";
 import type { Request, Response, NextFunction } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -315,11 +316,36 @@ if (isDev) {
   });
 } else {
   console.log("Running in PRODUCTION mode");
-  // Phục vụ file tĩnh (Quan trọng cho Render)
-  app.use(express.static(path.join(__dirname, "dist")));
+  const distDir = path.join(__dirname, "dist");
+
+  // Nén gzip/brotli cho JS/CSS/HTML (bundle Firebase ~620 kB → ~150 kB)
+  app.use(compression());
+
+  // File có hash trong tên (assets/*, workbox-*) không bao giờ đổi nội dung → cache 1 năm.
+  // index.html, sw.js, manifest phải luôn được kiểm tra lại để nhận bản deploy mới.
+  app.use(
+    express.static(distDir, {
+      index: false,
+      setHeaders(res, filePath) {
+        const rel = path.relative(distDir, filePath).split(path.sep).join("/");
+        if (rel.startsWith("assets/") || /^workbox-[\w-]+\.js$/.test(rel)) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        } else {
+          res.setHeader("Cache-Control", "no-cache");
+        }
+      },
+    })
+  );
+
+  // File tĩnh không tồn tại (vd. chunk của bản deploy cũ) phải trả 404, không trả index.html:
+  // trình duyệt sẽ báo lỗi tải module rõ ràng và client tự tải lại trang (xem main.tsx).
+  app.use(["/assets", "/api"], (req, res) => {
+    res.status(404).json({ success: false, error: "Not found" });
+  });
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "dist", "index.html"));
+    res.setHeader("Cache-Control", "no-cache");
+    res.sendFile(path.join(distDir, "index.html"));
   });
 }
 

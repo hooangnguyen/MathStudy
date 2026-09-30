@@ -136,7 +136,7 @@ service cloud.firestore {
           && incoming().studentIds.hasAll(existing().studentIds)
           && incoming().studentIds.size() == existing().studentIds.size() + 1
           && uid() in incoming().studentIds
-          && incoming().studentCount == incoming().studentIds.size()
+          && incoming().studentCount == existing().get('studentCount', 0) + 1
         )
       );
 

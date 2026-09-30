@@ -1,6 +1,6 @@
 /**
- * Chuyển đáp án của các bài tập tạo trước khi có answerKeys ra khỏi đề bài,
- * để học sinh không đọc được đáp án. Chạy một lần sau khi deploy:
+ * Chuyển đáp án của các bài tập tạo trước khi có answerKeys ra khỏi đề bài
+ * (để học sinh không đọc được đáp án) và bổ sung scoreSum cho bài cũ. Chạy một lần sau khi deploy:
  *
  *   FIREBASE_SERVICE_ACCOUNT='<json>' npx tsx scripts/migrate-answer-keys.ts
  *
@@ -19,8 +19,12 @@ const assignments = await adminDb.collectionGroup("assignments").get();
 let migrated = 0;
 
 for (const snap of assignments.docs) {
-  const questions: any[] = snap.data().questions || [];
-  if (!questions.some((q) => "correctAnswer" in q)) continue;
+  const data = snap.data();
+  const questions: any[] = data.questions || [];
+  // Bài cũ chưa có scoreSum: tính từ điểm trung bình đã lưu để điểm TB vẫn đúng
+  const needsScoreSum = data.scoreSum === undefined && (data.completed || 0) > 0;
+  const needsKey = questions.some((q) => "correctAnswer" in q);
+  if (!needsKey && !needsScoreSum) continue;
 
   const classRef = snap.ref.parent.parent!;
   const keyRef = classRef.collection("answerKeys").doc(snap.id);
@@ -32,11 +36,16 @@ for (const snap of assignments.docs) {
   }));
   const publicQuestions = questions.map(({ correctAnswer, ...rest }) => rest);
 
-  console.log(`${dryRun ? "[dry-run] " : ""}${classRef.id}/${snap.id}: ${questions.length} câu`);
+  console.log(`${dryRun ? "[dry-run] " : ""}${classRef.id}/${snap.id}: ${needsKey ? `tách đáp án ${questions.length} câu` : ""}${needsScoreSum ? " + scoreSum" : ""}`);
   if (!dryRun) {
     const batch = adminDb.batch();
-    batch.set(keyRef, { questions: answerKey });
-    batch.update(snap.ref, { questions: publicQuestions });
+    if (needsKey) {
+      batch.set(keyRef, { questions: answerKey });
+      batch.update(snap.ref, { questions: publicQuestions });
+    }
+    if (needsScoreSum) {
+      batch.update(snap.ref, { scoreSum: (data.avgScore || 0) * (data.completed || 0) });
+    }
     await batch.commit();
   }
   migrated++;

@@ -50,6 +50,7 @@ export interface AssignmentData {
     total: number;
     completed: number;
     avgScore: number;
+    scoreSum?: number; // tổng điểm các bài nộp (server cộng dồn)
     questions: QuestionData[];
     settings: AssignmentSettings;
     createdAt: any;
@@ -131,6 +132,12 @@ export const createAssignment = async (
     }
 };
 
+/** Điểm trung bình tính từ scoreSum/completed (server chỉ cộng dồn, không ghi avgScore). */
+export const withAverageScore = (data: AssignmentData): AssignmentData => {
+    if (typeof data.scoreSum !== 'number' || !data.completed) return data;
+    return { ...data, avgScore: Number((data.scoreSum / data.completed).toFixed(1)) };
+};
+
 export const subscribeToClassAssignments = (classId: string, callback: (assignments: AssignmentData[]) => void) => {
     const classRef = doc(db, 'classes', classId);
     const assignmentsRef = collection(classRef, 'assignments');
@@ -139,7 +146,7 @@ export const subscribeToClassAssignments = (classId: string, callback: (assignme
     return onSnapshot(q, (snapshot) => {
         const assignments: AssignmentData[] = [];
         snapshot.forEach((doc) => {
-            assignments.push(doc.data() as AssignmentData);
+            assignments.push(withAverageScore(doc.data() as AssignmentData));
         });
         callback(assignments);
     }, (error) => {

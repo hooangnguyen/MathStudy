@@ -12,7 +12,6 @@ import {
     limit,
     onSnapshot,
     serverTimestamp,
-    increment,
     runTransaction
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
@@ -327,9 +326,39 @@ export const getDuelHistory = async (userId: string, limitCount: number = 10): P
     }
 };
 
+/** Có trận vừa được tạo với mình là player2 trong 60 giây gần đây không. */
+const wasJustMatched = async (userId: string): Promise<boolean> => {
+    const snapshot = await getDocs(query(collection(db, 'activeDuels'), where('player2Id', '==', userId)));
+    const now = Date.now();
+    return snapshot.docs.some(d => {
+        const data = d.data();
+        const createdAt = data.createdAt?.toMillis?.() ?? now;
+        return data.status === 'playing' && now - createdAt < 60000;
+    });
+};
+
 // Find available players for quick match
 export const findOpponentForDuel = async (userId: string, userGrade?: number): Promise<{ opponentId: string; opponentName: string; opponentGrade?: number } | null> => {
     try {
+        // Heartbeat: báo mình vẫn đang tìm trận (người quá 15 giây không cập nhật bị coi là "ma" và bị xoá).
+        const myRef = doc(db, 'duelQueue', userId);
+        try {
+            await updateDoc(myRef, { updatedAt: serverTimestamp() });
+        } catch (error: any) {
+            if (error?.code !== 'not-found') throw error;
+            // Không còn trong hàng chờ: hoặc vừa được người khác ghép (listener activeDuels sẽ
+            // đưa vào trận), hoặc bị xoá vì tab ở nền quá lâu → vào lại hàng chờ.
+            if (await wasJustMatched(userId)) return null;
+            await setDoc(myRef, {
+                userId,
+                status: 'waiting',
+                grade: userGrade || 5,
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
+            });
+            return null;
+        }
+
         // Simplified query: only filter by status to avoid index requirement
         const q = query(
             collection(db, 'duelQueue'),
@@ -356,38 +385,22 @@ export const findOpponentForDuel = async (userId: string, userGrade?: number): P
             }
         }
 
-        if (validOpponents.length === 0) {
-            // No opponent found, add/update self to queue
-            const myRef = doc(db, 'duelQueue', userId);
-            const myQueueDoc = await getDoc(myRef);
-            
-            const queueData: any = {
-                userId,
-                status: 'waiting',
-                grade: userGrade || 5,
-                updatedAt: serverTimestamp()
-            };
-            
-            if (!myQueueDoc.exists() || !myQueueDoc.data()?.createdAt) {
-                queueData.createdAt = serverTimestamp();
-            }
-            
-            await setDoc(myRef, queueData, { merge: true });
-            return null;
-        }
+        if (validOpponents.length === 0) return null;
 
         // Try to claim an opponent using a transaction to prevent race conditions (duplicate matches)
         for (const opponent of validOpponents) {
             try {
                 const claimed = await runTransaction(db, async (transaction) => {
                     const oppRef = doc(db, 'duelQueue', opponent.userId);
-                    const oppDoc = await transaction.get(oppRef);
-                    if (!oppDoc.exists()) {
-                        return false; // Already claimed by someone else
-                    }
-                    
                     const myRef = doc(db, 'duelQueue', userId);
-                    
+                    // Đọc cả hàng chờ của chính mình: nếu người khác vừa ghép mình (xoá doc
+                    // của mình) thì transaction này xung đột và dừng, tránh một người bị
+                    // ghép vào hai trận cùng lúc.
+                    const [oppDoc, myDoc] = await Promise.all([transaction.get(oppRef), transaction.get(myRef)]);
+                    if (!oppDoc.exists() || !myDoc.exists()) {
+                        return false; // Đối thủ đã được người khác ghép, hoặc mình vừa được ghép
+                    }
+
                     // Claim successful: remove both from queue
                     transaction.delete(oppRef);
                     transaction.delete(myRef);

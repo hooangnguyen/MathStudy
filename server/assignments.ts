@@ -8,7 +8,7 @@ export const assignmentsRouter = Router();
 
 /**
  * Học sinh nộp bài. Server tự chấm theo đáp án (học sinh không đọc được đáp án),
- * lưu bài nộp và cập nhật thống kê trong cùng một transaction.
+ * lưu bài nộp và cập nhật thống kê trong cùng một batch.
  */
 assignmentsRouter.post(
   "/submit",
@@ -28,72 +28,81 @@ assignmentsRouter.post(
     const submissionRef = assignmentRef.collection("submissions").doc(uid);
     const userRef = adminDb.doc(`users/${uid}`);
 
-    const result = await adminDb.runTransaction(async (tx) => {
-      const [classDoc, assignmentDoc, answerKeyDoc, submissionDoc, userDoc] = await Promise.all([
-        tx.get(classRef),
-        tx.get(assignmentRef),
-        tx.get(answerKeyRef),
-        tx.get(submissionRef),
-        tx.get(userRef),
-      ]);
+    const [classDoc, assignmentDoc, answerKeyDoc, userDoc] = await Promise.all([
+      classRef.get(),
+      assignmentRef.get(),
+      answerKeyRef.get(),
+      userRef.get(),
+    ]);
 
-      if (!classDoc.exists) throw new HttpError(404, "Lớp không tồn tại");
-      const classData = classDoc.data()!;
-      if (!(classData.studentIds || []).includes(uid)) throw new HttpError(403, "Bạn không thuộc lớp này");
-      if (!assignmentDoc.exists) throw new HttpError(404, "Bài tập không tồn tại");
-      if (submissionDoc.exists) throw new HttpError(409, "Bạn đã nộp bài này rồi");
+    if (!classDoc.exists) throw new HttpError(404, "Lớp không tồn tại");
+    const classData = classDoc.data()!;
+    if (!(classData.studentIds || []).includes(uid)) throw new HttpError(403, "Bạn không thuộc lớp này");
+    if (!assignmentDoc.exists) throw new HttpError(404, "Bài tập không tồn tại");
 
-      const assignment = assignmentDoc.data()!;
-      const questions: any[] = assignment.questions || [];
-      // Bài tập tạo trước khi tách đáp án vẫn lưu correctAnswer trong đề
-      const key: AnswerKeyItem[] = answerKeyDoc.exists ? answerKeyDoc.data()!.questions || [] : questions;
-      const keyById = new Map(key.map((k) => [String(k.id), k]));
+    const assignment = assignmentDoc.data()!;
+    const questions: any[] = assignment.questions || [];
+    // Bài tập tạo trước khi tách đáp án vẫn lưu correctAnswer trong đề
+    const key: AnswerKeyItem[] = answerKeyDoc.exists ? answerKeyDoc.data()!.questions || [] : questions;
+    const keyById = new Map(key.map((k) => [String(k.id), k]));
 
-      const { score, results } = gradeAssignment(key, answers);
-      const correctById = new Map(results.map((r) => [String(r.questionId), r.isCorrect]));
+    const { score, results } = gradeAssignment(key, answers);
+    const correctById = new Map(results.map((r) => [String(r.questionId), r.isCorrect]));
 
-      const formattedAnswers = questions.map((q) => ({
-        questionId: q.id,
-        questionText: q.text,
-        type: q.type,
-        options: q.options ?? null,
-        correctAnswer: keyById.get(String(q.id))?.correctAnswer ?? null,
-        answer: answers[String(q.id)] ?? null,
-        isCorrect: correctById.get(String(q.id)) ?? null,
-      }));
+    const formattedAnswers = questions.map((q) => ({
+      questionId: q.id,
+      questionText: q.text,
+      type: q.type,
+      options: q.options ?? null,
+      correctAnswer: keyById.get(String(q.id))?.correctAnswer ?? null,
+      answer: answers[String(q.id)] ?? null,
+      isCorrect: correctById.get(String(q.id)) ?? null,
+    }));
+    const studentName = userDoc.data()?.name || "Học sinh ẩn danh";
 
-      const studentName = userDoc.data()?.name || "Học sinh ẩn danh";
-      const oldCompleted = assignment.completed || 0;
-      const newCompleted = oldCompleted + 1;
-      const newAvg = Number(((((assignment.avgScore || 0) * oldCompleted) + score) / newCompleted).toFixed(1));
-
-      tx.set(submissionRef, {
-        id: uid,
-        studentName,
-        score,
-        answers: formattedAnswers,
-        submittedAt: FieldValue.serverTimestamp(),
-      });
-      tx.update(assignmentRef, { completed: newCompleted, avgScore: newAvg });
-      tx.update(classRef, { submitted: FieldValue.increment(1) });
-      if (userDoc.exists) tx.update(userRef, { totalCompletedAssignments: FieldValue.increment(1) });
-
-      if (classData.teacherId) {
-        const notifRef = adminDb.collection("notifications").doc();
-        tx.set(notifRef, {
-          id: notifRef.id,
-          userId: classData.teacherId,
-          type: "submission",
-          title: "Nộp bài mới",
-          message: `Học sinh ${studentName} vừa nộp bài cho "${assignment.title}"`,
-          metadata: { classId, assignmentId, studentId: uid },
-          read: false,
-          createdAt: FieldValue.serverTimestamp(),
-        });
-      }
-
-      return { score, showScore: !!assignment.settings?.showScoreImmediate };
+    // Không dùng transaction: cả lớp thường nộp sát giờ, transaction cùng đọc/ghi một
+    // document bài tập sẽ tranh chấp và thất bại. Batch dưới đây là nguyên tử:
+    // `create` báo lỗi nếu đã nộp (chặn nộp 2 lần), các bộ đếm dùng increment.
+    // Điểm trung bình = scoreSum / completed (bài cũ chưa có scoreSum thì lấy mốc từ avgScore).
+    const baseline = assignment.scoreSum === undefined ? (assignment.avgScore || 0) * (assignment.completed || 0) : 0;
+    const batch = adminDb.batch();
+    batch.create(submissionRef, {
+      id: uid,
+      studentName,
+      score,
+      answers: formattedAnswers,
+      submittedAt: FieldValue.serverTimestamp(),
     });
+    batch.update(assignmentRef, {
+      completed: FieldValue.increment(1),
+      scoreSum: FieldValue.increment(score + baseline),
+    });
+    batch.update(classRef, { submitted: FieldValue.increment(1) });
+    if (userDoc.exists) batch.update(userRef, { totalCompletedAssignments: FieldValue.increment(1) });
+
+    if (classData.teacherId) {
+      const notifRef = adminDb.collection("notifications").doc();
+      batch.set(notifRef, {
+        id: notifRef.id,
+        userId: classData.teacherId,
+        type: "submission",
+        title: "Nộp bài mới",
+        message: `Học sinh ${studentName} vừa nộp bài cho "${assignment.title}"`,
+        metadata: { classId, assignmentId, studentId: uid },
+        read: false,
+        createdAt: FieldValue.serverTimestamp(),
+      });
+    }
+
+    try {
+      await batch.commit();
+    } catch (error: any) {
+      // gRPC ALREADY_EXISTS = 6: bài nộp đã tồn tại
+      if (error?.code === 6) throw new HttpError(409, "Bạn đã nộp bài này rồi");
+      throw error;
+    }
+
+    const result = { score, showScore: !!assignment.settings?.showScoreImmediate };
 
     res.json({ success: true, showScore: result.showScore, score: result.showScore ? result.score : undefined });
   })

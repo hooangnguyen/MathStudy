@@ -8,7 +8,10 @@ import {
     where,
     serverTimestamp,
     onSnapshot,
-    runTransaction
+    runTransaction,
+    writeBatch,
+    arrayUnion,
+    increment
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { sendNotification } from './notificationService';
@@ -114,67 +117,51 @@ export const joinClass = async (studentId: string, classCode: string): Promise<C
     const classDoc = querySnapshot.docs[0];
     const classData = classDoc.data() as ClassData;
 
-    // We remove the early throw here to let the transaction handle potential desyncs
-    // between the class doc and the user doc.
+    const classRef = doc(db, 'classes', classDoc.id);
+    const userRef = doc(db, 'users', studentId);
 
     try {
-        await runTransaction(db, async (transaction) => {
-            // 1. Read operations
-            const classRef = doc(db, 'classes', classDoc.id);
-            const userRef = doc(db, 'users', studentId);
+        const [latestClassDoc, userDoc] = await Promise.all([getDoc(classRef), getDoc(userRef)]);
+        if (!latestClassDoc.exists()) {
+            throw new Error('Lớp không tồn tại.');
+        }
 
-            const latestClassDoc = await transaction.get(classRef);
-            const userDoc = await transaction.get(userRef);
+        const latestClassData = latestClassDoc.data() as ClassData;
+        const isStudentInClass = (latestClassData.studentIds || []).includes(studentId);
+        const userData = userDoc.exists() ? userDoc.data() : null;
+        const isClassInUser = (userData?.enrolledClasses || []).includes(classDoc.id);
 
-            if (!latestClassDoc.exists()) {
-                throw new Error('Lớp không tồn tại.');
-            }
+        if (isStudentInClass && isClassInUser) {
+            throw new Error('Bạn đã tham gia lớp này rồi.');
+        }
 
-            const latestClassData = latestClassDoc.data() as ClassData;
-            const isStudentInClass = latestClassData.studentIds.includes(studentId);
-            const userData = userDoc.exists() ? userDoc.data() : null;
-            const enrolledClasses = userData?.enrolledClasses || [];
-            const isClassInUser = enrolledClasses.includes(classDoc.id);
+        // Không dùng transaction: cả lớp thường nhập mã cùng lúc, transaction trên cùng
+        // một document lớp sẽ tranh chấp và hết lượt thử lại. arrayUnion/increment được
+        // Firestore gộp đúng; rules chặn việc vào lớp hai lần (nên sĩ số không bị cộng sai).
+        const batch = writeBatch(db);
+        if (!isStudentInClass) {
+            batch.update(classRef, {
+                studentIds: arrayUnion(studentId),
+                studentCount: increment(1)
+            });
+        }
+        if (!isClassInUser) {
+            // Đồng thời tự sửa trường hợp lệch dữ liệu giữa lớp và hồ sơ học sinh
+            batch.set(userRef, { enrolledClasses: arrayUnion(classDoc.id) }, { merge: true });
+        }
+        await batch.commit();
 
-            // If everything is completely synced and they are already in the class, throw the error
-            if (isStudentInClass && isClassInUser) {
-                throw new Error('Bạn đã tham gia lớp này rồi.');
-            }
-
-            // 2. Write operations
-            
-            // If they aren't in the class's studentIds, add them
-            if (!isStudentInClass) {
-                const newStudentIds = [...latestClassData.studentIds, studentId];
-                transaction.update(classRef, {
-                    studentIds: newStudentIds,
-                    studentCount: newStudentIds.length
-                });
-            }
-
-            // If the class isn't in the user's enrolledClasses, add it (this also self-heals desyncs)
-            if (!isClassInUser) {
-                if (userDoc.exists()) {
-                   transaction.update(userRef, {
-                       enrolledClasses: [...enrolledClasses, classDoc.id]
-                   });
-                } else {
-                   transaction.set(userRef, { enrolledClasses: [classDoc.id] }, { merge: true });
-                }
-            }
-
-            // Send notification to the teacher ONLY if they were truly a new student to the class
-            if (!isStudentInClass && userDoc.exists() && latestClassData.teacherId) {
-                 const studentName = userData?.name || "Học sinh";
-                 sendNotification(
-                     latestClassData.teacherId,
-                     'student_join',
-                     'Học sinh mới tham gia',
-                     `Học sinh ${studentName} vừa tham gia lớp "${latestClassData.name}"`,
-                     { classId: classDoc.id, studentId }
-                 ).catch(err => console.error("Error sending teacher notification:", err));
-            }
-        });
+        // Chỉ báo cho giáo viên khi học sinh thực sự mới vào lớp
+        if (!isStudentInClass && userData && latestClassData.teacherId) {
+            const studentName = userData.name || "Học sinh";
+            sendNotification(
+                latestClassData.teacherId,
+                'student_join',
+                'Học sinh mới tham gia',
+                `Học sinh ${studentName} vừa tham gia lớp "${latestClassData.name}"`,
+                { classId: classDoc.id, studentId }
+            ).catch(err => console.error("Error sending teacher notification:", err));
+        }
 
         return classData;
     } catch (error) {
@@ -247,7 +234,11 @@ export const reCalculateClassStats = async (classId: string): Promise<void> => {
             const data = doc.data();
             totalSubmitted += (data.completed || 0);
             totalExpected += (data.total || 0);
-            scoreSum += (data.avgScore || 0);
+            // scoreSum/completed là điểm trung bình chính xác; bài cũ dùng avgScore đã lưu
+            const assignmentAvg = typeof data.scoreSum === 'number' && data.completed
+                ? data.scoreSum / data.completed
+                : (data.avgScore || 0);
+            scoreSum += assignmentAvg;
             assignmentCount++;
         });
 

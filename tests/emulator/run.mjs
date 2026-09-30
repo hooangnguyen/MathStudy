@@ -9,6 +9,7 @@ import { readFileSync } from 'fs';
 import { initializeTestEnvironment, assertSucceeds, assertFails } from '@firebase/rules-unit-testing';
 import {
   doc, setDoc, getDoc, updateDoc, addDoc, collection, getDocs, query, where, serverTimestamp, runTransaction,
+  arrayUnion, increment, writeBatch,
 } from 'firebase/firestore';
 
 const PROJECT_ID = 'demo-mathstudy';
@@ -110,7 +111,9 @@ await t('giáo viên tạo lớp', () => assertSucceeds(setDoc(doc(db(teacher.ui
   id: classId, name: 'L5', grade: 5, code: 'ABC123', teacherId: teacher.uid, studentIds: [], isActive: true,
   studentCount: 0, submitted: 0, totalAssignments: 0, totalExpectedSubmissions: 0, avgScore: 0,
 })));
-await t('học sinh vào lớp', () => assertSucceeds(updateDoc(doc(db(stu.uid), `classes/${classId}`), { studentIds: [stu.uid], studentCount: 1 })));
+await t('học sinh vào lớp', () => assertSucceeds(updateDoc(doc(db(stu.uid), `classes/${classId}`), { studentIds: arrayUnion(stu.uid), studentCount: increment(1) })));
+await t('KHÔNG thêm người khác vào lớp', () => assertFails(updateDoc(doc(db(outsider.uid), `classes/${classId}`), { studentIds: arrayUnion('someone'), studentCount: increment(1) })));
+await t('KHÔNG vào lớp hai lần để tăng sĩ số', () => assertFails(updateDoc(doc(db(stu.uid), `classes/${classId}`), { studentIds: arrayUnion(stu.uid), studentCount: increment(1) })));
 await t('giáo viên giao bài (đề không kèm đáp án + answerKey riêng)', () => assertSucceeds(runTransaction(db(teacher.uid), async (tx) => {
   const d = db(teacher.uid);
   await tx.get(doc(d, `classes/${classId}`));
@@ -154,7 +157,7 @@ await t('thống kê lớp/bài/học sinh được server cập nhật', async 
   const [c, as, u] = await admin(async (a) => Promise.all([
     getDoc(doc(a, `classes/${classId}`)), getDoc(doc(a, `classes/${classId}/assignments/${assignmentId}`)), getDoc(doc(a, `users/${stu.uid}`)),
   ]));
-  expect(c.data().submitted === 1 && as.data().completed === 1 && as.data().avgScore === 7.5 && u.data().totalCompletedAssignments === 1, 'counters');
+  expect(c.data().submitted === 1 && as.data().completed === 1 && as.data().scoreSum === 7.5 && u.data().totalCompletedAssignments === 1, 'counters');
 });
 await t('giáo viên nhận thông báo nộp bài', async () => {
   const s = await getDocs(query(collection(db(teacher.uid), 'notifications'), where('userId', '==', teacher.uid)));
@@ -251,6 +254,117 @@ await t('điểm tự báo bị giới hạn (1000 điểm/2 câu → 20) khi h�
   }));
   const r = await api('/api/duels/d2/finish', stu.token, {});
   expect(r.data.myScore === 20 && r.data.opponentScore === 30 && r.data.outcome === 'lose', JSON.stringify(r.data));
+});
+
+// ---------- Đồng thời (nhiều request/transaction cùng lúc) ----------
+console.log('\nĐồng thời');
+
+const N = 30;
+const crowd = await Promise.all(Array.from({ length: N }, (_, i) => signUp(`crowd${i}@test.dev`)));
+await admin(async (a) => {
+  for (const [i, u] of crowd.entries()) {
+    await setDoc(doc(a, `users/${u.uid}`), { uid: u.uid, role: 'student', onboarded: true, points: 0, grade: 5, name: `HS${i}` });
+  }
+  await setDoc(doc(a, 'classes/big'), {
+    id: 'big', name: 'Lớp đông', grade: 5, code: 'BIG001', teacherId: teacher.uid, studentIds: [], studentCount: 0,
+    submitted: 0, totalAssignments: 1, totalExpectedSubmissions: N, avgScore: 0, isActive: true,
+  });
+  await setDoc(doc(a, 'classes/big/assignments/bt'), {
+    id: 'bt', classId: 'big', title: 'Kiểm tra', completed: 0, avgScore: 0, total: N,
+    settings: { showScoreImmediate: true }, questions: questions.map(({ correctAnswer, ...q }) => q),
+  });
+  await setDoc(doc(a, 'classes/big/answerKeys/bt'), {
+    questions: questions.map((q) => ({ id: q.id, type: q.type, correctAnswer: q.correctAnswer ?? null, points: q.points })),
+  });
+});
+
+await t(`${N} học sinh cùng vào lớp một lúc (transaction phía client) → đủ ${N} người`, async () => {
+  // Giống joinClass trong classService: đọc thường rồi ghi batch arrayUnion + increment
+  await Promise.all(crowd.map(async (u) => {
+    const d = db(u.uid);
+    const c = await getDoc(doc(d, 'classes/big'));
+    if (c.data().studentIds.includes(u.uid)) return;
+    const batch = writeBatch(d);
+    batch.update(doc(d, 'classes/big'), { studentIds: arrayUnion(u.uid), studentCount: increment(1) });
+    batch.set(doc(d, `users/${u.uid}`), { enrolledClasses: arrayUnion('big') }, { merge: true });
+    await batch.commit();
+  }));
+  const c = await admin((a) => getDoc(doc(a, 'classes/big')));
+  expect(c.data().studentIds.length === N && c.data().studentCount === N, `có ${c.data().studentIds.length}`);
+});
+
+await t(`${N} học sinh cùng nộp bài một lúc → không request nào lỗi, thống kê khớp`, async () => {
+  // Nửa lớp làm đúng hết (10 điểm), nửa lớp bỏ trống (0 điểm) → trung bình 5
+  const results = await Promise.all(crowd.map((u, i) =>
+    api('/api/assignments/submit', u.token, { classId: 'big', assignmentId: 'bt', answers: i % 2 === 0 ? { 1: 1, 2: [1, 2], 3: '4' } : {} })));
+  const failed = results.filter((r) => r.status !== 200);
+  expect(failed.length === 0, `${failed.length} lỗi: ${JSON.stringify(failed[0]?.data)}`);
+  const [as, c] = await admin((a) => Promise.all([getDoc(doc(a, 'classes/big/assignments/bt')), getDoc(doc(a, 'classes/big'))]));
+  expect(as.data().completed === N && c.data().submitted === N, `completed=${as.data().completed} submitted=${c.data().submitted}`);
+  expect(Math.abs(as.data().scoreSum / as.data().completed - 3.75) < 0.05, `avg=${as.data().scoreSum / as.data().completed}`);
+});
+
+await t('một học sinh bấm nộp 5 lần cùng lúc → chỉ 1 lần được ghi', async () => {
+  await admin(async (a) => {
+    await setDoc(doc(a, 'classes/big/assignments/bt2'), { id: 'bt2', classId: 'big', title: 'BT2', completed: 0, avgScore: 0, settings: {}, questions: [] });
+  });
+  const rs = await Promise.all(Array.from({ length: 5 }, () => api('/api/assignments/submit', crowd[0].token, { classId: 'big', assignmentId: 'bt2', answers: {} })));
+  const ok = rs.filter((r) => r.status === 200).length;
+  const as = await admin((a) => getDoc(doc(a, 'classes/big/assignments/bt2')));
+  expect(ok === 1 && as.data().completed === 1, `ok=${ok} completed=${as.data().completed} statuses=${rs.map((r) => r.status)}`);
+});
+
+await t('gửi hoàn thành bài học 5 lần cùng lúc → chỉ cộng điểm 1 lần', async () => {
+  const u = crowd[1];
+  const rs = await Promise.all(Array.from({ length: 5 }, () => api('/api/lessons/complete', u.token, { lessonId: 2, topic, answers: answersAllRight })));
+  const awarded = rs.filter((r) => r.data.pointsAwarded > 0).length;
+  const user = await admin((a) => getDoc(doc(a, `users/${u.uid}`)));
+  expect(awarded === 1 && user.data().points === 1000, `awarded=${awarded} points=${user.data().points} statuses=${rs.map((r) => r.status)}`);
+});
+
+await t('cả hai người chơi gọi kết thúc trận nhiều lần cùng lúc → LP chỉ tính 1 lần', async () => {
+  const [p1, p2] = [crowd[2], crowd[3]];
+  await admin((a) => setDoc(doc(a, 'activeDuels/race'), {
+    ...duelDoc('race'), player1Id: p1.uid, player2Id: p2.uid,
+    startedAt: new Date(Date.now() - 301_000), createdAt: new Date(Date.now() - 301_000),
+    player1Score: 50, player1Progress: 5, player2Score: 10, player2Progress: 5,
+  }));
+  const rs = await Promise.all(Array.from({ length: 8 }, (_, i) => api('/api/duels/race/finish', (i % 2 ? p2 : p1).token, {})));
+  const bad = rs.filter((r) => r.status !== 200);
+  expect(bad.length === 0, `${bad.length} lỗi: ${JSON.stringify(bad[0]?.data)}`);
+  const [r1, r2] = await admin((a) => Promise.all([getDoc(doc(a, `userRanks/${p1.uid}`)), getDoc(doc(a, `userRanks/${p2.uid}`))]));
+  expect(r1.data().wins === 1 && r1.data().lp === 20 && r2.data().losses === 1, `p1=${JSON.stringify(r1.data())}`);
+  expect(rs.every((r) => r.data.lpChange === (r.data.outcome === 'win' ? 20 : -15)), 'kết quả trả về không nhất quán');
+});
+
+await t('6 người cùng ghép trận một lúc → không ai bị ghép vào 2 trận', async () => {
+  const players = crowd.slice(10, 16);
+  await Promise.all(players.map((u) => setDoc(doc(db(u.uid), `duelQueue/${u.uid}`), {
+    userId: u.uid, status: 'waiting', grade: 5, createdAt: serverTimestamp(), updatedAt: serverTimestamp(),
+  })));
+  // Giống vòng claim trong findOpponentForDuel: thử lần lượt từng đối thủ
+  const pairs = [];
+  await Promise.all(players.map(async (me) => {
+    const d = db(me.uid);
+    for (const opp of players) {
+      if (opp.uid === me.uid) continue;
+      try {
+        const ok = await runTransaction(d, async (tx) => {
+          const oppRef = doc(d, `duelQueue/${opp.uid}`);
+          const myRef = doc(d, `duelQueue/${me.uid}`);
+          const [o, m] = await Promise.all([tx.get(oppRef), tx.get(myRef)]);
+          if (!o.exists() || !m.exists()) return false;
+          tx.delete(oppRef);
+          tx.delete(myRef);
+          return true;
+        });
+        if (ok) { pairs.push([me.uid, opp.uid]); return; }
+      } catch { /* hết lượt thử do tranh chấp: thử đối thủ khác */ }
+    }
+  }));
+  const seen = pairs.flat();
+  expect(new Set(seen).size === seen.length, `có người bị ghép 2 lần: ${JSON.stringify(pairs)}`);
+  expect(pairs.length >= 1, 'không ghép được cặp nào');
 });
 
 // ---------- Kết thúc ----------
