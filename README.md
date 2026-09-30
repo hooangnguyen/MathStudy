@@ -6,7 +6,7 @@
 
 - **Frontend:** React 19, Vite 6, Tailwind CSS 4, TypeScript, PWA
 - **Backend:** Express (`server.ts`), phục vụ API và file tĩnh
-- **Dữ liệu và đăng nhập:** Firebase (Firestore, Authentication, Storage)
+- **Dữ liệu và đăng nhập:** Firebase (Firestore, Authentication) + Firebase Admin SDK ở server
 - **AI:** Google Gemini (`@google/genai`)
 - **Hiển thị công thức toán:** KaTeX, MathLive
 
