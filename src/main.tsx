@@ -18,10 +18,12 @@ const shouldSuppress = (arg: any) => {
         arg instanceof Error ? arg.message :
           JSON.stringify(arg)
     ).toLowerCase();
+    // Chỉ lọc lỗi do tiện ích ví crypto chèn vào trang. Không lọc các cụm chung chung
+    // như "failed to connect"/"extension" vì sẽ nuốt mất lỗi thật (vd. mất kết nối Firestore).
     return errorString.includes('metamask') ||
-      errorString.includes('failed to connect') ||
       errorString.includes('coinbase') ||
-      errorString.includes('extension');
+      errorString.includes('chrome-extension://') ||
+      errorString.includes('moz-extension://');
   } catch (e) {
     return false;
   }

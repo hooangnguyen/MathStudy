@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { doc, getDoc, setDoc, updateDoc, serverTimestamp, collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, serverTimestamp, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 
 export interface Achievement {
     id: string;
@@ -128,12 +128,13 @@ export const awardAchievement = async (uid: string, achievement: Omit<Achievemen
 export const getTopUsers = async (limitCount: number = 50, type: 'solo' | 'multiplayer' = 'solo'): Promise<UserProfile[]> => {
     try {
         const usersRef = collection(db, 'users');
-        // Get all users and sort in memory (no index needed)
-        const q = query(usersRef);
+        // Chỉ đọc nhóm điểm cao nhất thay vì toàn bộ collection users.
+        // Lấy dư (x2) vì giáo viên cũng nằm trong collection và bị lọc ở dưới;
+        // orderBy một field dùng index mặc định nên không cần tạo composite index.
+        const q = query(usersRef, orderBy('points', 'desc'), limit(limitCount * 2));
 
         const querySnapshot = await getDocs(q);
 
-        // Get all users, filter by role, then sort by points in memory
         const students = querySnapshot.docs
             .map(doc => ({ uid: doc.id, ...doc.data() } as UserProfile))
             .filter(user => user.role === 'student')
@@ -185,20 +186,14 @@ export const updateProgress = async (uid: string, lessonId: number, score: numbe
  */
 export const setUserOnline = async (uid: string, isOnline: boolean) => {
     try {
-        const userRef = doc(db, 'users', uid);
-        const userDoc = await getDoc(userRef);
-
-        if (!userDoc.exists()) {
-            // User document doesn't exist yet (new user), skip updating
-            console.log('User document not found, skipping online status update');
-            return;
-        }
-
-        await updateDoc(userRef, {
+        // Gọi update trực tiếp (không đọc trước) để tiết kiệm 1 lượt đọc mỗi lần heartbeat.
+        // updateDoc tự báo lỗi not-found nếu user chưa có document (user mới) → bỏ qua.
+        await updateDoc(doc(db, 'users', uid), {
             isOnline,
             lastActive: serverTimestamp()
         });
-    } catch (error) {
+    } catch (error: any) {
+        if (error?.code === 'not-found') return;
         console.error('Error updating online status:', error);
     }
 };

@@ -21,6 +21,7 @@ import { MathRenderer } from '../../components/common/MathRenderer';
 import { saveAIConsultation, getAIConsultationsByUserId } from '../../services/dataService';
 import { isBase64Image, uploadChatImage } from '../../services/avatarService';
 import { getAuthHeaders } from '../../services/authService';
+import { compressImage } from '../../utils/image';
 
 interface ChatProps {
   conversationId: string;
@@ -152,14 +153,16 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
     };
   }, []);
 
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    e.target.value = ''; // cho phép chọn lại cùng một ảnh
+    if (!file) return;
+    try {
+      // Nén ảnh để vừa giới hạn 1 MiB/document của Firestore
+      setSelectedImage(await compressImage(file));
+    } catch (error) {
+      console.error('Error processing image:', error);
+      alert('Không thể xử lý ảnh này. Vui lòng chọn ảnh khác.');
     }
   };
 

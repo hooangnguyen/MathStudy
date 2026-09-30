@@ -1,4 +1,3 @@
-import { storage } from '../config/firebase';
 // Firebase Storage is bypassed since the user does not have a billing account.
 // We will store compressed Base64 strings directly in Firestore instead.
 
