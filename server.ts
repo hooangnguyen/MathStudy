@@ -1,40 +1,118 @@
 import express from "express";
-import http from "http";
-import { Server } from "socket.io";
+import type { Request, Response, NextFunction } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import crypto from "crypto";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import fs from "fs";
-import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
+import { createRemoteJWKSet, jwtVerify } from "jose";
 
 dotenv.config();
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
 
 const app = express();
-const server = http.createServer(app);
+// Chạy sau reverse proxy (Render/Docker) để req.ip là IP thật của người dùng
+app.set("trust proxy", 1);
 
 // Cấu hình PORT cho Render hoặc mặc định 3000 cho Local
 const PORT = process.env.PORT || 3000;
 const isDev = process.env.NODE_ENV === "development" || (!process.env.RENDER && process.env.NODE_ENV !== "production");
 
-const io = new Server(server, {
-  cors: {
-    origin: "*", // Khi có domain chính thức, bạn nên thay "*" bằng URL của Render
-    methods: ["GET", "POST"],
-  },
-});
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+// Ảnh chụp bài toán gửi lên dạng base64 nên cần giới hạn lớn hơn mặc định,
+// nhưng không để quá rộng để tránh bị gửi payload khổng lồ.
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
+
+// ---------- Rate limiting (in-memory, đủ cho 1 instance) ----------
+
+const rateBuckets = new Map<string, { count: number; resetAt: number }>();
+
+/** Trả về true nếu `key` vẫn còn trong hạn mức `max` lần mỗi `windowMs`. */
+function allowRequest(key: string, max: number, windowMs: number): boolean {
+  const now = Date.now();
+  const bucket = rateBuckets.get(key);
+  if (!bucket || now > bucket.resetAt) {
+    rateBuckets.set(key, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+  bucket.count++;
+  return bucket.count <= max;
+}
+
+// Dọn các bucket đã hết hạn để Map không phình mãi
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, bucket] of rateBuckets) {
+    if (now > bucket.resetAt) rateBuckets.delete(key);
+  }
+}, 10 * 60 * 1000).unref();
+
+function rateLimit(name: string, max: number, windowMs: number, keyOf: (req: Request) => string = (req) => req.ip || "unknown") {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (!allowRequest(`${name}:${keyOf(req)}`, max, windowMs)) {
+      return res.status(429).json({ success: false, error: "Bạn thao tác quá nhanh, vui lòng thử lại sau." });
+    }
+    next();
+  };
+}
+
+// ---------- Xác thực Firebase ID token ----------
+
+function loadFirebaseProjectId(): string {
+  if (process.env.FIREBASE_PROJECT_ID) return process.env.FIREBASE_PROJECT_ID;
+  try {
+    const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, "firebase-applet-config.json"), "utf-8"));
+    return config.projectId;
+  } catch {
+    throw new Error("Thiếu FIREBASE_PROJECT_ID hoặc file firebase-applet-config.json");
+  }
+}
+
+const FIREBASE_PROJECT_ID = loadFirebaseProjectId();
+const firebaseJwks = createRemoteJWKSet(
+  new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com")
+);
+
+type AuthedRequest = Request & { uid?: string };
+
+/** Chỉ cho phép request kèm Firebase ID token hợp lệ (header Authorization: Bearer <token>). */
+async function requireAuth(req: AuthedRequest, res: Response, next: NextFunction) {
+  const header = req.headers.authorization || "";
+  const token = header.startsWith("Bearer ") ? header.slice(7) : "";
+  if (!token) {
+    return res.status(401).json({ success: false, error: "Bạn cần đăng nhập để dùng tính năng này." });
+  }
+  try {
+    const { payload } = await jwtVerify(token, firebaseJwks, {
+      issuer: `https://securetoken.google.com/${FIREBASE_PROJECT_ID}`,
+      audience: FIREBASE_PROJECT_ID,
+    });
+    if (!payload.sub) throw new Error("Token không có uid");
+    req.uid = payload.sub;
+    next();
+  } catch {
+    res.status(401).json({ success: false, error: "Phiên đăng nhập không hợp lệ hoặc đã hết hạn." });
+  }
+}
+
+// ---------- OTP qua email ----------
+
+const OTP_TTL_MS = 5 * 60 * 1000;
+const OTP_MAX_ATTEMPTS = 5;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // OTP Store (In-memory for simplicity)
-const otpStore = new Map<string, { otp: string, expires: number }>();
+const otpStore = new Map<string, { otp: string; expires: number; attempts: number }>();
+
+// Ưu tiên biến không có tiền tố VITE_ (tiền tố VITE_ có nguy cơ bị nhúng vào bundle phía client)
+const GMAIL_USER = process.env.GMAIL_USER || process.env.VITE_GMAIL_USER;
+const GMAIL_PASS = process.env.GMAIL_PASS || process.env.VITE_GMAIL_PASS;
 
 // Cấu hình Nodemailer tối ưu cho Production
 const transporter = nodemailer.createTransport({
@@ -43,141 +121,61 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true, // Sử dụng SSL
   auth: {
-    user: process.env.VITE_GMAIL_USER,
-    pass: process.env.VITE_GMAIL_PASS // Đây phải là App Password 16 ký tự
+    user: GMAIL_USER,
+    pass: GMAIL_PASS // Đây phải là App Password 16 ký tự
   }
 });
 
-// In-memory state for demo
-let waitingPlayer: { id: string; name: string } | null = null;
-const activeDuels = new Map();
-const leaderboard = [
-  { name: "Lê Hoàng", wins: 45 },
-  { name: "Trần Thảo", wins: 38 },
-  { name: "Phạm Hùng", wins: 32 },
-];
-
-io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
-
-  socket.on("join_queue", (data) => {
-    const playerName = data.name || "Người chơi ẩn danh";
-
-    if (waitingPlayer && waitingPlayer.id !== socket.id) {
-      // Match found!
-      const duelId = `duel_${Date.now()}`;
-      const opponent = waitingPlayer;
-      waitingPlayer = null;
-
-      const problems = generateProblems(10);
-
-      socket.join(duelId);
-      io.to(opponent.id).emit("match_found", {
-        duelId,
-        opponent: { name: playerName },
-        problems
-      });
-
-      socket.emit("match_found", {
-        duelId,
-        opponent: { name: opponent.name },
-        problems
-      });
-
-      activeDuels.set(duelId, {
-        players: [
-          { id: socket.id, name: playerName, score: 0, finished: false },
-          { id: opponent.id, name: opponent.name, score: 0, finished: false }
-        ]
-      });
-    } else {
-      waitingPlayer = { id: socket.id, name: playerName };
-      socket.emit("waiting_for_opponent");
-    }
-  });
-
-  socket.on("submit_answer", (data) => {
-    const { duelId, score, finished } = data;
-    const duel = activeDuels.get(duelId);
-
-    if (duel) {
-      const player = duel.players.find((p: any) => p.id === socket.id);
-      if (player) {
-        player.score = score;
-        player.finished = finished;
-
-        // Broadcast update to the other player
-        socket.to(duelId).emit("opponent_update", { score, finished });
-
-        if (duel.players.every((p: any) => p.finished)) {
-          const winner = duel.players.reduce((prev: any, current: any) =>
-            (prev.score > current.score) ? prev : current
-          );
-          io.to(duelId).emit("duel_end", { winner: winner.name });
-          activeDuels.delete(duelId);
-        }
-      }
-    }
-  });
-
-  socket.on("disconnect", () => {
-    if (waitingPlayer?.id === socket.id) {
-      waitingPlayer = null;
-    }
-  });
-});
-
-function generateProblems(count: number) {
-  const problems = [];
-  for (let i = 0; i < count; i++) {
-    const a = Math.floor(Math.random() * 20) + 1;
-    const b = Math.floor(Math.random() * 20) + 1;
-    const op = ["+", "-", "*"][Math.floor(Math.random() * 3)];
-    let question = `${a} ${op} ${b}`;
-    let answer = 0;
-    if (op === "+") answer = a + b;
-    if (op === "-") answer = a - b;
-    if (op === "*") answer = a * b;
-    problems.push({ question, answer });
-  }
-  return problems;
-}
+const normalizeEmail = (email: unknown) => (typeof email === "string" ? email.trim().toLowerCase() : "");
 
 // OTP Endpoints
-app.post("/api/send-otp", async (req, res) => {
-  const { email } = req.body;
-  if (!email) return res.status(400).json({ error: "Email is required" });
+app.post(
+  "/api/send-otp",
+  rateLimit("otp-ip", 10, 60 * 60 * 1000),
+  rateLimit("otp-email", 3, 10 * 60 * 1000, (req) => normalizeEmail(req.body?.email)),
+  async (req, res) => {
+    const email = normalizeEmail(req.body?.email);
+    if (!email || !EMAIL_RE.test(email)) return res.status(400).json({ error: "Email không hợp lệ" });
 
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  const expires = Date.now() + 5 * 60 * 1000;
+    const otp = crypto.randomInt(100000, 1000000).toString();
+    otpStore.set(email, { otp, expires: Date.now() + OTP_TTL_MS, attempts: 0 });
 
-  otpStore.set(email, { otp, expires });
-
-  try {
-    await transporter.sendMail({
-      from: `"Math Study" <${process.env.VITE_GMAIL_USER}>`, // Dùng chính mail gửi để tránh bị spam filter
-      to: email,
-      subject: "Mã xác thực đăng ký MathStudy",
-      html: `<div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+    try {
+      await transporter.sendMail({
+        from: `"Math Study" <${GMAIL_USER}>`, // Dùng chính mail gửi để tránh bị spam filter
+        to: email,
+        subject: "Mã xác thực đăng ký MathStudy",
+        html: `<div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
           <h2 style="color: #4f46e5;">Chào mừng bạn đến với Math Study!</h2>
           <p>Mã xác thực OTP của bạn là:</p>
           <div style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #4f46e5; margin: 20px 0;">${otp}</div>
           <p style="color: #666; font-size: 12px;">Mã này sẽ hết hạn trong 5 phút.</p>
         </div>`
-    });
-    console.log(`OTP sent to ${email}`);
-    res.json({ message: "OTP sent successfully" });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).json({ error: "Could not send OTP email" });
+      });
+      console.log("OTP email sent");
+      res.json({ message: "OTP sent successfully" });
+    } catch (error) {
+      otpStore.delete(email);
+      console.error("Error sending email:", error);
+      res.status(500).json({ error: "Could not send OTP email" });
+    }
   }
-});
+);
 
-app.post("/api/verify-otp", (req, res) => {
-  const { email, otp } = req.body;
+app.post("/api/verify-otp", rateLimit("otp-verify-ip", 30, 10 * 60 * 1000), (req, res) => {
+  const email = normalizeEmail(req.body?.email);
+  const otp = typeof req.body?.otp === "string" ? req.body.otp.trim() : String(req.body?.otp ?? "");
   const stored = otpStore.get(email);
 
-  if (!stored || stored.otp !== otp || Date.now() > stored.expires) {
+  if (!stored || Date.now() > stored.expires) {
+    otpStore.delete(email);
+    return res.status(400).json({ error: "Mã OTP không hợp lệ hoặc đã hết hạn" });
+  }
+
+  if (stored.otp !== otp) {
+    // Khoá mã sau vài lần nhập sai để chống dò mã
+    stored.attempts++;
+    if (stored.attempts >= OTP_MAX_ATTEMPTS) otpStore.delete(email);
     return res.status(400).json({ error: "Mã OTP không hợp lệ hoặc đã hết hạn" });
   }
 
@@ -185,10 +183,23 @@ app.post("/api/verify-otp", (req, res) => {
   res.json({ success: true });
 });
 
+// ---------- AI endpoints: bắt buộc đăng nhập + giới hạn tần suất theo user ----------
+
+app.use(
+  "/api/ai",
+  requireAuth,
+  rateLimit("ai-user", 20, 60 * 1000, (req) => (req as AuthedRequest).uid || req.ip || "unknown")
+);
+
 // Assignment Generation Endpoint
 app.post("/api/ai/generate-questions", async (req, res) => {
   try {
-    const { topic, grade, count, difficulty, types } = req.body;
+    const { topic, grade, difficulty } = req.body;
+    const count = Math.min(Math.max(parseInt(req.body.count, 10) || 5, 1), 30);
+
+    if (typeof topic !== "string" || !topic.trim() || topic.length > 200) {
+      return res.status(400).json({ success: false, error: "Chủ đề không hợp lệ" });
+    }
 
     const systemPrompt = `Bạn là một chuyên gia soạn đề kiểm tra Toán cho học sinh từ Lớp 1 đến Lớp 9.
 Hãy tạo ${count} câu hỏi về chủ đề "${topic}" dành cho Lớp ${grade} với độ khó "${difficulty}".
@@ -250,6 +261,10 @@ app.post("/api/ai/chat", async (req, res) => {
   try {
     const { message, image, grade } = req.body;
 
+    if (message !== undefined && (typeof message !== "string" || message.length > 4000)) {
+      return res.status(400).json({ success: false, error: "Tin nhắn quá dài" });
+    }
+
     // Create system prompt based on grade
     const systemPrompt = `Bạn là một gia sư Toán thông minh tại ứng dụng MathStudy. 
 Học sinh hiện tại là học sinh lớp ${grade || 'chưa xác định'}. Hãy giải bài toán bằng phương pháp phù hợp với chương trình lớp này.
@@ -300,6 +315,7 @@ Yêu cầu bắt buộc:
 // Cấu hình phục vụ frontend
 if (isDev) {
   console.log("Running in DEVELOPMENT mode with Vite middleware");
+  const { createServer: createViteServer } = await import("vite");
   const vite = await createViteServer({
     server: { middlewareMode: true },
     appType: "custom",
@@ -335,6 +351,6 @@ if (isDev) {
 }
 
 // Khởi chạy server
-server.listen(Number(PORT), "0.0.0.0", () => {
+app.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });

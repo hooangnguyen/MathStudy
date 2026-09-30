@@ -20,6 +20,7 @@ import { getUserProfile, getOnlineStatus, blockUser } from '../../services/userS
 import { MathRenderer } from '../../components/common/MathRenderer';
 import { saveAIConsultation, getAIConsultationsByUserId } from '../../services/dataService';
 import { isBase64Image, uploadChatImage } from '../../services/avatarService';
+import { getAuthHeaders } from '../../services/authService';
 
 interface ChatProps {
   conversationId: string;
@@ -195,7 +196,8 @@ export const Chat: React.FC<ChatProps> = ({ conversationId, onClose, onShowProfi
       const res = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...(await getAuthHeaders())
         },
         body: JSON.stringify({
           message: userMsgText,

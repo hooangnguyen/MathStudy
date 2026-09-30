@@ -29,7 +29,7 @@ export const MathEquationEditor = forwardRef<MathFieldHandle, MathEquationEditor
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const selectionRef = useRef({ start: 0, end: 0 });
-  const blurTimeoutRef = useRef<NodeJS.Timeout>();
+  const blurTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useImperativeHandle(ref, () => ({
     focus: () => {
