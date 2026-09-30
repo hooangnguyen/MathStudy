@@ -2,49 +2,264 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // ---------- Helpers ----------
+
     function isAuthenticated() {
       return request.auth != null;
     }
 
-    function isOwner(userId) {
-      return isAuthenticated() && request.auth.uid == userId;
+    function uid() {
+      return request.auth.uid;
     }
+
+    function isOwner(userId) {
+      return isAuthenticated() && uid() == userId;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Chỉ các field trong `keys` được phép thay đổi trong lần update này
+    function onlyChanges(keys) {
+      return incoming().diff(existing()).affectedKeys().hasOnly(keys);
+    }
+
+    function userRole() {
+      return get(/databases/$(database)/documents/users/$(uid())).data.get('role', '');
+    }
+
+    function classData(classId) {
+      return get(/databases/$(database)/documents/classes/$(classId)).data;
+    }
+
+    function isTeacherOf(classId) {
+      return isAuthenticated() && classData(classId).teacherId == uid();
+    }
+
+    function isStudentOf(classId) {
+      return isAuthenticated() && uid() in classData(classId).get('studentIds', []);
+    }
+
+    function isClassMember(classId) {
+      return isTeacherOf(classId) || isStudentOf(classId);
+    }
+
+    // ---------- Users ----------
 
     match /users/{userId} {
       allow read: if isAuthenticated();
-      allow create, update: if isOwner(userId);
-      
+
+      // Tài khoản mới không được tự đặt điểm/chuỗi ngày
+      allow create: if isOwner(userId)
+        && (!('role' in incoming()) || incoming().role in ['student', 'teacher'])
+        && incoming().get('points', 0) == 0
+        && incoming().get('streak', 0) == 0;
+
+      // Vai trò chỉ được chọn một lần (trong lúc onboarding), sau đó bị khoá
+      allow update: if isOwner(userId)
+        && (!('role' in incoming()) || incoming().role in ['student', 'teacher'])
+        && (
+          existing().get('onboarded', false) != true
+          || incoming().get('role', null) == existing().get('role', null)
+        );
+
+      allow delete: if false;
+
       match /achievements/{achievementId} {
         allow read: if isAuthenticated();
         allow write: if isOwner(userId);
       }
     }
 
+    // ---------- Nội dung tĩnh ----------
+
     match /curriculum/{document=**} {
       allow read: if isAuthenticated();
-      allow write: if false; 
+      allow write: if false;
     }
 
+    // ---------- Thông báo ----------
+
     match /notifications/{noteId} {
-      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
-      allow write: if isAuthenticated();
+      allow read: if isAuthenticated() && existing().userId == uid();
+
+      // Bất kỳ người dùng nào cũng có thể gửi thông báo (GV -> HS, HS -> GV),
+      // nhưng phải đúng cấu trúc và ở trạng thái chưa đọc.
+      allow create: if isAuthenticated()
+        && incoming().keys().hasOnly(['id', 'userId', 'type', 'title', 'message', 'metadata', 'read', 'createdAt'])
+        && incoming().id == noteId
+        && incoming().userId is string
+        && incoming().read == false
+        && incoming().type in ['duel', 'system', 'achievement', 'ai', 'submission', 'student_join', 'assignment'];
+
+      // Người nhận chỉ được đánh dấu đã đọc
+      allow update: if isAuthenticated() && existing().userId == uid() && onlyChanges(['read']);
+      allow delete: if isAuthenticated() && existing().userId == uid();
     }
+
+    // ---------- Lớp học ----------
+
+    match /classes/{classId} {
+      // Học sinh cần tra cứu lớp theo mã để tham gia
+      allow read: if isAuthenticated();
+
+      allow create: if isAuthenticated()
+        && userRole() == 'teacher'
+        && incoming().teacherId == uid()
+        && incoming().id == classId
+        && incoming().studentIds.size() == 0;
+
+      allow update: if isAuthenticated() && (
+        // Giáo viên chủ nhiệm: toàn quyền, trừ việc đổi chủ lớp
+        (existing().teacherId == uid() && incoming().teacherId == existing().teacherId)
+        // Học sinh tham gia lớp: chỉ được thêm chính mình
+        || (
+          onlyChanges(['studentIds', 'studentCount'])
+          && !(uid() in existing().studentIds)
+          && incoming().studentIds.hasAll(existing().studentIds)
+          && incoming().studentIds.size() == existing().studentIds.size() + 1
+          && uid() in incoming().studentIds
+          && incoming().studentCount == incoming().studentIds.size()
+        )
+        // Học sinh nộp bài: chỉ tăng bộ đếm bài nộp thêm 1
+        || (
+          onlyChanges(['submitted'])
+          && uid() in existing().studentIds
+          && incoming().submitted == existing().get('submitted', 0) + 1
+        )
+      );
+
+      allow delete: if isAuthenticated() && existing().teacherId == uid();
+
+      match /assignments/{assignmentId} {
+        allow read: if isClassMember(classId);
+        allow create, delete: if isTeacherOf(classId);
+
+        allow update: if isTeacherOf(classId)
+          // Học sinh nộp bài: cập nhật số bài đã nộp và điểm trung bình
+          || (
+            isStudentOf(classId)
+            && onlyChanges(['completed', 'avgScore'])
+            && incoming().completed == existing().get('completed', 0) + 1
+          );
+
+        match /submissions/{studentId} {
+          allow read: if isTeacherOf(classId) || isOwner(studentId);
+
+          // Mỗi học sinh chỉ nộp một lần, cho chính mình
+          allow create: if isOwner(studentId)
+            && isStudentOf(classId)
+            && incoming().id == studentId;
+
+          // Chỉ giáo viên được chấm/sửa điểm
+          allow update, delete: if isTeacherOf(classId);
+          allow create: if isTeacherOf(classId);
+        }
+      }
+    }
+
+    // ---------- Bản nháp đề bài (của giáo viên) ----------
+
+    match /drafts/{draftId} {
+      allow read: if isAuthenticated() && existing().teacherId == uid();
+      allow create: if isAuthenticated() && incoming().teacherId == uid();
+      allow update: if isAuthenticated()
+        && existing().teacherId == uid()
+        && incoming().teacherId == uid();
+      allow delete: if isAuthenticated() && existing().teacherId == uid();
+    }
+
+    // ---------- Nhắn tin ----------
+
+    match /conversations/{conversationId} {
+      allow read: if isAuthenticated() && uid() in existing().participants;
+
+      allow create: if isAuthenticated()
+        && incoming().participants.size() == 2
+        && uid() in incoming().participants;
+
+      allow update: if isAuthenticated()
+        && uid() in existing().participants
+        && incoming().participants == existing().participants;
+
+      allow delete: if isAuthenticated() && uid() in existing().participants;
+
+      function isParticipant() {
+        return isAuthenticated()
+          && uid() in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants;
+      }
+
+      match /messages/{messageId} {
+        allow read: if isParticipant();
+        allow create: if isParticipant() && incoming().senderId == uid();
+        allow update: if isParticipant() && incoming().senderId == existing().senderId;
+        allow delete: if isParticipant();
+      }
+    }
+
+    // ---------- Gia sư AI ----------
+
+    match /ai_consultations/{consultationId} {
+      allow read: if isAuthenticated() && existing().userId == uid();
+      allow create: if isAuthenticated() && incoming().userId == uid();
+      allow update, delete: if false;
+    }
+
+    // ---------- Đấu toán ----------
 
     match /matches/{matchId} {
       allow read: if isAuthenticated();
-      allow create: if isAuthenticated();
+      allow create: if isAuthenticated()
+        && (incoming().player1Id == uid() || incoming().player2Id == uid());
     }
 
-    match /classes/{classId} {
-      allow read, write: if isAuthenticated();
+    match /duelRooms/{roomId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated()
+        && incoming().hostId == uid()
+        && incoming().currentPlayers == [uid()];
+
+      // Người trong phòng, hoặc người đang tham gia vào phòng
+      allow update: if isAuthenticated()
+        && incoming().hostId == existing().hostId
+        && (uid() in existing().currentPlayers || uid() in incoming().currentPlayers);
+
+      allow delete: if isAuthenticated() && existing().hostId == uid();
     }
 
-    match /classes/{classId}/{document=**} {
-      allow read, write: if isAuthenticated();
+    match /duelQueue/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(userId) && incoming().userId == userId;
+      // Ghép trận xoá cả hàng chờ của đối thủ (hoặc người chơi "ma")
+      allow delete: if isAuthenticated();
     }
 
-    match /drafts/{draftId} {
-      allow read, write: if isAuthenticated();
+    match /activeDuels/{duelId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated()
+        && (incoming().player1Id == uid() || incoming().player2Id == uid());
+      allow update: if isAuthenticated()
+        && (existing().player1Id == uid() || existing().player2Id == uid())
+        && incoming().player1Id == existing().player1Id
+        && incoming().player2Id == existing().player2Id;
+      allow delete: if false;
+    }
+
+    match /duelMatches/{matchId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated()
+        && (incoming().player1Id == uid() || incoming().player2Id == uid());
+      allow update, delete: if false;
+    }
+
+    match /userRanks/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
     }
   }
 }

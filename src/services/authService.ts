@@ -1,3 +1,5 @@
+import { auth } from '../config/firebase';
+
 export const sendOTP = async (email: string) => {
     const response = await fetch('/api/send-otp', {
         method: 'POST',
@@ -14,4 +16,13 @@ export const verifyOTP = async (email: string, otp: string) => {
         body: JSON.stringify({ email, otp }),
     });
     return response.json();
+};
+
+/**
+ * Header chứa Firebase ID token của người dùng hiện tại.
+ * Server yêu cầu header này cho các API cần đăng nhập (ví dụ /api/ai/*).
+ */
+export const getAuthHeaders = async (): Promise<Record<string, string>> => {
+    const token = await auth.currentUser?.getIdToken();
+    return token ? { Authorization: `Bearer ${token}` } : {};
 };

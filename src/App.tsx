@@ -193,6 +193,12 @@ export default function App() {
     }
   }, [userProfile]);
 
+  // Tab được khôi phục từ sessionStorage có thể thuộc tài khoản trước đó (vd. học sinh);
+  // giáo viên không có tab Đối kháng nên đưa về trang chủ.
+  useEffect(() => {
+    if (userRole === 'teacher' && activeTab === 'duel') setTab('home');
+  }, [userRole, activeTab, setTab]);
+
   // Warm up next screens in background after login
   useEffect(() => {
     if (!isAuthReady || !user || !userRole) return;
@@ -210,27 +216,26 @@ export default function App() {
   }, [isAuthReady, user, userRole]);
 
   // Global notification sound listener
+  // Đọc preferences qua ref để không phải huỷ/đăng ký lại listener mỗi khi đổi cài đặt
+  const preferencesRef = React.useRef(userData?.preferences);
+  useEffect(() => {
+    preferencesRef.current = userData?.preferences;
+  }, [userData?.preferences]);
+
   useEffect(() => {
     if (!user) return;
-    let prevUnreadCount = 0;
+    let prevUnreadCount: number | null = null; // null = chưa nhận snapshot đầu tiên
     const unsubscribe = subscribeToNotifications(user.uid, (data) => {
       const currentUnreadCount = data.filter(n => !n.read).length;
-      if (currentUnreadCount > prevUnreadCount && prevUnreadCount > 0) {
-        // Only play sound if the number of UNREAD notifications actually increased
-        // and it's not the initial load (prevUnreadCount > 0 prevents sound on login)
-        audioService.playNotification(userData?.preferences);
+      // Không phát âm thanh ở lần tải đầu (khi đăng nhập), chỉ khi số chưa đọc tăng lên
+      if (prevUnreadCount !== null && currentUnreadCount > prevUnreadCount) {
+        audioService.playNotification(preferencesRef.current);
       }
-      // Initialize prevUnreadCount to current count on first load, or update it
-      // if it's the first load (0 to X), we just set the baseline without playing.
-      if (prevUnreadCount === 0 && currentUnreadCount > 0) {
-          prevUnreadCount = currentUnreadCount;
-      } else {
-          prevUnreadCount = currentUnreadCount;
-      }
+      prevUnreadCount = currentUnreadCount;
     });
 
     return () => unsubscribe();
-  }, [user, userData?.preferences]);
+  }, [user]);
 
   // Apply Global Styles based on Preferences
   useEffect(() => {
@@ -296,6 +301,7 @@ export default function App() {
         await setUserOnline(user.uid, false);
       }
       await signOut(auth);
+      setTab('home');
       setIsLoggedIn(false);
       setUserRole(null);
       setShowSettings(false);

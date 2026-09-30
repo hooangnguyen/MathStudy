@@ -12,6 +12,29 @@ export default defineConfig(({mode}) => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
+        workbox: {
+          // Ngân hàng câu hỏi (~1,2 MB cho 9 lớp) không tải trước lúc cài PWA,
+          // mỗi học sinh chỉ cần lớp của mình → cache khi dùng tới.
+          globIgnores: ['**/assets/grade*-*.js'],
+          runtimeCaching: [
+            {
+              urlPattern: ({ url }) => /\/assets\/grade\d+-.*\.js$/.test(url.pathname),
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'question-banks',
+                expiration: { maxEntries: 20 },
+              },
+            },
+            {
+              urlPattern: ({ url }) => /\/assets\/KaTeX_.*\.(woff2?|ttf)$/.test(url.pathname),
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'katex-fonts',
+                expiration: { maxEntries: 60 },
+              },
+            },
+          ],
+        },
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-192x192.svg', 'pwa-512x512.svg'],
         manifest: {
           name: 'Math Study',
@@ -33,7 +56,21 @@ export default defineConfig(({mode}) => {
         }
       })
     ],
-    define: {
+    build: {
+      // vendor-firebase (~620 kB) là SDK Firebase, không chia nhỏ thêm được
+      chunkSizeWarningLimit: 700,
+      rollupOptions: {
+        output: {
+          // Tách thư viện ít thay đổi ra chunk riêng để trình duyệt giữ cache
+          // qua các lần deploy (chỉ code app thay đổi mới phải tải lại).
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return;
+            if (id.includes('/@firebase/') || id.includes('/firebase/')) return 'vendor-firebase';
+            if (/\/node_modules\/(react|react-dom|scheduler)\//.test(id)) return 'vendor-react';
+            if (/\/node_modules\/(motion|framer-motion|motion-dom|motion-utils)\//.test(id)) return 'vendor-motion';
+          },
+        },
+      },
     },
     resolve: {
       alias: {
@@ -45,11 +82,7 @@ export default defineConfig(({mode}) => {
       // Do not modifyâ€”file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
       proxy: {
-        '/api': 'http://localhost:3000',
-        '/socket.io': {
-          target: 'http://localhost:3000',
-          ws: true
-        }
+        '/api': 'http://localhost:3000'
       }
     },
   };

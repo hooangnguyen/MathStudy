@@ -8,7 +8,8 @@ import {
     orderBy,
     getDoc,
     runTransaction,
-    getDocs
+    getDocs,
+    where
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { sendNotification } from './notificationService';
@@ -311,16 +312,18 @@ export const saveDraftAssignment = async (
 
 export const subscribeToDraftAssignments = (teacherId: string, callback: (drafts: DraftAssignmentData[]) => void) => {
     const draftsRef = collection(db, 'drafts');
-    const q = query(draftsRef, orderBy('createdAt', 'desc'));
+    // Lọc theo teacherId ngay trong query (bắt buộc theo firestore.rules),
+    // sắp xếp ở client để không cần composite index.
+    const q = query(draftsRef, where('teacherId', '==', teacherId));
 
     return onSnapshot(q, (snapshot) => {
         const drafts: DraftAssignmentData[] = [];
         snapshot.forEach((doc) => {
-            const data = doc.data() as DraftAssignmentData;
-            if (data.teacherId === teacherId) {
-                drafts.push(data);
-            }
+            drafts.push(doc.data() as DraftAssignmentData);
         });
+        // Bản nháp vừa tạo (createdAt còn chờ server) được xếp lên đầu
+        const toMillis = (t: any) => t?.toMillis?.() ?? Number.MAX_SAFE_INTEGER;
+        drafts.sort((a, b) => toMillis(b.createdAt) - toMillis(a.createdAt));
         callback(drafts);
     }, (error) => {
         console.error("Error subscribing to drafts:", error);

@@ -36,6 +36,8 @@ COPY --from=builder /app/dist ./dist
 
 # Copy file server chạy backend
 COPY server.ts ./
+# Server đọc projectId từ file này để xác thực Firebase ID token
+COPY firebase-applet-config.json ./
 COPY tsconfig.json ./
 
 # Mở port 3000

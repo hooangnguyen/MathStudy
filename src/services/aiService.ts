@@ -1,3 +1,5 @@
+import { getAuthHeaders } from './authService';
+
 export interface AIGeneratedQuestion {
   type: string;
   text: string;
@@ -44,6 +46,7 @@ YÊU CẦU BẮT BUỘC:
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...(await getAuthHeaders()),
       },
       body: JSON.stringify({
         topic,

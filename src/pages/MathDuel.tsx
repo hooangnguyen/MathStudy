@@ -272,22 +272,6 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
 
 
-  // Simulate student progress for teacher view
-  useEffect(() => {
-    if (state === 'room_playing' && userRole === 'teacher') {
-      const interval = setInterval(() => {
-        setRoomPlayers(prev => prev.map(p => {
-          // Randomly increase score/progress
-          if (Math.random() > 0.6 && (p.progress || 0) < questions.length) {
-            return { ...p, score: (p.score || 0) + 10, progress: (p.progress || 0) + 1 };
-          }
-          return p;
-        }).sort((a, b) => (b.score || 0) - (a.score || 0)));
-      }, 2000);
-      return () => clearInterval(interval);
-    }
-  }, [state, userRole]);
-
   // Questions for duel - loaded from data files
   const questions = duelQuestions.length > 0 ? duelQuestions.map(q => ({
     q: q.text || q.question || '',
@@ -467,7 +451,10 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
     if (currentState === 'result' || currentState === 'lobby') return;
 
-    // Immediately set state to result to prevent re-triggering
+    // Cập nhật ref ngay lập tức: timer, snapshot của đối thủ và snapshot của chính
+    // mình (completeRealDuel) có thể cùng gọi hàm này trước khi React render lại,
+    // khiến LP bị cộng/trừ hai lần.
+    stateRef.current = { ...stateRef.current, state: 'result' };
     setState('result');
 
     if (!user || !opponentInfo) {

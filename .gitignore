@@ -6,3 +6,11 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# File tạm / nháp khi phát triển
+scratch/
+scratch.js
+*.bak
+*.tsbuildinfo
+tsc_out.txt
+lint_output.txt
