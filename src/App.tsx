@@ -24,7 +24,7 @@ import { cn } from './utils/utils';
 import { useFirebase } from './context/FirebaseProvider';
 import { signOut } from 'firebase/auth';
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
-import { getUserProfile, saveUserProfile, getAchievements, Achievement, UserPreferences, updateProgress } from './services/userService';
+import { getUserProfile, saveUserProfile, getAchievements, Achievement, UserPreferences, completeLesson } from './services/userService';
 import { subscribeToNotifications, Notification } from './services/notificationService';
 import { audioService } from './utils/audio';
 
@@ -654,36 +654,32 @@ export default function App() {
                   setCurrentTopic(null);
                   setCurrentLessonId(null);
                 }}
-                onComplete={async (score) => {
+                onComplete={async (_score, answers) => {
                   const lessonIdToSave = currentLessonId;
-                  const uid = user?.uid;
+                  const topicToSave = currentTopic;
 
                   // Clear UI state immediately
                   setCurrentLesson(null);
                   setCurrentTopic(null);
                   setCurrentLessonId(null);
 
-                  if (uid && lessonIdToSave !== null) {
-                    // Optimistic Update
-                    setUserData(prev => {
-                      if (!prev) return null;
-                      const alreadyCompleted = prev.completedLessons || [];
-                      if (alreadyCompleted.includes(lessonIdToSave)) return prev;
-                      return {
-                        ...prev,
-                        completedLessons: [...alreadyCompleted, lessonIdToSave],
-                        points: (prev.points || 0) + (score * 10)
-                      };
-                    });
+                  // Bài demo (không có chủ đề) không tính điểm
+                  if (!user || lessonIdToSave === null || !topicToSave) return;
 
-                    try {
-                      console.log(`Saving progress: Lesson ${lessonIdToSave}, Score ${score}`);
-                      await updateProgress(uid, lessonIdToSave, score);
-                      await authContext.refreshProfile();
-                      console.log("Progress saved and profile refreshed.");
-                    } catch (error) {
-                      console.error("Error saving progress:", error);
+                  try {
+                    // Server chấm và cộng điểm; hiển thị theo kết quả server trả về
+                    const result = await completeLesson(lessonIdToSave, topicToSave, answers);
+                    if (!result.alreadyCompleted) {
+                      setUserData(prev => prev ? {
+                        ...prev,
+                        completedLessons: [...(prev.completedLessons || []), lessonIdToSave],
+                        points: (prev.points || 0) + result.pointsAwarded
+                      } : null);
                     }
+                    await authContext.refreshProfile();
+                  } catch (error: any) {
+                    console.error("Error saving progress:", error);
+                    alert(error?.message || 'Không lưu được kết quả bài học, vui lòng thử lại.');
                   }
                 }}
               />

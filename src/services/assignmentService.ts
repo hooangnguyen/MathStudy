@@ -13,13 +13,15 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { sendNotification } from './notificationService';
+import { postApi } from './apiClient';
 
 export interface QuestionData {
     id: number;
     type: string;
     text: string;
     options: string[];
-    correctAnswer?: number;
+    // Chỉ có trong bản nháp và answerKeys; đề giao cho học sinh không chứa đáp án
+    correctAnswer?: any;
     points: number;
 }
 
@@ -83,6 +85,17 @@ export const createAssignment = async (
             classId
         };
 
+        // Đáp án lưu riêng trong answerKeys (chỉ giáo viên đọc được, server dùng để chấm);
+        // đề bài học sinh nhận được không kèm correctAnswer.
+        const answerKeyRef = doc(classRef, 'answerKeys', newAssignmentRef.id);
+        const answerKey = questions.map(q => ({
+            id: q.id,
+            type: q.type,
+            correctAnswer: q.correctAnswer ?? null,
+            points: q.points
+        }));
+        const publicQuestions = questions.map(({ correctAnswer, ...rest }) => rest);
+
         await runTransaction(db, async (transaction) => {
             const classDoc = await transaction.get(classRef);
             if (!classDoc.exists()) throw new Error("Class not found");
@@ -96,7 +109,8 @@ export const createAssignment = async (
                 totalAssignments: currentTotal + 1,
                 totalExpectedSubmissions: currentExpected + totalStudents
             });
-            transaction.set(newAssignmentRef, assignmentData);
+            transaction.set(newAssignmentRef, { ...assignmentData, questions: publicQuestions });
+            transaction.set(answerKeyRef, { questions: answerKey });
 
             // Send notifications to all students in the class
             for (const studentId of studentIds) {
@@ -143,93 +157,16 @@ export interface SubmissionData {
     gradedAt?: any;
 }
 
+/**
+ * Nộp bài: server chấm theo đáp án và lưu kết quả.
+ * `answers` là map questionId -> câu trả lời. Trả về điểm nếu bài cho xem điểm ngay.
+ */
 export const submitAssignment = async (
     classId: string,
     assignmentId: string,
-    studentId: string,
-    studentName: string,
-    answers: any[],
-    score: number
-) => {
-    try {
-        await runTransaction(db, async (transaction) => {
-            const classRef = doc(db, 'classes', classId);
-            const assignmentRef = doc(db, 'classes', classId, 'assignments', assignmentId);
-            const submissionRef = doc(assignmentRef, 'submissions', studentId);
-            const userRef = doc(db, 'users', studentId);
-
-            // 1. READ OPERATIONS FIRST
-            const [classDoc, assignmentDoc, submissionDoc, userDoc] = await Promise.all([
-                transaction.get(classRef),
-                transaction.get(assignmentRef),
-                transaction.get(submissionRef),
-                transaction.get(userRef)
-            ]);
-
-            if (!assignmentDoc.exists()) {
-                throw new Error("Assignment does not exist!");
-            }
-
-            if (submissionDoc.exists()) {
-                throw new Error("Student has already submitted this assignment.");
-            }
-
-            const assignmentData = assignmentDoc.data() as AssignmentData;
-
-            // 2. PREPARE DATA
-            const submissionData: SubmissionData = {
-                id: studentId,
-                studentName,
-                score,
-                answers,
-                submittedAt: serverTimestamp()
-            };
-
-            const oldCompleted = assignmentData.completed || 0;
-            const oldAvg = assignmentData.avgScore || 0;
-            const newCompleted = oldCompleted + 1;
-            const newAvg = Number((((oldAvg * oldCompleted) + score) / newCompleted).toFixed(1));
-
-            // 3. WRITE OPERATIONS LAST
-            transaction.set(submissionRef, submissionData);
-            transaction.update(assignmentRef, {
-                completed: newCompleted,
-                avgScore: newAvg
-            });
-
-            // Update user profile totalCompletedAssignments
-            if (userDoc.exists()) {
-                const userData = userDoc.data();
-                transaction.update(userRef, {
-                    totalCompletedAssignments: (userData.totalCompletedAssignments || 0) + 1
-                });
-            }
-
-            if (classDoc.exists()) {
-                const classData = classDoc.data();
-                const currentSubmitted = classData.submitted || 0;
-                const teacherId = classData.teacherId;
-
-                transaction.update(classRef, {
-                    submitted: currentSubmitted + 1
-                });
-
-                // Send notification to the teacher
-                if (teacherId) {
-                    sendNotification(
-                        teacherId,
-                        'submission',
-                        'Nộp bài mới',
-                        `Học sinh ${studentName} vừa nộp bài cho "${assignmentData.title}"`,
-                        { classId, assignmentId, studentId }
-                    ).catch(err => console.error("Error sending teacher notification:", err));
-                }
-            }
-        });
-    } catch (error) {
-        console.error('Transaction failed: ', error);
-        throw error;
-    }
+    answers: Record<string, any>
+): Promise<{ showScore: boolean; score?: number }> => {
+    return postApi('/api/assignments/submit', { classId, assignmentId, answers });
 };
 
 // Map of assignmentId -> SubmissionData

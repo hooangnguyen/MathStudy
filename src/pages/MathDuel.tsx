@@ -14,15 +14,13 @@ import {
   joinDuelQueue,
   leaveDuelQueue,
   subscribeToDuelQueue,
-  saveDuelMatch,
-  updateUserRank,
   UserRank,
   DuelMatch,
   RANKS,
   updateDuelScore,
   subscribeToDuel,
   createRealDuel,
-  completeRealDuel,
+  finishQuickDuel,
   findOpponentForDuel,
   createDuelRoom,
   joinDuelRoom,
@@ -64,6 +62,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [matchOutcome, setMatchOutcome] = useState<'win' | 'lose' | 'draw' | null>(null);
   const [opponentSurrendered, setOpponentSurrendered] = useState(false);
+  const [lpDelta, setLpDelta] = useState<number | null>(null);
+  const correctCountRef = React.useRef(0);
 
   // Common Refs to prevent stale closure bugs
   const stateRef = React.useRef({ state, score, currentQuestion });
@@ -259,6 +259,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
         setTimeLeft(room.timeLimit);
         setCurrentQuestion(0);
         setScore({ player: 0, opponent: 0 });
+        correctCountRef.current = 0;
         setMatchOutcome(null);
         setOpponentSurrendered(false);
         const otherUid = room.currentPlayers.find((uid) => uid !== user?.uid);
@@ -344,6 +345,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
             setTimeLeft(300);
             setCurrentQuestion(0);
             setScore({ player: 0, opponent: 0 });
+        correctCountRef.current = 0;
             setMatchOutcome(null);
             setOpponentSurrendered(false);
             setIsWaitingForOpponent(false);
@@ -384,6 +386,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
           setTimeLeft(300);
           setCurrentQuestion(0);
           setScore({ player: 0, opponent: 0 });
+        correctCountRef.current = 0;
           setMatchOutcome(null);
           setOpponentSurrendered(false);
           setIsWaitingForOpponent(false);
@@ -444,76 +447,38 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     };
   }, [state, currentDuelId, isPlayer1, user?.uid]);
 
-  // Handle duel end - save results to database
-  const handleDuelEnd = async (finalOpponentScore?: number, forceIsWin?: boolean) => {
+  // Handle duel end - server tính kết quả và LP chính thức
+  const handleDuelEnd = async (finalOpponentScore?: number, forceIsWin?: boolean, surrender = false) => {
     const currentScore = stateRef.current.score;
     const currentState = stateRef.current.state;
 
     if (currentState === 'result' || currentState === 'lobby') return;
 
-    // Cập nhật ref ngay lập tức: timer, snapshot của đối thủ và snapshot của chính
-    // mình (completeRealDuel) có thể cùng gọi hàm này trước khi React render lại,
-    // khiến LP bị cộng/trừ hai lần.
+    // Cập nhật ref ngay lập tức: timer và các snapshot có thể cùng gọi hàm này
+    // trước khi React render lại.
     stateRef.current = { ...stateRef.current, state: 'result' };
     setState('result');
 
-    if (!user || !opponentInfo) {
-      setState('result');
-      return;
-    }
+    if (!user || !opponentInfo) return;
 
+    // Kết quả tạm thời để hiển thị ngay, sẽ được thay bằng kết quả từ server
     const finalOppScore = finalOpponentScore ?? currentScore.opponent;
     const isWin = forceIsWin !== undefined ? forceIsWin : currentScore.player > finalOppScore;
     const isDraw = forceIsWin !== undefined ? false : currentScore.player === finalOppScore;
-    const currentLP = userRank?.lp || 0;
-    const userName = userProfile?.name || user.displayName || 'Người chơi';
+    setMatchOutcome(isWin ? 'win' : isDraw ? 'draw' : 'lose');
+    setLpDelta(null);
+    if (forceIsWin === true) setOpponentSurrendered(true);
 
-    if (isWin) setMatchOutcome('win');
-    else if (isDraw) setMatchOutcome('draw');
-    else setMatchOutcome('lose');
-
-    if (forceIsWin === true) {
-      setOpponentSurrendered(true);
-    }
-
-    // Calculate LP change
-    let lpChange = 0;
-    if (isWin) {
-      lpChange = 20;
-    } else if (isDraw) {
-      lpChange = 5;
-    } else {
-      lpChange = -15;
-    }
-
-    // Save match result
+    if (!currentDuelId) return;
     try {
-      // Only player1 writes global match data to prevent duplicates
-      if (isPlayer1 && currentDuelId) {
-        await completeRealDuel(currentDuelId);
-        
-        await saveDuelMatch(
-          currentDuelId,
-          user.uid,
-          userName,
-          opponentInfo.id,
-          opponentInfo.name,
-          currentScore.player,
-          finalOppScore,
-          isWin ? user.uid : (isDraw ? undefined : opponentInfo.id),
-          isDraw,
-          'quick',
-          lpChange
-        );
-      }
-
-      // Update user rank (save grade so class leaderboard works)
-      await updateUserRank(user.uid, userName, isWin, isDraw, currentLP, userProfile?.grade, userProfile?.avatar);
+      const result = await finishQuickDuel(currentDuelId, surrender);
+      setMatchOutcome(result.outcome);
+      setLpDelta(result.lpChange);
+      setScore({ player: result.myScore, opponent: result.opponentScore });
+      getUserRank(user.uid).then(setUserRank).catch(() => { });
     } catch (error) {
       console.error('Error saving duel result:', error);
     }
-
-    setState('result');
   };
 
   const handleAnswer = async (ans: string, optIndex: number = -1) => {
@@ -524,6 +489,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                       (ans && currentQ.options[currentQ.correctAnswer] === ans);
     
     if (isCorrect) {
+      correctCountRef.current += 1;
       newScore += 10;
       setScore(prev => ({ ...prev, player: newScore }));
       audioService.playCorrect(userProfile?.preferences);
@@ -535,8 +501,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
 
     // Sync score to Firestore
     if (currentDuelId && user) {
-      const correctCount = Math.floor(newScore / 10);
-      updateDuelScore(currentDuelId, user.uid, isPlayer1, newScore, currentQuestion + 1, correctCount);
+      // Đếm trực tiếp số câu đúng (không suy ra từ điểm vì câu sai bị trừ 5 điểm)
+      updateDuelScore(currentDuelId, user.uid, isPlayer1, newScore, currentQuestion + 1, correctCountRef.current);
     }
 
     if (currentQuestion < questions.length - 1) {
@@ -610,13 +576,8 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
     if (exitDuelToken > 0) {
       const { state: currentState, score: currentScore, currentQuestion: progress } = stateRef.current;
       if (currentState === 'playing') {
-        if (currentDuelId && user) {
-          import('../services/duelService').then(({ surrenderDuel }) => {
-            surrenderDuel(currentDuelId, user.uid).catch(() => {});
-          });
-        }
-        // Pass forceIsWin = false so they always lose when surrendering
-        handleDuelEnd(currentScore.opponent, false);
+        // Đầu hàng: luôn tính thua; server ghi nhận surrenderedBy và tính LP
+        handleDuelEnd(currentScore.opponent, false, true);
       } else if (currentState === 'room_playing') {
         if (roomId && user) {
           updateRoomProgress(roomId, user.uid, currentScore.player, progress + 1, true).catch(() => { });
@@ -1137,7 +1098,7 @@ export const MathDuel: React.FC<MathDuelProps> = ({ userRole, initialState = 'lo
                 {matchOutcome === 'win' ? "CHIẾN THẮNG!" : matchOutcome === 'draw' ? "HÒA NHAU!" : "THẤT BẠI!"}
               </h2>
               <p className="text-slate-500 font-bold">
-                {matchOutcome === 'win' ? "+20 Điểm Xếp Hạng (LP)" : matchOutcome === 'draw' ? "+5 Điểm Xếp Hạng (LP)" : "-15 Điểm Xếp Hạng (LP)"}
+                {lpDelta === null ? 'Đang cập nhật điểm xếp hạng...' : `${lpDelta > 0 ? '+' : ''}${lpDelta} Điểm Xếp Hạng (LP)`}
               </p>
             </div>
 

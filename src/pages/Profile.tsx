@@ -242,7 +242,7 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile, use
                   const opponentScore = duel.player1Id === userId ? duel.player2Score : duel.player1Score;
                   const opponentName = duel.player1Id === userId ? duel.player2Name : duel.player1Name;
                   const resultLabel = isDraw ? 'Hòa' : isWin ? 'Thắng' : 'Thua';
-                  const lpChange = duel.lpChange || 0;
+                  const lpChange = duel.lpChanges?.[userId] ?? duel.lpChange ?? 0;
 
                   return (
                     <motion.div

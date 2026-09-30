@@ -7,7 +7,10 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import fs from "fs";
 import { GoogleGenAI } from "@google/genai";
-import { createRemoteJWKSet, jwtVerify } from "jose";
+import { requireAuth, requireAdmin, type AuthedRequest } from "./server/http";
+import { assignmentsRouter } from "./server/assignments";
+import { lessonsRouter } from "./server/lessons";
+import { duelsRouter } from "./server/duels";
 
 dotenv.config();
 
@@ -60,45 +63,6 @@ function rateLimit(name: string, max: number, windowMs: number, keyOf: (req: Req
     }
     next();
   };
-}
-
-// ---------- Xác thực Firebase ID token ----------
-
-function loadFirebaseProjectId(): string {
-  if (process.env.FIREBASE_PROJECT_ID) return process.env.FIREBASE_PROJECT_ID;
-  try {
-    const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, "firebase-applet-config.json"), "utf-8"));
-    return config.projectId;
-  } catch {
-    throw new Error("Thiếu FIREBASE_PROJECT_ID hoặc file firebase-applet-config.json");
-  }
-}
-
-const FIREBASE_PROJECT_ID = loadFirebaseProjectId();
-const firebaseJwks = createRemoteJWKSet(
-  new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com")
-);
-
-type AuthedRequest = Request & { uid?: string };
-
-/** Chỉ cho phép request kèm Firebase ID token hợp lệ (header Authorization: Bearer <token>). */
-async function requireAuth(req: AuthedRequest, res: Response, next: NextFunction) {
-  const header = req.headers.authorization || "";
-  const token = header.startsWith("Bearer ") ? header.slice(7) : "";
-  if (!token) {
-    return res.status(401).json({ success: false, error: "Bạn cần đăng nhập để dùng tính năng này." });
-  }
-  try {
-    const { payload } = await jwtVerify(token, firebaseJwks, {
-      issuer: `https://securetoken.google.com/${FIREBASE_PROJECT_ID}`,
-      audience: FIREBASE_PROJECT_ID,
-    });
-    if (!payload.sub) throw new Error("Token không có uid");
-    req.uid = payload.sub;
-    next();
-  } catch {
-    res.status(401).json({ success: false, error: "Phiên đăng nhập không hợp lệ hoặc đã hết hạn." });
-  }
 }
 
 // ---------- OTP qua email ----------
@@ -190,6 +154,15 @@ app.use(
   requireAuth,
   rateLimit("ai-user", 20, 60 * 1000, (req) => (req as AuthedRequest).uid || req.ip || "unknown")
 );
+
+// ---------- Chấm điểm phía server (bài tập, bài học, LP đấu toán) ----------
+
+const perUser = (name: string, max: number) =>
+  rateLimit(name, max, 60 * 1000, (req) => (req as AuthedRequest).uid || req.ip || "unknown");
+
+app.use("/api/assignments", requireAuth, requireAdmin, perUser("assignments", 20), assignmentsRouter);
+app.use("/api/lessons", requireAuth, requireAdmin, perUser("lessons", 20), lessonsRouter);
+app.use("/api/duels", requireAuth, requireAdmin, perUser("duels", 30), duelsRouter);
 
 // Assignment Generation Endpoint
 app.post("/api/ai/generate-questions", async (req, res) => {

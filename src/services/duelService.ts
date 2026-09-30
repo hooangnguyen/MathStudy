@@ -16,6 +16,7 @@ import {
     runTransaction
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { postApi, ApiError } from './apiClient';
 
 export const RANKS = {
     bronze: { name: 'Đồng', color: 'text-amber-700', bg: 'bg-amber-100', border: 'border-amber-700' },
@@ -64,7 +65,8 @@ export interface DuelMatch {
     player2Score: number;
     winnerId?: string | null;
     isDraw: boolean;
-    lpChange?: number; // LP change for ranked
+    lpChange?: number; // LP change for ranked (góc nhìn player1)
+    lpChanges?: { [uid: string]: number }; // LP thay đổi của từng người chơi
     gameMode: 'quick' | 'room' | 'ranked';
     createdAt: any;
 }
@@ -93,34 +95,8 @@ export const generateNumericRoomCode = (): string => {
     return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-// Get rank tier based on LP
-export const getRankTier = (lp: number): UserRank['rankTier'] => {
-    if (lp >= 1000) return 'challenger';
-    if (lp >= 750) return 'diamond';
-    if (lp >= 500) return 'platinum';
-    if (lp >= 250) return 'gold';
-    if (lp >= 100) return 'silver';
-    return 'bronze';
-};
-
-// Calculate LP gain/loss based on rank difference
-export const calculateLPChange = (winnerLP: number, loserLP: number, isDraw: boolean): number => {
-    if (isDraw) return 5; // Small LP for draw
-
-    // Base LP gain
-    let lpChange = 20;
-
-    // Bonus for beating higher ranked player
-    const lpDiff = winnerLP - loserLP;
-    if (lpDiff < -200) {
-        lpChange += 15; // Underdog bonus
-    } else if (lpDiff > 200) {
-        lpChange -= 10; // Less points for beating lower ranked
-    }
-
-    // Cap at reasonable values
-    return Math.max(5, Math.min(35, lpChange));
-};
+// Luật LP dùng chung với server (server là nơi tính chính thức)
+export { getRankTier, calculateLPChange } from '../../shared/rank';
 
 // Create a new duel room
 export const createDuelRoom = async (
@@ -209,111 +185,6 @@ export const finishDuel = async (
         finishedAt: serverTimestamp(),
         winnerId
     });
-};
-
-// Save duel match result
-export const saveDuelMatch = async (
-    roomId: string,
-    player1Id: string,
-    player1Name: string,
-    player2Id: string,
-    player2Name: string,
-    player1Score: number,
-    player2Score: number,
-    winnerId: string | null | undefined,
-    isDraw: boolean,
-    gameMode: 'quick' | 'room' | 'ranked' = 'room',
-    lpChange?: number
-): Promise<DuelMatch> => {
-    const matchRef = doc(collection(db, 'duelMatches'));
-    const matchId = matchRef.id;
-
-    const match: DuelMatch = {
-        id: matchId,
-        roomId,
-        player1Id,
-        player1Name,
-        player2Id,
-        player2Name,
-        player1Score,
-        player2Score,
-        winnerId: winnerId ?? null,
-        isDraw,
-        lpChange,
-        gameMode,
-        createdAt: serverTimestamp()
-    };
-
-    await setDoc(matchRef, match);
-    return match;
-};
-
-// Update user rank after match
-export const updateUserRank = async (
-    userId: string,
-    username: string,
-    isWin: boolean,
-    isDraw: boolean,
-    currentLP: number,
-    grade?: number,
-    avatar?: string
-): Promise<number> => {
-    const userRankRef = doc(db, 'userRanks', userId);
-    const rankDoc = await getDoc(userRankRef);
-
-    let newLP = currentLP;
-    let lpChange = 0;
-
-    if (rankDoc.exists()) {
-        const rankData = rankDoc.data() as UserRank;
-
-        if (isWin) {
-            // Simulated opponent LP (in real app, get from match)
-            const opponentLP = Math.max(0, currentLP + (Math.random() > 0.5 ? 50 : -50));
-            lpChange = calculateLPChange(currentLP, opponentLP, false);
-            newLP = Math.max(0, currentLP + lpChange);
-        } else if (isDraw) {
-            newLP = Math.max(0, currentLP + 5);
-        } else {
-            lpChange = -calculateLPChange(currentLP, currentLP + 50, false);
-            newLP = Math.max(0, currentLP + lpChange);
-        }
-
-        const newTier = getRankTier(newLP);
-        const newStreak = isWin ? rankData.streak + 1 : 0;
-
-        await updateDoc(userRankRef, {
-            lp: newLP,
-            rankTier: newTier,
-            wins: isWin ? increment(1) : rankData.wins,
-            losses: !isWin && !isDraw ? increment(1) : rankData.losses,
-            draws: isDraw ? increment(1) : rankData.draws,
-            streak: newStreak,
-            maxStreak: Math.max(rankData.maxStreak, newStreak),
-            ...(grade !== undefined && { grade }),
-            ...(avatar && { avatar })
-        });
-    } else {
-        // Create new rank document
-        lpChange = isWin ? 20 : (isDraw ? 5 : -15);
-        newLP = Math.max(0, currentLP + lpChange);
-
-        await setDoc(userRankRef, {
-            uid: userId,
-            username,
-            lp: newLP,
-            rankTier: getRankTier(newLP),
-            wins: isWin ? 1 : 0,
-            losses: (!isWin && !isDraw) ? 1 : 0,
-            draws: isDraw ? 1 : 0,
-            streak: isWin ? 1 : 0,
-            maxStreak: isWin ? 1 : 0,
-            ...(grade !== undefined && { grade }),
-            ...(avatar && { avatar })
-        });
-    }
-
-    return lpChange;
 };
 
 // Get user rank
@@ -646,21 +517,23 @@ export const subscribeToDuel = (
     });
 };
 
-// Finish real-time duel
-export const completeRealDuel = async (duelId: string): Promise<void> => {
-    await updateDoc(doc(db, 'activeDuels', duelId), {
-        status: 'finished',
-        finishedAt: serverTimestamp()
-    });
-};
-
-// Surrender real-time duel
-export const surrenderDuel = async (duelId: string, userId: string): Promise<void> => {
-    await updateDoc(doc(db, 'activeDuels', duelId), {
-        status: 'finished',
-        surrenderedBy: userId,
-        finishedAt: serverTimestamp()
-    });
+/**
+ * Kết thúc trận đấu nhanh: server tính kết quả, cập nhật LP cho cả hai người chơi
+ * và lưu lịch sử. Gọi lại nhiều lần vẫn an toàn (trả về kết quả đã lưu).
+ * Server trả 409 nếu trận chưa hết giờ (đồng hồ lệch nhẹ) → thử lại vài lần.
+ */
+export const finishQuickDuel = async (
+    duelId: string,
+    surrender = false
+): Promise<{ outcome: 'win' | 'lose' | 'draw'; lpChange: number; myScore: number; opponentScore: number }> => {
+    for (let attempt = 0; ; attempt++) {
+        try {
+            return await postApi(`/api/duels/${duelId}/finish`, { surrender });
+        } catch (error) {
+            if (!(error instanceof ApiError) || error.status !== 409 || attempt >= 4) throw error;
+            await new Promise(resolve => setTimeout(resolve, 3000));
+        }
+    }
 };
 
 // Join duel queue

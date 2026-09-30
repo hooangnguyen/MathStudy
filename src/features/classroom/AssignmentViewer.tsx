@@ -49,36 +49,6 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
         }
     };
 
-    const calculateScore = () => {
-        let score = 0;
-        let totalPoints = 0;
-
-        questions.forEach(q => {
-            totalPoints += q.points;
-            const studentAnswer = answers[q.id];
-
-            if (q.type === 'multiple_choice' && studentAnswer === q.correctAnswer) {
-                score += q.points;
-            } else if (q.type === 'checkbox') {
-                const correctArr = Array.isArray(q.correctAnswer) ? q.correctAnswer : [q.correctAnswer];
-                const studentArr = Array.isArray(studentAnswer) ? studentAnswer : [];
-
-                // Check if arrays are equal (ignoring order)
-                const isCorrect = correctArr.length === studentArr.length &&
-                    correctArr.every(val => studentArr.includes(val));
-                if (isCorrect) score += q.points;
-            } else if (q.type === 'short_answer') {
-                // Exact match (case insensitive, trimmed)
-                if (studentAnswer?.toString().trim().toLowerCase() === q.correctAnswer?.toString().trim().toLowerCase()) {
-                    score += q.points;
-                }
-            }
-            // Essay always needs manual grading
-        });
-
-        return totalPoints > 0 ? Number(((score / totalPoints) * 10).toFixed(1)) : 0;
-    };
-
     const handleSubmit = async () => {
         if (!user || isSubmitting) return;
 
@@ -90,36 +60,11 @@ export const AssignmentViewer: React.FC<AssignmentViewerProps> = ({ assignment, 
 
         setIsSubmitting(true);
         try {
-            const score = calculateScore();
-            const studentName = user.displayName || 'Học sinh ẩn danh';
+            // Server chấm điểm theo đáp án (học sinh không nhận được đáp án trước khi nộp)
+            const result = await submitAssignment(assignment.classId, assignment.id, answers);
 
-            const formattedAnswers = questions.map(q => ({
-                questionId: q.id,
-                questionText: q.text,
-                type: q.type,
-                options: q.options,
-                correctAnswer: q.correctAnswer,
-                answer: answers[q.id] !== undefined ? answers[q.id] : null,
-                isCorrect: q.type === 'multiple_choice'
-                    ? answers[q.id] === q.correctAnswer
-                    : q.type === 'checkbox'
-                        ? (Array.isArray(q.correctAnswer) && Array.isArray(answers[q.id]) &&
-                            q.correctAnswer.length === answers[q.id].length &&
-                            q.correctAnswer.every((val: any) => answers[q.id].includes(val)))
-                        : null
-            }));
-
-            await submitAssignment(
-                assignment.classId,
-                assignment.id,
-                user.uid,
-                studentName,
-                formattedAnswers,
-                score
-            );
-
-            if (assignment.settings?.showScoreImmediate) {
-                alert(`Nộp bài thành công! Điểm của bạn: ${score}/10`);
+            if (result.showScore && result.score !== undefined) {
+                alert(`Nộp bài thành công! Điểm của bạn: ${result.score}/10`);
             } else {
                 alert('Nộp bài thành công!');
             }
