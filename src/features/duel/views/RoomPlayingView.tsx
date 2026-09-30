@@ -66,6 +66,7 @@ export const RoomPlayingView: React.FC<{ duel: MathDuelController }> = ({ duel }
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-bold text-slate-900 text-sm">{player.name}</span>
+                      {player.offline && <span className="text-[10px] font-black text-rose-500 uppercase">Mất kết nối</span>}
                       <span className="font-black text-indigo-600 text-sm">{player.score || 0} điểm</span>
                     </div>
                     <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
@@ -130,6 +131,12 @@ export const RoomPlayingView: React.FC<{ duel: MathDuelController }> = ({ duel }
               </div>
             </div>
           </div>
+
+          {roomPlayers.some((p) => !p.isMe && p.offline) && (
+            <div className="bg-amber-50 text-amber-700 text-xs font-bold text-center py-2 px-4 shrink-0">
+              Đối thủ đang mất kết nối — trận vẫn tiếp tục, điểm của họ được giữ nguyên.
+            </div>
+          )}
 
           {/* Question Area */}
           <div className="flex-1 p-6 flex flex-col items-center justify-center space-y-12">

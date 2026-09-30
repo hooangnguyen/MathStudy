@@ -2,12 +2,12 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Play } from 'lucide-react';
 import { cn } from '../../../utils/utils';
-import { startDuel, leaveRoom } from '../../../services/duelService';
+import { startDuel } from '../../../services/duelService';
 import { getRandomQuestions } from '../../../utils/duelQuestions';
 import type { MathDuelController } from '../useMathDuel';
 
 export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {
-  const { user, userProfile, setState, roomId, setRoomId, roomCode, isHost, gameMode, roomPlayers, avatarMap } = duel;
+  const { userProfile, roomId, roomCode, isHost, gameMode, roomPlayers, avatarMap, hostOffline, leaveCurrentRoom } = duel;
 
   return (
     <motion.div
@@ -41,6 +41,9 @@ export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }
               <span className={cn("font-bold", player.isMe ? "text-indigo-600" : "text-slate-700")}>
                 {player.name}
               </span>
+              {player.offline && (
+                <span className="ml-auto text-[10px] font-black text-rose-500 uppercase">Mất kết nối</span>
+              )}
             </div>
           ))}
         </div>
@@ -65,14 +68,13 @@ export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }
               Đang chờ chủ phòng bắt đầu...
             </div>
           )}
+          {hostOffline && (
+            <div className="w-full bg-amber-50 text-amber-700 py-3 px-4 rounded-2xl font-bold text-xs text-center">
+              Chủ phòng đang mất kết nối. Bạn có thể chờ thêm hoặc rời phòng.
+            </div>
+          )}
           <button
-            onClick={async () => {
-              if (roomId && user) {
-                try { await leaveRoom(roomId, user.uid); } catch (_) { }
-              }
-              setRoomId(null);
-              setState('lobby');
-            }}
+            onClick={leaveCurrentRoom}
             className="w-full text-slate-400 font-bold text-sm hover:text-slate-600"
           >
             Rời phòng

@@ -66,3 +66,24 @@ describe('resumeQuickDuel', () => {
     expect(resumeQuickDuel({ ...duel, player1TimeLeftAtFinish: 12 }, 'p1', NOW)).toMatchObject({ finishedAll: true });
   });
 });
+
+import { findStalePlayers, STALE_AFTER_MS } from '../shared/presence';
+
+describe('findStalePlayers', () => {
+  const at = (ms: number) => ({ toMillis: () => ms });
+
+  it('người quá 90 giây không có tín hiệu (so với người mới nhất) là mất kết nối', () => {
+    const lastSeen = { a: at(1_000_000), b: at(1_000_000 - STALE_AFTER_MS - 1), c: at(1_000_000 - 30_000) };
+    expect(findStalePlayers(['a', 'b', 'c'], lastSeen)).toEqual(['b']);
+  });
+
+  it('không dựa vào giờ máy: cả phòng lệch giờ vẫn không ai bị coi là mất kết nối', () => {
+    const lastSeen = { a: at(5), b: at(3) };
+    expect(findStalePlayers(['a', 'b'], lastSeen)).toEqual([]);
+  });
+
+  it('chưa có tín hiệu hoặc tín hiệu đang chờ server → coi là còn kết nối', () => {
+    expect(findStalePlayers(['a', 'b'], { a: at(1_000_000), b: null })).toEqual([]);
+    expect(findStalePlayers(['a', 'b'], undefined)).toEqual([]);
+  });
+});

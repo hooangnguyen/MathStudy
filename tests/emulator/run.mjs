@@ -377,7 +377,7 @@ const roomDoc = (id, host, extra = {}) => ({
 });
 // Giống joinDuelRoom: arrayUnion + field path
 const joinRoom = (u, id) => updateDoc(doc(db(u.uid), `duelRooms/${id}`), {
-  currentPlayers: arrayUnion(u.uid), [`playerNames.${u.uid}`]: `HS ${u.uid.slice(0, 4)}`,
+  currentPlayers: arrayUnion(u.uid), [`playerNames.${u.uid}`]: `HS ${u.uid.slice(0, 4)}`, [`lastSeen.${u.uid}`]: serverTimestamp(),
 });
 
 await t(`${N - 1} học sinh cùng vào phòng Quiz một lúc → không ai bị ghi đè mất`, async () => {
@@ -405,6 +405,19 @@ await t('thành viên cập nhật tiến độ của mình', () => assertSuccee
 })));
 await t('KHÔNG sửa tiến độ người khác', () => assertFails(updateDoc(doc(db(quizMember.uid), 'duelRooms/quiz'), {
   [`participantProgress.${crowd[1].uid}`]: { score: 999, progress: 1, finished: true },
+})));
+await t('thành viên gửi tín hiệu còn kết nối của mình', () => assertSucceeds(updateDoc(doc(db(quizMember.uid), 'duelRooms/quiz'), {
+  [`lastSeen.${quizMember.uid}`]: serverTimestamp(),
+})));
+await t('KHÔNG giả tín hiệu kết nối của người khác', () => assertFails(updateDoc(doc(db(quizMember.uid), 'duelRooms/quiz'), {
+  [`lastSeen.${crowd[1].uid}`]: serverTimestamp(),
+})));
+await t('KHÔNG giả tín hiệu người khác khi vào phòng', () => assertFails(updateDoc(doc(db(crowd[N - 1].uid), 'duelRooms/quiz'), {
+  currentPlayers: arrayUnion(crowd[N - 1].uid), [`playerNames.${crowd[N - 1].uid}`]: 'x',
+  [`lastSeen.${crowd[N - 1].uid}`]: serverTimestamp(), [`lastSeen.${crowd[1].uid}`]: serverTimestamp(),
+})));
+await t('chủ phòng loại người mất kết nối', () => assertSucceeds(updateDoc(doc(db(teacher.uid), 'duelRooms/quiz'), {
+  currentPlayers: arrayRemove(crowd[3].uid),
 })));
 await t('KHÔNG đuổi người khác khỏi phòng', () => assertFails(updateDoc(doc(db(quizMember.uid), 'duelRooms/quiz'), {
   currentPlayers: arrayRemove(crowd[1].uid),

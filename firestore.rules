@@ -230,7 +230,8 @@ service cloud.firestore {
         || (
           existing().status == 'waiting'
           && !(uid() in existing().currentPlayers)
-          && onlyChanges(['currentPlayers', 'playerNames', 'guestId', 'guestName'])
+          && onlyChanges(['currentPlayers', 'playerNames', 'guestId', 'guestName', 'lastSeen'])
+          && incoming().get('lastSeen', {}).diff(existing().get('lastSeen', {})).affectedKeys().hasOnly([uid()])
           && incoming().currentPlayers.hasAll(existing().currentPlayers)
           && incoming().currentPlayers.size() == existing().currentPlayers.size() + 1
           && uid() in incoming().currentPlayers
@@ -250,6 +251,12 @@ service cloud.firestore {
           uid() in existing().currentPlayers
           && onlyChanges(['participantProgress'])
           && incoming().participantProgress.diff(existing().get('participantProgress', {})).affectedKeys().hasOnly([uid()])
+        )
+        // Tín hiệu còn kết nối của chính mình
+        || (
+          uid() in existing().currentPlayers
+          && onlyChanges(['lastSeen'])
+          && incoming().lastSeen.diff(existing().get('lastSeen', {})).affectedKeys().hasOnly([uid()])
         )
       );
 

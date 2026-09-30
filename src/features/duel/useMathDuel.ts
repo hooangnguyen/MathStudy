@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { useFirebase } from '../../context/FirebaseProvider';
-import { getUserRank, getTopRankings, getDuelHistory, joinDuelQueue, leaveDuelQueue, UserRank, DuelMatch, RANKS, updateDuelScore, subscribeToDuel, createRealDuel, finishQuickDuel, markDuelPlayerFinished, findOpponentForDuel, createDuelRoom, joinDuelRoom, subscribeToRoom, updateRoomProgress, getDuelRoom, getActiveDuel, DuelRoom } from '../../services/duelService';
+import { getUserRank, getTopRankings, getDuelHistory, joinDuelQueue, leaveDuelQueue, UserRank, DuelMatch, RANKS, updateDuelScore, subscribeToDuel, createRealDuel, finishQuickDuel, markDuelPlayerFinished, findOpponentForDuel, createDuelRoom, joinDuelRoom, subscribeToRoom, updateRoomProgress, getDuelRoom, getActiveDuel, DuelRoom, leaveRoom, removePlayersFromRoom } from '../../services/duelService';
+import { useRoomPresence } from './useRoomPresence';
+import { findStalePlayers } from '../../../shared/presence';
 import { saveActiveSession, loadActiveSession, clearActiveSession } from '../../utils/activeSession';
 import { resumeRoom, resumeQuickDuel } from '../../../shared/resume';
 import { getRandomQuestions, DuelQuestion } from '../../utils/duelQuestions';
@@ -162,13 +164,16 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
   // ---------- Khôi phục khi bị văng khỏi phòng/trận ----------
   // (tải lại trang, app bị tắt ngầm, chuyển sang tab khác rồi quay lại)
 
-  const buildRoomPlayers = (room: DuelRoom): RoomPlayer[] =>
-    room.currentPlayers.map((uid) => ({
+  const buildRoomPlayers = (room: DuelRoom): RoomPlayer[] => {
+    const stale = findStalePlayers(room.currentPlayers, room.lastSeen);
+    return room.currentPlayers.map((uid) => ({
       id: uid,
       name: room.playerNames[uid] || 'Người chơi',
       avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
-      isMe: uid === user?.uid
+      isMe: uid === user?.uid,
+      offline: stale.includes(uid)
     }));
+  };
 
   /** Đưa giao diện về đúng trạng thái hiện tại của phòng. */
   const applyRoom = (room: DuelRoom) => {
@@ -283,6 +288,58 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
     }
   }, [state, currentDuelId, user?.uid, resumeChecked]);
 
+  // ---------- Người mất kết nối trong phòng ----------
+
+  // Gửi tín hiệu còn kết nối khi đang ở màn hình phòng
+  useRoomPresence(roomId, user?.uid, ['waiting_room', 'room_playing', 'room_result'].includes(state));
+
+  const [hostOffline, setHostOffline] = useState(false);
+  // Đang tự rời phòng: không coi việc mình biến khỏi danh sách là "bị đưa ra"
+  const leavingRef = React.useRef(false);
+
+  /**
+   * Xử lý tín hiệu kết nối mỗi khi phòng thay đổi (ở phòng chờ).
+   * Trả về false nếu mình không còn trong phòng.
+   */
+  const checkRoomPresence = (room: DuelRoom): boolean => {
+    if (!user) return false;
+    const stale = findStalePlayers(room.currentPlayers, room.lastSeen);
+    setHostOffline(room.hostId !== user.uid && stale.includes(room.hostId));
+
+    if (!room.currentPlayers.includes(user.uid)) {
+      if (!leavingRef.current) {
+        alert('Bạn đã bị đưa ra khỏi phòng do mất kết nối. Hãy nhập lại mã phòng để vào lại.');
+      }
+      clearActiveSession(user.uid, 'duel-room');
+      setRoomId(null);
+      setState('lobby');
+      return false;
+    }
+
+    // Chủ phòng loại người mất kết nối để họ không chiếm chỗ / không bị tính vào trận mới
+    if (room.hostId === user.uid) {
+      const ghosts = stale.filter((uid) => uid !== room.hostId);
+      if (ghosts.length > 0) removePlayersFromRoom(room.id, ghosts).catch(() => { });
+    }
+    return true;
+  };
+
+  /** Tự rời phòng (nút "Rời phòng"). */
+  const leaveCurrentRoom = async () => {
+    leavingRef.current = true;
+    try {
+      if (roomId && user) await leaveRoom(roomId, user.uid);
+    } catch (_) {
+      // Không rời được (mất mạng): vẫn về sảnh, người khác sẽ thấy mình mất kết nối
+    } finally {
+      if (user) clearActiveSession(user.uid, 'duel-room');
+      setRoomId(null);
+      setHostOffline(false);
+      setState('lobby');
+      leavingRef.current = false;
+    }
+  };
+
   /** Chủ phòng đã đóng phòng (xoá phòng) trong lúc mình đang ở trong đó. */
   const handleRoomClosed = () => {
     if (!isHost) alert('Chủ phòng đã rời đi, phòng đã đóng.');
@@ -298,6 +355,8 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
         handleRoomClosed();
         return;
       }
+      setRoomPlayers(buildRoomPlayers(room));
+      setHostOffline(room.hostId !== user.uid && findStalePlayers(room.currentPlayers, room.lastSeen).includes(room.hostId));
       if (room.participantProgress) {
         const other = room.currentPlayers.find((uid) => uid !== user.uid);
         if (other && room.participantProgress![other]) {
@@ -321,13 +380,8 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
         handleRoomClosed();
         return;
       }
-      const list: RoomPlayer[] = room.currentPlayers.map((uid) => ({
-        id: uid,
-        name: room.playerNames[uid] || 'Người chơi',
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
-        isMe: uid === user?.uid
-      }));
-      setRoomPlayers(list);
+      if (!checkRoomPresence(room)) return;
+      setRoomPlayers(buildRoomPlayers(room));
       getUsersByIds(room.currentPlayers).then((profiles) => {
         const map: Record<string, string> = {};
         profiles.forEach((p) => { if (p.avatar) map[p.uid] = p.avatar; });
@@ -672,6 +726,8 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
   }, [exitDuelToken, roomId, user]);
 
   return {
+    hostOffline,
+    leaveCurrentRoom,
     userRole,
     initialState,
     onDuelStateChange,

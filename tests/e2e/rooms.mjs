@@ -125,7 +125,7 @@ await step('Chủ phòng rời phòng khi B đang ở phòng chờ → B đượ
   await pb.getByRole('button', { name: 'VÀO PHÒNG', exact: true }).click();
   await pb.getByText('Đang chờ chủ phòng bắt đầu...').waitFor();
   pb.dialogs.length = 0;
-  await pa.getByText('Rời phòng').click();
+  await pa.getByRole('button', { name: 'Rời phòng', exact: true }).click();
   await pb.getByText('Đấu trường Toán học').waitFor({ timeout: 10000 });
   expect(pb.dialogs.some((m) => m.includes('phòng đã đóng')), `thông báo: ${pb.dialogs}`);
   expect(!pa.dialogs.some((m) => m.includes('phòng đã đóng')), 'chủ phòng không nên nhận thông báo');
@@ -207,6 +207,65 @@ await step('Quiz: giáo viên tải lại trang khi đang thi → vẫn theo dõ
   const text = await pt.locator('body').innerText();
   expect(!text.includes('TẠO PHÒNG QUIZ'), 'giáo viên bị đưa về sảnh Quiz');
   expect(text.includes('Chi'), 'không thấy học sinh trong bảng theo dõi');
+});
+
+// ---- Người mất kết nối (đóng trình duyệt đột ngột) ----
+async function createRoom(p) {
+  await openDuel(p);
+  await p.getByText('Tạo phòng', { exact: true }).click();
+  await p.getByText('TẠO PHÒNG NGAY').click();
+  await p.getByText('Mã phòng của bạn').waitFor();
+  return (await p.locator('div.text-5xl').innerText()).trim();
+}
+async function joinByCode(p, roomCode) {
+  await openDuel(p);
+  await p.getByText('Vào phòng', { exact: true }).first().click();
+  await p.fill('input[placeholder="VD: A1B2C3"]', roomCode);
+  await p.getByRole('button', { name: 'VÀO PHÒNG', exact: true }).click();
+  await p.getByText('Đang chờ chủ phòng bắt đầu...').waitFor();
+}
+const waitUntil = async (fn, timeoutMs, label) => {
+  const end = Date.now() + timeoutMs;
+  while (Date.now() < end) { if (await fn()) return; await new Promise((r) => setTimeout(r, 3000)); }
+  throw new Error(`quá ${timeoutMs / 1000}s: ${label}`);
+};
+
+const [H1, D, E, H2, G] = await Promise.all([
+  signUp('h1@test.dev', 'Hải'), signUp('d@test.dev', 'Dũng'), signUp('e@test.dev', 'Em'),
+  signUp('h2@test.dev', 'Hoa'), signUp('g@test.dev', 'Giang'),
+]);
+const [ph1, pd, pe, ph2, pg] = await Promise.all([player(H1), player(D), player(E), player(H2), player(G)]);
+let ghostCode, hostCode;
+
+await step('Chuẩn bị: D vào phòng của H1; G vào phòng của H2', async () => {
+  ghostCode = await createRoom(ph1);
+  await joinByCode(pd, ghostCode);
+  hostCode = await createRoom(ph2);
+  await joinByCode(pg, hostCode);
+  await ph1.getByText('Người chơi (2)').waitFor({ timeout: 10000 });
+});
+
+// D và H2 "văng" (đóng hẳn trình duyệt, không kịp rời phòng)
+await pd.context().close();
+await ph2.context().close();
+
+await step('Người chơi văng khỏi phòng chờ → chủ phòng tự loại sau ~90 giây', async () => {
+  await waitUntil(async () => !(await roomOf(ghostCode)).data().currentPlayers.includes(D.uid), 150000, 'D vẫn còn trong phòng');
+  await ph1.getByText('Người chơi (1)').waitFor({ timeout: 20000 });
+});
+await step('Chỗ trống được giải phóng: người khác vào được phòng 1v1', async () => {
+  await joinByCode(pe, ghostCode);
+  await ph1.getByText('Người chơi (2)').waitFor({ timeout: 10000 });
+});
+await step('Chủ phòng văng → người trong phòng thấy thông báo chủ phòng mất kết nối', async () => {
+  await pg.getByText('Chủ phòng đang mất kết nối').waitFor({ timeout: 60000 });
+});
+await step('...và rời phòng được bình thường (không bị báo nhầm là bị đuổi)', async () => {
+  pg.dialogs.length = 0;
+  await pg.getByRole('button', { name: 'Rời phòng', exact: true }).click();
+  await pg.getByText('Đấu trường Toán học').waitFor({ timeout: 10000 });
+  expect(pg.dialogs.length === 0, `thông báo không mong đợi: ${pg.dialogs}`);
+  expect(!(await roomOf(hostCode)).data().currentPlayers.includes(G.uid), 'G vẫn trong phòng');
 });
 
 console.log(`\n${pass} passed, ${fail} failed`);

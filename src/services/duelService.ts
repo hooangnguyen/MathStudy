@@ -50,6 +50,7 @@ export interface DuelRoom {
         }
     };
     roomQuestions?: string; // JSON string of questions for 1v1 room
+    lastSeen?: { [uid: string]: any }; // tín hiệu còn kết nối của từng người (serverTimestamp)
     createdAt: any;
     startedAt?: any;
     finishedAt?: any;
@@ -131,6 +132,7 @@ export const createDuelRoom = async (
         currentPlayers: [hostId],
         playerNames: { [hostId]: hostName },
         participantProgress: {},
+        lastSeen: { [hostId]: serverTimestamp() },
         createdAt: serverTimestamp()
     };
 
@@ -168,6 +170,7 @@ export const joinDuelRoom = async (roomCode: string, userId: string, userName: s
         await updateDoc(doc(db, 'duelRooms', room.id), {
             currentPlayers: arrayUnion(userId),
             [`playerNames.${userId}`]: userName,
+            [`lastSeen.${userId}`]: serverTimestamp(),
             ...(room.maxPlayers === 2 && { guestId: userId, guestName: userName })
         });
     } catch (error: any) {
@@ -180,6 +183,17 @@ export const joinDuelRoom = async (roomCode: string, userId: string, userName: s
 
     const joined = await getDoc(doc(db, 'duelRooms', room.id));
     return joined.data() as DuelRoom;
+};
+
+/** Báo mình vẫn còn kết nối trong phòng (gọi định kỳ khi đang ở màn hình phòng). */
+export const heartbeatRoom = async (roomId: string, userId: string): Promise<void> => {
+    await updateDoc(doc(db, 'duelRooms', roomId), { [`lastSeen.${userId}`]: serverTimestamp() });
+};
+
+/** Chủ phòng loại những người đã mất kết nối khỏi phòng chờ. */
+export const removePlayersFromRoom = async (roomId: string, userIds: string[]): Promise<void> => {
+    if (userIds.length === 0) return;
+    await updateDoc(doc(db, 'duelRooms', roomId), { currentPlayers: arrayRemove(...userIds) });
 };
 
 /** Đọc phòng theo id (dùng khi khôi phục sau khi tải lại trang). */

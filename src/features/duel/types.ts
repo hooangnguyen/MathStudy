@@ -14,6 +14,7 @@ export interface RoomPlayer {
   name: string;
   avatar: string;
   isMe: boolean;
+  offline?: boolean; // mất kết nối (không có tín hiệu quá 90 giây)
   score?: number;
   progress?: number;
 }
