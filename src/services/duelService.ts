@@ -12,10 +12,13 @@ import {
     limit,
     onSnapshot,
     serverTimestamp,
-    runTransaction
+    runTransaction,
+    arrayUnion,
+    arrayRemove
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { postApi, ApiError } from './apiClient';
+import { randomCode } from '../utils/utils';
 
 export const RANKS = {
     bronze: { name: 'Đồng', color: 'text-amber-700', bg: 'bg-amber-100', border: 'border-amber-700' },
@@ -85,13 +88,19 @@ export interface UserRank {
 }
 
 // Generate random 6-character room code (alphanumeric)
-const generateRoomCode = (): string => {
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
-};
+const generateRoomCode = (): string => randomCode(6);
 
 // Generate random 6-digit numeric room code (for quiz)
-export const generateNumericRoomCode = (): string => {
-    return Math.floor(100000 + Math.random() * 900000).toString();
+export const generateNumericRoomCode = (): string => randomCode(6, '0123456789');
+
+/** Mã chưa được phòng nào còn hoạt động sử dụng (mã số chỉ có 900 nghìn khả năng nên dễ trùng). */
+export const getUnusedRoomCode = async (generate: () => string): Promise<string> => {
+    for (let attempt = 0; attempt < 5; attempt++) {
+        const code = generate();
+        const snapshot = await getDocs(query(collection(db, 'duelRooms'), where('code', '==', code)));
+        if (snapshot.docs.every(d => d.data().status === 'finished')) return code;
+    }
+    return generate();
 };
 
 // Luật LP dùng chung với server (server là nơi tính chính thức)
@@ -108,7 +117,7 @@ export const createDuelRoom = async (
 ): Promise<DuelRoom> => {
     const roomRef = doc(collection(db, 'duelRooms'));
     const roomId = roomRef.id;
-    const roomCode = customCode ?? generateRoomCode();
+    const roomCode = customCode ?? await getUnusedRoomCode(generateRoomCode);
 
     const room: DuelRoom = {
         id: roomId,
@@ -129,36 +138,60 @@ export const createDuelRoom = async (
     return room;
 };
 
-// Join a duel room (code can be alphanumeric or numeric)
-export const joinDuelRoom = async (roomCode: string, userId: string, userName: string): Promise<DuelRoom | null> => {
+/**
+ * Vào phòng bằng mã (chữ-số cho phòng 1v1, 6 chữ số cho phòng Quiz lớp).
+ * - Đã ở trong phòng (vd. tải lại trang) → vào lại phòng đó, kể cả khi đang chơi.
+ * - Dùng arrayUnion + field path nên nhiều người vào cùng lúc không ghi đè lẫn nhau;
+ *   rules chặn vượt số người tối đa và chặn vào phòng đã bắt đầu.
+ * Ném Error với thông báo tiếng Việt khi không vào được.
+ */
+export const joinDuelRoom = async (roomCode: string, userId: string, userName: string): Promise<DuelRoom> => {
     const roomsRef = collection(db, 'duelRooms');
-    const codeToMatch = /^\d+$/.test(roomCode.trim()) ? roomCode.trim() : roomCode.toUpperCase();
-    const q = query(roomsRef, where('code', '==', codeToMatch), where('status', '==', 'waiting'));
-    const snapshot = await getDocs(q);
+    const codeToMatch = /^\d+$/.test(roomCode.trim()) ? roomCode.trim() : roomCode.trim().toUpperCase();
+    const snapshot = await getDocs(query(roomsRef, where('code', '==', codeToMatch)));
 
-    if (snapshot.empty) return null;
+    const rooms = snapshot.docs.map(d => d.data() as DuelRoom).filter(r => r.status !== 'finished');
+    const mine = rooms.find(r => r.currentPlayers.includes(userId));
+    if (mine) return mine;
 
-    const roomDoc = snapshot.docs[0];
-    const room = roomDoc.data() as DuelRoom;
+    const room = rooms.find(r => r.status === 'waiting');
+    if (!room) {
+        throw new Error(rooms.length > 0
+            ? 'Phòng đã bắt đầu chơi, không thể vào nữa.'
+            : 'Không tìm thấy phòng với mã này.');
+    }
+    if (room.currentPlayers.length >= room.maxPlayers) {
+        throw new Error('Phòng đã đủ người.');
+    }
 
-    // Check if room is full
-    if (room.currentPlayers.length >= room.maxPlayers) return null;
+    try {
+        await updateDoc(doc(db, 'duelRooms', room.id), {
+            currentPlayers: arrayUnion(userId),
+            [`playerNames.${userId}`]: userName,
+            ...(room.maxPlayers === 2 && { guestId: userId, guestName: userName })
+        });
+    } catch (error: any) {
+        // Rules từ chối khi phòng vừa đủ người / vừa bắt đầu trong lúc mình đang vào
+        if (error?.code === 'permission-denied') {
+            throw new Error('Phòng vừa đủ người hoặc đã bắt đầu. Vui lòng thử phòng khác.');
+        }
+        throw error;
+    }
 
-    // Check if user already in room
-    if (room.currentPlayers.includes(userId)) return null;
+    const joined = await getDoc(doc(db, 'duelRooms', room.id));
+    return joined.data() as DuelRoom;
+};
 
-    // Add player to room
-    const updatedPlayers = [...room.currentPlayers, userId];
-    const updatedNames = { ...room.playerNames, [userId]: userName };
+/** Đọc phòng theo id (dùng khi khôi phục sau khi tải lại trang). */
+export const getDuelRoom = async (roomId: string): Promise<DuelRoom | null> => {
+    const snap = await getDoc(doc(db, 'duelRooms', roomId));
+    return snap.exists() ? (snap.data() as DuelRoom) : null;
+};
 
-    await updateDoc(doc(db, 'duelRooms', room.id), {
-        currentPlayers: updatedPlayers,
-        playerNames: updatedNames,
-        guestId: userId,
-        guestName: userName
-    });
-
-    return { ...room, currentPlayers: updatedPlayers, playerNames: updatedNames };
+/** Đọc trận đấu nhanh theo id (dùng khi khôi phục sau khi tải lại trang). */
+export const getActiveDuel = async (duelId: string): Promise<any | null> => {
+    const snap = await getDoc(doc(db, 'activeDuels', duelId));
+    return snap.exists() ? snap.data() : null;
 };
 
 // Start a duel (host starts the game). Optional questions for 1v1 room mode.
@@ -247,44 +280,16 @@ export const leaveRoom = async (roomId: string, userId: string): Promise<void> =
 
     const room = roomDoc.data() as DuelRoom;
 
-    // If host leaves, delete room
+    // Chủ phòng rời → đóng phòng (người còn lại sẽ nhận thông báo phòng đã đóng)
     if (room.hostId === userId) {
         await deleteDoc(doc(db, 'duelRooms', roomId));
     } else {
-        // Remove player from room
-        const updatedPlayers = room.currentPlayers.filter(id => id !== userId);
-        const { [userId]: removedName, ...remainingNames } = room.playerNames;
-
+        // Chỉ bỏ chính mình (thao tác nguyên tử, không ghi đè người khác).
+        // Giữ lại tên để bảng kết quả quiz vẫn hiển thị đúng người đã làm bài.
         await updateDoc(doc(db, 'duelRooms', roomId), {
-            currentPlayers: updatedPlayers,
-            playerNames: remainingNames
+            currentPlayers: arrayRemove(userId)
         });
     }
-};
-
-// Quick match - find available room (for simplicity, creates new room for quick match)
-export const findQuickMatch = async (userId: string, userName: string): Promise<DuelRoom | null> => {
-    // Find a waiting room with only 1 player
-    const q = query(
-        collection(db, 'duelRooms'),
-        where('status', '==', 'waiting')
-    );
-
-    const snapshot = await getDocs(q);
-    let availableRoom: DuelRoom | null = null;
-
-    snapshot.forEach(doc => {
-        const room = doc.data() as DuelRoom;
-        if (room.currentPlayers.length === 1 && !room.currentPlayers.includes(userId)) {
-            availableRoom = room;
-        }
-    });
-
-    if (availableRoom) {
-        return await joinDuelRoom(availableRoom.code, userId, userName);
-    }
-
-    return null;
 };
 
 export const getDuelHistory = async (userId: string, limitCount: number = 10): Promise<DuelMatch[]> => {

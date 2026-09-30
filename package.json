@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
+    "test:e2e": "cross-env VITE_FIREBASE_EMULATORS=true vite build --outDir dist-e2e && npx -y firebase-tools@14 emulators:exec --only auth,firestore --project $(node -p \"require('./firebase-applet-config.json').projectId\") \"bash tests/e2e/run.sh\"",
     "migrate:answer-keys": "tsx scripts/migrate-answer-keys.ts",
     "test": "vitest run",
     "test:emulator": "npx -y firebase-tools@14 emulators:exec --only auth,firestore --project demo-mathstudy \"node tests/emulator/run.mjs\""
@@ -52,6 +53,7 @@
     "@types/nodemailer": "^7.0.11",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.21",
+    "playwright-core": "^1.63.0",
     "react-dom": "^19.2.5",
     "tailwindcss": "^4.1.14",
     "ts-node": "^10.9.2",

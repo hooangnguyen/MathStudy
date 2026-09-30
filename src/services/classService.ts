@@ -15,6 +15,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { sendNotification } from './notificationService';
+import { randomCode } from '../utils/utils';
 
 export interface ClassData {
     id: string;
@@ -34,9 +35,7 @@ export interface ClassData {
 }
 
 // Generate a random 6-character alphanumeric code
-const generateClassCode = () => {
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
-};
+const generateClassCode = () => randomCode(6);
 
 // Check if code is unique before returning
 const getUniqueClassCode = async (): Promise<string> => {

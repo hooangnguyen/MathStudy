@@ -223,10 +223,35 @@ service cloud.firestore {
         && incoming().hostId == uid()
         && incoming().currentPlayers == [uid()];
 
-      // Người trong phòng, hoặc người đang tham gia vào phòng
-      allow update: if isAuthenticated()
-        && incoming().hostId == existing().hostId
-        && (uid() in existing().currentPlayers || uid() in incoming().currentPlayers);
+      allow update: if isAuthenticated() && incoming().hostId == existing().hostId && (
+        // Chủ phòng: bắt đầu trận, đặt lại phòng, đổi cài đặt
+        existing().hostId == uid()
+        // Vào phòng: chỉ thêm chính mình, khi phòng còn chờ và chưa đủ người
+        || (
+          existing().status == 'waiting'
+          && !(uid() in existing().currentPlayers)
+          && onlyChanges(['currentPlayers', 'playerNames', 'guestId', 'guestName'])
+          && incoming().currentPlayers.hasAll(existing().currentPlayers)
+          && incoming().currentPlayers.size() == existing().currentPlayers.size() + 1
+          && uid() in incoming().currentPlayers
+          && incoming().currentPlayers.size() <= existing().maxPlayers
+          && incoming().playerNames.diff(existing().playerNames).affectedKeys().hasOnly([uid()])
+        )
+        // Rời phòng: chỉ bỏ chính mình
+        || (
+          uid() in existing().currentPlayers
+          && onlyChanges(['currentPlayers'])
+          && existing().currentPlayers.hasAll(incoming().currentPlayers)
+          && !(uid() in incoming().currentPlayers)
+          && incoming().currentPlayers.size() == existing().currentPlayers.size() - 1
+        )
+        // Cập nhật tiến độ làm bài của chính mình
+        || (
+          uid() in existing().currentPlayers
+          && onlyChanges(['participantProgress'])
+          && incoming().participantProgress.diff(existing().get('participantProgress', {})).affectedKeys().hasOnly([uid()])
+        )
+      );
 
       allow delete: if isAuthenticated() && existing().hostId == uid();
     }

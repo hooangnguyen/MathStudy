@@ -30,6 +30,9 @@ import {
 } from '../services/assignmentService';
 import { getUsersByIds } from '../services/userService';
 import { audioService } from '../utils/audio';
+import { saveActiveSession, loadActiveSession, clearActiveSession } from '../utils/activeSession';
+import { getDuelRoom, type DuelRoom } from '../services/duelService';
+import { resumeRoom } from '../../shared/resume';
 
 type QuizState =
   | 'lobby'
@@ -77,13 +80,71 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     return () => unsub();
   }, [userRole, user?.uid]);
 
+  // ---------- Khôi phục khi bị văng khỏi phòng (tải lại trang, chuyển tab, mất mạng) ----------
+
+  /** Đưa giao diện về đúng trạng thái hiện tại của phòng quiz. */
+  const applyQuizRoom = (room: QuizRoomData | DuelRoom) => {
+    if (!user) return;
+    const resume = resumeRoom(room, user.uid, Date.now());
+    if (resume.kind === 'gone') {
+      clearActiveSession(user.uid, 'quiz-room');
+      return;
+    }
+
+    setRoomId(room.id);
+    setRoomCode(room.code);
+    setIsHost(room.hostId === user.uid);
+    setTimeLimit(room.timeLimit);
+    setQuestions(getQuizQuestionsFromRoom(room as QuizRoomData));
+    setCheckboxSelections([]);
+    saveActiveSession(user.uid, 'quiz-room', room.id);
+
+    if (resume.kind === 'waiting') {
+      setState('waiting_room');
+    } else if (resume.kind === 'finished') {
+      setScore(resume.score);
+      setState('result');
+    } else {
+      setCurrentQuestion(resume.currentQuestion);
+      setScore(resume.score);
+      setTimeLeft(resume.timeLeft);
+      setState('playing');
+    }
+  };
+
+  const [resumeChecked, setResumeChecked] = useState(false);
+  useEffect(() => {
+    if (!user || resumeChecked) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const session = loadActiveSession(user.uid, 'quiz-room');
+        if (!session) return;
+        const room = await getDuelRoom(session.id);
+        if (cancelled) return;
+        if (room) applyQuizRoom(room);
+        else clearActiveSession(user.uid, 'quiz-room');
+      } catch (error) {
+        console.error('Error resuming quiz room:', error);
+      } finally {
+        if (!cancelled) setResumeChecked(true);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [user?.uid]);
+
   // Subscribe to room updates
   useEffect(() => {
     if (!roomId) return;
 
     const unsub = subscribeToQuizRoom(roomId, (room) => {
       if (!room) {
+        // Giáo viên đã đóng phòng
+        if (!isHost) alert('Giáo viên đã đóng phòng quiz.');
+        if (user) clearActiveSession(user.uid, 'quiz-room');
+        setRoomId(null);
         setRoomPlayers([]);
+        setState('lobby');
         return;
       }
 
@@ -132,7 +193,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     });
 
     return () => unsub();
-  }, [roomId, user?.uid, state]);
+  }, [roomId, user?.uid, state, isHost]);
 
   // Timer for playing
   useEffect(() => {
@@ -194,6 +255,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
       setTimeLimit(room.timeLimit);
       setTimeLeft(room.timeLimit);
       setIsHost(true);
+      saveActiveSession(user.uid, 'quiz-room', room.id);
       setState('waiting_room');
       setRoomPlayers([]);
       setQuestions(getQuizQuestionsFromRoom(room as QuizRoomData));
@@ -213,23 +275,9 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
         user.uid,
         userProfile?.name || user.displayName || 'Học sinh'
       );
-      if (!room) {
-        alert('Không tìm thấy phòng với mã này. Hãy kiểm tra lại.');
-        return;
-      }
-      setRoomId(room.id);
-      setRoomCode(room.code);
-      setIsHost(false);
-      setState('waiting_room');
       setAvatarMap(userProfile?.avatar ? { [user.uid]: userProfile.avatar } : {});
-      setRoomPlayers([
-        {
-          id: user.uid,
-          name: userProfile?.name || 'Bạn',
-          avatar: userProfile?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.uid}`,
-          isMe: true
-        }
-      ]);
+      // Có thể là vào lại phòng đang làm dở (vd. sau khi tải lại trang)
+      applyQuizRoom(room);
     } catch (err: any) {
       alert(err?.message || 'Không thể vào phòng.');
     }
@@ -298,6 +346,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
   };
 
   const handleLeaveRoom = async () => {
+    if (user) clearActiveSession(user.uid, 'quiz-room');
     if (roomId && user) {
       try {
         await leaveQuizRoom(roomId, user.uid);

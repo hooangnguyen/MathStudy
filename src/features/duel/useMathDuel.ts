@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { useFirebase } from '../../context/FirebaseProvider';
-import { getUserRank, getTopRankings, getDuelHistory, joinDuelQueue, leaveDuelQueue, UserRank, DuelMatch, RANKS, updateDuelScore, subscribeToDuel, createRealDuel, finishQuickDuel, markDuelPlayerFinished, findOpponentForDuel, createDuelRoom, joinDuelRoom, subscribeToRoom, updateRoomProgress } from '../../services/duelService';
+import { getUserRank, getTopRankings, getDuelHistory, joinDuelQueue, leaveDuelQueue, UserRank, DuelMatch, RANKS, updateDuelScore, subscribeToDuel, createRealDuel, finishQuickDuel, markDuelPlayerFinished, findOpponentForDuel, createDuelRoom, joinDuelRoom, subscribeToRoom, updateRoomProgress, getDuelRoom, getActiveDuel, DuelRoom } from '../../services/duelService';
+import { saveActiveSession, loadActiveSession, clearActiveSession } from '../../utils/activeSession';
+import { resumeRoom, resumeQuickDuel } from '../../../shared/resume';
 import { getRandomQuestions, DuelQuestion } from '../../utils/duelQuestions';
 import { getUserProfile, getUsersByIds } from '../../services/userService';
 import { audioService } from '../../utils/audio';
@@ -123,6 +125,7 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
       setRoomId(room.id);
       setRoomCode(room.code);
       setIsHost(true);
+      saveActiveSession(user.uid, 'duel-room', room.id);
       setState('waiting_room');
       setRoomPlayers([
         {
@@ -149,31 +152,152 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
         user.uid,
         userProfile?.name || user.displayName || 'Người chơi'
       );
-      if (!room) {
-        alert('Không tìm thấy phòng với mã này.');
-        return;
-      }
-      setRoomId(room.id);
-      setRoomCode(room.code);
-      setIsHost(false);
-      setState('waiting_room');
-      const list: RoomPlayer[] = room.currentPlayers.map((uid, i) => ({
-        id: uid,
-        name: room.playerNames[uid] || (uid === user.uid ? 'Bạn' : 'Chủ phòng'),
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
-        isMe: uid === user.uid
-      }));
-      setRoomPlayers(list);
-    } catch (err) {
-      alert('Không thể vào phòng. Thử lại.');
+      // Có thể là vào lại phòng mình đang chơi dở (vd. sau khi tải lại trang)
+      applyRoom(room);
+    } catch (err: any) {
+      alert(err?.message || 'Không thể vào phòng. Thử lại.');
     }
   };
 
-  // Subscribe to room for opponent score during room_playing
+  // ---------- Khôi phục khi bị văng khỏi phòng/trận ----------
+  // (tải lại trang, app bị tắt ngầm, chuyển sang tab khác rồi quay lại)
+
+  const buildRoomPlayers = (room: DuelRoom): RoomPlayer[] =>
+    room.currentPlayers.map((uid) => ({
+      id: uid,
+      name: room.playerNames[uid] || 'Người chơi',
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
+      isMe: uid === user?.uid
+    }));
+
+  /** Đưa giao diện về đúng trạng thái hiện tại của phòng. */
+  const applyRoom = (room: DuelRoom) => {
+    if (!user) return;
+    const resume = resumeRoom(room, user.uid, Date.now());
+    if (resume.kind === 'gone') {
+      clearActiveSession(user.uid, 'duel-room');
+      return;
+    }
+
+    setRoomId(room.id);
+    setRoomCode(room.code);
+    setIsHost(room.hostId === user.uid);
+    setGameMode(room.gameMode);
+    setTimeLimit(room.timeLimit);
+    setRoomPlayers(buildRoomPlayers(room));
+    saveActiveSession(user.uid, 'duel-room', room.id);
+
+    const otherUid = room.currentPlayers.find((uid) => uid !== user.uid);
+    if (otherUid) setOpponentInfo({ id: otherUid, name: room.playerNames[otherUid] || 'Đối thủ' });
+    const opponentScore = otherUid ? room.participantProgress?.[otherUid]?.score ?? 0 : 0;
+
+    if (resume.kind === 'waiting') {
+      setState('waiting_room');
+      return;
+    }
+    setMatchOutcome(null);
+    setOpponentSurrendered(false);
+    if (resume.kind === 'finished') {
+      setScore({ player: resume.score, opponent: opponentScore });
+      setState('room_result');
+      return;
+    }
+
+    let qList: DuelQuestion[] = [];
+    try { qList = room.roomQuestions ? JSON.parse(room.roomQuestions) : []; } catch { }
+    if (qList.length > 0) setDuelQuestions(qList);
+    setCurrentQuestion(Math.min(resume.currentQuestion, Math.max(0, qList.length - 1)));
+    setScore({ player: resume.score, opponent: opponentScore });
+    setTimeLeft(resume.timeLeft);
+    setState('room_playing');
+  };
+
+  /** Quay lại trận đấu nhanh đang diễn ra với đúng điểm, câu hỏi và thời gian còn lại. */
+  const applyQuickDuel = (duel: any) => {
+    if (!user) return;
+    const resume = resumeQuickDuel(duel, user.uid, Date.now());
+    if (resume.kind === 'gone') {
+      clearActiveSession(user.uid, 'quick-duel');
+      return;
+    }
+
+    let qList: DuelQuestion[] = [];
+    try { qList = duel.questions ? JSON.parse(duel.questions) : []; } catch { }
+    const opponentName = (resume.isPlayer1 ? duel.player2Name : duel.player1Name) || 'Đối thủ';
+
+    setDuelQuestions(qList);
+    setCurrentDuelId(duel.id);
+    setIsPlayer1(resume.isPlayer1);
+    setOpponentInfo({ id: resume.opponentId, name: opponentName });
+    getUserProfile(resume.opponentId).then((p) => {
+      if (p?.avatar) setOpponentInfo({ id: resume.opponentId, name: opponentName, avatar: p.avatar });
+    }).catch(() => { });
+    setScore({ player: resume.score, opponent: resume.opponentScore });
+    correctCountRef.current = resume.correct;
+    setCurrentQuestion(Math.min(resume.progress, Math.max(0, qList.length - 1)));
+    setIsWaitingForOpponent(resume.finishedAll || resume.progress >= qList.length);
+    setTimeLeft(resume.timeLeft);
+    setMatchOutcome(null);
+    setLpDelta(null);
+    setOpponentSurrendered(false);
+    setState('playing');
+  };
+
+  const [resumeChecked, setResumeChecked] = useState(false);
   useEffect(() => {
-    if (!roomId || state !== 'room_playing' || !user) return;
+    if (!user || resumeChecked) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const roomSession = loadActiveSession(user.uid, 'duel-room');
+        const duelSession = loadActiveSession(user.uid, 'quick-duel');
+        if (roomSession) {
+          const room = await getDuelRoom(roomSession.id);
+          if (cancelled) return;
+          if (room) applyRoom(room);
+          else clearActiveSession(user.uid, 'duel-room');
+        } else if (duelSession) {
+          const duel = await getActiveDuel(duelSession.id);
+          if (!cancelled) applyQuickDuel(duel);
+        }
+      } catch (error) {
+        console.error('Error resuming duel:', error);
+      } finally {
+        if (!cancelled) setResumeChecked(true);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [user?.uid]);
+
+  // Ghi nhớ / xoá phiên theo trạng thái (chỉ sau khi đã thử khôi phục, để không xoá mất phiên cũ)
+  useEffect(() => {
+    if (!user || !resumeChecked) return;
+    if (state === 'playing' && currentDuelId) {
+      saveActiveSession(user.uid, 'quick-duel', currentDuelId);
+    } else if (state === 'result') {
+      clearActiveSession(user.uid, 'quick-duel');
+    } else if (['lobby', 'searching', 'create_room', 'join_room', 'leaderboard'].includes(state)) {
+      // Chỉ xoá phiên của màn Đối kháng, không đụng tới phiên phòng Quiz lớp
+      clearActiveSession(user.uid, 'duel-room');
+      clearActiveSession(user.uid, 'quick-duel');
+    }
+  }, [state, currentDuelId, user?.uid, resumeChecked]);
+
+  /** Chủ phòng đã đóng phòng (xoá phòng) trong lúc mình đang ở trong đó. */
+  const handleRoomClosed = () => {
+    if (!isHost) alert('Chủ phòng đã rời đi, phòng đã đóng.');
+    setRoomId(null);
+    setState('lobby');
+  };
+
+  // Theo dõi điểm đối thủ khi đang chơi và ở màn kết quả (đối thủ có thể chưa làm xong)
+  useEffect(() => {
+    if (!roomId || (state !== 'room_playing' && state !== 'room_result') || !user) return;
     const unsub = subscribeToRoom(roomId, (room) => {
-      if (!room) return;
+      if (!room) {
+        handleRoomClosed();
+        return;
+      }
       if (room.participantProgress) {
         const other = room.currentPlayers.find((uid) => uid !== user.uid);
         if (other && room.participantProgress![other]) {
@@ -187,13 +311,16 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
       });
     });
     return () => unsub();
-  }, [roomId, state, user?.uid]);
+  }, [roomId, state, user?.uid, isHost]);
 
   // Subscribe to 1v1 room updates
   useEffect(() => {
     if (!roomId || state !== 'waiting_room') return;
     const unsub = subscribeToRoom(roomId, (room) => {
-      if (!room) return;
+      if (!room) {
+        handleRoomClosed();
+        return;
+      }
       const list: RoomPlayer[] = room.currentPlayers.map((uid) => ({
         id: uid,
         name: room.playerNames[uid] || 'Người chơi',
@@ -227,7 +354,7 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
       }
     });
     return () => unsub();
-  }, [roomId, state, user?.uid]);
+  }, [roomId, state, user?.uid, isHost]);
 
 
 

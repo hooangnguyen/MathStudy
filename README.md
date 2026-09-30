@@ -45,6 +45,7 @@ Các lệnh khác:
 | `npm run lint` | Kiểm tra kiểu TypeScript |
 | `npm test` | Chạy unit test |
 | `npm run test:emulator` | Test Firestore rules + API chấm điểm trên Firebase Emulator (cần Java) |
+| `npm run test:e2e` | Test trình duyệt 2 người chơi: vào phòng, văng khỏi phòng/trận rồi vào lại (cần Java + Chromium; đặt `CHROMIUM_PATH` nếu cần) |
 | `npm run migrate:answer-keys` | Tách đáp án khỏi các bài tập tạo trước đây (chạy một lần) |
 
 ## Chạy bằng Docker

@@ -316,7 +316,8 @@ if (isDev) {
   });
 } else {
   console.log("Running in PRODUCTION mode");
-  const distDir = path.join(__dirname, "dist");
+  // STATIC_DIR: thư mục build khác (dùng cho test e2e)
+  const distDir = path.resolve(__dirname, process.env.STATIC_DIR || "dist");
 
   // Nén gzip/brotli cho JS/CSS/HTML (bundle Firebase ~620 kB → ~150 kB)
   app.use(compression());

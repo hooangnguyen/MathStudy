@@ -9,7 +9,7 @@ import { readFileSync } from 'fs';
 import { initializeTestEnvironment, assertSucceeds, assertFails } from '@firebase/rules-unit-testing';
 import {
   doc, setDoc, getDoc, updateDoc, addDoc, collection, getDocs, query, where, serverTimestamp, runTransaction,
-  arrayUnion, increment, writeBatch,
+  arrayUnion, arrayRemove, increment, writeBatch, deleteDoc,
 } from 'firebase/firestore';
 
 const PROJECT_ID = 'demo-mathstudy';
@@ -366,6 +366,62 @@ await t('6 người cùng ghép trận một lúc → không ai bị ghép vào 
   expect(new Set(seen).size === seen.length, `có người bị ghép 2 lần: ${JSON.stringify(pairs)}`);
   expect(pairs.length >= 1, 'không ghép được cặp nào');
 });
+
+// ---------- Phòng đấu / phòng Quiz ----------
+console.log('\nPhòng');
+
+const roomDoc = (id, host, extra = {}) => ({
+  id, code: extra.code || id.toUpperCase(), hostId: host.uid, hostName: 'Chủ phòng', status: 'waiting', gameMode: 'time',
+  timeLimit: 300, maxPlayers: 2, currentPlayers: [host.uid], playerNames: { [host.uid]: 'Chủ phòng' },
+  participantProgress: {}, createdAt: serverTimestamp(), ...extra,
+});
+// Giống joinDuelRoom: arrayUnion + field path
+const joinRoom = (u, id) => updateDoc(doc(db(u.uid), `duelRooms/${id}`), {
+  currentPlayers: arrayUnion(u.uid), [`playerNames.${u.uid}`]: `HS ${u.uid.slice(0, 4)}`,
+});
+
+await t(`${N - 1} học sinh cùng vào phòng Quiz một lúc → không ai bị ghi đè mất`, async () => {
+  await setDoc(doc(db(teacher.uid), 'duelRooms/quiz'), roomDoc('quiz', teacher, { maxPlayers: 60, code: '123456' }));
+  const joiners = crowd.slice(0, N - 1);
+  const rs = await Promise.allSettled(joiners.map((u) => joinRoom(u, 'quiz')));
+  const failed = rs.filter((r) => r.status === 'rejected').length;
+  const room = await admin((a) => getDoc(doc(a, 'duelRooms/quiz')));
+  expect(failed === 0, `${failed} lượt vào phòng bị lỗi`);
+  expect(room.data().currentPlayers.length === N, `có ${room.data().currentPlayers.length}/${N} người`);
+  expect(Object.keys(room.data().playerNames).length === N, 'thiếu tên người chơi');
+});
+
+await t('3 người cùng vào phòng 1v1 → chỉ đúng 1 người vào được', async () => {
+  await setDoc(doc(db(crowd[20].uid), 'duelRooms/duo'), roomDoc('duo', crowd[20]));
+  const rs = await Promise.allSettled(crowd.slice(21, 24).map((u) => joinRoom(u, 'duo')));
+  const room = await admin((a) => getDoc(doc(a, 'duelRooms/duo')));
+  expect(rs.filter((r) => r.status === 'fulfilled').length === 1 && room.data().currentPlayers.length === 2,
+    `vào được ${rs.filter((r) => r.status === 'fulfilled').length}, sĩ số ${room.data().currentPlayers.length}`);
+});
+
+const quizMember = crowd[0];
+await t('thành viên cập nhật tiến độ của mình', () => assertSucceeds(updateDoc(doc(db(quizMember.uid), 'duelRooms/quiz'), {
+  [`participantProgress.${quizMember.uid}`]: { score: 10, progress: 1, finished: false },
+})));
+await t('KHÔNG sửa tiến độ người khác', () => assertFails(updateDoc(doc(db(quizMember.uid), 'duelRooms/quiz'), {
+  [`participantProgress.${crowd[1].uid}`]: { score: 999, progress: 1, finished: true },
+})));
+await t('KHÔNG đuổi người khác khỏi phòng', () => assertFails(updateDoc(doc(db(quizMember.uid), 'duelRooms/quiz'), {
+  currentPlayers: arrayRemove(crowd[1].uid),
+})));
+await t('KHÔNG tự bắt đầu trận khi không phải chủ phòng', () => assertFails(updateDoc(doc(db(quizMember.uid), 'duelRooms/quiz'), { status: 'playing' })));
+await t('chủ phòng bắt đầu trận', () => assertSucceeds(updateDoc(doc(db(teacher.uid), 'duelRooms/quiz'), { status: 'playing', startedAt: serverTimestamp() })));
+await t('KHÔNG vào phòng đã bắt đầu', () => assertFails(joinRoom(crowd[N - 1], 'quiz')));
+await t('người đã trong phòng vẫn đọc lại được phòng để khôi phục', async () => {
+  const room = await getDoc(doc(db(quizMember.uid), 'duelRooms/quiz'));
+  expect(room.data().currentPlayers.includes(quizMember.uid) && room.data().status === 'playing', 'không đọc được');
+});
+await t('thành viên tự rời phòng', () => assertSucceeds(updateDoc(doc(db(crowd[2].uid), 'duelRooms/quiz'), { currentPlayers: arrayRemove(crowd[2].uid) })));
+await t('chủ phòng đặt lại phòng để chơi ván mới', () => assertSucceeds(updateDoc(doc(db(teacher.uid), 'duelRooms/quiz'), {
+  status: 'waiting', participantProgress: {}, roomQuestions: null,
+})));
+await t('KHÔNG phải chủ phòng thì không xoá được phòng', () => assertFails(deleteDoc(doc(db(quizMember.uid), 'duelRooms/quiz'))));
+await t('chủ phòng đóng phòng', () => assertSucceeds(deleteDoc(doc(db(teacher.uid), 'duelRooms/quiz'))));
 
 // ---------- Kết thúc ----------
 
