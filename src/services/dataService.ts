@@ -50,17 +50,6 @@ export const getMatchHistory = async (userId: string): Promise<MatchHistory[]> =
     }
 };
 
-export const saveMatchResult = async (match: Omit<MatchHistory, 'id' | 'timestamp'>) => {
-    try {
-        await addDoc(collection(db, 'matches'), {
-            ...match,
-            timestamp: serverTimestamp()
-        });
-    } catch (error) {
-        console.error('Error saving match result:', error);
-    }
-};
-
 export interface AIConsultation {
     id?: string;
     userId: string;

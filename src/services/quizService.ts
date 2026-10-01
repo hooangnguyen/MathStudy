@@ -12,6 +12,7 @@ import {
   updateRoomProgress,
   leaveRoom,
   generateNumericRoomCode,
+  getUnusedRoomCode,
   DuelRoom
 } from './duelService';
 import type { DraftAssignmentData, QuestionData } from './assignmentService';
@@ -68,7 +69,7 @@ export const createQuizRoom = async (
     throw new Error('Đề này chưa có câu trắc nghiệm nào.');
   }
 
-  const numericCode = generateNumericRoomCode();
+  const numericCode = await getUnusedRoomCode(generateNumericRoomCode);
   const room = await createDuelRoom(hostId, hostName, 'time', timeLimit, 60, numericCode);
   await updateDoc(doc(db, 'duelRooms', room.id), {
     quizQuestions: JSON.stringify(questions)

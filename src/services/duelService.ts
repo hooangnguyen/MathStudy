@@ -12,10 +12,13 @@ import {
     limit,
     onSnapshot,
     serverTimestamp,
-    increment,
-    runTransaction
+    runTransaction,
+    arrayUnion,
+    arrayRemove
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { postApi, ApiError } from './apiClient';
+import { randomCode } from '../utils/utils';
 
 export const RANKS = {
     bronze: { name: 'Đồng', color: 'text-amber-700', bg: 'bg-amber-100', border: 'border-amber-700' },
@@ -47,6 +50,7 @@ export interface DuelRoom {
         }
     };
     roomQuestions?: string; // JSON string of questions for 1v1 room
+    lastSeen?: { [uid: string]: any }; // tín hiệu còn kết nối của từng người (serverTimestamp)
     createdAt: any;
     startedAt?: any;
     finishedAt?: any;
@@ -64,7 +68,8 @@ export interface DuelMatch {
     player2Score: number;
     winnerId?: string | null;
     isDraw: boolean;
-    lpChange?: number; // LP change for ranked
+    lpChange?: number; // LP change for ranked (góc nhìn player1)
+    lpChanges?: { [uid: string]: number }; // LP thay đổi của từng người chơi
     gameMode: 'quick' | 'room' | 'ranked';
     createdAt: any;
 }
@@ -84,43 +89,23 @@ export interface UserRank {
 }
 
 // Generate random 6-character room code (alphanumeric)
-const generateRoomCode = (): string => {
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
-};
+const generateRoomCode = (): string => randomCode(6);
 
 // Generate random 6-digit numeric room code (for quiz)
-export const generateNumericRoomCode = (): string => {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-};
+export const generateNumericRoomCode = (): string => randomCode(6, '0123456789');
 
-// Get rank tier based on LP
-export const getRankTier = (lp: number): UserRank['rankTier'] => {
-    if (lp >= 1000) return 'challenger';
-    if (lp >= 750) return 'diamond';
-    if (lp >= 500) return 'platinum';
-    if (lp >= 250) return 'gold';
-    if (lp >= 100) return 'silver';
-    return 'bronze';
-};
-
-// Calculate LP gain/loss based on rank difference
-export const calculateLPChange = (winnerLP: number, loserLP: number, isDraw: boolean): number => {
-    if (isDraw) return 5; // Small LP for draw
-
-    // Base LP gain
-    let lpChange = 20;
-
-    // Bonus for beating higher ranked player
-    const lpDiff = winnerLP - loserLP;
-    if (lpDiff < -200) {
-        lpChange += 15; // Underdog bonus
-    } else if (lpDiff > 200) {
-        lpChange -= 10; // Less points for beating lower ranked
+/** Mã chưa được phòng nào còn hoạt động sử dụng (mã số chỉ có 900 nghìn khả năng nên dễ trùng). */
+export const getUnusedRoomCode = async (generate: () => string): Promise<string> => {
+    for (let attempt = 0; attempt < 5; attempt++) {
+        const code = generate();
+        const snapshot = await getDocs(query(collection(db, 'duelRooms'), where('code', '==', code)));
+        if (snapshot.docs.every(d => d.data().status === 'finished')) return code;
     }
-
-    // Cap at reasonable values
-    return Math.max(5, Math.min(35, lpChange));
+    return generate();
 };
+
+// Luật LP dùng chung với server (server là nơi tính chính thức)
+export { getRankTier, calculateLPChange } from '../../shared/rank';
 
 // Create a new duel room
 export const createDuelRoom = async (
@@ -133,7 +118,7 @@ export const createDuelRoom = async (
 ): Promise<DuelRoom> => {
     const roomRef = doc(collection(db, 'duelRooms'));
     const roomId = roomRef.id;
-    const roomCode = customCode ?? generateRoomCode();
+    const roomCode = customCode ?? await getUnusedRoomCode(generateRoomCode);
 
     const room: DuelRoom = {
         id: roomId,
@@ -147,6 +132,7 @@ export const createDuelRoom = async (
         currentPlayers: [hostId],
         playerNames: { [hostId]: hostName },
         participantProgress: {},
+        lastSeen: { [hostId]: serverTimestamp() },
         createdAt: serverTimestamp()
     };
 
@@ -154,36 +140,72 @@ export const createDuelRoom = async (
     return room;
 };
 
-// Join a duel room (code can be alphanumeric or numeric)
-export const joinDuelRoom = async (roomCode: string, userId: string, userName: string): Promise<DuelRoom | null> => {
+/**
+ * Vào phòng bằng mã (chữ-số cho phòng 1v1, 6 chữ số cho phòng Quiz lớp).
+ * - Đã ở trong phòng (vd. tải lại trang) → vào lại phòng đó, kể cả khi đang chơi.
+ * - Dùng arrayUnion + field path nên nhiều người vào cùng lúc không ghi đè lẫn nhau;
+ *   rules chặn vượt số người tối đa và chặn vào phòng đã bắt đầu.
+ * Ném Error với thông báo tiếng Việt khi không vào được.
+ */
+export const joinDuelRoom = async (roomCode: string, userId: string, userName: string): Promise<DuelRoom> => {
     const roomsRef = collection(db, 'duelRooms');
-    const codeToMatch = /^\d+$/.test(roomCode.trim()) ? roomCode.trim() : roomCode.toUpperCase();
-    const q = query(roomsRef, where('code', '==', codeToMatch), where('status', '==', 'waiting'));
-    const snapshot = await getDocs(q);
+    const codeToMatch = /^\d+$/.test(roomCode.trim()) ? roomCode.trim() : roomCode.trim().toUpperCase();
+    const snapshot = await getDocs(query(roomsRef, where('code', '==', codeToMatch)));
 
-    if (snapshot.empty) return null;
+    const rooms = snapshot.docs.map(d => d.data() as DuelRoom).filter(r => r.status !== 'finished');
+    const mine = rooms.find(r => r.currentPlayers.includes(userId));
+    if (mine) return mine;
 
-    const roomDoc = snapshot.docs[0];
-    const room = roomDoc.data() as DuelRoom;
+    const room = rooms.find(r => r.status === 'waiting');
+    if (!room) {
+        throw new Error(rooms.length > 0
+            ? 'Phòng đã bắt đầu chơi, không thể vào nữa.'
+            : 'Không tìm thấy phòng với mã này.');
+    }
+    if (room.currentPlayers.length >= room.maxPlayers) {
+        throw new Error('Phòng đã đủ người.');
+    }
 
-    // Check if room is full
-    if (room.currentPlayers.length >= room.maxPlayers) return null;
+    try {
+        await updateDoc(doc(db, 'duelRooms', room.id), {
+            currentPlayers: arrayUnion(userId),
+            [`playerNames.${userId}`]: userName,
+            [`lastSeen.${userId}`]: serverTimestamp(),
+            ...(room.maxPlayers === 2 && { guestId: userId, guestName: userName })
+        });
+    } catch (error: any) {
+        // Rules từ chối khi phòng vừa đủ người / vừa bắt đầu trong lúc mình đang vào
+        if (error?.code === 'permission-denied') {
+            throw new Error('Phòng vừa đủ người hoặc đã bắt đầu. Vui lòng thử phòng khác.');
+        }
+        throw error;
+    }
 
-    // Check if user already in room
-    if (room.currentPlayers.includes(userId)) return null;
+    const joined = await getDoc(doc(db, 'duelRooms', room.id));
+    return joined.data() as DuelRoom;
+};
 
-    // Add player to room
-    const updatedPlayers = [...room.currentPlayers, userId];
-    const updatedNames = { ...room.playerNames, [userId]: userName };
+/** Báo mình vẫn còn kết nối trong phòng (gọi định kỳ khi đang ở màn hình phòng). */
+export const heartbeatRoom = async (roomId: string, userId: string): Promise<void> => {
+    await updateDoc(doc(db, 'duelRooms', roomId), { [`lastSeen.${userId}`]: serverTimestamp() });
+};
 
-    await updateDoc(doc(db, 'duelRooms', room.id), {
-        currentPlayers: updatedPlayers,
-        playerNames: updatedNames,
-        guestId: userId,
-        guestName: userName
-    });
+/** Chủ phòng loại những người đã mất kết nối khỏi phòng chờ. */
+export const removePlayersFromRoom = async (roomId: string, userIds: string[]): Promise<void> => {
+    if (userIds.length === 0) return;
+    await updateDoc(doc(db, 'duelRooms', roomId), { currentPlayers: arrayRemove(...userIds) });
+};
 
-    return { ...room, currentPlayers: updatedPlayers, playerNames: updatedNames };
+/** Đọc phòng theo id (dùng khi khôi phục sau khi tải lại trang). */
+export const getDuelRoom = async (roomId: string): Promise<DuelRoom | null> => {
+    const snap = await getDoc(doc(db, 'duelRooms', roomId));
+    return snap.exists() ? (snap.data() as DuelRoom) : null;
+};
+
+/** Đọc trận đấu nhanh theo id (dùng khi khôi phục sau khi tải lại trang). */
+export const getActiveDuel = async (duelId: string): Promise<any | null> => {
+    const snap = await getDoc(doc(db, 'activeDuels', duelId));
+    return snap.exists() ? snap.data() : null;
 };
 
 // Start a duel (host starts the game). Optional questions for 1v1 room mode.
@@ -209,111 +231,6 @@ export const finishDuel = async (
         finishedAt: serverTimestamp(),
         winnerId
     });
-};
-
-// Save duel match result
-export const saveDuelMatch = async (
-    roomId: string,
-    player1Id: string,
-    player1Name: string,
-    player2Id: string,
-    player2Name: string,
-    player1Score: number,
-    player2Score: number,
-    winnerId: string | null | undefined,
-    isDraw: boolean,
-    gameMode: 'quick' | 'room' | 'ranked' = 'room',
-    lpChange?: number
-): Promise<DuelMatch> => {
-    const matchRef = doc(collection(db, 'duelMatches'));
-    const matchId = matchRef.id;
-
-    const match: DuelMatch = {
-        id: matchId,
-        roomId,
-        player1Id,
-        player1Name,
-        player2Id,
-        player2Name,
-        player1Score,
-        player2Score,
-        winnerId: winnerId ?? null,
-        isDraw,
-        lpChange,
-        gameMode,
-        createdAt: serverTimestamp()
-    };
-
-    await setDoc(matchRef, match);
-    return match;
-};
-
-// Update user rank after match
-export const updateUserRank = async (
-    userId: string,
-    username: string,
-    isWin: boolean,
-    isDraw: boolean,
-    currentLP: number,
-    grade?: number,
-    avatar?: string
-): Promise<number> => {
-    const userRankRef = doc(db, 'userRanks', userId);
-    const rankDoc = await getDoc(userRankRef);
-
-    let newLP = currentLP;
-    let lpChange = 0;
-
-    if (rankDoc.exists()) {
-        const rankData = rankDoc.data() as UserRank;
-
-        if (isWin) {
-            // Simulated opponent LP (in real app, get from match)
-            const opponentLP = Math.max(0, currentLP + (Math.random() > 0.5 ? 50 : -50));
-            lpChange = calculateLPChange(currentLP, opponentLP, false);
-            newLP = Math.max(0, currentLP + lpChange);
-        } else if (isDraw) {
-            newLP = Math.max(0, currentLP + 5);
-        } else {
-            lpChange = -calculateLPChange(currentLP, currentLP + 50, false);
-            newLP = Math.max(0, currentLP + lpChange);
-        }
-
-        const newTier = getRankTier(newLP);
-        const newStreak = isWin ? rankData.streak + 1 : 0;
-
-        await updateDoc(userRankRef, {
-            lp: newLP,
-            rankTier: newTier,
-            wins: isWin ? increment(1) : rankData.wins,
-            losses: !isWin && !isDraw ? increment(1) : rankData.losses,
-            draws: isDraw ? increment(1) : rankData.draws,
-            streak: newStreak,
-            maxStreak: Math.max(rankData.maxStreak, newStreak),
-            ...(grade !== undefined && { grade }),
-            ...(avatar && { avatar })
-        });
-    } else {
-        // Create new rank document
-        lpChange = isWin ? 20 : (isDraw ? 5 : -15);
-        newLP = Math.max(0, currentLP + lpChange);
-
-        await setDoc(userRankRef, {
-            uid: userId,
-            username,
-            lp: newLP,
-            rankTier: getRankTier(newLP),
-            wins: isWin ? 1 : 0,
-            losses: (!isWin && !isDraw) ? 1 : 0,
-            draws: isDraw ? 1 : 0,
-            streak: isWin ? 1 : 0,
-            maxStreak: isWin ? 1 : 0,
-            ...(grade !== undefined && { grade }),
-            ...(avatar && { avatar })
-        });
-    }
-
-    return lpChange;
 };
 
 // Get user rank
@@ -377,44 +294,16 @@ export const leaveRoom = async (roomId: string, userId: string): Promise<void> =
 
     const room = roomDoc.data() as DuelRoom;
 
-    // If host leaves, delete room
+    // Chủ phòng rời → đóng phòng (người còn lại sẽ nhận thông báo phòng đã đóng)
     if (room.hostId === userId) {
         await deleteDoc(doc(db, 'duelRooms', roomId));
     } else {
-        // Remove player from room
-        const updatedPlayers = room.currentPlayers.filter(id => id !== userId);
-        const { [userId]: removedName, ...remainingNames } = room.playerNames;
-
+        // Chỉ bỏ chính mình (thao tác nguyên tử, không ghi đè người khác).
+        // Giữ lại tên để bảng kết quả quiz vẫn hiển thị đúng người đã làm bài.
         await updateDoc(doc(db, 'duelRooms', roomId), {
-            currentPlayers: updatedPlayers,
-            playerNames: remainingNames
+            currentPlayers: arrayRemove(userId)
         });
     }
-};
-
-// Quick match - find available room (for simplicity, creates new room for quick match)
-export const findQuickMatch = async (userId: string, userName: string): Promise<DuelRoom | null> => {
-    // Find a waiting room with only 1 player
-    const q = query(
-        collection(db, 'duelRooms'),
-        where('status', '==', 'waiting')
-    );
-
-    const snapshot = await getDocs(q);
-    let availableRoom: DuelRoom | null = null;
-
-    snapshot.forEach(doc => {
-        const room = doc.data() as DuelRoom;
-        if (room.currentPlayers.length === 1 && !room.currentPlayers.includes(userId)) {
-            availableRoom = room;
-        }
-    });
-
-    if (availableRoom) {
-        return await joinDuelRoom(availableRoom.code, userId, userName);
-    }
-
-    return null;
 };
 
 export const getDuelHistory = async (userId: string, limitCount: number = 10): Promise<DuelMatch[]> => {
@@ -456,9 +345,39 @@ export const getDuelHistory = async (userId: string, limitCount: number = 10): P
     }
 };
 
+/** Có trận vừa được tạo với mình là player2 trong 60 giây gần đây không. */
+const wasJustMatched = async (userId: string): Promise<boolean> => {
+    const snapshot = await getDocs(query(collection(db, 'activeDuels'), where('player2Id', '==', userId)));
+    const now = Date.now();
+    return snapshot.docs.some(d => {
+        const data = d.data();
+        const createdAt = data.createdAt?.toMillis?.() ?? now;
+        return data.status === 'playing' && now - createdAt < 60000;
+    });
+};
+
 // Find available players for quick match
 export const findOpponentForDuel = async (userId: string, userGrade?: number): Promise<{ opponentId: string; opponentName: string; opponentGrade?: number } | null> => {
     try {
+        // Heartbeat: báo mình vẫn đang tìm trận (người quá 15 giây không cập nhật bị coi là "ma" và bị xoá).
+        const myRef = doc(db, 'duelQueue', userId);
+        try {
+            await updateDoc(myRef, { updatedAt: serverTimestamp() });
+        } catch (error: any) {
+            if (error?.code !== 'not-found') throw error;
+            // Không còn trong hàng chờ: hoặc vừa được người khác ghép (listener activeDuels sẽ
+            // đưa vào trận), hoặc bị xoá vì tab ở nền quá lâu → vào lại hàng chờ.
+            if (await wasJustMatched(userId)) return null;
+            await setDoc(myRef, {
+                userId,
+                status: 'waiting',
+                grade: userGrade || 5,
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
+            });
+            return null;
+        }
+
         // Simplified query: only filter by status to avoid index requirement
         const q = query(
             collection(db, 'duelQueue'),
@@ -485,38 +404,22 @@ export const findOpponentForDuel = async (userId: string, userGrade?: number): P
             }
         }
 
-        if (validOpponents.length === 0) {
-            // No opponent found, add/update self to queue
-            const myRef = doc(db, 'duelQueue', userId);
-            const myQueueDoc = await getDoc(myRef);
-            
-            const queueData: any = {
-                userId,
-                status: 'waiting',
-                grade: userGrade || 5,
-                updatedAt: serverTimestamp()
-            };
-            
-            if (!myQueueDoc.exists() || !myQueueDoc.data()?.createdAt) {
-                queueData.createdAt = serverTimestamp();
-            }
-            
-            await setDoc(myRef, queueData, { merge: true });
-            return null;
-        }
+        if (validOpponents.length === 0) return null;
 
         // Try to claim an opponent using a transaction to prevent race conditions (duplicate matches)
         for (const opponent of validOpponents) {
             try {
                 const claimed = await runTransaction(db, async (transaction) => {
                     const oppRef = doc(db, 'duelQueue', opponent.userId);
-                    const oppDoc = await transaction.get(oppRef);
-                    if (!oppDoc.exists()) {
-                        return false; // Already claimed by someone else
-                    }
-                    
                     const myRef = doc(db, 'duelQueue', userId);
-                    
+                    // Đọc cả hàng chờ của chính mình: nếu người khác vừa ghép mình (xoá doc
+                    // của mình) thì transaction này xung đột và dừng, tránh một người bị
+                    // ghép vào hai trận cùng lúc.
+                    const [oppDoc, myDoc] = await Promise.all([transaction.get(oppRef), transaction.get(myRef)]);
+                    if (!oppDoc.exists() || !myDoc.exists()) {
+                        return false; // Đối thủ đã được người khác ghép, hoặc mình vừa được ghép
+                    }
+
                     // Claim successful: remove both from queue
                     transaction.delete(oppRef);
                     transaction.delete(myRef);
@@ -646,21 +549,23 @@ export const subscribeToDuel = (
     });
 };
 
-// Finish real-time duel
-export const completeRealDuel = async (duelId: string): Promise<void> => {
-    await updateDoc(doc(db, 'activeDuels', duelId), {
-        status: 'finished',
-        finishedAt: serverTimestamp()
-    });
-};
-
-// Surrender real-time duel
-export const surrenderDuel = async (duelId: string, userId: string): Promise<void> => {
-    await updateDoc(doc(db, 'activeDuels', duelId), {
-        status: 'finished',
-        surrenderedBy: userId,
-        finishedAt: serverTimestamp()
-    });
+/**
+ * Kết thúc trận đấu nhanh: server tính kết quả, cập nhật LP cho cả hai người chơi
+ * và lưu lịch sử. Gọi lại nhiều lần vẫn an toàn (trả về kết quả đã lưu).
+ * Server trả 409 nếu trận chưa hết giờ (đồng hồ lệch nhẹ) → thử lại vài lần.
+ */
+export const finishQuickDuel = async (
+    duelId: string,
+    surrender = false
+): Promise<{ outcome: 'win' | 'lose' | 'draw'; lpChange: number; myScore: number; opponentScore: number }> => {
+    for (let attempt = 0; ; attempt++) {
+        try {
+            return await postApi(`/api/duels/${duelId}/finish`, { surrender });
+        } catch (error) {
+            if (!(error instanceof ApiError) || error.status !== 409 || attempt >= 4) throw error;
+            await new Promise(resolve => setTimeout(resolve, 3000));
+        }
+    }
 };
 
 // Join duel queue
