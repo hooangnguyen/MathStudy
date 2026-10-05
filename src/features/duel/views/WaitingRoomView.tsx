@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Play } from 'lucide-react';
-import { cn } from '../../../utils/utils';
-import { startDuel } from '../../../services/duelService';
-import { getRandomQuestions } from '../../../utils/duelQuestions';
+import { cn } from '../../../lib/utils';
+import { startDuel } from '../duelService';
+import { getRandomQuestions } from '../duelQuestions';
 import type { MathDuelController } from '../useMathDuel';
 
 export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {

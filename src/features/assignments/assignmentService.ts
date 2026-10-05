@@ -1,0 +1,386 @@
+import {
+    collection,
+    doc,
+    setDoc,
+    serverTimestamp,
+    onSnapshot,
+    query,
+    orderBy,
+    getDoc,
+    runTransaction,
+    getDocs,
+    where,
+    limit
+} from 'firebase/firestore';
+import { db } from '../../lib/firebase';
+import { sendNotification } from '../notifications/notificationService';
+import { postApi } from '../../lib/apiClient';
+
+export interface QuestionData {
+    id: number;
+    type: string;
+    text: string;
+    options: string[];
+    // Chỉ có trong bản nháp và answerKeys; đề giao cho học sinh không chứa đáp án
+    correctAnswer?: any;
+    points: number;
+}
+
+export interface AssignmentSettings {
+    shuffleQuestions: boolean;
+    showScoreImmediate: boolean;
+}
+
+export interface DraftAssignmentData {
+    id: string;
+    teacherId: string;
+    title: string;
+    description: string;
+    questions: QuestionData[];
+    settings: AssignmentSettings;
+    createdAt: any;
+    updatedAt: any;
+}
+
+export interface AssignmentData {
+    id: string;
+    title: string;
+    description: string;
+    dueDate: any;
+    status: 'Đang diễn ra' | 'Đã kết thúc';
+    total: number;
+    completed: number;
+    avgScore: number;
+    scoreSum?: number; // tổng điểm các bài nộp (server cộng dồn)
+    questions: QuestionData[];
+    settings: AssignmentSettings;
+    createdAt: any;
+    classId: string;
+}
+
+export const createAssignment = async (
+    classId: string,
+    title: string,
+    description: string,
+    dueDate: Date,
+    totalStudents: number,
+    questions: QuestionData[],
+    settings: AssignmentSettings
+): Promise<AssignmentData> => {
+    try {
+        const classRef = doc(db, 'classes', classId);
+        const assignmentsRef = collection(classRef, 'assignments');
+        const newAssignmentRef = doc(assignmentsRef);
+
+        const assignmentData: AssignmentData = {
+            id: newAssignmentRef.id,
+            title,
+            description,
+            dueDate,
+            status: 'Đang diễn ra',
+            total: totalStudents,
+            completed: 0,
+            avgScore: 0,
+            questions,
+            settings,
+            createdAt: serverTimestamp(),
+            classId
+        };
+
+        // Đáp án lưu riêng trong answerKeys (chỉ giáo viên đọc được, server dùng để chấm);
+        // đề bài học sinh nhận được không kèm correctAnswer.
+        const answerKeyRef = doc(classRef, 'answerKeys', newAssignmentRef.id);
+        const answerKey = questions.map(q => ({
+            id: q.id,
+            type: q.type,
+            correctAnswer: q.correctAnswer ?? null,
+            points: q.points
+        }));
+        const publicQuestions = questions.map(({ correctAnswer, ...rest }) => rest);
+
+        await runTransaction(db, async (transaction) => {
+            const classDoc = await transaction.get(classRef);
+            if (!classDoc.exists()) throw new Error("Class not found");
+
+            const classData = classDoc.data();
+            const currentTotal = classData?.totalAssignments || 0;
+            const currentExpected = classData?.totalExpectedSubmissions || 0;
+            const studentIds = classData?.studentIds || [];
+
+            transaction.update(classRef, {
+                totalAssignments: currentTotal + 1,
+                totalExpectedSubmissions: currentExpected + totalStudents
+            });
+            transaction.set(newAssignmentRef, { ...assignmentData, questions: publicQuestions });
+            transaction.set(answerKeyRef, { questions: answerKey });
+
+            // Send notifications to all students in the class
+            for (const studentId of studentIds) {
+                sendNotification(
+                    studentId,
+                    'assignment',
+                    'Bài tập mới từ giáo viên',
+                    `Bạn có bài tập mới: "${title}". Hạn nộp: ${dueDate.toLocaleString('vi-VN')}`,
+                    { classId, assignmentId: newAssignmentRef.id }
+                ).catch(err => console.error("Error sending student notification:", err));
+            }
+        });
+
+        return assignmentData;
+    } catch (error) {
+        console.error('Error creating assignment:', error);
+        throw error;
+    }
+};
+
+/** Điểm trung bình tính từ scoreSum/completed (server chỉ cộng dồn, không ghi avgScore). */
+export const withAverageScore = (data: AssignmentData): AssignmentData => {
+    if (typeof data.scoreSum !== 'number' || !data.completed) return data;
+    return { ...data, avgScore: Number((data.scoreSum / data.completed).toFixed(1)) };
+};
+
+export const subscribeToClassAssignments = (classId: string, callback: (assignments: AssignmentData[]) => void) => {
+    const classRef = doc(db, 'classes', classId);
+    const assignmentsRef = collection(classRef, 'assignments');
+    const q = query(assignmentsRef, orderBy('createdAt', 'desc'));
+
+    return onSnapshot(q, (snapshot) => {
+        const assignments: AssignmentData[] = [];
+        snapshot.forEach((doc) => {
+            assignments.push(withAverageScore(doc.data() as AssignmentData));
+        });
+        callback(assignments);
+    }, (error) => {
+        console.error("Error subscribing to assignments:", error);
+    });
+};
+
+export interface SubmissionData {
+    id: string; // studentId
+    studentName: string;
+    score: number;
+    answers: any[];
+    submittedAt: any;
+    feedback?: string;
+    gradedAt?: any;
+}
+
+/**
+ * Nộp bài: server chấm theo đáp án và lưu kết quả.
+ * `answers` là map questionId -> câu trả lời. Trả về điểm nếu bài cho xem điểm ngay.
+ */
+export const submitAssignment = async (
+    classId: string,
+    assignmentId: string,
+    answers: Record<string, any>
+): Promise<{ showScore: boolean; score?: number }> => {
+    return postApi('/api/assignments/submit', { classId, assignmentId, answers });
+};
+
+// Map of assignmentId -> SubmissionData
+export const getStudentSubmissions = async (
+    classId: string,
+    studentId: string,
+    assignmentIds: string[]
+): Promise<Record<string, SubmissionData>> => {
+    if (!assignmentIds || assignmentIds.length === 0) return {};
+
+    try {
+        const promises = assignmentIds.map(async (assignmentId) => {
+            const subRef = doc(db, 'classes', classId, 'assignments', assignmentId, 'submissions', studentId);
+            const subDoc = await getDoc(subRef);
+            if (subDoc.exists()) {
+                return { key: assignmentId, data: subDoc.data() as SubmissionData };
+            }
+            return null;
+        });
+
+        const results = await Promise.all(promises);
+        const map: Record<string, SubmissionData> = {};
+        for (const res of results) {
+            if (res) {
+                map[res.key] = res.data;
+            }
+        }
+        return map;
+    } catch (error) {
+        console.error("Error fetching student submissions:", error);
+        return {};
+    }
+};
+
+// --- DRAFT ASSIGNMENTS ---
+
+export const saveDraftAssignment = async (
+    teacherId: string,
+    title: string,
+    description: string,
+    questions: QuestionData[],
+    settings: AssignmentSettings,
+    draftId?: string
+): Promise<string> => {
+    try {
+        const draftsRef = collection(db, 'drafts');
+        let draftDocRef;
+
+        if (draftId) {
+            draftDocRef = doc(draftsRef, draftId);
+            await setDoc(draftDocRef, {
+                id: draftId,
+                teacherId,
+                title,
+                description,
+                questions,
+                settings,
+                updatedAt: serverTimestamp()
+            }, { merge: true }); // Using merge: true again but specifically ensuring questions are replaced correctly if needed, or just ensuring all fields exist. Actually, merge: true is safer here to keep createdAt.
+        } else {
+            draftDocRef = doc(draftsRef);
+            await setDoc(draftDocRef, {
+                id: draftDocRef.id,
+                teacherId,
+                title,
+                description,
+                questions,
+                settings,
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
+            });
+        }
+
+        return draftDocRef.id;
+    } catch (error) {
+        console.error('Error saving draft:', error);
+        throw error;
+    }
+};
+
+export const subscribeToDraftAssignments = (teacherId: string, callback: (drafts: DraftAssignmentData[]) => void) => {
+    const draftsRef = collection(db, 'drafts');
+    // Lọc theo teacherId ngay trong query (bắt buộc theo firestore.rules),
+    // sắp xếp ở client để không cần composite index.
+    const q = query(draftsRef, where('teacherId', '==', teacherId));
+
+    return onSnapshot(q, (snapshot) => {
+        const drafts: DraftAssignmentData[] = [];
+        snapshot.forEach((doc) => {
+            drafts.push(doc.data() as DraftAssignmentData);
+        });
+        // Bản nháp vừa tạo (createdAt còn chờ server) được xếp lên đầu
+        const toMillis = (t: any) => t?.toMillis?.() ?? Number.MAX_SAFE_INTEGER;
+        drafts.sort((a, b) => toMillis(b.createdAt) - toMillis(a.createdAt));
+        callback(drafts);
+    }, (error) => {
+        console.error("Error subscribing to drafts:", error);
+    });
+};
+
+export const validateDraftForAutoGrading = (draft: DraftAssignmentData) => {
+    const issues: string[] = [];
+    draft.questions.forEach((q, index) => {
+        if (q.type === 'multiple_choice') {
+            if (typeof q.correctAnswer !== 'number') {
+                issues.push(`Câu ${index + 1} (${q.text.slice(0, 30)}...) chưa chọn đáp án đúng.`);
+            }
+        } else if (q.type === 'checkbox') {
+            const arr = Array.isArray(q.correctAnswer) ? q.correctAnswer : [];
+            if (arr.length === 0) {
+                issues.push(`Câu ${index + 1} (${q.text.slice(0, 30)}...) chưa chọn đáp án đúng (ít nhất một đáp án).`);
+            }
+        }
+    });
+    return issues;
+};
+
+export const deleteDraftAssignment = async (draftId: string) => {
+    try {
+        const { deleteDoc } = await import('firebase/firestore');
+        const draftRef = doc(db, 'drafts', draftId);
+        await deleteDoc(draftRef);
+    } catch (error) {
+        console.error('Error deleting draft:', error);
+        throw error;
+    }
+};
+
+export const subscribeToSubmissions = (
+    classId: string,
+    assignmentId: string,
+    callback: (submissions: SubmissionData[]) => void
+) => {
+    const submissionsRef = collection(db, 'classes', classId, 'assignments', assignmentId, 'submissions');
+    const q = query(submissionsRef, orderBy('submittedAt', 'desc'));
+
+    return onSnapshot(q, (snapshot) => {
+        const submissions: SubmissionData[] = [];
+        snapshot.forEach((doc) => {
+            submissions.push(doc.data() as SubmissionData);
+        });
+        callback(submissions);
+    }, (error) => {
+        console.error("Error subscribing to submissions:", error);
+    });
+};
+
+export const updateSubmissionGrade = async (
+    classId: string,
+    assignmentId: string,
+    studentId: string,
+    gradeData: {
+        score: number;
+        feedback?: string;
+        answers?: any[]; // Allow updating marked answers
+    }
+) => {
+    try {
+        const submissionRef = doc(db, 'classes', classId, 'assignments', assignmentId, 'submissions', studentId);
+        await setDoc(submissionRef, {
+            ...gradeData,
+            gradedAt: serverTimestamp()
+        }, { merge: true });
+    } catch (error) {
+        console.error('Error updating grade:', error);
+        throw error;
+    }
+};
+
+export interface PendingAssignment {
+    classId: string;
+    className: string;
+    assignmentId: string;
+    title: string;
+    dueDate: Date | null;
+}
+
+const toDate = (value: any): Date | null => {
+    if (!value) return null;
+    if (typeof value.toDate === 'function') return value.toDate();
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? null : d;
+};
+
+/**
+ * Bài tập học sinh chưa nộp ở các lớp đã tham gia, hạn gần nhất lên trước
+ * (bài không có hạn xếp cuối). Dùng cho mục "Bài tập cần làm" ở trang chủ.
+ */
+export const getPendingAssignments = async (studentId: string, classIds: string[]): Promise<PendingAssignment[]> => {
+    const perClass = await Promise.all(classIds.map(async (classId) => {
+        try {
+            const [classDoc, snapshot] = await Promise.all([
+                getDoc(doc(db, 'classes', classId)),
+                getDocs(query(collection(db, 'classes', classId, 'assignments'), orderBy('createdAt', 'desc'), limit(20)))
+            ]);
+            const assignments = snapshot.docs.map(d => d.data() as AssignmentData).filter(a => a.status !== 'Đã kết thúc');
+            const submissions = await getStudentSubmissions(classId, studentId, assignments.map(a => a.id));
+            const className = classDoc.exists() ? (classDoc.data().name as string) : 'Lớp học';
+            return assignments
+                .filter(a => !submissions[a.id])
+                .map(a => ({ classId, className, assignmentId: a.id, title: a.title, dueDate: toDate(a.dueDate) }));
+        } catch (error) {
+            console.error('Error loading pending assignments:', error);
+            return [];
+        }
+    }));
+    return perClass.flat().sort((a, b) =>
+        (a.dueDate?.getTime() ?? Infinity) - (b.dueDate?.getTime() ?? Infinity));
+};

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { heartbeatRoom } from '../../services/duelService';
+import { heartbeatRoom } from './duelService';
 import { HEARTBEAT_INTERVAL_MS } from '../../../shared/presence';
 
 /**

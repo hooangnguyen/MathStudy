@@ -5,8 +5,8 @@ import {
   User, Ban, Trash2, ArrowLeft, Bot
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { cn } from '../../utils/utils';
-import { useFirebase } from '../../context/FirebaseProvider';
+import { cn } from '../../lib/utils';
+import { useFirebase } from '../../app/FirebaseProvider';
 import {
   subscribeToMessages,
   sendMessage,
@@ -15,13 +15,13 @@ import {
   deleteConversation,
   searchMessages,
   Message
-} from '../../services/messageService';
-import { getUserProfile, getOnlineStatus, blockUser } from '../../services/userService';
-import { MathRenderer } from '../../components/common/MathRenderer';
-import { saveAIConsultation, getAIConsultationsByUserId } from '../../services/dataService';
-import { isBase64Image, uploadChatImage } from '../../services/avatarService';
-import { getAuthHeaders } from '../../services/authService';
-import { compressImage } from '../../utils/image';
+} from './messageService';
+import { getUserProfile, getOnlineStatus, blockUser } from '../user/userService';
+import { MathRenderer } from '../../content/MathRenderer';
+import { saveAIConsultation, getAIConsultationsByUserId } from './aiConsultationService';
+import { isBase64Image, uploadChatImage } from '../user/avatarService';
+import { getAuthHeaders } from '../../lib/authService';
+import { compressImage } from '../../lib/image';
 
 interface ChatProps {
   conversationId: string;

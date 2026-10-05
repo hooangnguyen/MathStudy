@@ -2,8 +2,8 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Crown } from 'lucide-react';
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../../config/firebase';
-import { cn } from '../../../utils/utils';
+import { db } from '../../../lib/firebase';
+import { cn } from '../../../lib/utils';
 import type { MathDuelController } from '../useMathDuel';
 
 export const RoomResultView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {

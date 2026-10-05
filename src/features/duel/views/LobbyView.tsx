@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Zap, Trophy, Swords, ShieldCheck, Crown, Users, Plus, Key, ClipboardList } from 'lucide-react';
-import { cn } from '../../../utils/utils';
+import { cn } from '../../../lib/utils';
 import type { MathDuelController } from '../useMathDuel';
 
 export const LobbyView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {

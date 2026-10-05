@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { MultiplayerLeaderboard } from '../../../features/duel/MultiplayerLeaderboard';
+import { MultiplayerLeaderboard } from '../MultiplayerLeaderboard';
 import type { MathDuelController } from '../useMathDuel';
 
 export const LeaderboardView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {
