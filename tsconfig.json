@@ -10,6 +10,7 @@
       "DOM.Iterable"
     ],
     "skipLibCheck": true,
+    "types": ["node", "vite/client"],
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -24,6 +25,10 @@
     "noEmit": true
   },
   "include": [
-    "src"
+    "src",
+    "shared",
+    "server",
+    "server.ts",
+    "tests"
   ]
 }

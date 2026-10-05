@@ -8,6 +8,7 @@ import { MathRenderer } from './MathRenderer';
 
 interface Question {
   id: number;
+  bankId?: number; // id trong ngân hàng câu hỏi, server dùng để chấm
   type: 'multiple-choice' | 'input';
   question: string;
   options?: string[];
@@ -20,7 +21,8 @@ interface LessonViewProps {
   topic?: string;
   grade?: number;
   onClose: () => void;
-  onComplete: (score: number) => void;
+  /** `answers`: câu trả lời lần đầu của từng câu (server chấm lại theo ngân hàng câu hỏi). */
+  onComplete: (score: number, answers: { questionId: number; answer: string }[]) => void;
 }
 
 export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grade = 1, onClose, onComplete }) => {
@@ -32,6 +34,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
   const [isCorrect, setIsCorrect] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
+  const firstAnswersRef = React.useRef(new Map<number, string>());
 
   const [lessonQuestions, setLessonQuestions] = useState<Question[]>([]);
   const [workingQuestions, setWorkingQuestions] = useState<Question[]>([]);
@@ -84,6 +87,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
               const shuffled = [...topicQuestions].sort(() => 0.5 - Math.random());
               rawData = shuffled.slice(0, 10).map((q, index) => ({
                 id: index + 1,
+                bankId: q.id,
                 type: q.options && q.options.length > 0 ? 'multiple-choice' : 'input',
                 question: q.text || q.question,
                 options: q.options,
@@ -113,6 +117,14 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
   const progress = Math.min(((currentStep + 1) / (lessonQuestions.length || 1)) * 100, 100);
 
   const handleCheck = () => {
+    // Ghi lại câu trả lời ở lượt đầu (các câu làm lại ở cuối không tính điểm)
+    if (currentStep < lessonQuestions.length && currentQuestion.bankId !== undefined) {
+      const answer = currentQuestion.type === 'multiple-choice' ? (selectedOption ?? '') : inputValue;
+      if (!firstAnswersRef.current.has(currentQuestion.bankId)) {
+        firstAnswersRef.current.set(currentQuestion.bankId, answer);
+      }
+    }
+
     const correct = currentQuestion.type === 'multiple-choice'
       ? selectedOption === currentQuestion.answer
       : inputValue.trim().toLowerCase() === currentQuestion.answer.toLowerCase();
@@ -145,7 +157,8 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
       setIsCorrect(false);
     } else {
       const finalScore = Math.round((correctCount / (lessonQuestions.length || 1)) * 100);
-      onComplete(finalScore);
+      const answers = [...firstAnswersRef.current].map(([questionId, answer]) => ({ questionId, answer }));
+      onComplete(finalScore, answers);
     }
   };
 

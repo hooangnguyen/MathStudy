@@ -30,6 +30,11 @@ import {
 } from '../services/assignmentService';
 import { getUsersByIds } from '../services/userService';
 import { audioService } from '../utils/audio';
+import { saveActiveSession, loadActiveSession, clearActiveSession } from '../utils/activeSession';
+import { getDuelRoom, removePlayersFromRoom, type DuelRoom } from '../services/duelService';
+import { useRoomPresence } from '../features/duel/useRoomPresence';
+import { findStalePlayers } from '../../shared/presence';
+import { resumeRoom } from '../../shared/resume';
 
 type QuizState =
   | 'lobby'
@@ -46,6 +51,7 @@ interface RoomPlayer {
   isMe: boolean;
   score?: number;
   progress?: number;
+  offline?: boolean;
 }
 
 export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = ({ userRole }) => {
@@ -77,17 +83,100 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     return () => unsub();
   }, [userRole, user?.uid]);
 
+  // ---------- Khôi phục khi bị văng khỏi phòng (tải lại trang, chuyển tab, mất mạng) ----------
+
+  /** Đưa giao diện về đúng trạng thái hiện tại của phòng quiz. */
+  const applyQuizRoom = (room: QuizRoomData | DuelRoom) => {
+    if (!user) return;
+    const resume = resumeRoom(room, user.uid, Date.now());
+    if (resume.kind === 'gone') {
+      clearActiveSession(user.uid, 'quiz-room');
+      return;
+    }
+
+    setRoomId(room.id);
+    setRoomCode(room.code);
+    setIsHost(room.hostId === user.uid);
+    setTimeLimit(room.timeLimit);
+    setQuestions(getQuizQuestionsFromRoom(room as QuizRoomData));
+    setCheckboxSelections([]);
+    saveActiveSession(user.uid, 'quiz-room', room.id);
+
+    if (resume.kind === 'waiting') {
+      setState('waiting_room');
+    } else if (resume.kind === 'finished') {
+      setScore(resume.score);
+      setState('result');
+    } else {
+      setCurrentQuestion(resume.currentQuestion);
+      setScore(resume.score);
+      setTimeLeft(resume.timeLeft);
+      setState('playing');
+    }
+  };
+
+  // Tín hiệu còn kết nối + phát hiện người mất kết nối
+  useRoomPresence(roomId, user?.uid, ['waiting_room', 'playing', 'result'].includes(state));
+  const [hostOffline, setHostOffline] = useState(false);
+  const leavingRef = React.useRef(false);
+
+  const [resumeChecked, setResumeChecked] = useState(false);
+  useEffect(() => {
+    if (!user || resumeChecked) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const session = loadActiveSession(user.uid, 'quiz-room');
+        if (!session) return;
+        const room = await getDuelRoom(session.id);
+        if (cancelled) return;
+        if (room) applyQuizRoom(room);
+        else clearActiveSession(user.uid, 'quiz-room');
+      } catch (error) {
+        console.error('Error resuming quiz room:', error);
+      } finally {
+        if (!cancelled) setResumeChecked(true);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [user?.uid]);
+
   // Subscribe to room updates
   useEffect(() => {
     if (!roomId) return;
 
     const unsub = subscribeToQuizRoom(roomId, (room) => {
       if (!room) {
+        // Giáo viên đã đóng phòng
+        if (!isHost) alert('Giáo viên đã đóng phòng quiz.');
+        if (user) clearActiveSession(user.uid, 'quiz-room');
+        setRoomId(null);
         setRoomPlayers([]);
+        setState('lobby');
         return;
       }
 
       const r = room as QuizRoomData;
+      const stale = findStalePlayers(r.currentPlayers, r.lastSeen);
+      setHostOffline(!!user && r.hostId !== user.uid && stale.includes(r.hostId));
+
+      if (state === 'waiting_room' && user && !r.currentPlayers.includes(user.uid)) {
+        // Bị giáo viên (tự động) loại vì mất kết nối quá lâu
+        if (!leavingRef.current) {
+          alert('Bạn đã bị đưa ra khỏi phòng do mất kết nối. Hãy nhập lại mã phòng để vào lại.');
+        }
+        clearActiveSession(user.uid, 'quiz-room');
+        setRoomId(null);
+        setRoomPlayers([]);
+        setState('lobby');
+        return;
+      }
+      // Giáo viên loại học sinh mất kết nối khỏi phòng chờ (chưa làm bài nên không mất điểm)
+      if (state === 'waiting_room' && user && r.hostId === user.uid) {
+        const ghosts = stale.filter((uid) => uid !== r.hostId);
+        if (ghosts.length > 0) removePlayersFromRoom(r.id, ghosts).catch(() => { });
+      }
+
       const qList = getQuizQuestionsFromRoom(r);
       if (qList.length > 0 && questions.length === 0) {
         setQuestions(qList);
@@ -116,7 +205,8 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
           avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
           isMe: uid === user?.uid,
           score: r.participantProgress?.[uid]?.score ?? 0,
-          progress: r.participantProgress?.[uid]?.progress ?? 0
+          progress: r.participantProgress?.[uid]?.progress ?? 0,
+          offline: stale.includes(uid)
         }));
       setRoomPlayers(list);
       // Fetch avatars for players
@@ -132,7 +222,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     });
 
     return () => unsub();
-  }, [roomId, user?.uid, state]);
+  }, [roomId, user?.uid, state, isHost]);
 
   // Timer for playing
   useEffect(() => {
@@ -194,6 +284,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
       setTimeLimit(room.timeLimit);
       setTimeLeft(room.timeLimit);
       setIsHost(true);
+      saveActiveSession(user.uid, 'quiz-room', room.id);
       setState('waiting_room');
       setRoomPlayers([]);
       setQuestions(getQuizQuestionsFromRoom(room as QuizRoomData));
@@ -213,23 +304,9 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
         user.uid,
         userProfile?.name || user.displayName || 'Học sinh'
       );
-      if (!room) {
-        alert('Không tìm thấy phòng với mã này. Hãy kiểm tra lại.');
-        return;
-      }
-      setRoomId(room.id);
-      setRoomCode(room.code);
-      setIsHost(false);
-      setState('waiting_room');
       setAvatarMap(userProfile?.avatar ? { [user.uid]: userProfile.avatar } : {});
-      setRoomPlayers([
-        {
-          id: user.uid,
-          name: userProfile?.name || 'Bạn',
-          avatar: userProfile?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.uid}`,
-          isMe: true
-        }
-      ]);
+      // Có thể là vào lại phòng đang làm dở (vd. sau khi tải lại trang)
+      applyQuizRoom(room);
     } catch (err: any) {
       alert(err?.message || 'Không thể vào phòng.');
     }
@@ -298,11 +375,15 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
   };
 
   const handleLeaveRoom = async () => {
+    if (user) clearActiveSession(user.uid, 'quiz-room');
+    leavingRef.current = true;
     if (roomId && user) {
       try {
         await leaveQuizRoom(roomId, user.uid);
       } catch (_) { }
     }
+    leavingRef.current = false;
+    setHostOffline(false);
     setState('lobby');
     setRoomId(null);
     setRoomCode('');
@@ -324,6 +405,11 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
 
   return (
     <div className="flex flex-col h-full bg-slate-50 overflow-x-hidden overflow-y-auto no-scrollbar pb-20">
+      {hostOffline && !isHost && (state === 'waiting_room' || state === 'playing') && (
+        <div className="bg-amber-50 text-amber-700 text-xs font-bold text-center py-2 px-4 shrink-0">
+          Giáo viên đang mất kết nối. Bạn vẫn có thể tiếp tục làm bài.
+        </div>
+      )}
       <AnimatePresence mode="wait">
         {state === 'lobby' && (
           <motion.div
@@ -502,6 +588,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
                   >
                     <img src={avatarMap[p.id] || (p.isMe ? userProfile?.avatar : undefined) || p.avatar} alt="" className="w-12 h-12 rounded-2xl object-cover bg-slate-200 shrink-0 ring-2 ring-white shadow" referrerPolicy="no-referrer" />
                     <span className={cn('font-bold text-slate-800', p.isMe && 'text-indigo-700')}>{p.name}</span>
+                    {p.offline && <span className="text-[10px] font-black text-rose-500 uppercase">Mất kết nối</span>}
                   </div>
                 ))}
                 {roomPlayers.length === 0 && (
@@ -637,6 +724,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
                           <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-center mb-1">
                               <span className="font-bold text-slate-800 truncate">{p.name}</span>
+                              {p.offline && <span className="text-[10px] font-black text-rose-500 uppercase shrink-0">Mất kết nối</span>}
                               <span className="font-black text-indigo-600 shrink-0">{p.score ?? 0}</span>
                             </div>
                             <div className="h-2 bg-slate-200 rounded-full overflow-hidden">

@@ -49,24 +49,36 @@ service cloud.firestore {
       return isTeacherOf(classId) || isStudentOf(classId);
     }
 
+    // Field chỉ server (Admin SDK) được ghi: không được thay đổi từ client
+    function unchanged(field) {
+      return incoming().get(field, null) == existing().get(field, null);
+    }
+
     // ---------- Users ----------
 
     match /users/{userId} {
       allow read: if isAuthenticated();
 
-      // Tài khoản mới không được tự đặt điểm/chuỗi ngày
+      // Tài khoản mới không được tự đặt điểm/tiến độ
       allow create: if isOwner(userId)
         && (!('role' in incoming()) || incoming().role in ['student', 'teacher'])
         && incoming().get('points', 0) == 0
-        && incoming().get('streak', 0) == 0;
+        && incoming().get('streak', 0) == 0
+        && incoming().get('completedLessons', []).size() == 0
+        && incoming().get('totalCompletedAssignments', 0) == 0;
 
-      // Vai trò chỉ được chọn một lần (trong lúc onboarding), sau đó bị khoá
+      // Vai trò chỉ được chọn một lần (trong lúc onboarding), sau đó bị khoá.
+      // Điểm và tiến độ học do server tính (API bài học / nộp bài).
       allow update: if isOwner(userId)
         && (!('role' in incoming()) || incoming().role in ['student', 'teacher'])
         && (
           existing().get('onboarded', false) != true
           || incoming().get('role', null) == existing().get('role', null)
-        );
+        )
+        && unchanged('points')
+        && unchanged('streak')
+        && unchanged('completedLessons')
+        && unchanged('totalCompletedAssignments');
 
       allow delete: if false;
 
@@ -124,13 +136,7 @@ service cloud.firestore {
           && incoming().studentIds.hasAll(existing().studentIds)
           && incoming().studentIds.size() == existing().studentIds.size() + 1
           && uid() in incoming().studentIds
-          && incoming().studentCount == incoming().studentIds.size()
-        )
-        // Học sinh nộp bài: chỉ tăng bộ đếm bài nộp thêm 1
-        || (
-          onlyChanges(['submitted'])
-          && uid() in existing().studentIds
-          && incoming().submitted == existing().get('submitted', 0) + 1
+          && incoming().studentCount == existing().get('studentCount', 0) + 1
         )
       );
 
@@ -140,26 +146,19 @@ service cloud.firestore {
         allow read: if isClassMember(classId);
         allow create, delete: if isTeacherOf(classId);
 
-        allow update: if isTeacherOf(classId)
-          // Học sinh nộp bài: cập nhật số bài đã nộp và điểm trung bình
-          || (
-            isStudentOf(classId)
-            && onlyChanges(['completed', 'avgScore'])
-            && incoming().completed == existing().get('completed', 0) + 1
-          );
+        // Học sinh nộp bài qua server (/api/assignments/submit), server cập nhật thống kê
+        allow update: if isTeacherOf(classId);
 
         match /submissions/{studentId} {
           allow read: if isTeacherOf(classId) || isOwner(studentId);
-
-          // Mỗi học sinh chỉ nộp một lần, cho chính mình
-          allow create: if isOwner(studentId)
-            && isStudentOf(classId)
-            && incoming().id == studentId;
-
-          // Chỉ giáo viên được chấm/sửa điểm
-          allow update, delete: if isTeacherOf(classId);
-          allow create: if isTeacherOf(classId);
+          // Bài nộp do server tạo sau khi chấm; giáo viên được chấm/sửa điểm
+          allow create, update, delete: if isTeacherOf(classId);
         }
+      }
+
+      // Đáp án của bài tập: chỉ giáo viên của lớp (và server) đọc được
+      match /answerKeys/{assignmentId} {
+        allow read, write: if isTeacherOf(classId);
       }
     }
 
@@ -212,10 +211,10 @@ service cloud.firestore {
 
     // ---------- Đấu toán ----------
 
+    // Collection cũ, app không còn ghi vào
     match /matches/{matchId} {
       allow read: if isAuthenticated();
-      allow create: if isAuthenticated()
-        && (incoming().player1Id == uid() || incoming().player2Id == uid());
+      allow write: if false;
     }
 
     match /duelRooms/{roomId} {
@@ -224,10 +223,42 @@ service cloud.firestore {
         && incoming().hostId == uid()
         && incoming().currentPlayers == [uid()];
 
-      // Người trong phòng, hoặc người đang tham gia vào phòng
-      allow update: if isAuthenticated()
-        && incoming().hostId == existing().hostId
-        && (uid() in existing().currentPlayers || uid() in incoming().currentPlayers);
+      allow update: if isAuthenticated() && incoming().hostId == existing().hostId && (
+        // Chủ phòng: bắt đầu trận, đặt lại phòng, đổi cài đặt
+        existing().hostId == uid()
+        // Vào phòng: chỉ thêm chính mình, khi phòng còn chờ và chưa đủ người
+        || (
+          existing().status == 'waiting'
+          && !(uid() in existing().currentPlayers)
+          && onlyChanges(['currentPlayers', 'playerNames', 'guestId', 'guestName', 'lastSeen'])
+          && incoming().get('lastSeen', {}).diff(existing().get('lastSeen', {})).affectedKeys().hasOnly([uid()])
+          && incoming().currentPlayers.hasAll(existing().currentPlayers)
+          && incoming().currentPlayers.size() == existing().currentPlayers.size() + 1
+          && uid() in incoming().currentPlayers
+          && incoming().currentPlayers.size() <= existing().maxPlayers
+          && incoming().playerNames.diff(existing().playerNames).affectedKeys().hasOnly([uid()])
+        )
+        // Rời phòng: chỉ bỏ chính mình
+        || (
+          uid() in existing().currentPlayers
+          && onlyChanges(['currentPlayers'])
+          && existing().currentPlayers.hasAll(incoming().currentPlayers)
+          && !(uid() in incoming().currentPlayers)
+          && incoming().currentPlayers.size() == existing().currentPlayers.size() - 1
+        )
+        // Cập nhật tiến độ làm bài của chính mình
+        || (
+          uid() in existing().currentPlayers
+          && onlyChanges(['participantProgress'])
+          && incoming().participantProgress.diff(existing().get('participantProgress', {})).affectedKeys().hasOnly([uid()])
+        )
+        // Tín hiệu còn kết nối của chính mình
+        || (
+          uid() in existing().currentPlayers
+          && onlyChanges(['lastSeen'])
+          && incoming().lastSeen.diff(existing().get('lastSeen', {})).affectedKeys().hasOnly([uid()])
+        )
+      );
 
       allow delete: if isAuthenticated() && existing().hostId == uid();
     }
@@ -241,25 +272,40 @@ service cloud.firestore {
 
     match /activeDuels/{duelId} {
       allow read: if isAuthenticated();
+
+      // Người tạo trận là player1; startedAt phải là thời điểm server
+      // (server dùng mốc này để kiểm tra thời gian trận đấu).
       allow create: if isAuthenticated()
-        && (incoming().player1Id == uid() || incoming().player2Id == uid());
-      allow update: if isAuthenticated()
-        && (existing().player1Id == uid() || existing().player2Id == uid())
-        && incoming().player1Id == existing().player1Id
-        && incoming().player2Id == existing().player2Id;
+        && incoming().player1Id == uid()
+        && incoming().player2Id is string
+        && incoming().player2Id != uid()
+        && incoming().status == 'playing'
+        && incoming().startedAt == request.time
+        && incoming().player1Score == 0
+        && incoming().player2Score == 0
+        && !('result' in incoming())
+        && !('surrenderedBy' in incoming());
+
+      // Mỗi người chơi chỉ cập nhật tiến độ của chính mình.
+      // Kết thúc trận, đầu hàng và LP do server xử lý (/api/duels/:id/finish).
+      allow update: if isAuthenticated() && !('result' in existing()) && (
+        (existing().player1Id == uid()
+          && onlyChanges(['player1Score', 'player1Progress', 'player1Correct', 'player1TimeLeftAtFinish']))
+        || (existing().player2Id == uid()
+          && onlyChanges(['player2Score', 'player2Progress', 'player2Correct', 'player2TimeLeftAtFinish']))
+      );
       allow delete: if false;
     }
 
+    // Lịch sử trận và bảng xếp hạng LP chỉ server ghi
     match /duelMatches/{matchId} {
       allow read: if isAuthenticated();
-      allow create: if isAuthenticated()
-        && (incoming().player1Id == uid() || incoming().player2Id == uid());
-      allow update, delete: if false;
+      allow write: if false;
     }
 
     match /userRanks/{userId} {
       allow read: if isAuthenticated();
-      allow write: if isOwner(userId);
+      allow write: if false;
     }
   }
 }

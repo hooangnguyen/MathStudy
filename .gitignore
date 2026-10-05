@@ -14,3 +14,7 @@ scratch.js
 *.tsbuildinfo
 tsc_out.txt
 lint_output.txt
+
+# Build và log của test e2e
+dist-e2e/
+e2e-server.log

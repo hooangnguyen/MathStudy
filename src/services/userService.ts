@@ -1,4 +1,5 @@
 import { db } from '../config/firebase';
+import { postApi } from './apiClient';
 import { doc, getDoc, setDoc, updateDoc, serverTimestamp, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 
 export interface Achievement {
@@ -148,37 +149,15 @@ export const getTopUsers = async (limitCount: number = 50, type: 'solo' | 'multi
     }
 };
 
-export const updateProgress = async (uid: string, lessonId: number, score: number) => {
-    try {
-        const userRef = doc(db, 'users', uid);
-        const userDoc = await getDoc(userRef);
-
-        let completedLessons: number[] = [];
-        let points = 0;
-
-        if (userDoc.exists()) {
-            const data = userDoc.data();
-            completedLessons = data.completedLessons || [];
-            points = data.points || 0;
-        }
-
-        if (!completedLessons.includes(lessonId)) {
-            completedLessons.push(lessonId);
-            points += (score * 10);
-
-            await setDoc(userRef, {
-                completedLessons,
-                points,
-                lastActive: serverTimestamp()
-            }, { merge: true });
-
-            return { completedLessons, points };
-        }
-        return null;
-    } catch (error) {
-        console.error('Error updating progress:', error);
-        throw error;
-    }
+/**
+ * Hoàn thành bài học: server chấm lại câu trả lời và cộng điểm (mỗi bài một lần).
+ */
+export const completeLesson = async (
+    lessonId: number,
+    topic: string,
+    answers: { questionId: number; answer: string }[]
+): Promise<{ score: number | null; pointsAwarded: number; alreadyCompleted: boolean }> => {
+    return postApi('/api/lessons/complete', { lessonId, topic, answers });
 };
 
 /**
