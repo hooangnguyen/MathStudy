@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { X } from 'lucide-react';
-import { cn } from '../../../utils/utils';
+import { cn } from '../../../lib/utils';
 import type { MathDuelController } from '../useMathDuel';
 
 export const CreateRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {

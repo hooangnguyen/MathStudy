@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { findMathSpans, findMathSpanAt, insertMath, replaceMathSpan, insertFormula } from '../src/utils/mathText';
+import { findMathSpans, findMathSpanAt, insertMath, replaceMathSpan, insertFormula } from '../src/content/mathText';
 
 describe('mathText', () => {
   const text = 'Tính $\\frac{1}{2}$ và $x^2$';
@@ -41,7 +41,7 @@ describe('mathText', () => {
   });
 });
 
-import { normalizeLatex } from '../src/components/common/FormulaDialog';
+import { normalizeLatex } from '../src/content/FormulaDialog';
 
 describe('normalizeLatex (kết quả từ MathLive)', () => {
   it('đổi dạng viết gọn sang dạng có ngoặc', () => {

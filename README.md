@@ -12,19 +12,53 @@
 
 ## Cấu trúc thư mục
 
+Code được chia **theo tính năng**. Mọi thứ của một tính năng (màn hình, component, hook, service gọi Firestore/API)
+nằm chung một thư mục trong `src/features/`, nên khi sửa hay mở rộng một tính năng chỉ cần mở đúng thư mục đó.
+
 ```
-server.ts              # Express server: API OTP, API AI, phục vụ frontend
-server/                # API chấm điểm (bài tập, bài học, LP đấu toán) bằng Firebase Admin
-shared/                # Logic chấm điểm/xếp hạng dùng chung client + server
-firestore.rules        # Luật bảo mật Firestore
+server.ts                  # Khởi tạo Express: gắn các API, phục vụ frontend, cache
+server/                    # API phía server (Firebase Admin)
+  ai.ts                    #   /api/ai: AI soạn câu hỏi, gia sư giải bài
+  otp.ts                   #   /api/send-otp, /api/verify-otp
+  assignments.ts           #   chấm bài tập
+  lessons.ts               #   chấm bài học, cộng điểm
+  duels.ts                 #   kết thúc trận đấu, tính LP
+  questionBank.ts          #   đọc ngân hàng câu hỏi ở server
+  http.ts, rateLimit.ts, firebaseAdmin.ts
+shared/                    # Logic thuần dùng chung client + server (chấm điểm, xếp hạng, phòng đấu)
+firestore.rules            # Luật bảo mật Firestore
 src/
-  pages/               # Các màn hình chính (Dashboard, Classroom, MathDuel, ...)
-  features/            # Tính năng lớn (classroom, chat, duel)
-  components/common/   # Component dùng chung
-  services/            # Truy cập Firestore và gọi API
-  data/questions/      # Ngân hàng câu hỏi theo lớp
-tests/                 # Unit test (Vitest)
+  main.tsx                 # Điểm vào
+  app/                     # Khung ứng dụng: App (điều hướng tab), FirebaseProvider, layout/
+  components/              # Component giao diện dùng chung, không gắn với tính năng nào (Avatar, ...)
+  content/                 # Hiển thị và soạn nội dung câu hỏi: MathRenderer, MathTextEditor, công thức
+  lib/                     # Hạ tầng: firebase, apiClient, authService, aiService, âm thanh, ảnh, cn()
+  features/
+    auth/                  #   đăng nhập, onboarding
+    home/                  #   trang chủ học sinh (lộ trình học, bài tập cần làm)
+    lessons/               #   làm bài học + questionBank.ts (nơi duy nhất nạp ngân hàng câu hỏi)
+    classroom/             #   lớp học phía học sinh, classService
+    assignments/           #   bài tập: soạn (builder/), làm, xem kết quả, chấm, assignmentService
+    teacher/               #   trang chủ và trang quản lý lớp của giáo viên
+    quiz/                  #   quiz trực tiếp trong lớp
+    duel/                  #   đấu 1v1, phòng đấu (views/, hook useMathDuel, duelService)
+    leaderboard/           #   bảng xếp hạng
+    chat/                  #   tin nhắn, gia sư AI
+    notifications/         #   thông báo
+    user/                  #   hồ sơ, cài đặt, userService
+  data/questions/          # Ngân hàng câu hỏi theo lớp
+  types/                   # Khai báo kiểu cho thư viện ngoài
+tests/                     # Unit test (Vitest), emulator/, e2e/
 ```
+
+Quy ước khi thêm code:
+
+- Code chỉ một tính năng dùng → để trong `src/features/<tính năng>/`.
+- Tính năng này cần dùng code của tính năng khác → import trực tiếp file đó (vd. `quiz/` dùng `duel/duelService`).
+  Khi một phần được nhiều tính năng dùng chung thì mới chuyển nó lên `components/`, `content/` hoặc `lib/`.
+- `lib/` và `components/` không import từ `features/`. Ngoại lệ duy nhất hiện tại là `lib/audio.ts` import kiểu `UserPreferences`.
+- Logic chấm điểm/kiểm tra cần chạy ở cả hai phía → `shared/`, không import gì từ `src/`.
+- Thêm API mới → tạo router trong `server/` rồi gắn vào `server.ts`.
 
 ## Chạy ở máy local
 

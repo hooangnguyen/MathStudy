@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Trophy } from 'lucide-react';
-import { cn } from '../../../utils/utils';
-import { MathRenderer } from '../../../components/common/MathRenderer';
+import { cn } from '../../../lib/utils';
+import { MathRenderer } from '../../../content/MathRenderer';
 import type { MathDuelController } from '../useMathDuel';
 
 export const RoomPlayingView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {

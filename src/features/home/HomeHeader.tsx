@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bell, Flame, Star } from 'lucide-react';
-import { Avatar } from '../../components/common/Avatar';
+import { Avatar } from '../../components/Avatar';
 
 interface HomeHeaderProps {
   name?: string;

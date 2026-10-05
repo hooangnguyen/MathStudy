@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync } from 'fs';
-import { prepareMathContent, legacyTextToEditable } from '../src/components/common/MathRenderer';
+import { prepareMathContent, legacyTextToEditable } from '../src/content/MathRenderer';
 
 describe('prepareMathContent', () => {
   it('giữ dấu cách giữa chữ và công thức', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BookOpen, ChevronRight, CheckCircle2 } from 'lucide-react';
-import { cn } from '../../utils/utils';
-import type { PendingAssignment } from '../../services/assignmentService';
+import { cn } from '../../lib/utils';
+import type { PendingAssignment } from '../assignments/assignmentService';
 
 interface PendingAssignmentsProps {
   items: PendingAssignment[] | null; // null = đang tải

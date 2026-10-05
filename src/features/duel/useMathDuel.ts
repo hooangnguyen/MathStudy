@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
-import { db } from '../../config/firebase';
-import { useFirebase } from '../../context/FirebaseProvider';
-import { getUserRank, getTopRankings, getDuelHistory, joinDuelQueue, leaveDuelQueue, UserRank, DuelMatch, RANKS, updateDuelScore, subscribeToDuel, createRealDuel, finishQuickDuel, markDuelPlayerFinished, findOpponentForDuel, createDuelRoom, joinDuelRoom, subscribeToRoom, updateRoomProgress, getDuelRoom, getActiveDuel, DuelRoom, leaveRoom, removePlayersFromRoom } from '../../services/duelService';
+import { db } from '../../lib/firebase';
+import { useFirebase } from '../../app/FirebaseProvider';
+import { getUserRank, getTopRankings, getDuelHistory, joinDuelQueue, leaveDuelQueue, UserRank, DuelMatch, RANKS, updateDuelScore, subscribeToDuel, createRealDuel, finishQuickDuel, markDuelPlayerFinished, findOpponentForDuel, createDuelRoom, joinDuelRoom, subscribeToRoom, updateRoomProgress, getDuelRoom, getActiveDuel, DuelRoom, leaveRoom, removePlayersFromRoom } from './duelService';
 import { useRoomPresence } from './useRoomPresence';
 import { findStalePlayers } from '../../../shared/presence';
-import { saveActiveSession, loadActiveSession, clearActiveSession } from '../../utils/activeSession';
+import { saveActiveSession, loadActiveSession, clearActiveSession } from './activeSession';
 import { resumeRoom, resumeQuickDuel } from '../../../shared/resume';
-import { getRandomQuestions, DuelQuestion } from '../../utils/duelQuestions';
-import { getUserProfile, getUsersByIds } from '../../services/userService';
-import { audioService } from '../../utils/audio';
+import { getRandomQuestions, DuelQuestion } from './duelQuestions';
+import { getUserProfile, getUsersByIds } from '../user/userService';
+import { audioService } from '../../lib/audio';
 import type { DuelState, MathDuelProps, RoomPlayer } from './types';
 
 /**

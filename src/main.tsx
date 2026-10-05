@@ -1,10 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './app/App';
 import './index.css';
 import 'katex/dist/katex.min.css';
-import { FirebaseProvider } from './context/FirebaseProvider';
-import ErrorBoundary from './components/common/ErrorBoundary';
+import { FirebaseProvider } from './app/FirebaseProvider';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Suppress specific third-party errors that might be injected by browser extensions
 const originalConsoleError = console.error;

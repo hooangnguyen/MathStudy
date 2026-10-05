@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Trophy, ShieldCheck, Zap, Star, ChevronLeft, Search, Crown, Users, TrendingUp, Medal } from 'lucide-react';
-import { cn } from '../../utils/utils';
-import { useFirebase } from '../../context/FirebaseProvider';
-import { getUserRank, getTopRankings, getClassRankings, UserRank, RANKS } from '../../services/duelService';
+import { cn } from '../../lib/utils';
+import { useFirebase } from '../../app/FirebaseProvider';
+import { getUserRank, getTopRankings, getClassRankings, UserRank, RANKS } from './duelService';
 
 interface MultiplayerLeaderboardProps {
   onBack?: () => void;
