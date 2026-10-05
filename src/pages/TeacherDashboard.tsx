@@ -28,6 +28,12 @@ interface TeacherDashboardProps {
   };
 }
 
+/** "5A" → "Lớp 5A"; tên đã có chữ "Lớp" thì giữ nguyên (tránh "Lớp Lớp 5A"). */
+const classLabel = (name?: string) => {
+  const n = (name || '').trim();
+  return /^lớp\b/i.test(n) ? n : `Lớp ${n}`;
+};
+
 export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) => {
   const { user } = useFirebase();
   const [classesList, setClassesList] = useState<ClassData[]>([]);
@@ -182,7 +188,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
   const renderClassList = () => (
     <div className="space-y-3 px-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Danh sách lớp học</h3>
+        <h3 className="text-lg font-black text-slate-900">Danh sách lớp học</h3>
         <button
           onClick={() => setShowCreateClass(true)}
           className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-100 transition-colors"
@@ -205,7 +211,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                 </div>
                 <div>
                   <h4 className="text-lg font-black text-slate-900">{cls.name}</h4>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{cls.studentCount} Học sinh</p>
+                  <p className="text-xs font-bold text-slate-400">{cls.studentCount} Học sinh</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -226,7 +232,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
 
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-slate-50 p-3 rounded-2xl">
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Tỉ lệ nộp bài</p>
+                <p className="text-xs font-black text-slate-500 mb-1">Tỉ lệ nộp bài</p>
                 <div className="flex items-end gap-2">
                   <p className="text-xl font-black text-slate-900">{(cls.submitted || 0)}/{(cls.totalExpectedSubmissions || 0)}</p>
                   <p className="text-xs font-bold text-emerald-500 mb-1">
@@ -235,7 +241,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                 </div>
               </div>
               <div className="bg-slate-50 p-3 rounded-2xl">
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Điểm trung bình</p>
+                <p className="text-xs font-black text-slate-500 mb-1">Điểm trung bình</p>
                 <p className="text-xl font-black text-indigo-600">{cls.avgScore}</p>
               </div>
             </div>
@@ -254,7 +260,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
             <div className="w-8 h-8 rounded-xl bg-indigo-500 flex items-center justify-center text-white mb-2 shadow-md shadow-indigo-200">
               <Users size={16} />
             </div>
-            <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Sĩ số</p>
+            <p className="text-xs font-black text-indigo-400">Sĩ số</p>
             <p className="text-xl font-black text-indigo-900">{currentClass?.studentCount || 40}</p>
           </div>
           <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/5 rounded-full -mr-8 -mt-8 blur-xl" />
@@ -270,7 +276,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
             <div className="w-8 h-8 rounded-xl bg-amber-500 flex items-center justify-center text-white mb-2 shadow-md shadow-amber-200">
               <Target size={16} />
             </div>
-            <p className="text-[10px] font-black text-amber-400 uppercase tracking-widest">Mã lớp (Nhấn để copy)</p>
+            <p className="text-xs font-black text-amber-400">Mã lớp (bấm để sao chép)</p>
             <p className="text-xl font-black text-amber-900">{currentClass?.code || 'MATH5A'}</p>
           </div>
           <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/5 rounded-full -mr-8 -mt-8 blur-xl" />
@@ -297,7 +303,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
       {/* Active Assignments Section */}
       <div className="space-y-3">
         <div className="flex items-center justify-between px-1">
-          <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Bài tập đã giao</h3>
+          <h3 className="text-lg font-black text-slate-900">Bài tập đã giao</h3>
         </div>
 
         <div className="space-y-3">
@@ -311,7 +317,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
               <div key={assignment.id} className="bg-white p-4 rounded-[2rem] border border-slate-100 shadow-sm space-y-3">
                 <div className="flex items-center justify-between">
                   <span className={cn(
-                    "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest",
+                    "px-3 py-1 rounded-full text-xs font-black",
                     assignment.status === 'Đang diễn ra' ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-500"
                   )}>
                     {assignment.status}
@@ -326,7 +332,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                 </div>
                 <div>
                   <h4 className="text-base font-black text-slate-900">{assignment.title}</h4>
-                  <p className="text-xs font-bold text-slate-400">Lớp {currentClass?.name} • {assignment.total} học sinh</p>
+                  <p className="text-xs font-bold text-slate-400">{classLabel(currentClass?.name)} • {assignment.total} học sinh</p>
                 </div>
                 <div className="space-y-1.5">
                   <div className="flex justify-between text-[10px] font-black">
@@ -369,9 +375,9 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
             </button>
           )}
           <div>
-            <h2 className="text-2xl font-black text-slate-900">Lớp học</h2>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-              {selectedClassId ? `${currentClass?.name} • ${getTeacherTitle()} ${teacherName}` : 'Quản lý lớp học'}
+            <h2 className="text-2xl font-black text-slate-900 truncate">{selectedClassId && currentClass ? classLabel(currentClass.name) : 'Lớp học'}</h2>
+            <p className="text-xs font-bold text-slate-400">
+              {selectedClassId ? `${currentClass?.studentCount ?? 0} học sinh · Mã lớp ${currentClass?.code ?? ''}` : 'Quản lý lớp học'}
             </p>
           </div>
         </div>
@@ -410,7 +416,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
             {activeSubTab === 'students' && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-2">
-                  <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Danh sách lớp</h3>
+                  <h3 className="text-lg font-black text-slate-900">Danh sách lớp</h3>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-bold text-slate-400">Sắp xếp:</span>
                     <select className="text-[10px] font-black text-indigo-600 bg-transparent outline-none">
@@ -527,7 +533,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                         </div>
 
                         <div className="space-y-3">
-                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tên lớp học</label>
+                          <label className="text-xs font-black text-slate-400 ml-2">Tên lớp học</label>
                           <input
                             type="text"
                             value={newClassName}
@@ -538,7 +544,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                         </div>
 
                         <div className="space-y-3">
-                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Khối lớp</label>
+                          <label className="text-xs font-black text-slate-400 ml-2">Khối lớp</label>
                           <div className="grid grid-cols-3 gap-3">
                             {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(grade => (
                               <button
@@ -581,7 +587,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                         </div>
 
                         <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 relative overflow-hidden group">
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Mã tham gia lớp học</p>
+                          <p className="text-xs font-black text-slate-400 mb-3">Mã tham gia lớp học</p>
                           <p className="text-4xl font-black text-indigo-600 tracking-[0.2em]">{generatedCode}</p>
 
                           <button
@@ -637,7 +643,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex justify-between items-center mb-6 shrink-0">
-                  <h3 className="text-xl font-black text-slate-900">Giao bài cho lớp {currentClass.name}</h3>
+                  <h3 className="text-xl font-black text-slate-900">Giao bài cho {classLabel(currentClass.name)}</h3>
                   <button
                     onClick={() => setShowDraftSelectionModal(false)}
                     className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"
@@ -664,7 +670,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                       <div className="w-full border-t border-slate-200"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-2 bg-white text-slate-500 font-bold uppercase tracking-wider text-[10px]">Hoặc chọn từ bản nháp</span>
+                      <span className="px-2 bg-white text-slate-500 font-bold text-xs">Hoặc chọn từ bản nháp</span>
                     </div>
                   </div>
 
@@ -753,22 +759,22 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ deepLink }) 
                         referrerPolicy="no-referrer"
                       />
                       <h2 className="text-2xl font-black text-slate-900">{viewingStudentProfile.name}</h2>
-                      <p className="text-sm font-bold text-slate-400 mt-1">Lớp {currentClass?.name}</p>
+                      <p className="text-sm font-bold text-slate-400 mt-1">{classLabel(currentClass?.name)}</p>
 
                       <div className="grid grid-cols-2 gap-4 w-full mt-6">
                         <div className="bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
-                          <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Tổng điểm</p>
+                          <p className="text-xs font-black text-indigo-400 mb-1">Tổng điểm</p>
                           <p className="text-2xl font-black text-indigo-900">{viewingStudentProfile.points}</p>
                         </div>
                         <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
-                          <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Chuỗi ngày</p>
+                          <p className="text-xs font-black text-emerald-400 mb-1">Chuỗi ngày</p>
                           <p className="text-2xl font-black text-emerald-900">{viewingStudentProfile.streak}</p>
                         </div>
                       </div>
                     </div>
 
                     <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-4">
-                      <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Thành tích nổi bật</h3>
+                      <h3 className="text-lg font-black text-slate-900">Thành tích nổi bật</h3>
                       <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
                         <div className="min-w-[100px] bg-gradient-to-br from-yellow-400 to-orange-500 p-4 rounded-2xl text-white flex flex-col items-center justify-center gap-2 shadow-lg shadow-orange-200">
                           <span className="text-2xl">⭐</span>

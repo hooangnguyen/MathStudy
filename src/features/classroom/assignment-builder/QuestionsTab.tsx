@@ -9,22 +9,29 @@ export const QuestionsTab: React.FC<{ builder: AssignmentBuilderController }> = 
 
   return (
     <div className="space-y-6 pb-24">
-      {/* Title Card */}
-      <div className="bg-white rounded-[2rem] p-6 shadow-sm border-t-8 border-t-indigo-500 border-x border-b border-slate-200">
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full text-3xl font-black text-slate-900 bg-transparent border-none outline-none mb-4 placeholder:text-slate-300"
-          placeholder="Tiêu đề bài tập"
-        />
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full text-sm font-bold text-slate-500 bg-transparent border-none outline-none resize-none placeholder:text-slate-300"
-          placeholder="Mô tả bài tập (không bắt buộc)"
-          rows={2}
-        />
+      {/* Tên và mô tả bài tập */}
+      <div className="bg-white rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-200 space-y-3">
+        <label className="block">
+          <span className="text-sm font-semibold text-slate-600">Tên bài tập</span>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="mt-1 w-full h-12 rounded-2xl border-2 border-slate-200 px-4 text-lg sm:text-xl font-black text-slate-900 focus:border-indigo-400 focus:outline-none placeholder:text-slate-300 placeholder:font-bold"
+            placeholder="Vd: Ôn tập phân số"
+          />
+        </label>
+        <label className="block">
+          <span className="text-sm font-semibold text-slate-600">Hướng dẫn cho học sinh <span className="font-normal text-slate-400">(không bắt buộc)</span></span>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 w-full rounded-2xl border-2 border-slate-200 px-4 py-3 text-base text-slate-700 focus:border-indigo-400 focus:outline-none resize-y placeholder:text-slate-300"
+            placeholder="Vd: Làm cẩn thận, ghi rõ đơn vị."
+            rows={2}
+          />
+        </label>
+        <p className="text-sm text-slate-500">{questions.length} câu hỏi · Tổng {questions.reduce((sum, q) => sum + (Number(q.points) || 0), 0)} điểm</p>
       </div>
 
       {/* Questions List */}
@@ -36,11 +43,10 @@ export const QuestionsTab: React.FC<{ builder: AssignmentBuilderController }> = 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <button
           onClick={addQuestion}
-          className="w-full sm:w-14 h-14 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-indigo-600 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all active:scale-95 group"
-          title="Thêm câu hỏi thủ công"
+          className="w-full sm:w-auto px-6 h-14 bg-white border-2 border-dashed border-indigo-300 rounded-2xl flex items-center justify-center gap-2 text-indigo-700 font-black hover:bg-indigo-50 transition-colors active:scale-95"
         >
-          <Plus size={24} className="group-hover:scale-110 transition-transform" />
-          <span className="sm:hidden font-black ml-2">Thêm câu hỏi mới</span>
+          <Plus size={22} />
+          Thêm câu hỏi
         </button>
 
         <button

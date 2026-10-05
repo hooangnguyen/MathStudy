@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { createAssignment, saveDraftAssignment, deleteDraftAssignment } from '../../../services/assignmentService';
+import { legacyTextToEditable } from '../../../components/common/MathRenderer';
+import { createAssignment, saveDraftAssignment, deleteDraftAssignment, type QuestionData } from '../../../services/assignmentService';
 import { subscribeToTeacherClasses, ClassData } from '../../../services/classService';
 import { useFirebase } from '../../../context/FirebaseProvider';
 import { generateQuestionsWithAI } from '../../../services/aiService';
@@ -9,7 +10,7 @@ import type { AssignmentBuilderProps } from './types';
 export const useAssignmentBuilder = ({ classId, totalStudents, initialDraft, onClose, onAssigned, onDraftSaved }: AssignmentBuilderProps) => {
   const { user } = useFirebase();
   const [activeTab, setActiveTab] = useState<'questions' | 'settings'>('questions');
-  const [title, setTitle] = useState(initialDraft?.title || 'Bài tập chưa có tiêu đề');
+  const [title, setTitle] = useState(initialDraft?.title || '');
   const [description, setDescription] = useState(initialDraft?.description || '');
   const [dueDate, setDueDate] = useState<string>('');
   const [shuffleQuestions, setShuffleQuestions] = useState(initialDraft?.settings?.shuffleQuestions ?? false);
@@ -80,52 +81,66 @@ export const useAssignmentBuilder = ({ classId, totalStudents, initialDraft, onC
     return () => unsubscribe();
   }, [user]);
 
-  const [questions, setQuestions] = useState(initialDraft?.questions || [
-    { id: 1, type: 'multiple_choice', text: '', options: ['Tùy chọn 1'], correctAnswer: 0, points: 10 }
+  // Câu hỏi mới có sẵn 2 ô đáp án trống (chữ gợi ý hiện bằng placeholder, không điền sẵn giá trị)
+  const newQuestion = (): QuestionData => ({ id: Date.now(), type: 'multiple_choice', text: '', options: ['', ''], correctAnswer: 0, points: 10 });
+
+  // Câu hỏi dạng cũ ("$ \\text{...} $") được đổi sang dạng chữ + $công thức$ để dễ sửa
+  const toEditable = (q: QuestionData): QuestionData => ({
+    ...q,
+    text: legacyTextToEditable(q.text),
+    options: (q.options || []).map(legacyTextToEditable),
+  });
+
+  const [questions, setQuestions] = useState<QuestionData[]>(initialDraft?.questions?.map(toEditable) || [
+    { ...newQuestion(), id: 1 }
   ]);
 
+  // Các hàm dưới đây cập nhật theo dạng prev => ... để nhiều thay đổi liên tiếp không ghi đè nhau
   const addQuestion = () => {
-    setQuestions([
-      ...questions,
-      { id: Date.now(), type: 'multiple_choice', text: '', options: ['Tùy chọn 1'], correctAnswer: 0, points: 10 }
-    ]);
+    setQuestions(prev => [...prev, newQuestion()]);
   };
 
   const updateQuestion = (id: number, field: string, value: any) => {
-    setQuestions(questions.map(q => q.id === id ? { ...q, [field]: value } : q));
+    setQuestions(prev => prev.map(q => q.id === id ? { ...q, [field]: value } : q));
   };
 
-  const addOption = (questionId: number) => {
-    setQuestions(questions.map(q => {
-      if (q.id === questionId) {
-        return { ...q, options: [...q.options, `Tùy chọn ${q.options.length + 1}`] };
-      }
-      return q;
+  /** Đổi loại câu và chuyển đáp án đúng sang đúng kiểu dữ liệu của loại mới. */
+  const changeQuestionType = (id: number, type: 'multiple_choice' | 'checkbox' | 'short_answer') => {
+    setQuestions(prev => prev.map(q => {
+      if (q.id !== id || q.type === type) return q;
+      const current = q.correctAnswer;
+      let correctAnswer: any;
+      if (type === 'multiple_choice') correctAnswer = Array.isArray(current) ? (current[0] ?? 0) : (typeof current === 'number' ? current : 0);
+      else if (type === 'checkbox') correctAnswer = Array.isArray(current) ? current : (typeof current === 'number' ? [current] : []);
+      else correctAnswer = typeof current === 'string' ? current : '';
+      const options = type !== 'short_answer' && q.options.length < 2 ? [...q.options, ...Array(2 - q.options.length).fill('')] : q.options;
+      return { ...q, type, correctAnswer, options };
     }));
   };
 
+  const addOption = (questionId: number) => {
+    setQuestions(prev => prev.map(q => q.id === questionId ? { ...q, options: [...q.options, ''] } : q));
+  };
+
   const updateOption = (questionId: number, optionIndex: number, value: string) => {
-    setQuestions(questions.map(q => {
-      if (q.id === questionId) {
-        const newOptions = [...q.options];
-        newOptions[optionIndex] = value;
-        return { ...q, options: newOptions };
-      }
-      return q;
+    setQuestions(prev => prev.map(q => {
+      if (q.id !== questionId) return q;
+      const newOptions = [...q.options];
+      newOptions[optionIndex] = value;
+      return { ...q, options: newOptions };
     }));
   };
 
   const removeOption = (questionId: number, optionIndex: number) => {
-    setQuestions(questions.map(q => {
-      if (q.id === questionId) {
-        const newOptions = q.options.filter((_, i) => i !== optionIndex);
-        // Adjust correct answer if needed
-        let newCorrect = q.correctAnswer;
-        if (newCorrect === optionIndex) newCorrect = 0;
-        else if (newCorrect > optionIndex) newCorrect--;
-        return { ...q, options: newOptions, correctAnswer: newCorrect };
-      }
-      return q;
+    setQuestions(prev => prev.map(q => {
+      if (q.id !== questionId) return q;
+      const newOptions = q.options.filter((_, i) => i !== optionIndex);
+      // Dời chỉ số đáp án đúng cho khớp sau khi xoá
+      const shift = (i: number) => (i > optionIndex ? i - 1 : i);
+      let newCorrect: any = q.correctAnswer;
+      if (Array.isArray(newCorrect)) newCorrect = newCorrect.filter((i: number) => i !== optionIndex).map(shift);
+      else if (typeof newCorrect === 'number') newCorrect = newCorrect === optionIndex ? 0 : shift(newCorrect);
+      return { ...q, options: newOptions, correctAnswer: newCorrect };
     }));
   };
 
@@ -346,8 +361,8 @@ export const useAssignmentBuilder = ({ classId, totalStudents, initialDraft, onC
           return {
             id: Date.now() + Math.random(),
             type: q.type || 'multiple_choice',
-            text: sanitizedText,
-            options: q.options || ['', '', '', ''],
+            text: legacyTextToEditable(sanitizedText),
+            options: (q.options || ['', '', '', '']).map(legacyTextToEditable),
             correctAnswer: q.correctAnswer ?? 0,
             points: q.points || 10
           };
@@ -375,6 +390,7 @@ export const useAssignmentBuilder = ({ classId, totalStudents, initialDraft, onC
   };
 
   return {
+    changeQuestionType,
     classId,
     totalStudents,
     initialDraft,

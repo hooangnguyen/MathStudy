@@ -163,7 +163,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tên lớp học</label>
+                  <label className="text-xs font-black text-slate-400 ml-2">Tên lớp học</label>
                   <input
                     type="text"
                     value={newClassName}
@@ -174,7 +174,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Khối lớp</label>
+                  <label className="text-xs font-black text-slate-400 ml-2">Khối lớp</label>
                   <div className="grid grid-cols-3 gap-3">
                     {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(grade => (
                       <button
@@ -194,7 +194,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Môn học</label>
+                  <label className="text-xs font-black text-slate-400 ml-2">Môn học</label>
                   <div className="flex flex-wrap gap-2">
                     {['Toán học', 'Tiếng Việt', 'Tiếng Anh', 'Khoa học', 'Lịch sử', 'Địa lý', 'Tin học', 'Khác'].map(subject => (
                       <button
@@ -237,7 +237,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                 </div>
 
                 <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 relative overflow-hidden group">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Mã tham gia lớp học</p>
+                  <p className="text-xs font-black text-slate-400 mb-3">Mã tham gia lớp học</p>
                   <p className="text-4xl font-black text-indigo-600 tracking-[0.2em]">{generatedCode}</p>
 
                   <button
@@ -281,7 +281,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
       <div className="p-6 bg-white border-b border-slate-100 flex items-center justify-between shrink-0">
         <div>
           <h1 className="text-2xl font-black text-slate-900">Trang chủ</h1>
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{getGreeting()}, {getTeacherTitle()} {teacherName}</p>
+          <p className="text-xs font-bold text-slate-400">{getGreeting()}, {getTeacherTitle()} {teacherName}</p>
         </div>
         <button
           onClick={() => onShowNotifications?.(true)}
@@ -309,7 +309,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                   <Plus size={18} />
                 </div>
                 <h3 className="text-sm font-black">Tạo lớp</h3>
-                <p className="text-[9px] font-bold text-white/70 uppercase tracking-widest mt-0.5">Lấy mã lớp</p>
+                <p className="text-xs font-bold text-white/70 mt-0.5">Lấy mã lớp</p>
               </div>
               <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -mr-10 -mt-10 blur-xl group-hover:scale-150 transition-transform duration-500" />
             </button>
@@ -322,7 +322,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                 <BookOpen size={18} />
               </div>
               <h3 className="text-sm font-black text-slate-900">Giao bài</h3>
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Cho các lớp</p>
+              <p className="text-xs font-bold text-slate-400 mt-0.5">Cho các lớp</p>
             </button>
 
             <button
@@ -334,7 +334,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                   <Users size={20} />
                 </div>
                 <h3 className="text-base font-black">Tạo phòng Quiz</h3>
-                <p className="text-[10px] font-bold text-white/80 uppercase tracking-widest mt-1">Tổ chức thi đấu trực tiếp</p>
+                <p className="text-xs font-bold text-white/80 mt-1">Tổ chức thi đấu trực tiếp</p>
               </div>
               <div className="relative z-10 w-12 h-12 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-md group-hover:bg-white/30 transition-colors">
                 <ChevronRight size={24} />
@@ -346,7 +346,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
           {/* Drafts Section */}
           <div className="space-y-4">
             <div className="flex items-center justify-between px-2">
-              <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Bản nháp / Soạn sẵn</h3>
+              <h3 className="text-lg font-black text-slate-900">Bản nháp / Soạn sẵn</h3>
               <button
                 onClick={() => setShowCreateAssignment(true)}
                 className="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-200 active:scale-90 transition-transform"
@@ -359,7 +359,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
               {draftAssignments.map(draft => (
                 <div key={draft.id} className="bg-white p-5 rounded-[2rem] border-2 border-dashed border-slate-200 shadow-sm space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-amber-100 text-amber-600">
+                    <span className="px-3 py-1 rounded-full text-xs font-black bg-amber-100 text-amber-600">
                       Bản nháp
                     </span>
                     <span className="text-[10px] font-bold text-slate-400">Tạo: {draft.updatedAt ? new Date(draft.updatedAt.toMillis()).toLocaleDateString('vi-VN') : ''}</span>
@@ -400,10 +400,10 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
           {/* Classes Overview */}
           <div className="space-y-4">
             <div className="flex items-center justify-between px-2">
-              <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Lớp học của tôi</h3>
+              <h3 className="text-lg font-black text-slate-900">Lớp học của tôi</h3>
               <button
                 onClick={() => onNavigate?.('classroom')}
-                className="text-[10px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1"
+                className="text-xs font-black text-indigo-600 flex items-center gap-1"
               >
                 Xem tất cả <ChevronRight size={14} />
               </button>
@@ -424,12 +424,12 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                     </div>
                     <div>
                       <h4 className="text-base font-black text-slate-900">{cls.name}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mã lớp: {cls.code}</p>
+                      <p className="text-xs font-bold text-slate-400">Mã lớp: {cls.code}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-black text-slate-900">{cls.studentCount} HS</p>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Giao: {cls.totalAssignments}</p>
+                    <p className="text-xs font-bold text-slate-400">Giao: {cls.totalAssignments}</p>
                   </div>
                 </div>
               ))}
@@ -438,7 +438,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
 
           {/* Reminders */}
           <div className="space-y-4">
-            <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider px-2">Nhắc nhở</h3>
+            <h3 className="text-lg font-black text-slate-900 px-2">Nhắc nhở</h3>
             <div className="bg-amber-50 p-5 rounded-[2rem] border border-amber-100 flex gap-4">
               <div className="w-10 h-10 rounded-2xl bg-amber-500 flex items-center justify-center text-white shrink-0 shadow-lg shadow-amber-200">
                 <Clock size={20} />
@@ -450,7 +450,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                 </p>
                 <button
                   onClick={() => setGradingAssignment({ title: 'Ôn tập Phân số', class: '5A' })}
-                  className="mt-3 px-4 py-2 bg-amber-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest active:scale-95 transition-transform"
+                  className="mt-3 px-4 py-2 bg-amber-500 text-white rounded-xl text-xs font-black active:scale-95 transition-transform"
                 >
                   Chấm ngay
                 </button>
@@ -501,7 +501,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
 
                   <div className="space-y-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Hạn nộp bài</label>
+                      <label className="text-xs font-bold text-slate-500">Hạn nộp bài</label>
                       <div className="flex gap-2">
                         <div className="flex-1">
                           <input
@@ -523,7 +523,7 @@ export const TeacherHome: React.FC<{ onNavigate?: (tab: string) => void; showNot
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Chọn lớp giao bài</label>
+                      <label className="text-xs font-bold text-slate-500">Chọn lớp giao bài</label>
                       <div className="grid grid-cols-2 gap-2">
                         {teacherClasses.map(cls => (
                           <button

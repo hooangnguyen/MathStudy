@@ -6,7 +6,7 @@ import type { AssignmentBuilderController } from './useAssignmentBuilder';
 
 /** Thanh tiêu đề: tên bài, lưu nháp, giao bài và chuyển tab. */
 export const BuilderHeader: React.FC<{ builder: AssignmentBuilderController }> = ({ builder }) => {
-  const { classId, initialDraft, onClose, activeTab, setActiveTab, title, setTitle, dueDate, isSubmitting, isSavingDraft, selectedClassId, questions, handleAssign, handleSaveDraft, handleDeleteExistingDraft } = builder;
+  const { classId, initialDraft, onClose, activeTab, setActiveTab, title, dueDate, isSubmitting, isSavingDraft, selectedClassId, questions, handleAssign, handleSaveDraft, handleDeleteExistingDraft } = builder;
 
   return (
     <div className="bg-white border-b border-slate-200 shrink-0">
@@ -15,13 +15,10 @@ export const BuilderHeader: React.FC<{ builder: AssignmentBuilderController }> =
           <button onClick={onClose} className="w-10 h-10 shrink-0 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-500 hover:bg-slate-100 transition-colors">
             <ChevronLeft size={24} />
           </button>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="text-lg sm:text-xl font-black text-slate-900 bg-transparent border-none outline-none focus:ring-0 w-full placeholder:text-slate-300 px-0 truncate"
-            placeholder="Tiêu đề bài tập"
-          />
+          <div className="min-w-0">
+            <p className="text-xs font-semibold text-slate-500">{initialDraft?.id ? 'Sửa bản nháp' : 'Soạn bài tập mới'}</p>
+            <h1 className="text-lg font-black text-slate-900 truncate">{title.trim() || 'Bài tập chưa đặt tên'}</h1>
+          </div>
         </div>
         <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end sm:justify-start">
           {initialDraft?.id && (

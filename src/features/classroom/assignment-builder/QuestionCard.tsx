@@ -1,249 +1,158 @@
 import React from 'react';
-import { Trash2, Copy, CheckCircle2 } from 'lucide-react';
+import { Trash2, Copy, Check, Plus } from 'lucide-react';
 import { cn } from '../../../utils/utils';
-import { MathSymbolPicker } from '../../../components/common/MathSymbolPicker';
-import { MathEquationEditor } from '../../../components/common/MathEquationEditor';
+import { MathTextEditor } from '../../../components/common/MathTextEditor';
 import type { AssignmentBuilderController } from './useAssignmentBuilder';
 
-/** Một câu hỏi trong trình soạn: nội dung, loại câu, đáp án và điểm. */
+type QuestionType = 'multiple_choice' | 'checkbox' | 'short_answer';
+
+const TYPES: { value: QuestionType; label: string; hint: string }[] = [
+  { value: 'multiple_choice', label: '1 đáp án', hint: 'Trắc nghiệm: học sinh chọn 1 đáp án đúng' },
+  { value: 'checkbox', label: 'Nhiều đáp án', hint: 'Học sinh chọn tất cả các đáp án đúng' },
+  { value: 'short_answer', label: 'Tự điền', hint: 'Trả lời ngắn: học sinh tự gõ câu trả lời' },
+];
+
+const letter = (i: number) => String.fromCharCode(65 + i);
+
+/** Một câu hỏi trong trình soạn: nội dung (chữ + công thức), loại câu, đáp án và điểm. */
 export const QuestionCard: React.FC<{ builder: AssignmentBuilderController; q: AssignmentBuilderController['questions'][number]; index: number }> = ({ builder, q, index }) => {
-  const { activePicker, setActivePicker, showQuestionTypeDropdown, setShowQuestionTypeDropdown, questionTypeDropdownRefs, questionMathRefs, optionMathRefs, updateQuestion, addOption, updateOption, removeOption, removeQuestion, duplicateQuestion, handleSymbolSelect } = builder;
+  const { updateQuestion, changeQuestionType, addOption, updateOption, removeOption, removeQuestion, duplicateQuestion, questions } = builder;
+
+  const isCorrect = (optIndex: number) =>
+    q.type === 'multiple_choice' ? q.correctAnswer === optIndex : Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex);
+
+  const toggleCorrect = (optIndex: number) => {
+    if (q.type === 'multiple_choice') {
+      updateQuestion(q.id, 'correctAnswer', optIndex);
+    } else {
+      const current: number[] = Array.isArray(q.correctAnswer) ? q.correctAnswer : [];
+      updateQuestion(q.id, 'correctAnswer', current.includes(optIndex) ? current.filter(i => i !== optIndex) : [...current, optIndex].sort());
+    }
+  };
+
+  const activeType = TYPES.find(t => t.value === q.type) ?? TYPES[0];
 
   return (
-    <div key={q.id} className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-200 space-y-6 relative group transition-all focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent">
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4">
-        {/* Question Text with MathLive Input */}
-        <div className="flex-1 relative min-w-0">
-          <MathEquationEditor
-            ref={(el: any) => { if (el) questionMathRefs.current.set(q.id, el); }}
-            value={q.text}
-            onChange={(latex) => updateQuestion(q.id, 'text', latex)}
-            placeholder="Câu hỏi"
-            className="bg-transparent border-none rounded-none w-full"
-            onOpenPicker={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'question' ? null : { type: 'question', id: q.id })}
+    <section className="bg-white rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-200 space-y-5" aria-label={`Câu ${index + 1}`}>
+      {/* Đầu thẻ: số câu, điểm, nhân bản, xoá */}
+      <div className="flex items-center gap-2">
+        <span className="px-3 py-1 rounded-full bg-indigo-600 text-white text-sm font-black">Câu {index + 1}</span>
+        <label className="ml-auto flex items-center gap-2 text-sm font-semibold text-slate-600">
+          Điểm
+          <input
+            type="number"
+            min={0}
+            value={q.points}
+            onChange={(e) => updateQuestion(q.id, 'points', Math.max(0, parseInt(e.target.value) || 0))}
+            className="w-16 h-10 rounded-xl border-2 border-slate-200 text-center text-base font-black text-slate-900 focus:border-indigo-400 focus:outline-none"
           />
-
-          {/* Math Symbol Picker Popup */}
-          {activePicker?.id === q.id && activePicker?.type === 'question' && (
-            <div className="absolute right-0 top-full mt-2 z-[120] w-[22rem] max-w-[calc(100vw-2rem)]">
-              <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
-            </div>
-          )}
-        </div>
-
-        {/* Question Type Selector (Google Forms style) */}
-        <div className="relative shrink-0 self-center sm:self-start">
-          <button
-            onClick={() => setShowQuestionTypeDropdown(showQuestionTypeDropdown === q.id ? null : q.id)}
-            className={cn(
-              "flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-black transition-all min-w-[180px] justify-between border-2 border-slate-100 hover:border-slate-200 bg-white shadow-sm",
-              q.type === 'multiple_choice' ? "text-indigo-600" : q.type === 'checkbox' ? "text-emerald-600" : "text-amber-600"
-            )}
-          >
-            <span className="flex items-center gap-2">
-              {q.type === 'multiple_choice' ? (
-                <div className="w-4 h-4 rounded-full border-2 border-indigo-600 flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
-                </div>
-              ) : q.type === 'checkbox' ? (
-                <div className="w-4 h-4 rounded border-2 border-emerald-600 bg-emerald-600 flex items-center justify-center">
-                  <CheckCircle2 size={10} className="text-white" />
-                </div>
-              ) : (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16M4 18h7" />
-                </svg>
-              )}
-              {q.type === 'multiple_choice' ? 'Trắc nghiệm' : q.type === 'checkbox' ? 'Hộp kiểm' : 'Trả lời ngắn'}
-            </span>
-            <svg className={cn("w-4 h-4 text-slate-400 transition-transform", showQuestionTypeDropdown === q.id && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          {showQuestionTypeDropdown === q.id && (
-            <div ref={(el) => { if (el) questionTypeDropdownRefs.current.set(q.id, el); }} className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden z-50">
-              <div className="p-2">
-                <button
-                  onClick={() => {
-                    updateQuestion(q.id, 'type', 'multiple_choice');
-                    setShowQuestionTypeDropdown(null);
-                  }}
-                  className={cn(
-                    "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
-                    q.type === 'multiple_choice' ? "bg-indigo-50" : "hover:bg-slate-50"
-                  )}
-                >
-                  <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
-                    <div className="w-4 h-4 rounded-full border-2 border-indigo-600 flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-black text-slate-700">Trắc nghiệm</p>
-                    <p className="text-[10px] font-medium text-slate-400">Chọn một đáp án đúng</p>
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => {
-                    updateQuestion(q.id, 'type', 'checkbox');
-                    setShowQuestionTypeDropdown(null);
-                  }}
-                  className={cn(
-                    "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
-                    q.type === 'checkbox' ? "bg-emerald-50" : "hover:bg-slate-50"
-                  )}
-                >
-                  <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                    <CheckCircle2 size={20} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-black text-slate-700">Hộp kiểm</p>
-                    <p className="text-[10px] font-medium text-slate-400">Chọn nhiều đáp án đúng</p>
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => {
-                    updateQuestion(q.id, 'type', 'short_answer');
-                    setShowQuestionTypeDropdown(null);
-                  }}
-                  className={cn(
-                    "w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left",
-                    q.type === 'short_answer' ? "bg-amber-50" : "hover:bg-slate-50"
-                  )}
-                >
-                  <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16M4 18h7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-black text-slate-700">Trả lời ngắn</p>
-                    <p className="text-[10px] font-medium text-slate-400">Học sinh tự nhập đáp án</p>
-                  </div>
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+        </label>
+        <button onClick={() => duplicateQuestion(q.id)} title="Nhân bản câu hỏi" aria-label="Nhân bản câu hỏi"
+          className="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center">
+          <Copy size={18} />
+        </button>
+        <button onClick={() => removeQuestion(q.id)} disabled={questions.length <= 1} title="Xoá câu hỏi" aria-label="Xoá câu hỏi"
+          className="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 hover:bg-rose-50 hover:text-rose-600 flex items-center justify-center disabled:opacity-40">
+          <Trash2 size={18} />
+        </button>
       </div>
 
-      {/* Options for Multiple Choice */}
-      {(q.type === 'multiple_choice' || q.type === 'checkbox') && (
-        <div className="space-y-3 pl-2">
-          {q.options.map((opt, optIndex) => (
-            <div key={optIndex} className="flex items-start gap-3">
-              <button
-                type="button"
-                className={cn(
-                  "w-6 h-6 flex items-center justify-center border-2 transition-colors shrink-0 mt-3",
-                  q.type === 'multiple_choice' ? "rounded-full" : "rounded-md",
-                  (q.type === 'multiple_choice' ? q.correctAnswer === optIndex : (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex)))
-                    ? "border-emerald-500 bg-emerald-500 text-white"
-                    : "border-slate-300 hover:border-indigo-500 bg-white"
-                )}
-                onClick={() => {
-                  if (q.type === 'multiple_choice') {
-                    updateQuestion(q.id, 'correctAnswer', optIndex);
-                  } else {
-                    const current = Array.isArray(q.correctAnswer) ? q.correctAnswer : [];
-                    const exists = current.includes(optIndex);
-                    const next = exists ? current.filter(i => i !== optIndex) : [...current, optIndex];
-                    updateQuestion(q.id, 'correctAnswer', next);
-                  }
-                }}
-              >
-                {q.type === 'multiple_choice'
-                  ? (q.correctAnswer === optIndex && <CheckCircle2 size={16} strokeWidth={3} />)
-                  : (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optIndex) && <CheckCircle2 size={16} strokeWidth={3} />)
-                }
-              </button>
+      {/* Nội dung câu hỏi */}
+      <MathTextEditor
+        value={q.text}
+        onChange={(text) => updateQuestion(q.id, 'text', text)}
+        placeholder="Nhập câu hỏi… (Enter để xuống dòng)"
+        ariaLabel={`Nội dung câu ${index + 1}`}
+      />
 
-              <div className="flex-1 relative bg-white min-w-0">
-                <MathEquationEditor
-                  ref={(el: any) => { if (el) optionMathRefs.current.set(`${q.id}-${optIndex}`, el); }}
-                  value={opt}
-                  onChange={(latex) => updateOption(q.id, optIndex, latex)}
-                  placeholder={`Tùy chọn ${optIndex + 1}`}
-                  className="bg-transparent w-full"
-                  onOpenPicker={() => setActivePicker(activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex ? null : { type: 'option', id: q.id, optIndex })}
-                />
-                {/* Math Symbol Picker Popup for Options */}
-                {activePicker?.id === q.id && activePicker?.type === 'option' && activePicker?.optIndex === optIndex && (
-                  <div className="absolute right-0 top-full mt-2 z-[120] w-[22rem] max-w-[calc(100vw-2rem)]">
-                    <MathSymbolPicker onSelect={handleSymbolSelect} onClose={() => setActivePicker(null)} />
-                  </div>
+      {/* Loại câu hỏi: 3 nút thay cho menu thả xuống */}
+      <div>
+        <div className="grid grid-cols-3 gap-1 p-1 rounded-2xl bg-slate-100" role="radiogroup" aria-label="Loại câu hỏi">
+          {TYPES.map((t) => (
+            <button
+              key={t.value}
+              role="radio"
+              aria-checked={q.type === t.value}
+              onClick={() => changeQuestionType(q.id, t.value)}
+              className={cn(
+                'h-10 rounded-xl text-[13px] sm:text-sm font-bold whitespace-nowrap transition-colors',
+                q.type === t.value ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+              )}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-slate-500 mt-1.5 px-1">{activeType.hint}</p>
+      </div>
+
+      {/* Đáp án trắc nghiệm */}
+      {(q.type === 'multiple_choice' || q.type === 'checkbox') && (
+        <div className="space-y-3">
+          <p className="text-sm font-semibold text-slate-600">Đáp án <span className="font-normal text-slate-500">— bấm vào chữ cái để đánh dấu đáp án đúng</span></p>
+          {q.options.map((opt, optIndex) => {
+            const correct = isCorrect(optIndex);
+            return (
+              <div key={optIndex} className="flex items-start gap-2">
+                <button
+                  type="button"
+                  onClick={() => toggleCorrect(optIndex)}
+                  aria-pressed={correct}
+                  aria-label={`Đáp án ${letter(optIndex)}${correct ? ' (đúng)' : ''}`}
+                  title={correct ? 'Đáp án đúng' : 'Đánh dấu là đáp án đúng'}
+                  className={cn(
+                    'w-11 h-11 mt-0.5 shrink-0 flex items-center justify-center font-black text-base border-2 transition-colors',
+                    q.type === 'multiple_choice' ? 'rounded-full' : 'rounded-xl',
+                    correct ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white border-slate-300 text-slate-500 hover:border-emerald-400'
+                  )}
+                >
+                  {correct ? <Check size={20} strokeWidth={3} /> : letter(optIndex)}
+                </button>
+                <div className="flex-1 min-w-0">
+                  <MathTextEditor
+                    compact
+                    value={opt}
+                    onChange={(value) => updateOption(q.id, optIndex, value)}
+                    placeholder={`Đáp án ${letter(optIndex)}`}
+                  />
+                </div>
+                {q.options.length > 2 && (
+                  <button
+                    onClick={() => removeOption(q.id, optIndex)}
+                    aria-label={`Xoá đáp án ${letter(optIndex)}`}
+                    className="w-11 h-11 mt-0.5 shrink-0 rounded-xl bg-slate-50 text-slate-400 hover:bg-rose-50 hover:text-rose-500 flex items-center justify-center"
+                  >
+                    <Trash2 size={18} />
+                  </button>
                 )}
               </div>
-
-              {q.options.length > 1 && (
-                <button
-                  onClick={() => removeOption(q.id, optIndex)}
-                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-400 hover:bg-rose-50 hover:text-rose-500 transition-colors shrink-0 mt-2"
-                >
-                  <Trash2 size={20} />
-                </button>
-              )}
-            </div>
-          ))}
-          <div className="flex items-center gap-3 pt-2">
-            <div className={cn(
-              "w-5 h-5 border-2 border-slate-200",
-              q.type === 'multiple_choice' ? "rounded-full" : "rounded-md"
-            )} />
+            );
+          })}
+          {q.options.length < 8 && (
             <button
               onClick={() => addOption(q.id)}
-              className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors"
+              className="ml-[52px] h-10 px-3 rounded-xl text-sm font-bold text-indigo-600 hover:bg-indigo-50 flex items-center gap-1.5"
             >
-              Thêm tùy chọn
+              <Plus size={18} /> Thêm đáp án
             </button>
-          </div>
+          )}
         </div>
       )}
 
-      {/* Short Answer */}
+      {/* Trả lời ngắn: đáp án dùng để tự chấm */}
       {q.type === 'short_answer' && (
-        <div className="pl-2">
-          <div className="w-1/2 border-b-2 border-slate-200 pb-2">
-            <p className="text-sm font-bold text-slate-400">Văn bản câu trả lời ngắn</p>
-          </div>
-        </div>
+        <label className="block">
+          <span className="text-sm font-semibold text-slate-600">Đáp án đúng</span>
+          <input
+            type="text"
+            value={typeof q.correctAnswer === 'string' ? q.correctAnswer : ''}
+            onChange={(e) => updateQuestion(q.id, 'correctAnswer', e.target.value)}
+            placeholder="Vd: 42 (để trống nếu muốn tự chấm tay)"
+            className="mt-1.5 w-full h-12 rounded-2xl border-2 border-slate-200 px-4 text-base focus:border-indigo-400 focus:outline-none"
+          />
+          <span className="text-xs text-slate-500 mt-1 block">Không phân biệt chữ hoa/thường và dấu cách thừa.</span>
+        </label>
       )}
-
-      {/* Footer Actions */}
-      <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="px-3 py-1.5 bg-slate-50 rounded-2xl flex items-center gap-3 border border-slate-100">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Điểm:</span>
-            <input
-              type="number"
-              value={q.points}
-              onChange={(e) => updateQuestion(q.id, 'points', parseInt(e.target.value) || 0)}
-              className="w-10 bg-transparent text-sm font-black text-slate-900 border-none outline-none focus:ring-0 p-0 text-center"
-            />
-          </div>
-        </div>
-        <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-2xl border border-slate-100/50">
-          <button
-            onClick={() => duplicateQuestion(q.id)}
-            className="p-2.5 text-slate-400 hover:text-indigo-600 rounded-xl hover:bg-white hover:shadow-sm transition-all active:scale-95"
-            title="Nhân bản"
-          >
-            <Copy size={18} />
-          </button>
-          <div className="w-px h-6 bg-slate-200 mx-1" />
-          <button
-            onClick={() => removeQuestion(q.id)}
-            className="p-2.5 text-slate-400 hover:text-rose-600 rounded-xl hover:bg-white hover:shadow-sm transition-all active:scale-95"
-            title="Xóa"
-          >
-            <Trash2 size={18} />
-          </button>
-        </div>
-      </div>
-
-    </div>
+    </section>
   );
 };

@@ -9,5 +9,6 @@ SRV=$!
 for i in $(seq 1 60); do curl -s -o /dev/null "localhost:$PORT" && break; sleep 0.5; done
 node tests/e2e/rooms.mjs
 RC=$?
+node tests/e2e/assignment-editor.mjs || RC=1
 kill $SRV
 exit $RC
