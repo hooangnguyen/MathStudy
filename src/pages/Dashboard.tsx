@@ -5,7 +5,10 @@ import { useFirebase } from '../context/FirebaseProvider';
 import { Notifications } from '../components/common/Notifications';
 import { subscribeToNotifications, Notification } from '../services/notificationService';
 import { cn } from '../utils/utils';
-import { getCurriculum } from '../services/dataService';
+import { getPendingAssignments, type PendingAssignment } from '../services/assignmentService';
+import { HomeHeader } from '../features/home/HomeHeader';
+import { ContinueLearningCard, type NextLesson } from '../features/home/ContinueLearningCard';
+import { PendingAssignments } from '../features/home/PendingAssignments';
 
 interface DashboardProps {
   onShowNotifications?: () => void;
@@ -14,6 +17,8 @@ interface DashboardProps {
   points?: number;
   streak?: number;
   completedLessons?: number[];
+  /** Mở bài tập để làm (chuyển sang tab Lớp học). */
+  onOpenAssignment?: (classId: string, assignmentId: string) => void;
 }
 
 interface PathNodeProps {
@@ -39,7 +44,7 @@ const PathNode = memo(({ node, unitTitle, onStartLesson }: PathNodeProps) => {
           transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
           className="absolute top-full mt-4 left-1/2 -translate-x-1/2 z-30"
         >
-          <div className="bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-2xl text-[11px] font-black text-white shadow-2xl whitespace-nowrap border border-white/20 uppercase tracking-[0.15em] flex items-center gap-2">
+          <div className="bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-2xl text-sm font-black text-white shadow-2xl whitespace-nowrap border border-white/20 flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
@@ -67,24 +72,18 @@ const PathNode = memo(({ node, unitTitle, onStartLesson }: PathNodeProps) => {
             : `0 4px 0 ${node.shadow}40`
         }}
       >
-        <div className="w-[44px] h-[44px] rounded-[1.1rem] bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/20 shadow-inner">
-          {node.icon === 'star' ? (
-            <Star size={26} className={cn(
-              "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]",
-              isCompleted ? "fill-white" : isCurrent ? "fill-white/80 animate-pulse" : "fill-transparent opacity-40"
-            )} />
+        <div aria-label={`Bài ${node.lessonIndex}${isCompleted ? ' (đã xong)' : isLocked ? ' (chưa mở)' : ''}`} className="w-[44px] h-[44px] rounded-[1.1rem] bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/20 shadow-inner">
+          {isCompleted ? (
+            <Star size={26} className="text-white fill-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]" />
           ) : (
-            <span className="text-2xl drop-shadow-lg">{node.icon}</span>
+            // Số thứ tự bài giúp học sinh biết mình đang ở đâu trên lộ trình
+            <span className={cn("text-2xl font-black text-white drop-shadow", isLocked && "opacity-70")}>{node.lessonIndex}</span>
           )}
         </div>
 
         {/* Lock overlay */}
         {isLocked && (
-          <div className="absolute inset-0 bg-slate-900/20 rounded-[1.6rem] flex items-center justify-center">
-             <div className="bg-white/90 p-1 rounded-full shadow-md">
-                <div className="w-1 h-1 bg-slate-400 rounded-full" />
-             </div>
-          </div>
+          <div className="absolute inset-0 bg-slate-900/10 rounded-[1.6rem]" />
         )}
 
         {/* Checkmark for completed */}
@@ -120,7 +119,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
   grade = 1,
   points = 0,
   streak = 0,
-  completedLessons: completedLessonsProp
+  completedLessons: completedLessonsProp,
+  onOpenAssignment
 }) => {
   const { user, userProfile } = useFirebase();
   const [showNotifications, setShowNotifications] = useState(false);
@@ -232,6 +232,39 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
+  // Bài học tiếp theo (nút "Học ngay")
+  const nextLesson = useMemo<NextLesson | null>(() => {
+    for (const unit of pathData.units) {
+      const current = unit.nodes.find(n => n.status === 'current');
+      if (current) {
+        return {
+          id: current.id,
+          title: `${unit.title} - Bài ${current.lessonIndex}`,
+          topic: current.topic,
+          unitTitle: unit.title,
+          lessonIndex: current.lessonIndex,
+          lessonsInUnit: unit.nodes.length,
+          completedInUnit: unit.nodes.filter(n => n.status === 'completed').length,
+        };
+      }
+    }
+    return null;
+  }, [pathData]);
+
+  // Bài tập chưa nộp ở các lớp đã tham gia
+  const enrolledClasses: string[] = userProfile?.enrolledClasses || [];
+  const enrolledKey = enrolledClasses.join(',');
+  const [pending, setPending] = useState<PendingAssignment[] | null>(null);
+  useEffect(() => {
+    if (!user) return;
+    if (enrolledClasses.length === 0) { setPending([]); return; }
+    let cancelled = false;
+    getPendingAssignments(user.uid, enrolledClasses)
+      .then(items => { if (!cancelled) setPending(items); })
+      .catch(() => { if (!cancelled) setPending([]); });
+    return () => { cancelled = true; };
+  }, [user?.uid, enrolledKey]);
+
   return (
     <div className="flex flex-col h-full bg-gradient-to-br from-slate-50 via-indigo-50/30 to-rose-50/20 relative font-sans overflow-hidden">
       {/* Decorative Background Elements */}
@@ -242,52 +275,39 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div className="absolute top-[20%] right-[20%] w-[30%] h-[30%] bg-cyan-200/10 rounded-full blur-[80px]" />
       </div>
 
-      {/* Top Stats Bar */}
-      <div className="relative z-40 bg-white/60 backdrop-blur-xl border-b border-indigo-100/50">
-        <div className="max-w-md mx-auto px-5 py-3.5 flex items-center justify-between">
-          <div className="flex items-center gap-2 md:gap-3">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-1.5 md:gap-2 bg-gradient-to-r from-orange-400 to-orange-500 px-3 py-1.5 md:px-4 md:py-2 rounded-xl md:rounded-2xl shadow-lg shadow-orange-500/25 border-b-[3px] md:border-b-4 border-orange-700/30"
-            >
-              <Flame className="w-4 h-4 md:w-[18px] md:h-[18px] text-white fill-white" />
-              <span className="font-black text-white text-sm md:text-[15px]">{streak}</span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-1.5 md:gap-2 bg-gradient-to-r from-sky-400 to-indigo-500 px-3 py-1.5 md:px-4 md:py-2 rounded-xl md:rounded-2xl shadow-lg shadow-indigo-500/25 border-b-[3px] md:border-b-4 border-indigo-700/30"
-            >
-              <Star className="w-4 h-4 md:w-[18px] md:h-[18px] text-white fill-white" />
-              <span className="font-black text-white text-sm md:text-[15px]">{points.toLocaleString()}</span>
-            </motion.div>
-          </div>
-
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setShowNotifications(true)}
-            className="w-9 h-9 md:w-11 md:h-11 rounded-xl md:rounded-2xl bg-white flex items-center justify-center text-slate-500 hover:text-primary shadow-md hover:shadow-lg transition-all relative border border-slate-100"
-          >
-            <Bell className="w-[18px] h-[18px] md:w-5 md:h-5" />
-            {unreadCount > 0 && (
-              <motion.span
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-rose-500 to-red-500 rounded-full border-2 border-white text-[9px] font-black text-white flex items-center justify-center"
-              >
-                {unreadCount > 9 ? '9+' : unreadCount}
-              </motion.span>
-            )}
-          </motion.button>
-        </div>
-      </div>
-
       {/* Main Scrollable Area */}
       <div className="flex-1 overflow-y-auto pb-32 relative no-scrollbar">
-        <div className="max-w-md mx-auto relative pt-2 px-5">
+        <div className="max-w-md mx-auto relative pt-5 px-5">
+          <div className="space-y-6 mb-8">
+            <HomeHeader
+              name={userProfile?.name}
+              avatar={userProfile?.avatar}
+              grade={studentGrade}
+              streak={streak}
+              points={points}
+              unreadCount={unreadCount}
+              onShowNotifications={() => setShowNotifications(true)}
+            />
+            <ContinueLearningCard
+              next={nextLesson}
+              loading={isDataLoading}
+              onStart={(next) => handleLessonStart(next.title, next.topic, next.id)}
+            />
+            <PendingAssignments
+              items={pending}
+              onOpen={(item) => onOpenAssignment?.(item.classId, item.assignmentId)}
+            />
+            <h2 className="text-lg font-black text-slate-900 pt-2">Lộ trình học</h2>
+          </div>
+
+          {isDataLoading && (
+            <div className="space-y-4" aria-label="Đang tải lộ trình">
+              <div className="h-24 rounded-3xl bg-slate-200/70 animate-pulse" />
+              <div className="mx-auto w-16 h-16 rounded-3xl bg-slate-200/70 animate-pulse" />
+              <div className="mx-auto w-16 h-16 rounded-3xl bg-slate-200/70 animate-pulse" />
+            </div>
+          )}
+
           {/* Unit Sections */}
           <div className="space-y-12">
             {pathData.units.map((unit, uIndex) => (
@@ -306,7 +326,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-2 md:mb-3">
-                      <span className="bg-black/20 backdrop-blur-md px-3 py-1 md:px-4 md:py-1.5 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] border border-white/20">
+                      <span className="bg-black/20 backdrop-blur-md px-3 py-1 md:px-4 md:py-1.5 rounded-xl md:rounded-2xl text-xs font-black border border-white/20">
                         Chương {uIndex + 1}
                       </span>
                       <div className="bg-white/20 p-1.5 md:p-2 rounded-lg md:rounded-xl backdrop-blur-sm">

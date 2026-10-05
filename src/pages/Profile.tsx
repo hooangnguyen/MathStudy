@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Settings as SettingsIcon, Edit2, History, Shield, Zap, Trophy, Star, ChevronRight, BookOpen, Flame, Target, Swords } from 'lucide-react';
 import { cn } from '../utils/utils';
+import { Avatar } from '../components/common/Avatar';
 import { Achievement } from '../services/userService';
 import { getDuelHistory, DuelMatch } from '../services/duelService';
 
@@ -93,11 +94,12 @@ export const Profile: React.FC<ProfileProps> = ({ onSettings, onEditProfile, use
         <div className="flex items-center gap-5 relative z-10">
           <div className="relative">
             <div className="w-20 h-20 rounded-[1.5rem] bg-white p-1 shadow-2xl shadow-black/10">
-              <img
-                src={userData?.avatar || "https://picsum.photos/seed/student/200"}
-                alt="Avatar"
-                className="w-full h-full rounded-[1.2rem] object-cover border-2 border-slate-50"
-                referrerPolicy="no-referrer"
+              {/* Không có ảnh thì hiện chữ cái đầu (trước đây lấy ảnh ngẫu nhiên từ picsum.photos) */}
+              <Avatar
+                src={userData?.avatar}
+                name={userData?.name}
+                className="w-full h-full rounded-[1.2rem] border-2 border-slate-50"
+                textClassName="text-3xl"
               />
             </div>
             <motion.button

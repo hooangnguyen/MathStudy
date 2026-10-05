@@ -172,7 +172,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
         >
           <Loader2 size={40} />
         </motion.div>
-        <p className="text-slate-400 font-bold text-sm animate-pulse tracking-widest uppercase">Đang tải câu hỏi...</p>
+        <p className="text-slate-500 font-bold text-base animate-pulse">Đang tải câu hỏi...</p>
       </div>
     );
   }
@@ -226,7 +226,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-slate-400">
             <HelpCircle size={16} />
-            <span className="text-[10px] font-black uppercase tracking-widest">
+            <span className="text-sm font-bold">
               {currentStep < lessonQuestions.length ? `Câu hỏi ${currentStep + 1} / ${lessonQuestions.length}` : `Sửa lỗi câu sai`}
             </span>
           </div>
@@ -346,7 +346,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
               onClick={isChecked ? handleNext : handleCheck}
               disabled={!isChecked && !selectedOption && !inputValue}
               className={cn(
-                "flex-1 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg transition-all active:scale-95",
+                "flex-1 py-4 rounded-2xl font-black text-lg shadow-lg transition-all active:scale-95",
                 !isChecked && !selectedOption && !inputValue ? "bg-slate-200 text-slate-400 shadow-none" :
                   isChecked ? (isCorrect ? "bg-emerald-500 text-white shadow-emerald-200" : "bg-rose-500 text-white shadow-rose-200") :
                     "bg-primary text-white shadow-primary/30"

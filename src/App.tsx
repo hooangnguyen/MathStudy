@@ -354,6 +354,12 @@ export default function App() {
     setTab(tab);
   };
 
+  /** Mở thẳng một bài tập để làm (từ trang chủ hoặc thông báo). */
+  const openAssignment = (classId: string, assignmentId: string) => {
+    setNotificationDeepLink({ target: 'classroom', role: 'student', classId, assignmentId, action: 'take' });
+    setTab('classroom');
+  };
+
   const handleNotificationNavigate = (notif: Notification) => {
     const meta = (notif.metadata || {}) as Record<string, any>;
 
@@ -430,6 +436,7 @@ export default function App() {
                 setCurrentTopic(topic || null);
                 setCurrentLessonId(id || null);
               }}
+              onOpenAssignment={openAssignment}
             />
           );
         case 'classroom':
@@ -505,6 +512,7 @@ export default function App() {
                 setCurrentTopic(topic || null);
                 setCurrentLessonId(id || null);
               }}
+              onOpenAssignment={openAssignment}
             />
           );
       }

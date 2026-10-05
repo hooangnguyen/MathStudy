@@ -27,7 +27,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
   return (
     <>
       {/* Mobile Bottom Nav */}
-      <div className="md:hidden h-16 bg-white/80 backdrop-blur-xl border-t border-white/20 flex items-center justify-around px-1 shrink-0 pb-safe z-50 w-full shadow-lg shadow-black/5">
+      <div className="md:hidden min-h-[68px] bg-white/90 backdrop-blur-xl border-t border-white/20 flex items-center justify-around px-1 shrink-0 pb-safe z-50 w-full shadow-lg shadow-black/5">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -37,8 +37,8 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={cn(
-                "relative flex flex-col items-center justify-center gap-0.5 transition-colors duration-300 px-2 py-1.5 rounded-xl flex-1",
-                isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-600"
+                "relative flex flex-col items-center justify-center gap-1 transition-colors duration-300 px-1 py-2 rounded-2xl flex-1 min-w-0",
+                isActive ? "text-indigo-600" : "text-slate-500 hover:text-slate-700"
               )}
             >
               {isActive && (
@@ -55,11 +55,12 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange, 
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
-                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
               </motion.div>
+              {/* Chữ thường, cỡ 12px, một dòng: dễ đọc hơn với học sinh nhỏ tuổi */}
               <span className={cn(
-                "text-[9px] uppercase tracking-wider transition-all",
-                isActive ? "font-black" : "font-bold"
+                "text-xs whitespace-nowrap transition-all",
+                isActive ? "font-black" : "font-semibold"
               )}>
                 {tab.label}
               </span>

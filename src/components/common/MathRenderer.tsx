@@ -8,7 +8,11 @@ interface MathRendererProps {
     className?: string;
 }
 
-export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }) => {
+/**
+ * Chuẩn hoá nội dung câu hỏi (LaTeX với \\text{...}, phân số a/b) thành Markdown + $...$ cho KaTeX.
+ * Tách riêng để unit test.
+ */
+export const prepareMathContent = (content?: string | null): string => {
     // Normalize content to avoid runtime errors
     const safeContent = typeof content === 'string'
         ? content
@@ -89,7 +93,16 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }
         }
     }
 
-    processedContent = processedContent.replace(/\$\s+([\s\S]*?)\s+\$/g, '$$$1$$');
+    // Bỏ khoảng trắng thừa bên trong từng cặp $...$ (remark-math không nhận "$ x $").
+    // Lưu ý: cách cũ /\$\s+(...)\s+\$/ khớp nhầm cả đoạn chữ NẰM GIỮA hai công thức
+    // ("$17$ cm và chiều cao $6$") và xoá mất dấu cách → "17cm và chiều cao6".
+    processedContent = processedContent.replace(/\$([^$]*)\$/g, (_match, inner: string) => `$${inner.trim()}$`);
+
+    return processedContent;
+};
+
+export const MathRenderer: React.FC<MathRendererProps> = ({ content, className }) => {
+    const processedContent = prepareMathContent(content);
 
     return (
         <div className={`math-renderer block w-full max-w-full break-words ${className || ''}`}>

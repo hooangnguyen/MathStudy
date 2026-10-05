@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BookOpen, Users, Target, ChevronRight, Plus, MessageSquare, Search, Filter, Star, Trophy, Flame, Calendar, Clock, CheckCircle2, PlayCircle, X, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../utils/utils';
+import { Avatar } from '../components/common/Avatar';
 
 import { subscribeToStudentClass, joinClass, ClassData, getStudentClasses } from '../services/classService';
 import { subscribeToClassAssignments, getStudentSubmissions, AssignmentData, SubmissionData } from '../services/assignmentService';
@@ -598,7 +599,7 @@ export const Classroom: React.FC<ClassroomProps> = ({ enrolledClasses, onJoinSuc
                         {i + 1}
                       </div>
                       <div className="relative">
-                        <img src={mate.avatar || 'https://picsum.photos/seed/student/100'} alt={mate.name} className="w-12 h-12 rounded-xl object-cover" />
+                        <Avatar src={mate.avatar} name={mate.name} className="w-12 h-12 rounded-xl" textClassName="text-lg" />
                         <div className={cn(
                           "absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white",
                           "bg-emerald-500"

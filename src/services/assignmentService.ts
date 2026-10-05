@@ -9,7 +9,8 @@ import {
     getDoc,
     runTransaction,
     getDocs,
-    where
+    where,
+    limit
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { sendNotification } from './notificationService';
@@ -341,4 +342,45 @@ export const updateSubmissionGrade = async (
         console.error('Error updating grade:', error);
         throw error;
     }
+};
+
+export interface PendingAssignment {
+    classId: string;
+    className: string;
+    assignmentId: string;
+    title: string;
+    dueDate: Date | null;
+}
+
+const toDate = (value: any): Date | null => {
+    if (!value) return null;
+    if (typeof value.toDate === 'function') return value.toDate();
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? null : d;
+};
+
+/**
+ * Bài tập học sinh chưa nộp ở các lớp đã tham gia, hạn gần nhất lên trước
+ * (bài không có hạn xếp cuối). Dùng cho mục "Bài tập cần làm" ở trang chủ.
+ */
+export const getPendingAssignments = async (studentId: string, classIds: string[]): Promise<PendingAssignment[]> => {
+    const perClass = await Promise.all(classIds.map(async (classId) => {
+        try {
+            const [classDoc, snapshot] = await Promise.all([
+                getDoc(doc(db, 'classes', classId)),
+                getDocs(query(collection(db, 'classes', classId, 'assignments'), orderBy('createdAt', 'desc'), limit(20)))
+            ]);
+            const assignments = snapshot.docs.map(d => d.data() as AssignmentData).filter(a => a.status !== 'Đã kết thúc');
+            const submissions = await getStudentSubmissions(classId, studentId, assignments.map(a => a.id));
+            const className = classDoc.exists() ? (classDoc.data().name as string) : 'Lớp học';
+            return assignments
+                .filter(a => !submissions[a.id])
+                .map(a => ({ classId, className, assignmentId: a.id, title: a.title, dueDate: toDate(a.dueDate) }));
+        } catch (error) {
+            console.error('Error loading pending assignments:', error);
+            return [];
+        }
+    }));
+    return perClass.flat().sort((a, b) =>
+        (a.dueDate?.getTime() ?? Infinity) - (b.dueDate?.getTime() ?? Infinity));
 };

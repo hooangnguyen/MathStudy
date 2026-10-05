@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Trophy, Crown, Globe, BookOpen, Swords } from 'lucide-react';
 import { cn } from '../utils/utils';
+import { Avatar } from '../components/common/Avatar';
 import { getTopRankings, getClassRankings, UserRank, RANKS, getRankTier } from '../services/duelService';
 import { useFirebase } from '../context/FirebaseProvider';
 
@@ -108,11 +109,7 @@ export const Leaderboard: React.FC = () => {
                   >
                     <div className="relative">
                       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-200 to-slate-300 p-0.5 shadow-lg">
-                        <img
-                          src={top3[1].avatar || `https://picsum.photos/seed/${top3[1].uid}/100`}
-                          className="w-full h-full rounded-xl object-cover"
-                          referrerPolicy="no-referrer"
-                        />
+                        <Avatar src={top3[1].avatar} name={top3[1].username} className="w-full h-full rounded-xl" />
                       </div>
                       <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-slate-400 to-slate-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold border-2 border-white shadow">2</div>
                     </div>
@@ -140,11 +137,7 @@ export const Leaderboard: React.FC = () => {
                     </motion.div>
                     <div className="relative">
                       <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-amber-400 to-yellow-500 p-0.5 shadow-xl shadow-amber-300/30">
-                        <img
-                          src={top3[0].avatar || `https://picsum.photos/seed/${top3[0].uid}/100`}
-                          className="w-full h-full rounded-[22px] object-cover border-2 border-white"
-                          referrerPolicy="no-referrer"
-                        />
+                        <Avatar src={top3[0].avatar} name={top3[0].username} className="w-full h-full rounded-[22px]  border-2 border-white" />
                       </div>
                       <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-4 border-white shadow-lg">1</div>
                     </div>
@@ -166,11 +159,7 @@ export const Leaderboard: React.FC = () => {
                   >
                     <div className="relative">
                       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-300 to-orange-400 p-0.5 shadow-lg">
-                        <img
-                          src={top3[2].avatar || `https://picsum.photos/seed/${top3[2].uid}/100`}
-                          className="w-full h-full rounded-xl object-cover"
-                          referrerPolicy="no-referrer"
-                        />
+                        <Avatar src={top3[2].avatar} name={top3[2].username} className="w-full h-full rounded-xl" />
                       </div>
                       <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-orange-400 to-red-400 rounded-full flex items-center justify-center text-white text-[10px] font-bold border-2 border-white shadow">3</div>
                     </div>
@@ -205,11 +194,7 @@ export const Leaderboard: React.FC = () => {
                 >
                   <div className="flex items-center gap-3">
                     <span className={cn("w-7 text-center font-black text-sm", isMe ? "text-indigo-600" : "text-slate-400")}>{pos}</span>
-                    <img
-                      src={rank.avatar || `https://picsum.photos/seed/${rank.uid}/100`}
-                      className="w-10 h-10 rounded-xl object-cover"
-                      referrerPolicy="no-referrer"
-                    />
+                    <Avatar src={rank.avatar} name={rank.username} className="w-10 h-10 rounded-xl" />
                     <div>
                       <p className={cn("font-bold text-sm truncate max-w-[130px]", isMe && "text-indigo-700")}>
                         {rank.username} {isMe && '(bạn)'}
