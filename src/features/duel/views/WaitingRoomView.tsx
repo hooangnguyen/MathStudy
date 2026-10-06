@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Play } from 'lucide-react';
+import { Palette, Play } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 import { startDuel } from '../duelService';
 import { getRandomQuestions } from '../duelQuestions';
 import type { MathDuelController } from '../useMathDuel';
 import { RoomInvite } from '../../rooms/RoomInvite';
+import { CharacterDialog } from '../../rooms/CharacterDialog';
+import { Character, parseCharacter } from '../../rooms/characters';
 
 export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {
-  const { userProfile, roomId, roomCode, isHost, gameMode, roomPlayers, avatarMap, hostOffline, leaveCurrentRoom } = duel;
+  const { userProfile, user, roomId, roomCode, isHost, gameMode, roomPlayers, hostOffline, leaveCurrentRoom, changeCharacter } = duel;
+  const [editing, setEditing] = useState(false);
+  const me = roomPlayers.find((p) => p.isMe);
+  const opponent = roomPlayers.find((p) => !p.isMe);
 
   return (
     <motion.div
@@ -31,17 +36,44 @@ export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto space-y-3 no-scrollbar">
-          {roomPlayers.map((player) => (
-            <div key={String(player.id)} className="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
-              <img src={avatarMap[String(player.id)] || (player.isMe ? userProfile?.avatar : undefined) || player.avatar} alt={player.name} className="w-10 h-10 rounded-xl object-cover bg-slate-200" referrerPolicy="no-referrer" />
-              <span className={cn("font-bold", player.isMe ? "text-indigo-600" : "text-slate-700")}>
-                {player.name}
-              </span>
-              {player.offline && (
-                <span className="ml-auto text-[10px] font-black text-rose-500 uppercase">Mất kết nối</span>
+        {/* 1 đấu 1: hai nhân vật đứng đối mặt */}
+        <div className="flex-1 flex items-center justify-center gap-2 py-2">
+          {[me, opponent].map((player, i) => (
+            <React.Fragment key={i}>
+              {i === 1 && (
+                <motion.span
+                  animate={{ scale: [1, 1.15, 1] }}
+                  transition={{ duration: 1.6, repeat: Infinity }}
+                  className="shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-rose-500 text-white font-black text-lg flex items-center justify-center shadow-lg"
+                >
+                  VS
+                </motion.span>
               )}
-            </div>
+              <div className="flex-1 min-w-0 flex flex-col items-center text-center">
+                {player ? (
+                  <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300, damping: 14 }}>
+                    <Character value={player.character} uid={String(player.id)} className={cn('w-24 h-24', i === 1 && '-scale-x-100')} />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.8, repeat: Infinity }}
+                    className="w-24 h-24 rounded-full border-4 border-dashed border-slate-300 flex items-center justify-center text-4xl font-black text-slate-300"
+                  >
+                    ?
+                  </motion.div>
+                )}
+                <span className={cn('mt-1 font-bold max-w-full truncate', player?.isMe ? 'text-indigo-600' : 'text-slate-700')}>
+                  {player ? player.name : 'Chờ bạn...'}
+                </span>
+                {player?.offline && <span className="text-[11px] font-bold text-rose-500">Mất kết nối</span>}
+                {player?.isMe && (
+                  <button onClick={() => setEditing(true)} aria-label="Đổi nhân vật" className="mt-1 h-9 px-3 rounded-xl bg-indigo-50 text-indigo-700 text-sm font-bold flex items-center gap-1.5 whitespace-nowrap">
+                    <Palette size={15} /> Đổi
+                  </button>
+                )}
+              </div>
+            </React.Fragment>
           ))}
         </div>
 
@@ -78,6 +110,13 @@ export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }
           </button>
         </div>
       </div>
+      {editing && (
+        <CharacterDialog
+          initial={parseCharacter(me?.character, user?.uid)}
+          onSave={changeCharacter}
+          onClose={() => setEditing(false)}
+        />
+      )}
     </motion.div>
   );
 };

@@ -50,6 +50,7 @@ async function login(user) {
   await page.getByText(user.role === 'teacher' ? 'Quiz' : 'Đối kháng', { exact: true }).first().waitFor({ timeout: 20000 });
   return page;
 }
+const waitFor = async (fn, ms, label) => { const end = Date.now() + ms; while (Date.now() < end) { if (await fn()) return; await new Promise((r) => setTimeout(r, 500)); } throw new Error(label); };
 const roomOf = async (code) => (await adb.collection('duelRooms').where('code', '==', code).get()).docs[0];
 const WAIT_QUIZ = 'Đang chờ giáo viên bắt đầu...';
 
@@ -93,9 +94,11 @@ await step('Mã QR chứa đúng link vào phòng', async () => {
 });
 
 let p1;
-await step('Học sinh CHƯA đăng nhập mở link → được nhắc đăng nhập để vào phòng', async () => {
+await step('Học sinh CHƯA đăng nhập mở link → màn vào phòng bằng tên; chọn "Đăng nhập" → được nhắc đăng nhập', async () => {
   p1 = await newPage();
   await p1.goto(`${BASE}/join/${quizCode}`);
+  await p1.getByText('Sẵn sàng chơi chưa?').waitFor({ timeout: 20000 });
+  await p1.getByText('Đăng nhập để lưu điểm').click();
   await p1.getByText(`Đăng nhập để vào phòng`).waitFor({ timeout: 20000 });
   const banner = await p1.getByRole('status').innerText();
   expect(banner.includes(quizCode), `thông báo: ${banner}`);
@@ -121,8 +124,9 @@ await step('Học sinh ĐÃ đăng nhập mở link (quét QR) → vào thẳng 
   await pt.getByText('Đã tham gia (2)').waitFor({ timeout: 10000 });
 });
 
+let p3;
 await step('Dán cả link vào ô nhập mã cũng vào được', async () => {
-  const p3 = await login(S3);
+  p3 = await login(S3);
   await p3.getByText('Đối kháng').first().click();
   await p3.getByText('Tham gia Quiz Lớp học (Nhập mã)').click();
   await p3.getByRole('button', { name: 'VÀO PHÒNG QUIZ', exact: true }).click();
@@ -132,6 +136,54 @@ await step('Dán cả link vào ô nhập mã cũng vào được', async () => 
   await p3.getByText(WAIT_QUIZ).waitFor({ timeout: 20000 });
 });
 
+let pg, guestUid;
+await step('KHÁCH (không tài khoản) mở link → nhập tên, chọn nhân vật Ếch + vương miện → vào phòng chờ', async () => {
+  pg = await newPage();
+  await pg.goto(`${BASE}/join/${quizCode}`);
+  await pg.getByText('Sẵn sàng chơi chưa?').waitFor({ timeout: 20000 });
+  await pg.getByRole('button', { name: 'Ếch', exact: true }).click();
+  await pg.getByRole('tab', { name: 'Phụ kiện' }).click();
+  await pg.getByRole('button', { name: 'Vương miện', exact: true }).click();
+  await shot(pg, 'guest-join');
+  await pg.getByRole('button', { name: /VÀO PHÒNG/ }).click();
+  await pg.getByRole('alert').waitFor({ timeout: 3000 }); // chưa nhập tên → nhắc
+  await pg.getByPlaceholder('Vd: Minh Anh').fill('Bé Na');
+  await pg.getByRole('button', { name: /VÀO PHÒNG/ }).click();
+  await pg.getByText(WAIT_QUIZ).waitFor({ timeout: 20000 });
+  await pt.getByText('Bé Na').first().waitFor({ timeout: 10000 });
+  const room = (await roomOf(quizCode)).data();
+  guestUid = Object.keys(room.playerNames).find((k) => room.playerNames[k] === 'Bé Na');
+  expect(guestUid && room.currentPlayers.includes(guestUid), 'khách không có trong phòng');
+  expect(/^frog\.\w+\.crown$/.test(room.playerAvatars?.[guestUid] ?? ''), `nhân vật: ${room.playerAvatars?.[guestUid]}`);
+  await shot(pg, 'guest-waiting');
+});
+await step('Khách không thấy các mục khác của app (chỉ có màn phòng)', async () => {
+  const text = await pg.locator('body').innerText();
+  expect(!text.includes('Trang chủ') && !text.includes('Tin nhắn'), 'khách thấy thanh điều hướng');
+});
+await step('Khách đổi nhân vật trong phòng chờ → giáo viên thấy nhân vật mới', async () => {
+  await pg.getByRole('button', { name: 'Đổi nhân vật' }).click();
+  const dialog = pg.getByRole('dialog', { name: 'Đổi nhân vật' });
+  await dialog.getByRole('button', { name: 'Rô-bốt', exact: true }).click();
+  await dialog.getByRole('button', { name: 'Xong' }).click();
+  await pg.waitForTimeout(1200);
+  const avatar = (await roomOf(quizCode)).data().playerAvatars[guestUid];
+  expect(avatar.startsWith('robot.') && avatar.endsWith('.crown'), `nhân vật sau khi đổi: ${avatar}`);
+  await pt.getByRole('img', { name: /Rô-bốt/ }).first().waitFor({ timeout: 10000 });
+});
+await step('Khách tải lại trang → vẫn ở phòng chờ (không phải nhập lại tên)', async () => {
+  await pg.reload();
+  await pg.getByText(WAIT_QUIZ).waitFor({ timeout: 20000 });
+});
+await step('Giáo viên mời một học sinh ra khỏi phòng → học sinh được báo và rời phòng', async () => {
+  await shot(pt, 'host-lobby');
+  await pt.getByRole('button', { name: 'Mời Nam ra khỏi phòng' }).click();
+  await waitFor(async () => !(await roomOf(quizCode)).data().currentPlayers.includes(S3.uid), 10000, 'Nam vẫn trong phòng');
+  await pt.getByText('Đã tham gia (3)').waitFor({ timeout: 10000 });
+  await waitFor(async () => p3.dialogs.some((m) => m.includes('ra khỏi phòng')), 10000, `Nam không được báo: ${p3.dialogs}`);
+  await p3.getByRole('button', { name: 'VÀO PHÒNG QUIZ', exact: true }).waitFor({ timeout: 10000 });
+});
+
 await step('Giáo viên bấm Trình chiếu → mã QR lớn, mã phòng và số học sinh; Esc để đóng', async () => {
   await pt.getByRole('button', { name: 'Trình chiếu' }).click();
   const dialog = pt.getByRole('dialog', { name: 'Trình chiếu mã vào phòng' });
@@ -139,7 +191,7 @@ await step('Giáo viên bấm Trình chiếu → mã QR lớn, mã phòng và s�
   await pt.setViewportSize({ width: 1280, height: 720 });
   await shot(pt, 'presenter');
   const text = await dialog.innerText();
-  expect(text.includes(quizCode) && text.includes('3 đã vào') && text.includes('Ôn tập phân số'), `màn trình chiếu: ${text}`);
+  expect(text.includes(quizCode) && text.includes('3 đã vào') && text.includes('Bé Na') && text.includes('Ôn tập phân số'), `màn trình chiếu: ${text}`);
   await pt.keyboard.press('Escape');
   await dialog.waitFor({ state: 'detached', timeout: 5000 });
   await pt.setViewportSize({ width: 390, height: 844 });
@@ -161,6 +213,23 @@ await step('Giáo viên mở link vào phòng → được báo link dành cho h
   expect(pt2.dialogs.some((m) => m.includes('dành cho học sinh')), `thông báo: ${pt2.dialogs}`);
   expect((await roomOf(quizCode)).data().currentPlayers.length === 4, 'giáo viên bị thêm vào phòng');
   await pt2.context().close();
+});
+
+await step('Khách làm bài: giáo viên bắt đầu → khách trả lời hết → thấy kết quả, điểm được ghi', async () => {
+  await pt.getByRole('button', { name: 'BẮT ĐẦU QUIZ', exact: true }).click();
+  const answers = pg.locator('div.grid.grid-cols-1 > button');
+  for (let i = 0; i < 3; i++) { await answers.first().waitFor({ timeout: 15000 }); await answers.first().click(); await pg.waitForTimeout(400); }
+  await pg.getByText('KẾT QUẢ QUIZ').waitFor({ timeout: 15000 });
+  await pg.waitForTimeout(800);
+  const prog = (await roomOf(quizCode)).data().participantProgress[guestUid];
+  expect(prog?.finished && prog.score === 30, `tiến độ khách: ${JSON.stringify(prog)}`);
+  await shot(pg, 'guest-result');
+});
+await step('Khách bấm Quay lại → màn "Chơi vui lắm"; Thoát → về màn đăng nhập', async () => {
+  await pg.getByRole('button', { name: 'QUAY LẠI' }).click();
+  await pg.getByText('Chơi vui lắm, Bé Na!').waitFor({ timeout: 10000 });
+  await pg.getByRole('button', { name: 'Thoát / Đăng nhập tài khoản' }).click();
+  await pg.locator('input[placeholder="example@gmail.com"]').waitFor({ timeout: 10000 });
 });
 
 await step('Phòng đấu: chủ phòng có mã QR; bạn mở link /join/<mã> → vào phòng đấu', async () => {

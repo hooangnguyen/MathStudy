@@ -16,6 +16,8 @@ export interface RoomPlayer {
   id: number | string;
   name: string;
   avatar: string;
+  /** Nhân vật đại diện trong phòng ("loài.màu.phụ-kiện") */
+  character?: string;
   isMe: boolean;
   offline?: boolean; // mất kết nối (không có tín hiệu quá 90 giây)
   score?: number;

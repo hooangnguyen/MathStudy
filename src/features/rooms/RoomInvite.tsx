@@ -34,13 +34,15 @@ interface RoomInviteProps {
   playerCount?: number;
   /** Cho phép mở màn trình chiếu toàn màn hình (cho giáo viên chiếu lên bảng) */
   presentable?: boolean;
+  /** Nội dung thêm ở màn trình chiếu, vd. nhân vật của học sinh vừa vào */
+  presenterExtra?: React.ReactNode;
 }
 
 /**
  * Thẻ mời vào phòng kiểu Kahoot/Quizizz: mã QR, mã phòng, link, nút sao chép/chia sẻ
  * và chế độ trình chiếu để học sinh quét từ màn hình lớn.
  */
-export const RoomInvite: React.FC<RoomInviteProps> = ({ code, title, playerCount, presentable = false }) => {
+export const RoomInvite: React.FC<RoomInviteProps> = ({ code, title, playerCount, presentable = false, presenterExtra }) => {
   const url = buildJoinUrl(code);
   const [copied, setCopied] = useState(false);
   const [presenting, setPresenting] = useState(false);
@@ -167,6 +169,7 @@ export const RoomInvite: React.FC<RoomInviteProps> = ({ code, title, playerCount
               )}
             </div>
           </div>
+          {presenterExtra}
         </div>,
         document.body
       )}

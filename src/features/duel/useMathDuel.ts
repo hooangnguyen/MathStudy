@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useFirebase } from '../../app/FirebaseProvider';
-import { getUserRank, getTopRankings, getDuelHistory, joinDuelQueue, leaveDuelQueue, UserRank, DuelMatch, RANKS, updateDuelScore, subscribeToDuel, createRealDuel, finishQuickDuel, markDuelPlayerFinished, findOpponentForDuel, createDuelRoom, joinDuelRoom, subscribeToRoom, updateRoomProgress, getDuelRoom, getActiveDuel, DuelRoom, leaveRoom, removePlayersFromRoom } from './duelService';
+import { getUserRank, getTopRankings, getDuelHistory, joinDuelQueue, leaveDuelQueue, UserRank, DuelMatch, RANKS, updateDuelScore, subscribeToDuel, createRealDuel, finishQuickDuel, markDuelPlayerFinished, findOpponentForDuel, createDuelRoom, joinDuelRoom, subscribeToRoom, updateRoomProgress, getDuelRoom, getActiveDuel, DuelRoom, leaveRoom, removePlayersFromRoom, setRoomCharacter } from './duelService';
+import { defaultCharacterFor, encodeCharacter, loadSavedCharacter, saveCharacter, type CharacterSpec } from '../rooms/characters';
 import { useRoomPresence } from './useRoomPresence';
 import { findStalePlayers } from '../../../shared/presence';
 import { saveActiveSession, loadActiveSession, clearActiveSession } from './activeSession';
@@ -128,12 +129,14 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
       setRoomCode(room.code);
       setIsHost(true);
       saveActiveSession(user.uid, 'duel-room', room.id);
+      setRoomCharacter(room.id, user.uid, myCharacter()).catch(() => { });
       setState('waiting_room');
       setRoomPlayers([
         {
           id: user.uid,
           name: userProfile?.name || 'Bạn',
           avatar: userProfile?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.uid}`,
+          character: myCharacter(),
           isMe: true
         }
       ]);
@@ -146,13 +149,25 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
     }
   };
 
+  /** Nhân vật đã chọn trên máy này (mặc định theo uid) */
+  const myCharacter = () => encodeCharacter(loadSavedCharacter() ?? defaultCharacterFor(user?.uid ?? ''));
+
+  const changeCharacter = (value: CharacterSpec) => {
+    saveCharacter(value);
+    if (!roomId || !user) return;
+    const encoded = encodeCharacter(value);
+    setRoomPlayers((prev) => prev.map((p) => (p.isMe ? { ...p, character: encoded } : p)));
+    setRoomCharacter(roomId, user.uid, encoded).catch(() => { });
+  };
+
   const handleJoinRoom = async (code: string = roomCode) => {
     if (!user || code.trim().length !== 6) return;
     try {
       const room = await joinDuelRoom(
         code.trim(),
         user.uid,
-        userProfile?.name || user.displayName || 'Người chơi'
+        userProfile?.name || user.displayName || 'Người chơi',
+        myCharacter()
       );
       // Có thể là vào lại phòng mình đang chơi dở (vd. sau khi tải lại trang)
       applyRoom(room);
@@ -171,6 +186,7 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
       id: uid,
       name: room.playerNames[uid] || 'Người chơi',
       avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
+      character: room.playerAvatars?.[uid],
       isMe: uid === user?.uid,
       offline: stale.includes(uid)
     }));
@@ -813,6 +829,7 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
     playerStateRef,
     handleCreateRoom,
     handleJoinRoom,
+    changeCharacter,
     questions,
     handleDuelEnd,
     handleAnswer,

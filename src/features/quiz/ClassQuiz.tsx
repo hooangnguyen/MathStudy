@@ -28,14 +28,16 @@ import {
   validateDraftForAutoGrading,
   type DraftAssignmentData
 } from '../assignments/assignmentService';
-import { getUsersByIds } from '../user/userService';
 import { audioService } from '../../lib/audio';
 import { saveActiveSession, loadActiveSession, clearActiveSession } from '../duel/activeSession';
-import { getDuelRoom, removePlayersFromRoom, type DuelRoom } from '../duel/duelService';
+import { getDuelRoom, removePlayersFromRoom, setRoomCharacter, type DuelRoom } from '../duel/duelService';
 import { useRoomPresence } from '../duel/useRoomPresence';
 import { findStalePlayers } from '../../../shared/presence';
 import { resumeRoom } from '../../../shared/resume';
-import { RoomInvite } from '../rooms/RoomInvite';
+import { Character, defaultCharacterFor, encodeCharacter, loadSavedCharacter, saveCharacter, type CharacterSpec } from '../rooms/characters';
+import { HostLobby } from './views/HostLobby';
+import { StudentWaiting } from './views/StudentWaiting';
+import type { QuizPlayer } from './types';
 import { normalizeRoomCode } from '../rooms/joinLink';
 
 type QuizState =
@@ -46,31 +48,26 @@ type QuizState =
   | 'playing'
   | 'result';
 
-interface RoomPlayer {
-  id: string;
-  name: string;
-  avatar: string;
-  isMe: boolean;
-  score?: number;
-  progress?: number;
-  offline?: boolean;
-}
+type RoomPlayer = QuizPlayer;
 
 interface ClassQuizProps {
   userRole: 'student' | 'teacher' | null;
+  /** Khách vào phòng không cần tài khoản: tên đã nhập; rời phòng thì gọi onGuestExit */
+  guestName?: string;
+  onGuestExit?: () => void;
   /** Mã phòng lấy từ link /join/<mã>: tự vào phòng khi mở màn hình */
   autoJoinCode?: string | null;
   onAutoJoinHandled?: () => void;
 }
 
-export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, onAutoJoinHandled }) => {
+export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, onAutoJoinHandled, guestName, onGuestExit }) => {
   const { user, userProfile } = useFirebase();
+  const myName = guestName || userProfile?.name || user?.displayName || 'Học sinh';
   const [state, setState] = useState<QuizState>('lobby');
   const [roomId, setRoomId] = useState<string | null>(null);
   const [roomCode, setRoomCode] = useState('');
   const [roomPlayers, setRoomPlayers] = useState<RoomPlayer[]>([]);
   const [roomResults, setRoomResults] = useState<RoomPlayer[]>([]);
-  const [avatarMap, setAvatarMap] = useState<Record<string, string>>({});
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
@@ -172,7 +169,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
       if (state === 'waiting_room' && user && !r.currentPlayers.includes(user.uid)) {
         // Bị giáo viên (tự động) loại vì mất kết nối quá lâu
         if (!leavingRef.current) {
-          alert('Bạn đã bị đưa ra khỏi phòng do mất kết nối. Hãy nhập lại mã phòng để vào lại.');
+          alert('Bạn đã ra khỏi phòng (giáo viên mời ra hoặc mất kết nối quá lâu). Nhập lại mã phòng nếu muốn vào lại.');
         }
         clearActiveSession(user.uid, 'quiz-room');
         setRoomId(null);
@@ -211,23 +208,13 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
         .map((uid, i) => ({
           id: uid,
           name: r.playerNames[uid] || `Học sinh`,
-          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${uid}`,
+          character: r.playerAvatars?.[uid],
           isMe: uid === user?.uid,
           score: r.participantProgress?.[uid]?.score ?? 0,
           progress: r.participantProgress?.[uid]?.progress ?? 0,
           offline: stale.includes(uid)
         }));
       setRoomPlayers(list);
-      // Fetch avatars for players
-      if (list.length > 0) {
-        getUsersByIds(list.map((p) => p.id)).then((profiles) => {
-          const map: Record<string, string> = {};
-          profiles.forEach((p) => {
-            if (p.avatar) map[p.uid] = p.avatar;
-          });
-          setAvatarMap((prev) => ({ ...prev, ...map }));
-        });
-      }
     });
 
     return () => unsub();
@@ -309,12 +296,8 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
     if (!user || code.trim().length !== 6) return;
 
     try {
-      const room = await joinQuizRoom(
-        code.trim(),
-        user.uid,
-        userProfile?.name || user.displayName || 'Học sinh'
-      );
-      setAvatarMap(userProfile?.avatar ? { [user.uid]: userProfile.avatar } : {});
+      const character = encodeCharacter(loadSavedCharacter() ?? defaultCharacterFor(user.uid));
+      const room = await joinQuizRoom(code.trim(), user.uid, myName, character);
       // Có thể là vào lại phòng đang làm dở (vd. sau khi tải lại trang)
       applyQuizRoom(room);
     } catch (err: any) {
@@ -397,6 +380,21 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
     }
   };
 
+  const handleKick = (player: RoomPlayer) => {
+    if (!roomId || !isHost) return;
+    if (!window.confirm(`Mời ${player.name} ra khỏi phòng?`)) return;
+    removePlayersFromRoom(roomId, [player.id]).catch(() => alert('Không mời ra được, thử lại nhé.'));
+  };
+
+  const handleChangeCharacter = (value: CharacterSpec) => {
+    saveCharacter(value);
+    if (!roomId || !user) return;
+    const encoded = encodeCharacter(value);
+    // Hiện ngay trên máy mình, không chờ Firestore
+    setRoomPlayers((prev) => prev.map((p) => (p.isMe ? { ...p, character: encoded } : p)));
+    setRoomCharacter(roomId, user.uid, encoded).catch(() => { });
+  };
+
   const handleLeaveRoom = async () => {
     if (user) clearActiveSession(user.uid, 'quiz-room');
     leavingRef.current = true;
@@ -421,14 +419,40 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
   const currentQ = qList[currentQuestion];
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 overflow-x-hidden overflow-y-auto no-scrollbar pb-20">
+    <div className={cn(
+      'flex flex-col h-full bg-slate-50 overflow-x-hidden overflow-y-auto no-scrollbar',
+      // Phòng chờ của học sinh có nền màu phủ kín màn hình
+      !(state === 'waiting_room' && !isHost) && 'pb-20'
+    )}>
       {hostOffline && !isHost && (state === 'waiting_room' || state === 'playing') && (
         <div className="bg-amber-50 text-amber-700 text-xs font-bold text-center py-2 px-4 shrink-0">
           Giáo viên đang mất kết nối. Bạn vẫn có thể tiếp tục làm bài.
         </div>
       )}
       <AnimatePresence mode="wait">
-        {state === 'lobby' && (
+        {state === 'lobby' && guestName && (
+          <motion.div
+            key="guest-lobby"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex-1 flex flex-col p-6 items-center justify-center gap-4 text-center"
+          >
+            <Character value={loadSavedCharacter()} uid={user?.uid} className="w-32 h-32" />
+            <h1 className="text-2xl font-black">Chơi vui lắm, {guestName}!</h1>
+            <p className="text-slate-500">Vào phòng khác bằng mã, hoặc tạo tài khoản để lưu điểm và học thêm mỗi ngày.</p>
+            <button
+              onClick={() => setState('join')}
+              className="w-full max-w-xs bg-emerald-500 text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3"
+            >
+              <Key size={22} /> VÀO PHÒNG KHÁC
+            </button>
+            <button onClick={onGuestExit} className="w-full max-w-xs bg-slate-100 text-slate-700 py-4 rounded-2xl font-bold">
+              Thoát / Đăng nhập tài khoản
+            </button>
+          </motion.div>
+        )}
+
+        {state === 'lobby' && !guestName && (
           <motion.div
             key="lobby"
             initial={{ opacity: 0, y: 20 }}
@@ -562,77 +586,27 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
         )}
 
         {state === 'waiting_room' && (
-          <motion.div
-            key="waiting"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex-1 flex flex-col p-4 sm:p-6"
-          >
+          <motion.div key="waiting" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-1 flex flex-col">
             {isHost ? (
-              <div className="mb-4">
-                <RoomInvite code={roomCode} title={quizTitle} playerCount={roomPlayers.length} presentable />
-              </div>
+              <HostLobby
+                roomCode={roomCode}
+                quizTitle={quizTitle}
+                players={roomPlayers}
+                onKick={handleKick}
+                onStart={handleStartQuiz}
+                onLeave={handleLeaveRoom}
+              />
             ) : (
-              <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-3xl p-5 text-white text-center mb-4 shadow-xl shadow-indigo-200">
-                <p className="text-sm font-semibold text-indigo-100">Bạn đã vào phòng</p>
-                <p className="text-4xl font-black tracking-[0.2em] tabular-nums mt-1">{roomCode}</p>
-              </div>
+              <StudentWaiting
+                roomCode={roomCode}
+                me={roomPlayers.find((p) => p.isMe)}
+                myId={user?.uid ?? ''}
+                myName={myName}
+                players={roomPlayers}
+                onChangeCharacter={handleChangeCharacter}
+                onLeave={handleLeaveRoom}
+              />
             )}
-
-            <div className="flex-1 bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex flex-col min-h-0">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-black text-slate-800 flex items-center gap-2">
-                  <Users size={20} className="text-indigo-500" />
-                  Đã tham gia ({roomPlayers.length})
-                </h3>
-                <div className="flex items-center gap-1.5 text-emerald-500">
-                  <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                  <span className="text-xs font-bold">Đang chờ</span>
-                </div>
-              </div>
-              <div className="flex-1 overflow-y-auto space-y-2 no-scrollbar pr-1">
-                {roomPlayers.map((p) => (
-                  <div
-                    key={p.id}
-                    className={cn(
-                      'flex items-center gap-4 p-4 rounded-2xl border-2 transition-colors',
-                      p.isMe ? 'bg-indigo-50 border-indigo-200' : 'bg-slate-50/80 border-slate-100 hover:border-slate-200'
-                    )}
-                  >
-                    <img src={avatarMap[p.id] || (p.isMe ? userProfile?.avatar : undefined) || p.avatar} alt="" className="w-12 h-12 rounded-2xl object-cover bg-slate-200 shrink-0 ring-2 ring-white shadow" referrerPolicy="no-referrer" />
-                    <span className={cn('font-bold text-slate-800', p.isMe && 'text-indigo-700')}>{p.name}</span>
-                    {p.offline && <span className="text-[10px] font-black text-rose-500 uppercase">Mất kết nối</span>}
-                  </div>
-                ))}
-                {roomPlayers.length === 0 && (
-                  <div className="text-center py-12 text-slate-400">
-                    <Users size={48} className="mx-auto mb-3 opacity-50" />
-                    <p className="font-bold">Chưa có học sinh nào</p>
-                    <p className="text-sm mt-1">Chia sẻ mã phòng để mời học sinh</p>
-                  </div>
-                )}
-              </div>
-
-              {isHost ? (
-                <button
-                  onClick={handleStartQuiz}
-                  disabled={roomPlayers.length < 1}
-                  className="w-full mt-4 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white py-4 rounded-2xl font-black text-lg shadow-lg shadow-indigo-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:from-indigo-600 hover:to-indigo-700 transition-all"
-                >
-                  <Play size={24} fill="white" />
-                  BẮT ĐẦU QUIZ
-                </button>
-              ) : (
-                <div className="w-full mt-4 bg-slate-100 text-slate-500 py-4 rounded-2xl font-bold text-center flex items-center justify-center gap-2">
-                  <Clock size={20} />
-                  Đang chờ giáo viên bắt đầu...
-                </div>
-              )}
-
-              <button onClick={handleLeaveRoom} className="w-full mt-3 text-slate-400 font-bold text-sm hover:text-slate-600 py-2">
-                Rời phòng
-              </button>
-            </div>
           </motion.div>
         )}
 
@@ -670,7 +644,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
                             animate={{ y: 0, opacity: 1 }}
                             className="flex flex-col items-center order-1"
                           >
-                            <img src={avatarMap[top3[1].id] || top3[1].avatar} alt="" className="w-14 h-14 rounded-2xl object-cover border-4 border-slate-300 shadow-lg mb-2" referrerPolicy="no-referrer" />
+                            <Character value={top3[1].character} uid={top3[1].id} className="w-14 h-14 mb-2 drop-shadow-sm" />
                             <div className="w-20 h-16 bg-gradient-to-t from-slate-200 to-slate-100 rounded-t-xl flex items-center justify-center border border-slate-300">
                               <span className="font-black text-slate-600">2</span>
                             </div>
@@ -686,7 +660,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
                             className="flex flex-col items-center order-0 -mx-2 z-10"
                           >
                             <Crown className="text-amber-400 -mt-2 mb-1" size={28} />
-                            <img src={avatarMap[top3[0].id] || top3[0].avatar} alt="" className="w-16 h-16 rounded-2xl object-cover border-4 border-amber-400 shadow-xl mb-2" referrerPolicy="no-referrer" />
+                            <Character value={top3[0].character} uid={top3[0].id} className="w-16 h-16 mb-2 drop-shadow-sm" />
                             <div className="w-24 h-20 bg-gradient-to-t from-amber-200 to-amber-100 rounded-t-xl flex items-center justify-center border-2 border-amber-300">
                               <span className="font-black text-amber-700 text-xl">1</span>
                             </div>
@@ -701,7 +675,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
                             transition={{ delay: 0.2 }}
                             className="flex flex-col items-center order-2"
                           >
-                            <img src={avatarMap[top3[2].id] || top3[2].avatar} alt="" className="w-14 h-14 rounded-2xl object-cover border-4 border-amber-600 shadow-lg mb-2" referrerPolicy="no-referrer" />
+                            <Character value={top3[2].character} uid={top3[2].id} className="w-14 h-14 mb-2 drop-shadow-sm" />
                             <div className="w-20 h-12 bg-gradient-to-t from-amber-200/70 to-amber-100/70 rounded-t-xl flex items-center justify-center border border-amber-400">
                               <span className="font-black text-amber-700">3</span>
                             </div>
@@ -733,7 +707,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
                           >
                             {i + 1}
                           </span>
-                          <img src={avatarMap[p.id] || p.avatar} alt="" className="w-11 h-11 rounded-xl object-cover bg-slate-100 shrink-0" referrerPolicy="no-referrer" />
+                          <Character value={p.character} uid={p.id} className="w-11 h-11 shrink-0 drop-shadow-sm" />
                           <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-center mb-1">
                               <span className="font-bold text-slate-800 truncate">{p.name}</span>
@@ -765,7 +739,10 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
             ) : (
               <>
                 <div className="bg-white p-4 border-b border-slate-100 flex items-center justify-between shrink-0">
-                  <span className="font-black text-indigo-600">{score} điểm</span>
+                  <span className="flex items-center gap-2 min-w-0">
+                    <Character value={roomPlayers.find((p) => p.isMe)?.character} uid={user?.uid} className="w-10 h-10 shrink-0" />
+                    <span className="font-black text-indigo-600 whitespace-nowrap">{score} điểm</span>
+                  </span>
                   <span
                     className={cn(
                       'w-12 h-12 rounded-full flex items-center justify-center font-black',
@@ -861,7 +838,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
               <div className="flex items-end justify-center gap-2 sm:gap-4 mb-6">
                 {roomResults[1] && (
                   <motion.div initial={{ y: 30 }} animate={{ y: 0 }} className="flex flex-col items-center">
-                    <img src={avatarMap[roomResults[1].id] || roomResults[1].avatar} alt="" className="w-14 h-14 rounded-2xl object-cover border-4 border-slate-300 shadow mb-2" referrerPolicy="no-referrer" />
+                    <Character value={roomResults[1].character} uid={roomResults[1].id} className="w-14 h-14 mb-2 drop-shadow-sm" />
                     <div className="w-20 h-16 bg-slate-200 rounded-t-xl flex items-center justify-center border border-slate-300">
                       <span className="font-black text-slate-600">2</span>
                     </div>
@@ -872,7 +849,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
                 {roomResults[0] && (
                   <motion.div initial={{ y: 30 }} animate={{ y: 0 }} transition={{ delay: 0.1 }} className="flex flex-col items-center -mx-1 z-10">
                     <Crown className="text-amber-400 -mt-1 mb-0.5" size={26} />
-                    <img src={avatarMap[roomResults[0].id] || roomResults[0].avatar} alt="" className="w-16 h-16 rounded-2xl object-cover border-4 border-amber-400 shadow-lg mb-2" referrerPolicy="no-referrer" />
+                    <Character value={roomResults[0].character} uid={roomResults[0].id} className="w-16 h-16 mb-2 drop-shadow-sm" />
                     <div className="w-24 h-20 bg-amber-100 rounded-t-xl flex items-center justify-center border-2 border-amber-300">
                       <span className="font-black text-amber-700 text-xl">1</span>
                     </div>
@@ -882,7 +859,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
                 )}
                 {roomResults[2] && (
                   <motion.div initial={{ y: 30 }} animate={{ y: 0 }} transition={{ delay: 0.2 }} className="flex flex-col items-center">
-                    <img src={avatarMap[roomResults[2].id] || roomResults[2].avatar} alt="" className="w-14 h-14 rounded-2xl object-cover border-4 border-amber-600 shadow mb-2" referrerPolicy="no-referrer" />
+                    <Character value={roomResults[2].character} uid={roomResults[2].id} className="w-14 h-14 mb-2 drop-shadow-sm" />
                     <div className="w-20 h-12 bg-amber-100 rounded-t-xl flex items-center justify-center border border-amber-400">
                       <span className="font-black text-amber-700">3</span>
                     </div>
@@ -904,7 +881,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
                 >
                   <div className="flex items-center gap-4">
                     <span className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-black text-slate-500">{i + 4}</span>
-                    <img src={avatarMap[p.id] || (p.isMe ? userProfile?.avatar : undefined) || p.avatar} alt="" className="w-10 h-10 rounded-xl object-cover bg-slate-100" referrerPolicy="no-referrer" />
+                    <Character value={p.character} uid={p.id} className="w-11 h-11 drop-shadow-sm" />
                     <span className={cn('font-bold', p.isMe && 'text-indigo-700')}>{p.name}</span>
                   </div>
                   <span className="font-black">{p.score ?? 0}</span>

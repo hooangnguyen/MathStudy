@@ -4,9 +4,10 @@ import { Trophy } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 import { MathRenderer } from '../../../content/MathRenderer';
 import type { MathDuelController } from '../useMathDuel';
+import { Character } from '../../rooms/characters';
 
 export const RoomPlayingView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {
-  const { userRole, userProfile, setState, timeLeft, score, currentQuestion, roomCode, gameMode, roomPlayers, questions, handleRoomAnswer } = duel;
+  const { user, userRole, userProfile, setState, timeLeft, score, currentQuestion, roomCode, gameMode, roomPlayers, questions, handleRoomAnswer } = duel;
 
   return (
     <motion.div
@@ -62,7 +63,7 @@ export const RoomPlayingView: React.FC<{ duel: MathDuelController }> = ({ duel }
                   )}>
                     {index + 1}
                   </div>
-                  <img src={player.avatar} className="w-10 h-10 rounded-xl object-cover" referrerPolicy="no-referrer" />
+                  <Character value={player.character} uid={String(player.id)} className="w-11 h-11 shrink-0" />
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-bold text-slate-900 text-sm">{player.name}</span>
@@ -96,13 +97,7 @@ export const RoomPlayingView: React.FC<{ duel: MathDuelController }> = ({ duel }
           {/* Room Duel Header */}
           <div className="bg-white p-6 border-b border-slate-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-100 overflow-hidden border-2 border-indigo-500">
-                {userProfile?.avatar ? (
-                  <img src={userProfile.avatar} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                ) : (
-                  <span className="w-full h-full flex items-center justify-center text-xl font-black text-indigo-600">{userProfile?.name?.charAt(0) || 'B'}</span>
-                )}
-              </div>
+              <Character value={roomPlayers.find((p) => p.isMe)?.character} uid={user?.uid} className="w-12 h-12 shrink-0" />
               <div>
                 <div className="text-[10px] font-black text-slate-400 uppercase">Điểm của bạn</div>
                 <div className="text-lg font-black text-indigo-600">{score.player}</div>
