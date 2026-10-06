@@ -5,7 +5,7 @@
 import { chromium } from 'playwright-core';
 import { readFileSync } from 'fs';
 import { initializeApp } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import QRCode from 'qrcode';
 
 const BASE = `http://localhost:${process.env.PORT || 3995}`;
@@ -219,12 +219,64 @@ await step('Khách làm bài: giáo viên bắt đầu → khách trả lời h�
   await pt.getByRole('button', { name: 'BẮT ĐẦU QUIZ', exact: true }).click();
   const answers = pg.locator('div.grid.grid-cols-1 > button');
   for (let i = 0; i < 3; i++) { await answers.first().waitFor({ timeout: 15000 }); await answers.first().click(); await pg.waitForTimeout(400); }
-  await pg.getByText('KẾT QUẢ QUIZ').waitFor({ timeout: 15000 });
+  await pg.getByRole('heading', { name: 'Vinh danh' }).waitFor({ timeout: 15000 });
   await pg.waitForTimeout(800);
   const prog = (await roomOf(quizCode)).data().participantProgress[guestUid];
   expect(prog?.finished && prog.score === 30, `tiến độ khách: ${JSON.stringify(prog)}`);
   await shot(pg, 'guest-result');
 });
+// Lớp đông: thêm 40 học sinh đã làm xong (ghi thẳng vào phòng) với tên + nhân vật riêng
+const SPECIES_VI = { cat: 'Mèo', bear: 'Gấu', bunny: 'Thỏ', frog: 'Ếch', panda: 'Gấu trúc', chick: 'Gà con', robot: 'Rô-bốt', monster: 'Quái vật' };
+const crowd = Array.from({ length: 40 }, (_, i) => ({
+  uid: `crowd${i}`, name: `Học sinh số ${i + 1}`, score: (i * 7) % 50,
+  avatar: `${Object.keys(SPECIES_VI)[i % 8]}.${['orange', 'pink', 'purple', 'blue'][i % 4]}.${['crown', 'party', 'glasses', 'bow'][i % 4]}`,
+}));
+crowd[5].score = 100; crowd[5].name = 'Quán quân Tí';
+await step('Lớp đông (44 bạn): vinh danh hiện đúng tên + nhân vật đã chọn, xếp hạng đúng, mỗi bạn một dòng', async () => {
+  const room = await roomOf(quizCode);
+  const update = { currentPlayers: FieldValue.arrayUnion(...crowd.map((c) => c.uid)) };
+  for (const c of crowd) {
+    update[`playerNames.${c.uid}`] = c.name;
+    update[`playerAvatars.${c.uid}`] = c.avatar;
+    update[`participantProgress.${c.uid}`] = { score: c.score, progress: 3, finished: true };
+  }
+  await room.ref.update(update);
+  await pt.getByText('Quán quân Tí').first().waitFor({ timeout: 10000 });
+  await pt.getByRole('button', { name: 'KẾT THÚC QUIZ' }).click();
+  await pt.getByRole('heading', { name: 'Vinh danh' }).waitFor({ timeout: 10000 });
+  await pt.waitForTimeout(2500); // chờ lên bục xong
+  const first = pt.getByTestId('podium-1');
+  const firstText = await first.innerText();
+  expect(firstText.includes('Quán quân Tí') && firstText.includes('100 điểm'), `hạng 1: ${firstText}`);
+  const label = await first.getByRole('img').first().getAttribute('aria-label');
+  expect(label?.startsWith(SPECIES_VI[crowd[5].avatar.split('.')[0]]), `nhân vật hạng 1: ${label}`);
+  const total = (await roomOf(quizCode)).data().currentPlayers.length - 1; // trừ giáo viên
+  const rows = await pt.getByRole('list', { name: 'Các hạng tiếp theo' }).getByRole('listitem').count();
+  expect(rows === total - 3, `có ${rows} dòng, mong đợi ${total - 3}`);
+  const guestRow = pt.getByRole('listitem').filter({ hasText: 'Bé Na' });
+  expect(await guestRow.getByRole('img', { name: /Rô-bốt/ }).count() === 1, 'Bé Na không hiện đúng nhân vật Rô-bốt');
+  await shot(pt, 'honor-host');
+});
+await step('Học sinh thấy hạng của mình trong lớp đông', async () => {
+  const banner = await pg.getByText(/Bạn đứng hạng/).innerText();
+  expect(/Bạn đứng hạng \d+\/\d+/.test(banner), `banner: ${banner}`);
+  await shot(pg, 'honor-student');
+});
+await step('Giáo viên trình chiếu vinh danh → bục 1-2-3 + hạng 4-13 với nhân vật; Esc để đóng', async () => {
+  await pt.setViewportSize({ width: 1280, height: 800 });
+  await pt.getByRole('button', { name: 'Trình chiếu vinh danh' }).click();
+  const stage = pt.getByRole('dialog', { name: 'Trình chiếu vinh danh' });
+  await stage.waitFor();
+  await pt.waitForTimeout(2500);
+  const text = await stage.innerText();
+  expect(text.includes('Quán quân Tí') && text.includes('bạn tham gia'), `trình chiếu: ${text.slice(0, 200)}`);
+  expect(await stage.getByRole('listitem').count() === 10, 'không đủ 10 dòng hạng 4–13');
+  await shot(pt, 'honor-stage');
+  await pt.keyboard.press('Escape');
+  await stage.waitFor({ state: 'detached', timeout: 5000 });
+  await pt.setViewportSize({ width: 390, height: 844 });
+});
+
 await step('Khách bấm Quay lại → màn "Chơi vui lắm"; Thoát → về màn đăng nhập', async () => {
   await pg.getByRole('button', { name: 'QUAY LẠI' }).click();
   await pg.getByText('Chơi vui lắm, Bé Na!').waitFor({ timeout: 10000 });

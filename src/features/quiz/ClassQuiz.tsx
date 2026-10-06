@@ -37,6 +37,7 @@ import { resumeRoom } from '../../../shared/resume';
 import { Character, defaultCharacterFor, encodeCharacter, loadSavedCharacter, saveCharacter, type CharacterSpec } from '../rooms/characters';
 import { HostLobby } from './views/HostLobby';
 import { StudentWaiting } from './views/StudentWaiting';
+import { HonorBoard } from './views/HonorBoard';
 import type { QuizPlayer } from './types';
 import { normalizeRoomCode } from '../rooms/joinLink';
 
@@ -104,6 +105,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
     setRoomCode(room.code);
     setIsHost(room.hostId === user.uid);
     setTimeLimit(room.timeLimit);
+    setQuizTitle((room as QuizRoomData).quizTitle);
     setQuestions(getQuizQuestionsFromRoom(room as QuizRoomData));
     setCheckboxSelections([]);
     saveActiveSession(user.uid, 'quiz-room', room.id);
@@ -163,6 +165,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
       }
 
       const r = room as QuizRoomData;
+      if (r.quizTitle) setQuizTitle(r.quizTitle);
       const stale = findStalePlayers(r.currentPlayers, r.lastSeen);
       setHostOffline(!!user && r.hostId !== user.uid && stale.includes(r.hostId));
 
@@ -243,8 +246,7 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
   // Generate results when entering result state
   useEffect(() => {
     if (state === 'result') {
-      const sorted = [...roomPlayers].sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
-      setRoomResults(sorted);
+      setRoomResults(roomPlayers);
     }
   }, [state, roomPlayers]);
 
@@ -824,77 +826,8 @@ export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, on
         )}
 
         {state === 'result' && (
-          <motion.div
-            key="result"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex-1 flex flex-col p-4 sm:p-6"
-          >
-            <h2 className="text-2xl font-black text-center mb-2">KẾT QUẢ QUIZ</h2>
-            <p className="text-slate-500 text-center text-sm mb-6">Phòng {roomCode}</p>
-
-            {/* Podium Top 3 */}
-            {roomResults.length > 0 && (
-              <div className="flex items-end justify-center gap-2 sm:gap-4 mb-6">
-                {roomResults[1] && (
-                  <motion.div initial={{ y: 30 }} animate={{ y: 0 }} className="flex flex-col items-center">
-                    <Character value={roomResults[1].character} uid={roomResults[1].id} className="w-14 h-14 mb-2 drop-shadow-sm" />
-                    <div className="w-20 h-16 bg-slate-200 rounded-t-xl flex items-center justify-center border border-slate-300">
-                      <span className="font-black text-slate-600">2</span>
-                    </div>
-                    <span className="font-bold text-sm mt-1 truncate max-w-[70px] text-center">{roomResults[1].name}</span>
-                    <span className="font-black text-indigo-600">{roomResults[1].score ?? 0}</span>
-                  </motion.div>
-                )}
-                {roomResults[0] && (
-                  <motion.div initial={{ y: 30 }} animate={{ y: 0 }} transition={{ delay: 0.1 }} className="flex flex-col items-center -mx-1 z-10">
-                    <Crown className="text-amber-400 -mt-1 mb-0.5" size={26} />
-                    <Character value={roomResults[0].character} uid={roomResults[0].id} className="w-16 h-16 mb-2 drop-shadow-sm" />
-                    <div className="w-24 h-20 bg-amber-100 rounded-t-xl flex items-center justify-center border-2 border-amber-300">
-                      <span className="font-black text-amber-700 text-xl">1</span>
-                    </div>
-                    <span className="font-black text-sm mt-1 truncate max-w-[80px] text-center">{roomResults[0].name}</span>
-                    <span className="font-black text-amber-600">{roomResults[0].score ?? 0}</span>
-                  </motion.div>
-                )}
-                {roomResults[2] && (
-                  <motion.div initial={{ y: 30 }} animate={{ y: 0 }} transition={{ delay: 0.2 }} className="flex flex-col items-center">
-                    <Character value={roomResults[2].character} uid={roomResults[2].id} className="w-14 h-14 mb-2 drop-shadow-sm" />
-                    <div className="w-20 h-12 bg-amber-100 rounded-t-xl flex items-center justify-center border border-amber-400">
-                      <span className="font-black text-amber-700">3</span>
-                    </div>
-                    <span className="font-bold text-sm mt-1 truncate max-w-[70px] text-center">{roomResults[2].name}</span>
-                    <span className="font-black text-amber-600">{roomResults[2].score ?? 0}</span>
-                  </motion.div>
-                )}
-              </div>
-            )}
-
-            <div className="flex-1 overflow-y-auto space-y-2">
-              {roomResults.slice(3).map((p, i) => (
-                <div
-                  key={p.id}
-                  className={cn(
-                    'flex items-center justify-between p-4 rounded-2xl border-2',
-                    p.isMe ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-slate-100'
-                  )}
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-black text-slate-500">{i + 4}</span>
-                    <Character value={p.character} uid={p.id} className="w-11 h-11 drop-shadow-sm" />
-                    <span className={cn('font-bold', p.isMe && 'text-indigo-700')}>{p.name}</span>
-                  </div>
-                  <span className="font-black">{p.score ?? 0}</span>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={handleLeaveRoom}
-              className="w-full mt-6 bg-slate-900 hover:bg-slate-800 text-white py-4 rounded-2xl font-black"
-            >
-              QUAY LẠI
-            </button>
+          <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-1 flex flex-col">
+            <HonorBoard players={roomResults} title={quizTitle} roomCode={roomCode} isHost={isHost} onBack={handleLeaveRoom} />
           </motion.div>
         )}
       </AnimatePresence>
