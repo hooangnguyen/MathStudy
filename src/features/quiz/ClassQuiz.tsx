@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
-  Users, X, Key, Play, Crown, Trophy, Clock, Clipboard, Check,
+  Users, X, Key, Play, Crown, Trophy, Clock,
   GraduationCap, FileText, ChevronLeft, Square, CheckSquare
 } from 'lucide-react';
 import { MathRenderer } from '../../content/MathRenderer';
@@ -35,6 +35,8 @@ import { getDuelRoom, removePlayersFromRoom, type DuelRoom } from '../duel/duelS
 import { useRoomPresence } from '../duel/useRoomPresence';
 import { findStalePlayers } from '../../../shared/presence';
 import { resumeRoom } from '../../../shared/resume';
+import { RoomInvite } from '../rooms/RoomInvite';
+import { normalizeRoomCode } from '../rooms/joinLink';
 
 type QuizState =
   | 'lobby'
@@ -54,7 +56,14 @@ interface RoomPlayer {
   offline?: boolean;
 }
 
-export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = ({ userRole }) => {
+interface ClassQuizProps {
+  userRole: 'student' | 'teacher' | null;
+  /** Mã phòng lấy từ link /join/<mã>: tự vào phòng khi mở màn hình */
+  autoJoinCode?: string | null;
+  onAutoJoinHandled?: () => void;
+}
+
+export const ClassQuiz: React.FC<ClassQuizProps> = ({ userRole, autoJoinCode, onAutoJoinHandled }) => {
   const { user, userProfile } = useFirebase();
   const [state, setState] = useState<QuizState>('lobby');
   const [roomId, setRoomId] = useState<string | null>(null);
@@ -68,7 +77,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
   const [timeLeft, setTimeLeft] = useState(60);
   const [timeLimit, setTimeLimit] = useState(60);
   const [isHost, setIsHost] = useState(false);
-  const [isCopied, setIsCopied] = useState(false);
+  const [quizTitle, setQuizTitle] = useState<string | undefined>();
 
   // Teacher create flow
   const [drafts, setDrafts] = useState<DraftAssignmentData[]>([]);
@@ -281,6 +290,7 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
       );
       setRoomId(room.id);
       setRoomCode(room.code);
+      setQuizTitle(draft.title);
       setTimeLimit(room.timeLimit);
       setTimeLeft(room.timeLimit);
       setIsHost(true);
@@ -295,12 +305,12 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     }
   };
 
-  const handleJoinRoom = async () => {
-    if (!user || roomCode.trim().length !== 6) return;
+  const handleJoinRoom = async (code: string = roomCode) => {
+    if (!user || code.trim().length !== 6) return;
 
     try {
       const room = await joinQuizRoom(
-        roomCode.trim(),
+        code.trim(),
         user.uid,
         userProfile?.name || user.displayName || 'Học sinh'
       );
@@ -309,8 +319,21 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
       applyQuizRoom(room);
     } catch (err: any) {
       alert(err?.message || 'Không thể vào phòng.');
+      setState('join');
     }
   };
+
+  // Mở bằng link /join/<mã> (quét QR): vào phòng luôn, sau khi đã thử khôi phục phòng cũ
+  useEffect(() => {
+    if (!autoJoinCode || !user || !resumeChecked) return;
+    onAutoJoinHandled?.();
+    if (roomId && roomCode !== autoJoinCode) {
+      alert(`Bạn đang ở phòng ${roomCode}. Hãy rời phòng này trước khi vào phòng ${autoJoinCode}.`);
+      return;
+    }
+    setRoomCode(autoJoinCode);
+    handleJoinRoom(autoJoinCode);
+  }, [autoJoinCode, user?.uid, resumeChecked]);
 
   const handleStartQuiz = () => {
     if (!roomId || !isHost) return;
@@ -392,12 +415,6 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
     setQuestions([]);
     setCurrentQuestion(0);
     setScore(0);
-  };
-
-  const copyCode = () => {
-    navigator.clipboard.writeText(roomCode);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
   };
 
   const qList = questions.length > 0 ? questions : [];
@@ -527,15 +544,14 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
                   inputMode="numeric"
                   pattern="[0-9]*"
                   value={roomCode}
-                  onChange={(e) => setRoomCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                  onChange={(e) => setRoomCode(normalizeRoomCode(e.target.value).replace(/\D/g, ''))}
                   placeholder="VD: 123456"
                   className="w-full mt-2 p-4 bg-slate-50 border border-slate-200 rounded-xl text-2xl font-black text-center tracking-[0.3em] outline-none focus:border-primary"
-                  maxLength={6}
                 />
               </div>
 
               <button
-                onClick={handleJoinRoom}
+                onClick={() => handleJoinRoom()}
                 disabled={roomCode.length !== 6}
                 className="w-full bg-emerald-500 text-white py-4 rounded-xl font-black disabled:opacity-50"
               >
@@ -552,19 +568,16 @@ export const ClassQuiz: React.FC<{ userRole: 'student' | 'teacher' | null }> = (
             animate={{ opacity: 1 }}
             className="flex-1 flex flex-col p-4 sm:p-6"
           >
-            <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-3xl p-6 text-white text-center mb-4 shadow-xl shadow-indigo-200">
-              <p className="text-xs font-bold uppercase tracking-wider text-indigo-100">Mã tham gia</p>
-              <div className="flex items-center justify-center gap-3 mt-2">
-                <span className="text-4xl sm:text-5xl font-black tracking-[0.2em] tabular-nums">{roomCode}</span>
-                <button
-                  onClick={copyCode}
-                  className="p-3 bg-white/20 rounded-2xl hover:bg-white/30 transition-colors"
-                >
-                  {isCopied ? <Check size={24} className="text-emerald-300" /> : <Clipboard size={24} />}
-                </button>
+            {isHost ? (
+              <div className="mb-4">
+                <RoomInvite code={roomCode} title={quizTitle} playerCount={roomPlayers.length} presentable />
               </div>
-              <p className="text-sm text-indigo-100 mt-3">Chia sẻ mã này để học sinh vào phòng</p>
-            </div>
+            ) : (
+              <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-3xl p-5 text-white text-center mb-4 shadow-xl shadow-indigo-200">
+                <p className="text-sm font-semibold text-indigo-100">Bạn đã vào phòng</p>
+                <p className="text-4xl font-black tracking-[0.2em] tabular-nums mt-1">{roomCode}</p>
+              </div>
+            )}
 
             <div className="flex-1 bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex flex-col min-h-0">
               <div className="flex items-center justify-between mb-4">

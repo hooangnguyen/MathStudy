@@ -16,7 +16,7 @@ import type { DuelState, MathDuelProps, RoomPlayer } from './types';
  * Toàn bộ state, hiệu ứng và xử lý của màn Đối kháng.
  * Các view trong ./views chỉ hiển thị dựa trên giá trị trả về của hook này.
  */
-export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChange, onExitDuel, exitDuelToken = 0, onNavigate }: MathDuelProps) => {
+export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChange, onExitDuel, exitDuelToken = 0, onNavigate, autoJoinCode, onAutoJoinHandled }: MathDuelProps) => {
   const { user, userProfile } = useFirebase();
   const [state, setState] = useState<DuelState>(initialState);
   const [isWaitingForOpponent, setIsWaitingForOpponent] = useState(false);
@@ -146,11 +146,11 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
     }
   };
 
-  const handleJoinRoom = async () => {
-    if (!user || roomCode.trim().length !== 6) return;
+  const handleJoinRoom = async (code: string = roomCode) => {
+    if (!user || code.trim().length !== 6) return;
     try {
       const room = await joinDuelRoom(
-        roomCode.trim(),
+        code.trim(),
         user.uid,
         userProfile?.name || user.displayName || 'Người chơi'
       );
@@ -158,6 +158,7 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
       applyRoom(room);
     } catch (err: any) {
       alert(err?.message || 'Không thể vào phòng. Thử lại.');
+      setState('join_room');
     }
   };
 
@@ -273,6 +274,22 @@ export const useMathDuel = ({ userRole, initialState = 'lobby', onDuelStateChang
     })();
     return () => { cancelled = true; };
   }, [user?.uid]);
+
+  // Mở bằng link /join/<mã> (quét QR): vào phòng luôn, sau khi đã thử khôi phục phiên cũ
+  useEffect(() => {
+    if (!autoJoinCode || !user || !resumeChecked) return;
+    onAutoJoinHandled?.();
+    if (roomId && roomCode !== autoJoinCode) {
+      alert(`Bạn đang ở phòng ${roomCode}. Hãy rời phòng này trước khi vào phòng ${autoJoinCode}.`);
+      return;
+    }
+    if (stateRef.current.state === 'playing' || stateRef.current.state === 'searching') {
+      alert('Bạn đang trong một trận đấu. Hãy kết thúc trận này trước khi vào phòng khác.');
+      return;
+    }
+    setRoomCode(autoJoinCode);
+    handleJoinRoom(autoJoinCode);
+  }, [autoJoinCode, user?.uid, resumeChecked]);
 
   // Ghi nhớ / xoá phiên theo trạng thái (chỉ sau khi đã thử khôi phục, để không xoá mất phiên cũ)
   useEffect(() => {

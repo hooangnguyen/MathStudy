@@ -88,8 +88,13 @@ export interface UserRank {
     avatar?: string;
 }
 
-// Generate random 6-character room code (alphanumeric)
-const generateRoomCode = (): string => randomCode(6);
+// Mã phòng đấu: 6 ký tự chữ-số, luôn có ít nhất 1 chữ cái để không trùng dạng với mã quiz (6 chữ số).
+// Nhờ vậy link /join/<mã> biết ngay là phòng đấu hay phòng quiz.
+const generateRoomCode = (): string => {
+    let code = randomCode(6);
+    while (/^\d+$/.test(code)) code = randomCode(6);
+    return code;
+};
 
 // Generate random 6-digit numeric room code (for quiz)
 export const generateNumericRoomCode = (): string => randomCode(6, '0123456789');

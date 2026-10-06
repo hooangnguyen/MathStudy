@@ -42,6 +42,7 @@ src/
     teacher/               #   trang chủ và trang quản lý lớp của giáo viên
     quiz/                  #   quiz trực tiếp trong lớp
     duel/                  #   đấu 1v1, phòng đấu (views/, hook useMathDuel, duelService)
+    rooms/                 #   mời vào phòng: mã QR, link /join/<mã>, màn trình chiếu
     leaderboard/           #   bảng xếp hạng
     chat/                  #   tin nhắn, gia sư AI
     notifications/         #   thông báo
@@ -79,8 +80,14 @@ Các lệnh khác:
 | `npm run lint` | Kiểm tra kiểu TypeScript |
 | `npm test` | Chạy unit test |
 | `npm run test:emulator` | Test Firestore rules + API chấm điểm trên Firebase Emulator (cần Java) |
-| `npm run test:e2e` | Test trình duyệt 2 người chơi: vào phòng, văng khỏi phòng/trận rồi vào lại (cần Java + Chromium; đặt `CHROMIUM_PATH` nếu cần) |
+| `npm run test:e2e` | Test trình duyệt: vào phòng bằng mã/QR/link, văng khỏi phòng/trận rồi vào lại, soạn bài tập (cần Java + Chromium; đặt `CHROMIUM_PATH` nếu cần) |
 | `npm run migrate:answer-keys` | Tách đáp án khỏi các bài tập tạo trước đây (chạy một lần) |
+
+## Vào phòng bằng mã QR / link
+
+Phòng quiz lớp và phòng đấu đều có link mời dạng `https://<tên miền>/join/<mã>` và mã QR chứa link đó.
+Mã 6 chữ số là phòng quiz, mã có chữ cái là phòng đấu. Giáo viên bấm **Trình chiếu** để hiện mã QR toàn màn hình lên máy chiếu.
+Học sinh quét QR bằng camera điện thoại; nếu chưa đăng nhập, app nhắc đăng nhập rồi đưa thẳng vào phòng.
 
 ## Chạy bằng Docker
 

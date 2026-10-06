@@ -5,6 +5,7 @@ import { cn } from '../../../lib/utils';
 import { startDuel } from '../duelService';
 import { getRandomQuestions } from '../duelQuestions';
 import type { MathDuelController } from '../useMathDuel';
+import { RoomInvite } from '../../rooms/RoomInvite';
 
 export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {
   const { userProfile, roomId, roomCode, isHost, gameMode, roomPlayers, avatarMap, hostOffline, leaveCurrentRoom } = duel;
@@ -17,12 +18,8 @@ export const WaitingRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }
       exit={{ opacity: 0 }}
       className="flex-1 flex flex-col p-6 items-center space-y-6"
     >
-      <div className="w-full max-w-md bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 text-center space-y-2">
-        <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest">Mã phòng của bạn</h2>
-        <div className="text-5xl font-black tracking-widest text-indigo-600 bg-indigo-50 py-4 rounded-2xl border-2 border-dashed border-indigo-200">
-          {roomCode}
-        </div>
-        <p className="text-xs font-bold text-slate-500 mt-2">Chia sẻ mã này cho các bạn để cùng tham gia nhé!</p>
+      <div className="w-full max-w-md">
+        <RoomInvite code={roomCode} playerCount={roomPlayers.length} />
       </div>
 
       <div className="w-full max-w-md flex-1 bg-white rounded-[2rem] shadow-sm border border-slate-100 p-6 flex flex-col">

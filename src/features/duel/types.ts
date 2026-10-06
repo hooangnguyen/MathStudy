@@ -7,6 +7,9 @@ export interface MathDuelProps {
   onExitDuel?: () => void;
   exitDuelToken?: number;
   onNavigate?: (tab: string) => void;
+  /** Mã phòng lấy từ link /join/<mã>: tự vào phòng khi mở màn hình */
+  autoJoinCode?: string | null;
+  onAutoJoinHandled?: () => void;
 }
 
 export interface RoomPlayer {
