@@ -42,6 +42,7 @@ src/
     teacher/               #   trang chủ và trang quản lý lớp của giáo viên
     quiz/                  #   quiz trực tiếp trong lớp
     duel/                  #   đấu 1v1, phòng đấu (views/, hook useMathDuel, duelService)
+    rooms/                 #   vào phòng: mã QR, link /join/<mã>, trình chiếu, khách vào bằng tên, nhân vật
     leaderboard/           #   bảng xếp hạng
     chat/                  #   tin nhắn, gia sư AI
     notifications/         #   thông báo
@@ -79,8 +80,22 @@ Các lệnh khác:
 | `npm run lint` | Kiểm tra kiểu TypeScript |
 | `npm test` | Chạy unit test |
 | `npm run test:emulator` | Test Firestore rules + API chấm điểm trên Firebase Emulator (cần Java) |
-| `npm run test:e2e` | Test trình duyệt 2 người chơi: vào phòng, văng khỏi phòng/trận rồi vào lại (cần Java + Chromium; đặt `CHROMIUM_PATH` nếu cần) |
+| `npm run test:e2e` | Test trình duyệt: vào phòng bằng mã/QR/link, văng khỏi phòng/trận rồi vào lại, soạn bài tập (cần Java + Chromium; đặt `CHROMIUM_PATH` nếu cần) |
 | `npm run migrate:answer-keys` | Tách đáp án khỏi các bài tập tạo trước đây (chạy một lần) |
+
+## Vào phòng bằng mã QR / link
+
+Phòng quiz lớp và phòng đấu đều có link mời dạng `https://<tên miền>/join/<mã>` và mã QR chứa link đó.
+Mã 6 chữ số là phòng quiz, mã có chữ cái là phòng đấu. Giáo viên bấm **Trình chiếu** để hiện mã QR toàn màn hình lên máy chiếu.
+Học sinh quét QR bằng camera điện thoại.
+
+- **Phòng quiz: vào không cần tài khoản** (như Kahoot). Người chưa đăng nhập nhập tên, chọn nhân vật rồi vào phòng.
+  Bên dưới dùng đăng nhập ẩn danh của Firebase, nên cần bật: Firebase Console → Authentication → Sign-in method → **Anonymous**.
+  Khách chỉ dùng được phòng quiz: Firestore rules chặn mọi dữ liệu khác, server trả 403 cho mọi API (AI, chấm điểm).
+  Điểm của khách chỉ nằm trong phòng, không lưu vào tài khoản nào.
+- **Phòng đấu** vẫn cần đăng nhập; mở link khi chưa đăng nhập thì app nhắc đăng nhập rồi đưa thẳng vào phòng.
+- **Nhân vật:** mỗi người trong phòng chọn và trang trí một nhân vật (8 con vật × 8 màu × 7 phụ kiện, vẽ bằng SVG trong
+  `src/features/rooms/characters.tsx`), lưu ở `duelRooms/{phòng}.playerAvatars.{uid}`. Giáo viên có thể mời người chơi ra khỏi phòng chờ.
 
 ## Chạy bằng Docker
 

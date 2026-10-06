@@ -60,7 +60,10 @@ export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser);
-      if (firebaseUser) {
+      if (firebaseUser?.isAnonymous) {
+        // Khách vào phòng quiz không có hồ sơ và không có trạng thái online
+        setUserProfile(null);
+      } else if (firebaseUser) {
         await refreshProfile();
         setUserOnline(firebaseUser.uid, true).catch(() => { });
       } else {
@@ -75,6 +78,7 @@ export const FirebaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Mark offline when tab closes or app goes to background
   useEffect(() => {
+    if (user?.isAnonymous) return;
     const handleVisibilityChange = () => {
       if (user) {
         if (document.visibilityState === 'hidden') {

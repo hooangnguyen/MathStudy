@@ -56,9 +56,8 @@ let code;
 await step('A tạo phòng 1v1, mã đủ 6 ký tự', async () => {
   await pa.getByText('Tạo phòng', { exact: true }).click();
   await pa.getByText('TẠO PHÒNG NGAY').click();
-  await pa.getByText('Mã phòng của bạn').waitFor();
-  code = (await pa.locator('div.text-5xl').innerText()).trim();
-  expect(/^[A-Z0-9]{6}$/.test(code), `mã "${code}"`);
+  code = (await pa.getByTestId('room-code').innerText()).trim();
+  expect(/^[A-Z0-9]{6}$/.test(code) && /[A-Z]/.test(code), `mã "${code}"`);
 });
 await step('B nhập mã và vào phòng; A thấy 2 người', async () => {
   await pb.getByText('Vào phòng', { exact: true }).first().click();
@@ -118,8 +117,7 @@ await step('Chủ phòng rời phòng khi B đang ở phòng chờ → B đượ
   await openDuel(pa); await openDuel(pb);
   await pa.getByText('Tạo phòng', { exact: true }).click();
   await pa.getByText('TẠO PHÒNG NGAY').click();
-  await pa.getByText('Mã phòng của bạn').waitFor();
-  const code2 = (await pa.locator('div.text-5xl').innerText()).trim();
+  const code2 = (await pa.getByTestId('room-code').innerText()).trim();
   await pb.getByText('Vào phòng', { exact: true }).first().click();
   await pb.fill('input[placeholder="VD: A1B2C3"]', code2);
   await pb.getByRole('button', { name: 'VÀO PHÒNG', exact: true }).click();
@@ -172,8 +170,7 @@ await step('Quiz: giáo viên tạo phòng từ bản nháp, học sinh nhập m
   await pt.getByRole('button', { name: 'TẠO PHÒNG QUIZ', exact: true }).click();
   await pt.locator('select').first().selectOption(draftRef.id);
   await pt.getByRole('button', { name: 'TẠO PHÒNG', exact: true }).click();
-  await pt.getByText('Mã tham gia').waitFor();
-  quizCode = (await pt.locator('span.tabular-nums').innerText()).trim();
+  quizCode = (await pt.getByTestId('room-code').innerText()).trim();
   expect(/^\d{6}$/.test(quizCode), `mã "${quizCode}"`);
   await openDuel(pc);
   await pc.getByText('Tham gia Quiz Lớp học (Nhập mã)').click();
@@ -214,8 +211,7 @@ async function createRoom(p) {
   await openDuel(p);
   await p.getByText('Tạo phòng', { exact: true }).click();
   await p.getByText('TẠO PHÒNG NGAY').click();
-  await p.getByText('Mã phòng của bạn').waitFor();
-  return (await p.locator('div.text-5xl').innerText()).trim();
+  return (await p.getByTestId('room-code').innerText()).trim();
 }
 async function joinByCode(p, roomCode) {
   await openDuel(p);
