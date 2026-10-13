@@ -7,58 +7,86 @@ export const MASCOT_NAME = 'Dino';
 
 /**
  * Biểu cảm của linh vật:
- * - happy: mặc định, mỉm cười      - wave: vẫy tay chào
+ * - happy: mặc định, ôm sách       - wave: vẫy tay chào
  * - cheer: khen khi làm đúng        - oops: động viên khi làm sai
- * - think: đang nghĩ / đang tải     - sleep: ngủ (trang trống, lâu không học)
+ * - think: đang nghĩ / đang tải     - sleep: ngủ gật trên sách (trang trống)
  * - celebrate: ăn mừng (xong bài, giữ chuỗi ngày học, vinh danh)
  */
 export type MascotMood = 'happy' | 'wave' | 'cheer' | 'oops' | 'think' | 'sleep' | 'celebrate';
 
 const C = {
-  body: '#4ade80',
-  line: '#15803d',
-  belly: '#fef9c3',
-  bellyLine: '#facc15',
-  spike: '#fb923c',
-  spikeLine: '#ea580c',
+  body: '#6ee7b7',
+  line: '#059669',
+  belly: '#fef3c7',
+  spike: '#fdba74',
+  spikeLine: '#f97316',
   ink: '#1e1b4b',
   cheek: '#fb7185',
+  frame: '#334155',
+  cap: '#1e293b',
+  gold: '#facc15',
+  book: '#60a5fa',
+  bookLine: '#2563eb',
 };
 
+// Mắt nằm gần nhau và thấp trên khuôn mặt, kiểu "chibi" cho dễ thương
+const EYE_L = 78;
+const EYE_R = 122;
+const EYE_Y = 100;
+
 const Eyes: React.FC<{ mood: MascotMood }> = ({ mood }) => {
-  if (mood === 'sleep') {
+  if (mood === 'cheer' || mood === 'celebrate') {
     return (
       <g stroke={C.ink} strokeWidth={4} strokeLinecap="round" fill="none">
-        <path d="M66 82 Q76 90 86 82" /> <path d="M114 82 Q124 90 134 82" />
+        <path d={`M${EYE_L - 8} ${EYE_Y + 3} Q${EYE_L} ${EYE_Y - 8} ${EYE_L + 8} ${EYE_Y + 3}`} />
+        <path d={`M${EYE_R - 8} ${EYE_Y + 3} Q${EYE_R} ${EYE_Y - 8} ${EYE_R + 8} ${EYE_Y + 3}`} />
       </g>
     );
   }
-  if (mood === 'cheer' || mood === 'celebrate') {
-    // Mắt cười híp
+  if (mood === 'sleep') {
     return (
-      <g stroke={C.ink} strokeWidth={4.5} strokeLinecap="round" fill="none">
-        <path d="M65 84 Q76 70 87 84" /> <path d="M113 84 Q124 70 135 84" />
+      <g stroke={C.ink} strokeWidth={3.5} strokeLinecap="round" fill="none">
+        <path d={`M${EYE_L - 8} ${EYE_Y} Q${EYE_L} ${EYE_Y + 6} ${EYE_L + 8} ${EYE_Y}`} />
+        <path d={`M${EYE_R - 8} ${EYE_Y} Q${EYE_R} ${EYE_Y + 6} ${EYE_R + 8} ${EYE_Y}`} />
       </g>
     );
   }
-  const look = mood === 'think' ? { dx: 3, dy: -4 } : mood === 'oops' ? { dx: 0, dy: 2 } : { dx: 1, dy: 1 };
-  return (
-    <g className="mascot-eyes">
-      <ellipse cx={76} cy={80} rx={14} ry={16} fill="#fff" stroke={C.line} strokeWidth={2.5} />
-      <ellipse cx={124} cy={80} rx={14} ry={16} fill="#fff" stroke={C.line} strokeWidth={2.5} />
-      <circle cx={76 + look.dx} cy={81 + look.dy} r={9} fill={C.ink} />
-      <circle cx={124 + look.dx} cy={81 + look.dy} r={9} fill={C.ink} />
-      <circle cx={79 + look.dx} cy={77 + look.dy} r={3.4} fill="#fff" />
-      <circle cx={127 + look.dx} cy={77 + look.dy} r={3.4} fill="#fff" />
-      <circle cx={73 + look.dx} cy={85 + look.dy} r={1.6} fill="#fff" />
-      <circle cx={121 + look.dx} cy={85 + look.dy} r={1.6} fill="#fff" />
-      {mood === 'oops' && (
-        <g stroke={C.line} strokeWidth={3.5} strokeLinecap="round">
-          <path d="M64 60 L84 64" /> <path d="M136 60 L116 64" />
-        </g>
-      )}
+  const look = mood === 'think' ? { x: 2, y: -3 } : mood === 'oops' ? { x: 0, y: 2 } : { x: 0, y: 0 };
+  const eye = (cx: number) => (
+    <g>
+      <ellipse cx={cx + look.x} cy={EYE_Y + look.y} rx={8.5} ry={10.5} fill={C.ink} />
+      <circle cx={cx + look.x + 3} cy={EYE_Y + look.y - 4} r={3.4} fill="#fff" />
+      <circle cx={cx + look.x - 2.5} cy={EYE_Y + look.y + 4.5} r={1.6} fill="#fff" />
     </g>
   );
+  return <g className="mascot-eyes">{eye(EYE_L)}{eye(EYE_R)}</g>;
+};
+
+/** Kính tròn: dấu hiệu "học thức" */
+const Glasses: React.FC = () => (
+  <g>
+    <circle cx={EYE_L} cy={EYE_Y} r={17} fill="none" stroke={C.frame} strokeWidth={3.2} />
+    <circle cx={EYE_R} cy={EYE_Y} r={17} fill="none" stroke={C.frame} strokeWidth={3.2} />
+    <path d={`M${EYE_L + 17} ${EYE_Y - 2} Q100 ${EYE_Y - 7} ${EYE_R - 17} ${EYE_Y - 2}`} fill="none" stroke={C.frame} strokeWidth={3.2} strokeLinecap="round" />
+    <path d={`M${EYE_L - 17} ${EYE_Y - 3} L42 ${EYE_Y - 8} M${EYE_R + 17} ${EYE_Y - 3} L158 ${EYE_Y - 8}`} stroke={C.frame} strokeWidth={3} strokeLinecap="round" />
+    {/* ánh phản chiếu trên mắt kính */}
+    <path d={`M${EYE_L - 10} ${EYE_Y - 8} Q${EYE_L - 6} ${EYE_Y - 13} ${EYE_L - 1} ${EYE_Y - 13}`} stroke="#fff" strokeWidth={2.2} strokeLinecap="round" fill="none" opacity={0.8} />
+    <path d={`M${EYE_R - 10} ${EYE_Y - 8} Q${EYE_R - 6} ${EYE_Y - 13} ${EYE_R - 1} ${EYE_Y - 13}`} stroke="#fff" strokeWidth={2.2} strokeLinecap="round" fill="none" opacity={0.8} />
+  </g>
+);
+
+const Brows: React.FC<{ mood: MascotMood }> = ({ mood }) => {
+  if (mood === 'oops') {
+    return (
+      <g stroke={C.line} strokeWidth={3.2} strokeLinecap="round">
+        <path d="M66 77 L86 72" /> <path d="M134 77 L114 72" />
+      </g>
+    );
+  }
+  if (mood === 'think') {
+    return <path d="M114 72 Q122 67 132 71" stroke={C.line} strokeWidth={3.2} strokeLinecap="round" fill="none" />;
+  }
+  return null;
 };
 
 const Mouth: React.FC<{ mood: MascotMood }> = ({ mood }) => {
@@ -67,100 +95,131 @@ const Mouth: React.FC<{ mood: MascotMood }> = ({ mood }) => {
     case 'celebrate':
       return (
         <g>
-          <path d="M84 104 Q100 128 116 104 Z" fill={C.ink} stroke={C.ink} strokeWidth={3} strokeLinejoin="round" />
-          <path d="M91 114 Q100 108 109 114 Q105 121 100 121 Q95 121 91 114 Z" fill={C.cheek} />
-          <path d="M95 104 L100 110 L105 104" fill="#fff" />
+          <path d="M89 121 Q100 137 111 121 Z" fill={C.ink} stroke={C.ink} strokeWidth={2.5} strokeLinejoin="round" />
+          <path d="M94 128 Q100 124 106 128 Q103 132 100 132 Q97 132 94 128 Z" fill={C.cheek} />
         </g>
       );
     case 'oops':
-      return <path d="M88 112 Q94 106 100 110 Q106 114 112 108" fill="none" stroke={C.ink} strokeWidth={3.5} strokeLinecap="round" />;
+      return <path d="M92 127 Q96 123 100 126 Q104 129 108 125" fill="none" stroke={C.ink} strokeWidth={3} strokeLinecap="round" />;
     case 'think':
-      return <ellipse cx={104} cy={110} rx={5} ry={6} fill={C.ink} />;
+      return <circle cx={104} cy={126} r={3.5} fill={C.ink} />;
     case 'sleep':
-      return <ellipse cx={100} cy={110} rx={6} ry={4} fill={C.ink} opacity={0.8} />;
+      return <ellipse cx={100} cy={126} rx={3.5} ry={2.6} fill={C.ink} />;
     default:
-      return (
-        <g>
-          <path d="M86 104 Q100 120 114 104" fill="none" stroke={C.ink} strokeWidth={4} strokeLinecap="round" />
-          <path d="M96 108 L100 114 L104 108" fill="#fff" stroke={C.ink} strokeWidth={1.2} strokeLinejoin="round" />
-        </g>
-      );
+      // miệng "ω" nhỏ xinh
+      return <path d="M90 121 Q95 128 100 122 Q105 128 110 121" fill="none" stroke={C.ink} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />;
   }
 };
 
-/** Tay: tư thế theo biểu cảm. Gốc xoay ở vai để vẫy được. */
-const Arms: React.FC<{ mood: MascotMood; animate: boolean }> = ({ mood, animate }) => {
-  const arm = (d: string) => <path d={d} fill={C.body} stroke={C.line} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />;
-  // Tay giơ cao phải nằm ngoài viền đầu (x 40–160) thì mới thấy được
-  const left = {
-    happy: 'M60 136 Q40 144 44 160 Q52 166 62 152', wave: 'M60 136 Q40 144 44 160 Q52 166 62 152',
-    think: 'M60 136 Q40 144 44 160 Q52 166 62 152',
-    cheer: 'M60 140 Q34 132 26 108 Q32 100 40 108 Q46 126 66 132', celebrate: 'M60 140 Q34 132 26 108 Q32 100 40 108 Q46 126 66 132',
-    oops: 'M60 138 Q40 136 34 122 Q40 114 48 124 Q54 130 64 132', sleep: 'M60 142 Q60 160 74 162 Q80 154 70 146',
-  }[mood];
-  const right = {
-    happy: 'M140 136 Q160 144 156 160 Q148 166 138 152',
-    wave: 'M140 140 Q166 132 174 106 Q168 98 160 106 Q154 126 134 132',
-    cheer: 'M140 140 Q166 132 174 108 Q168 100 160 108 Q154 126 134 132', celebrate: 'M140 140 Q166 132 174 108 Q168 100 160 108 Q154 126 134 132',
-    oops: 'M140 138 Q160 136 166 122 Q160 114 152 124 Q146 130 136 132',
-    think: 'M140 138 Q130 136 122 128 Q118 120 124 116 Q132 118 134 128',
-    sleep: 'M140 142 Q140 160 126 162 Q120 154 130 146',
-  }[mood];
-  return (
-    <g>
-      {arm(left)}
-      {mood === 'wave' && animate ? (
-        <motion.g
-          style={{ originX: '140px', originY: '138px' }}
-          animate={{ rotate: [0, 18, -6, 18, 0] }}
-          transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 0.6, ease: 'easeInOut' }}
-        >
-          {arm(right)}
-        </motion.g>
-      ) : arm(right)}
+/** Mũ cử nhân, hơi nghiêng cho tinh nghịch */
+const Cap: React.FC<{ tilt?: number }> = ({ tilt = -8 }) => (
+  <g transform={`rotate(${tilt} 100 44)`}>
+    <path d="M74 44 L74 56 Q100 66 126 56 L126 44 Z" fill={C.frame} />
+    <path d="M56 40 L100 24 L144 40 L100 56 Z" fill={C.cap} stroke="#0f172a" strokeWidth={2} strokeLinejoin="round" />
+    <circle cx={100} cy={40} r={3.2} fill={C.gold} />
+    <path d="M100 40 Q122 40 136 46 L137 62" fill="none" stroke={C.gold} strokeWidth={2.6} strokeLinecap="round" />
+    <path d="M133 60 L141 60 L140 72 L134 72 Z" fill={C.gold} stroke="#ca8a04" strokeWidth={1.2} strokeLinejoin="round" />
+  </g>
+);
+
+/** Quyển sách mở ôm trước bụng */
+const Book: React.FC<{ y?: number }> = ({ y = 0 }) => (
+  <g transform={`translate(0 ${y})`}>
+    <path d="M100 156 Q84 148 66 152 L66 178 Q84 174 100 180 Q116 174 134 178 L134 152 Q116 148 100 156 Z" fill={C.book} stroke={C.bookLine} strokeWidth={2.5} strokeLinejoin="round" />
+    <path d="M100 154 Q86 147 71 150 L71 173 Q86 170 100 176 Z" fill="#fff" stroke="#cbd5e1" strokeWidth={1.2} />
+    <path d="M100 154 Q114 147 129 150 L129 173 Q114 170 100 176 Z" fill="#fff" stroke="#cbd5e1" strokeWidth={1.2} />
+    <g stroke="#94a3b8" strokeWidth={1.6} strokeLinecap="round">
+      <path d="M77 157 L93 159 M77 163 L90 165" /> <path d="M107 159 L123 157 M110 165 L123 163" />
     </g>
-  );
+    <text x={86} y={172} fontSize={8} fontWeight={900} fill={C.bookLine} textAnchor="middle">1+2</text>
+    <text x={115} y={172} fontSize={9} fontWeight={900} fill="#f97316" textAnchor="middle">π</text>
+  </g>
+);
+
+const Hand: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+  <ellipse cx={x} cy={y} rx={8} ry={7} fill={C.body} stroke={C.line} strokeWidth={2.8} />
+);
+
+const arm = (d: string) => <path d={d} fill={C.body} stroke={C.line} strokeWidth={2.8} strokeLinejoin="round" strokeLinecap="round" />;
+const ARM_UP_L = 'M70 150 Q46 146 38 124 Q43 115 51 121 Q57 136 74 140';
+const ARM_UP_R = 'M130 150 Q154 146 162 124 Q157 115 149 121 Q143 136 126 140';
+const ARM_DOWN_L = 'M68 148 Q54 154 56 170 Q64 174 70 164';
+const ARM_DOWN_R = 'M132 148 Q146 154 144 170 Q136 174 130 164';
+
+const ArmsAndProps: React.FC<{ mood: MascotMood; animate: boolean }> = ({ mood, animate }) => {
+  switch (mood) {
+    case 'wave':
+      return (
+        <g>
+          {arm(ARM_DOWN_L)}
+          {animate ? (
+            <motion.g style={{ originX: '128px', originY: '146px' }} animate={{ rotate: [0, 16, -6, 16, 0] }}
+              transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 0.6, ease: 'easeInOut' }}>
+              {arm(ARM_UP_R)}
+            </motion.g>
+          ) : arm(ARM_UP_R)}
+        </g>
+      );
+    case 'cheer':
+    case 'celebrate':
+      return <g>{arm(ARM_UP_L)}{arm(ARM_UP_R)}</g>;
+    case 'think':
+      return (
+        <g>
+          {/* bút chì */}
+          <g transform="rotate(-35 50 150)">
+            <rect x={44} y={128} width={9} height={34} rx={2} fill={C.gold} stroke="#ca8a04" strokeWidth={1.5} />
+            <path d="M44 162 L53 162 L48.5 172 Z" fill="#fde68a" stroke="#ca8a04" strokeWidth={1.5} strokeLinejoin="round" />
+            <path d="M47 168 L50 168 L48.5 172 Z" fill={C.ink} />
+            <rect x={44} y={124} width={9} height={6} rx={2} fill="#f472b6" />
+          </g>
+          {arm(ARM_DOWN_L)}
+          {/* tay chống cằm */}
+          {arm('M132 150 Q140 142 132 134 Q126 130 120 136')}
+          <Hand x={120} y={138} />
+        </g>
+      );
+    case 'sleep':
+      return <g><Book y={2} /><Hand x={68} y={168} /><Hand x={132} y={168} /></g>;
+    default: // happy, oops: ôm sách
+      return <g><Book /><Hand x={68} y={164} /><Hand x={132} y={164} /></g>;
+  }
 };
 
 const Extras: React.FC<{ mood: MascotMood }> = ({ mood }) => {
   switch (mood) {
     case 'cheer':
       return (
-        <g fill="#facc15" stroke="#ca8a04" strokeWidth={1.5} strokeLinejoin="round">
-          <path d="M28 54 L32 64 L42 66 L34 72 L36 82 L28 76 L20 82 L22 72 L14 66 L24 64 Z" />
-          <path d="M172 40 L175 48 L183 49 L177 54 L179 62 L172 58 L165 62 L167 54 L161 49 L169 48 Z" />
+        <g fill={C.gold} stroke="#ca8a04" strokeWidth={1.5} strokeLinejoin="round">
+          <path d="M24 70 L28 80 L38 82 L30 88 L32 98 L24 92 L16 98 L18 88 L10 82 L20 80 Z" />
+          <path d="M178 66 L181 74 L189 75 L183 80 L185 88 L178 84 L171 88 L173 80 L167 75 L175 74 Z" />
         </g>
       );
     case 'celebrate':
       return (
         <g>
-          {/* mũ tiệc */}
-          <path d="M100 2 L82 36 L118 36 Z" fill="#a78bfa" stroke="#7c3aed" strokeWidth={3} strokeLinejoin="round" />
-          <path d="M92 20 L108 22 M87 30 L113 32" stroke="#fde047" strokeWidth={4} strokeLinecap="round" />
-          <circle cx={100} cy={2} r={6} fill="#f472b6" />
-          <g fill="#f43f5e"><rect x={22} y={60} width={7} height={4} rx={1} transform="rotate(30 25 62)" /></g>
-          <g fill="#3b82f6"><rect x={170} y={70} width={7} height={4} rx={1} transform="rotate(-20 173 72)" /></g>
-          <g fill="#22c55e"><circle cx={30} cy={100} r={3} /><circle cx={176} cy={46} r={3} /></g>
-          <g fill="#f59e0b"><rect x={160} y={110} width={6} height={4} rx={1} transform="rotate(50 163 112)" /></g>
+          <g fill="#f43f5e"><rect x={20} y={62} width={8} height={4} rx={1} transform="rotate(30 24 64)" /><rect x={168} y={128} width={8} height={4} rx={1} /></g>
+          <g fill="#3b82f6"><rect x={174} y={74} width={8} height={4} rx={1} transform="rotate(-20 178 76)" /><rect x={26} y={132} width={7} height={4} rx={1} transform="rotate(60 29 134)" /></g>
+          <g fill="#22c55e"><circle cx={30} cy={104} r={3} /><circle cx={176} cy={50} r={3} /></g>
+          <g fill={C.gold}><path d="M164 100 L167 106 L173 107 L168 111 L170 117 L164 114 L158 117 L160 111 L155 107 L161 106 Z" /></g>
         </g>
       );
     case 'oops':
-      // giọt mồ hôi
-      return <path d="M150 62 Q156 72 150 78 Q144 72 150 62 Z" fill="#7dd3fc" stroke="#0284c7" strokeWidth={1.5} />;
+      return <path d="M158 76 Q164 86 158 92 Q152 86 158 76 Z" fill="#7dd3fc" stroke="#0284c7" strokeWidth={1.5} />;
     case 'think':
       return (
         <g fill="#fff" stroke="#94a3b8" strokeWidth={2}>
-          <circle cx={150} cy={44} r={4} /> <circle cx={160} cy={32} r={6} />
-          <ellipse cx={176} cy={16} rx={14} ry={11} />
-          <text x={176} y={21} textAnchor="middle" fontSize={14} fontWeight={900} fill="#6366f1" stroke="none">?</text>
+          <circle cx={156} cy={62} r={4} /> <circle cx={166} cy={48} r={6} />
+          <ellipse cx={180} cy={28} rx={15} ry={12} />
+          <text x={180} y={33} textAnchor="middle" fontSize={15} fontWeight={900} fill="#6366f1" stroke="none">?</text>
         </g>
       );
     case 'sleep':
       return (
         <g fill="#6366f1" fontWeight={900}>
-          <text x={146} y={50} fontSize={18}>z</text>
-          <text x={160} y={34} fontSize={24}>z</text>
-          <text x={178} y={16} fontSize={30}>Z</text>
+          <text x={150} y={58} fontSize={16}>z</text>
+          <text x={164} y={42} fontSize={22}>z</text>
+          <text x={180} y={24} fontSize={28}>Z</text>
         </g>
       );
     default:
@@ -168,7 +227,7 @@ const Extras: React.FC<{ mood: MascotMood }> = ({ mood }) => {
   }
 };
 
-/** Khủng long con: vẽ bằng SVG, có biểu cảm, nhún nhảy và chớp mắt nhẹ. */
+/** Khủng long con đeo kính, đội mũ cử nhân: vẽ bằng SVG, có biểu cảm, nhún nhảy và chớp mắt. */
 export const Mascot: React.FC<{
   mood?: MascotMood;
   className?: string;
@@ -181,48 +240,47 @@ export const Mascot: React.FC<{
   const bounce = mood === 'cheer' || mood === 'celebrate';
   return (
     <motion.svg
-      viewBox="0 -8 200 208"
-      className={cn('overflow-visible', animate && mood !== 'sleep' && 'mascot-blink', className)}
+      viewBox="0 0 200 210"
+      className={cn('overflow-visible', animate && 'mascot-blink', className)}
       role="img"
       aria-label={title ?? `${MASCOT_NAME}, khủng long con`}
       animate={animate ? (bounce ? { y: [0, -12, 0] } : mood === 'sleep' ? { scale: [1, 1.03, 1] } : { y: [0, -4, 0] }) : undefined}
       transition={{ duration: bounce ? 0.7 : 2.6, repeat: Infinity, ease: 'easeInOut' }}
     >
-      <ellipse cx={100} cy={194} rx={52} ry={6} fill="#0f172a" opacity={0.08} />
+      <ellipse cx={100} cy={204} rx={46} ry={5} fill="#0f172a" opacity={0.08} />
 
-      {/* đuôi */}
-      <path d="M138 168 Q170 172 186 150 Q190 142 182 142 Q172 158 140 150 Z" fill={C.body} stroke={C.line} strokeWidth={3} strokeLinejoin="round" />
-      <path d="M176 146 L182 134 L186 146 Z M160 156 L164 144 L170 154 Z" fill={C.spike} stroke={C.spikeLine} strokeWidth={2} strokeLinejoin="round" />
+      {/* đuôi nhỏ cong sau lưng */}
+      <path d="M128 176 Q160 182 176 160 Q180 152 172 152 Q164 168 132 164 Z" fill={C.body} stroke={C.line} strokeWidth={2.8} strokeLinejoin="round" />
+      <circle cx={170} cy={154} r={4.5} fill={C.spike} stroke={C.spikeLine} strokeWidth={1.8} />
+      <circle cx={156} cy={164} r={4} fill={C.spike} stroke={C.spikeLine} strokeWidth={1.8} />
 
       {/* chân */}
-      <ellipse cx={76} cy={186} rx={18} ry={10} fill={C.body} stroke={C.line} strokeWidth={3} />
-      <ellipse cx={124} cy={186} rx={18} ry={10} fill={C.body} stroke={C.line} strokeWidth={3} />
-      <g fill={C.belly}><circle cx={68} cy={189} r={2.5} /><circle cx={76} cy={191} r={2.5} /><circle cx={84} cy={189} r={2.5} />
-        <circle cx={116} cy={189} r={2.5} /><circle cx={124} cy={191} r={2.5} /><circle cx={132} cy={189} r={2.5} /></g>
+      <ellipse cx={82} cy={198} rx={14} ry={8} fill={C.body} stroke={C.line} strokeWidth={2.8} />
+      <ellipse cx={118} cy={198} rx={14} ry={8} fill={C.body} stroke={C.line} strokeWidth={2.8} />
 
       {/* thân + bụng */}
-      <ellipse cx={100} cy={150} rx={46} ry={40} fill={C.body} stroke={C.line} strokeWidth={3} />
-      <ellipse cx={100} cy={156} rx={30} ry={28} fill={C.belly} />
-      <g stroke={C.bellyLine} strokeWidth={2.5} strokeLinecap="round" fill="none">
-        <path d="M80 144 Q100 150 120 144" /> <path d="M76 158 Q100 164 124 158" /> <path d="M80 172 Q100 178 120 172" />
+      <ellipse cx={100} cy={166} rx={38} ry={32} fill={C.body} stroke={C.line} strokeWidth={2.8} />
+      <ellipse cx={100} cy={172} rx={24} ry={21} fill={C.belly} />
+
+      {/* gai tròn sau đầu */}
+      <g fill={C.spike} stroke={C.spikeLine} strokeWidth={2.4}>
+        <circle cx={46} cy={70} r={11} /> <circle cx={60} cy={52} r={12} />
+        <circle cx={140} cy={52} r={12} /> <circle cx={154} cy={70} r={11} />
       </g>
 
-      {/* gai trên đầu (vẽ trước để nằm sau đầu) */}
-      <g fill={C.spike} stroke={C.spikeLine} strokeWidth={3} strokeLinejoin="round">
-        <path d="M70 46 Q66 28 80 26 Q86 34 86 44 Z" />
-        <path d="M90 38 Q90 14 104 16 Q110 28 108 38 Z" />
-        <path d="M114 40 Q120 22 132 28 Q132 38 128 46 Z" />
-      </g>
+      {/* đầu to tròn */}
+      <ellipse cx={100} cy={98} rx={62} ry={54} fill={C.body} stroke={C.line} strokeWidth={2.8} />
+      <ellipse cx={74} cy={64} rx={14} ry={7} fill="#fff" opacity={0.35} transform="rotate(-20 74 64)" />
 
-      {/* đầu */}
-      <path d="M100 30 C148 30 162 62 160 92 C158 120 134 130 100 130 C66 130 42 120 40 92 C38 62 52 30 100 30 Z" fill={C.body} stroke={C.line} strokeWidth={3} />
-      <ellipse cx={58} cy={104} rx={9} ry={5.5} fill={C.cheek} opacity={0.45} />
-      <ellipse cx={142} cy={104} rx={9} ry={5.5} fill={C.cheek} opacity={0.45} />
-      <g fill={C.line} opacity={0.35}><circle cx={60} cy={56} r={3} /><circle cx={142} cy={60} r={4} /><circle cx={134} cy={50} r={2.5} /></g>
+      <ellipse cx={58} cy={122} rx={9} ry={5.5} fill={C.cheek} opacity={0.5} />
+      <ellipse cx={142} cy={122} rx={9} ry={5.5} fill={C.cheek} opacity={0.5} />
 
-      <Arms mood={mood} animate={animate} />
       <Eyes mood={mood} />
+      <Glasses />
+      <Brows mood={mood} />
       <Mouth mood={mood} />
+      <Cap tilt={mood === 'sleep' ? -18 : mood === 'celebrate' ? 10 : -8} />
+      <ArmsAndProps mood={mood} animate={animate} />
       <Extras mood={mood} />
     </motion.svg>
   );

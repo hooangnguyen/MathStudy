@@ -9,7 +9,7 @@ import { Mascot } from '../src/components/mascot/Mascot';
 
 const inner = renderToStaticMarkup(<Mascot mood="happy" still />)
   // chỉ lấy phần đầu + thân trên, phóng to cho rõ ở cỡ icon nhỏ
-  .replace(/viewBox="[^"]*"/, 'viewBox="22 4 156 156"')
+  .replace(/viewBox="[^"]*"/, 'viewBox="26 6 148 148"')
   .replace(/ class="[^"]*"/, '')
   .replace(/ style="[^"]*"/, '')
   .replace(/ role="img"/, '')

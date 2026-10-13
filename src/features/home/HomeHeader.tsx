@@ -46,7 +46,7 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ name, avatar, grade, str
         </button>
       </div>
 
-      <MascotSays mood="wave" mascotClassName="w-20 h-20 -mb-1">
+      <MascotSays mood="wave" mascotClassName="w-24 h-24 -mb-1 -ml-1">
         {streak > 0
           ? <>Giữ chuỗi <span className="text-orange-600">{streak} ngày</span> nào! Hôm nay học thêm một bài nhé.</>
           : <>Chào {firstName}! Mình học một bài thật vui hôm nay nhé?</>}

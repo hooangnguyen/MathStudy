@@ -310,7 +310,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
         <div className="max-w-md mx-auto space-y-4">
           {isChecked && (
             <div className="flex items-center gap-4 mb-4">
-              <Mascot key={currentStep} mood={isCorrect ? 'cheer' : 'oops'} className="w-20 h-20 shrink-0 -my-2" />
+              <Mascot key={currentStep} mood={isCorrect ? 'cheer' : 'oops'} className="w-24 h-24 shrink-0 -my-3" />
               <div className="min-w-0">
                 <h4 className={cn("font-black text-lg", isCorrect ? "text-emerald-900" : "text-rose-900")}>
                   {isCorrect ? PRAISE[currentStep % PRAISE.length] : ENCOURAGE[currentStep % ENCOURAGE.length]}
