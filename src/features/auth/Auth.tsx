@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Lock, User, ArrowRight, Chrome, Sparkles } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, Chrome, Sparkles, DoorOpen } from 'lucide-react';
 import { auth, googleProvider } from '../../lib/firebase';
+import { Mascot } from '../../components/mascot/Mascot';
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 interface AuthProps {
   onLogin: (role: 'student' | 'teacher' | 'new_user') => void;
+  /** Mở app bằng link vào phòng khi chưa đăng nhập: nhắc học sinh đăng nhập để vào phòng */
+  joinCode?: string | null;
 }
 
-export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
+export const Auth: React.FC<AuthProps> = ({ onLogin, joinCode }) => {
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -89,9 +92,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-3 mb-10"
         >
-          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] flex items-center justify-center text-white shadow-xl shadow-indigo-500/20 mb-5">
-            <Sparkles size={32} fill="currentColor" />
-          </div>
+          <Mascot mood="wave" className="w-24 h-24 -ml-2 mb-1" />
           <h1 className="text-4xl font-black tracking-tight text-slate-900">
             {mode === 'login' ? 'Chào mừng trở lại!' : 'Bắt đầu hành trình'}
           </h1>
@@ -101,6 +102,15 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
               : 'Tạo tài khoản để tham gia cộng đồng học toán thông minh.'}
           </p>
         </motion.div>
+
+        {joinCode && (
+          <div role="status" className="-mt-4 mb-6 flex items-center gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800">
+            <DoorOpen size={24} className="shrink-0" />
+            <p className="text-sm font-semibold leading-snug">
+              Đăng nhập để vào phòng <span className="font-black tracking-wider">{joinCode}</span>. Đăng nhập xong bạn sẽ được đưa thẳng vào phòng.
+            </p>
+          </div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">

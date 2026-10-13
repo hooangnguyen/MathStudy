@@ -1,7 +1,8 @@
 import React from 'react';
-import { BookOpen, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { BookOpen, ChevronRight } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import type { PendingAssignment } from '../assignments/assignmentService';
+import { Mascot } from '../../components/mascot/Mascot';
 
 interface PendingAssignmentsProps {
   items: PendingAssignment[] | null; // null = đang tải
@@ -45,7 +46,7 @@ export const PendingAssignments: React.FC<PendingAssignmentsProps> = ({ items, o
         </div>
       ) : items.length === 0 ? (
         <div className="rounded-2xl bg-white border border-slate-100 p-4 flex items-center gap-3">
-          <CheckCircle2 size={28} className="text-emerald-500 shrink-0" />
+          <Mascot mood="celebrate" still className="w-14 h-14 shrink-0" />
           <p className="text-base font-semibold text-slate-700">Không có bài tập nào phải làm. Giỏi lắm!</p>
         </div>
       ) : (

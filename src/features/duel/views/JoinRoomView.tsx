@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { X } from 'lucide-react';
 import type { MathDuelController } from '../useMathDuel';
+import { normalizeRoomCode } from '../../rooms/joinLink';
 
 export const JoinRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {
   const { setState, roomCode, setRoomCode, handleJoinRoom } = duel;
@@ -27,15 +28,14 @@ export const JoinRoomView: React.FC<{ duel: MathDuelController }> = ({ duel }) =
           <input
             type="text"
             value={roomCode}
-            onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
+            onChange={(e) => setRoomCode(normalizeRoomCode(e.target.value))}
             placeholder="VD: A1B2C3"
             className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-2xl font-black text-center text-slate-800 outline-none focus:border-primary uppercase tracking-widest"
-            maxLength={6}
           />
         </div>
 
         <button
-          onClick={handleJoinRoom}
+          onClick={() => handleJoinRoom()}
           disabled={roomCode.length !== 6}
           className="w-full bg-emerald-500 text-white py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-transform disabled:opacity-50 disabled:active:scale-100"
         >

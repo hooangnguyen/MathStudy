@@ -18,6 +18,7 @@ const TeacherHome = lazy(() => import('../features/teacher/TeacherHome').then(m 
 const Classroom = lazy(() => import('../features/classroom/Classroom').then(m => ({ default: m.Classroom })));
 const ClassQuiz = lazy(() => import('../features/quiz/ClassQuiz').then(m => ({ default: m.ClassQuiz })));
 const Messages = lazy(() => import('../features/chat/Messages').then(m => ({ default: m.Messages })));
+const GuestJoin = lazy(() => import('../features/rooms/GuestJoin').then(m => ({ default: m.GuestJoin })));
 const Onboarding = lazy(() => import('../features/auth/Onboarding').then(m => ({ default: m.Onboarding })));
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
@@ -27,6 +28,9 @@ import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { getUserProfile, saveUserProfile, getAchievements, Achievement, UserPreferences, completeLesson } from '../features/user/userService';
 import { subscribeToNotifications, Notification } from '../features/notifications/notificationService';
 import { audioService } from '../lib/audio';
+import { captureJoinCodeFromUrl, clearPendingJoinCode, roomKindOf } from '../features/rooms/joinLink';
+import { loadGuestName } from '../features/rooms/guest';
+import { clearActiveSession } from '../features/duel/activeSession';
 
 // Preload helpers (improves perceived responsiveness)
 const preloadStudentCore = () =>
@@ -83,6 +87,9 @@ export default function App() {
   }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSyncingProfile, setIsSyncingProfile] = useState(true);
+  // Khách vào phòng quiz bằng tên (đăng nhập ẩn danh): chỉ có màn hình phòng, không có hồ sơ
+  const isGuest = !!user?.isAnonymous;
+  const [showLoginForJoin, setShowLoginForJoin] = useState(false);
   const [userRole, setUserRole] = useState<'student' | 'teacher' | null>(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -111,6 +118,10 @@ export default function App() {
   const [currentTopic, setCurrentTopic] = useState<string | null>(null);
   const [currentLessonId, setCurrentLessonId] = useState<number | null>(null);
   const [studentClass, setStudentClass] = useState<{ id: string, name: string, teacher: string } | null>(null);
+  // Link vào phòng /join/<mã> (quét QR): giữ mã tới khi đăng nhập xong rồi mở đúng phòng
+  const [pendingJoinCode, setPendingJoinCode] = useState<string | null>(() => captureJoinCodeFromUrl());
+  const [quizJoinCode, setQuizJoinCode] = useState<string | null>(null);
+  const [duelJoinCode, setDuelJoinCode] = useState<string | null>(null);
   const [duelInitialState, setDuelInitialState] = useState<'lobby' | 'create_room' | 'join_room' | 'waiting_room'>('lobby');
   const [userData, setUserData] = useState<{
     role?: 'student' | 'teacher';
@@ -132,7 +143,13 @@ export default function App() {
   useEffect(() => {
     const syncProfile = async () => {
       if (isAuthReady) {
-        if (user) {
+        if (user?.isAnonymous) {
+          setIsLoggedIn(true);
+          setUserRole(null);
+          setUserData(null);
+          setShowOnboarding(false);
+          setIsSyncingProfile(false);
+        } else if (user) {
           setIsLoggedIn(true);
           setIsSyncingProfile(true);
           const profile = await getUserProfile(user.uid);
@@ -193,6 +210,28 @@ export default function App() {
     }
   }, [userProfile]);
 
+  useEffect(() => {
+    if (!pendingJoinCode || !isLoggedIn || isSyncingProfile || showOnboarding || !userRole) return;
+    const code = pendingJoinCode;
+    clearPendingJoinCode();
+    setPendingJoinCode(null);
+    if (userRole === 'teacher') {
+      alert(`Link vào phòng ${code} dành cho học sinh. Giáo viên tạo phòng ở mục Quiz.`);
+      return;
+    }
+    setShowSettings(false);
+    setShowEditProfile(false);
+    setShowNotifications(false);
+    setCurrentLesson(null);
+    if (roomKindOf(code) === 'quiz') {
+      setQuizJoinCode(code);
+      setTab('quiz');
+    } else {
+      setDuelJoinCode(code);
+      setTab('duel');
+    }
+  }, [pendingJoinCode, isLoggedIn, isSyncingProfile, showOnboarding, userRole, setTab]);
+
   // Tab được khôi phục từ sessionStorage có thể thuộc tài khoản trước đó (vd. học sinh);
   // giáo viên không có tab Đối kháng nên đưa về trang chủ.
   useEffect(() => {
@@ -223,7 +262,7 @@ export default function App() {
   }, [userData?.preferences]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || user.isAnonymous) return;
     let prevUnreadCount: number | null = null; // null = chưa nhận snapshot đầu tiên
     const unsubscribe = subscribeToNotifications(user.uid, (data) => {
       const currentUnreadCount = data.filter(n => !n.read).length;
@@ -467,7 +506,7 @@ export default function App() {
             />
           );
         case 'quiz':
-          return <ClassQuiz userRole={userRole} />;
+          return <ClassQuiz userRole={userRole} autoJoinCode={quizJoinCode} onAutoJoinHandled={() => setQuizJoinCode(null)} />;
         case 'messages':
           return <Messages userRole={userRole} />;
         case 'duel':
@@ -479,6 +518,8 @@ export default function App() {
               onExitDuel={() => setTab('home')}
               exitDuelToken={exitDuelToken}
               onNavigate={setTab}
+              autoJoinCode={duelJoinCode}
+              onAutoJoinHandled={() => setDuelJoinCode(null)}
             />
           );
         case 'rank':
@@ -519,15 +560,11 @@ export default function App() {
     };
 
     if (!isAuthReady || isSyncingProfile) {
-      return (
-        <div className="flex h-screen items-center justify-center bg-slate-50">
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full" />
-        </div>
-      );
+      return <LoadingScreen />;
     }
 
     if (!isLoggedIn) {
-      return <Auth onLogin={handleLogin} />;
+      return <Auth onLogin={handleLogin} joinCode={pendingJoinCode} />;
     }
 
     if (showOnboarding) {
@@ -592,21 +629,48 @@ export default function App() {
   };
 
   if (!isAuthReady) {
-    return (
-      <div className="h-screen w-screen flex items-center justify-center bg-white">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full"
-        />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!isLoggedIn) {
+    // Link phòng quiz: vào bằng tên như Kahoot, không cần tài khoản (phòng đấu vẫn cần đăng nhập)
+    if (pendingJoinCode && roomKindOf(pendingJoinCode) === 'quiz' && !showLoginForJoin) {
+      return (
+        <MobileContainer>
+          <Suspense fallback={<LoadingScreen />}>
+            <GuestJoin code={pendingJoinCode} onSignIn={() => setShowLoginForJoin(true)} />
+          </Suspense>
+        </MobileContainer>
+      );
+    }
     return (
       <MobileContainer>
-        <Auth onLogin={handleLogin} />
+        <Auth onLogin={handleLogin} joinCode={pendingJoinCode} />
+      </MobileContainer>
+    );
+  }
+
+  if (isGuest) {
+    const guestJoinCode = pendingJoinCode && roomKindOf(pendingJoinCode) === 'quiz' ? pendingJoinCode : null;
+    return (
+      <MobileContainer>
+        <div className="flex flex-col h-full w-full">
+          <Suspense fallback={<LoadingScreen />}>
+            <ClassQuiz
+              userRole="student"
+              guestName={loadGuestName() || 'Khách'}
+              autoJoinCode={guestJoinCode}
+              onAutoJoinHandled={() => { clearPendingJoinCode(); setPendingJoinCode(null); }}
+              onGuestExit={async () => {
+                if (user) clearActiveSession(user.uid);
+                clearPendingJoinCode();
+                setPendingJoinCode(null);
+                setShowLoginForJoin(false);
+                await signOut(auth);
+              }}
+            />
+          </Suspense>
+        </div>
       </MobileContainer>
     );
   }
@@ -657,6 +721,7 @@ export default function App() {
                 lessonTitle={currentLesson}
                 topic={currentTopic || undefined}
                 grade={userData?.grade || 1}
+                alreadyCompleted={currentLessonId !== null && (userData?.completedLessons || []).map(Number).includes(Number(currentLessonId))}
                 onClose={() => {
                   setCurrentLesson(null);
                   setCurrentTopic(null);
