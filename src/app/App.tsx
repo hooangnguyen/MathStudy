@@ -721,6 +721,7 @@ export default function App() {
                 lessonTitle={currentLesson}
                 topic={currentTopic || undefined}
                 grade={userData?.grade || 1}
+                alreadyCompleted={currentLessonId !== null && (userData?.completedLessons || []).map(Number).includes(Number(currentLessonId))}
                 onClose={() => {
                   setCurrentLesson(null);
                   setCurrentTopic(null);

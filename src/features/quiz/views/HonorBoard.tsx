@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { Crown, Maximize2, Trophy, Users, X } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 import { Character } from '../../rooms/characters';
-import { Confetti } from '../../rooms/Confetti';
+import { Confetti } from '../../../components/Confetti';
 import { rankPlayers, type RankedPlayer } from '../ranking';
 import type { QuizPlayer } from '../types';
 

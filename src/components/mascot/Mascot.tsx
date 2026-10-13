@@ -7,7 +7,7 @@ export const MASCOT_NAME = 'Dino';
 
 /**
  * Biểu cảm của linh vật:
- * - happy: mặc định, ôm sách       - wave: vẫy tay chào
+ * - happy: mặc định, ôm sách (đeo kính, ôm sách: chút "học thức")       - wave: vẫy tay chào
  * - cheer: khen khi làm đúng        - oops: động viên khi làm sai
  * - think: đang nghĩ / đang tải     - sleep: ngủ gật trên sách (trang trống)
  * - celebrate: ăn mừng (xong bài, giữ chuỗi ngày học, vinh danh)
@@ -23,8 +23,7 @@ const C = {
   ink: '#1e1b4b',
   cheek: '#fb7185',
   frame: '#334155',
-  cap: '#1e293b',
-  gold: '#facc15',
+    gold: '#facc15',
   book: '#60a5fa',
   bookLine: '#2563eb',
 };
@@ -110,17 +109,6 @@ const Mouth: React.FC<{ mood: MascotMood }> = ({ mood }) => {
       return <path d="M90 121 Q95 128 100 122 Q105 128 110 121" fill="none" stroke={C.ink} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />;
   }
 };
-
-/** Mũ cử nhân, hơi nghiêng cho tinh nghịch */
-const Cap: React.FC<{ tilt?: number }> = ({ tilt = -8 }) => (
-  <g transform={`rotate(${tilt} 100 44)`}>
-    <path d="M74 44 L74 56 Q100 66 126 56 L126 44 Z" fill={C.frame} />
-    <path d="M56 40 L100 24 L144 40 L100 56 Z" fill={C.cap} stroke="#0f172a" strokeWidth={2} strokeLinejoin="round" />
-    <circle cx={100} cy={40} r={3.2} fill={C.gold} />
-    <path d="M100 40 Q122 40 136 46 L137 62" fill="none" stroke={C.gold} strokeWidth={2.6} strokeLinecap="round" />
-    <path d="M133 60 L141 60 L140 72 L134 72 Z" fill={C.gold} stroke="#ca8a04" strokeWidth={1.2} strokeLinejoin="round" />
-  </g>
-);
 
 /** Quyển sách mở ôm trước bụng */
 const Book: React.FC<{ y?: number }> = ({ y = 0 }) => (
@@ -227,7 +215,7 @@ const Extras: React.FC<{ mood: MascotMood }> = ({ mood }) => {
   }
 };
 
-/** Khủng long con đeo kính, đội mũ cử nhân: vẽ bằng SVG, có biểu cảm, nhún nhảy và chớp mắt. */
+/** Khủng long con đeo kính, ôm sách: vẽ bằng SVG, có biểu cảm, nhún nhảy và chớp mắt. */
 export const Mascot: React.FC<{
   mood?: MascotMood;
   className?: string;
@@ -262,10 +250,9 @@ export const Mascot: React.FC<{
       <ellipse cx={100} cy={166} rx={38} ry={32} fill={C.body} stroke={C.line} strokeWidth={2.8} />
       <ellipse cx={100} cy={172} rx={24} ry={21} fill={C.belly} />
 
-      {/* gai tròn sau đầu */}
+      {/* mào gai tròn trên đầu */}
       <g fill={C.spike} stroke={C.spikeLine} strokeWidth={2.4}>
-        <circle cx={46} cy={70} r={11} /> <circle cx={60} cy={52} r={12} />
-        <circle cx={140} cy={52} r={12} /> <circle cx={154} cy={70} r={11} />
+        <circle cx={78} cy={50} r={11} /> <circle cx={100} cy={43} r={13} /> <circle cx={122} cy={50} r={11} />
       </g>
 
       {/* đầu to tròn */}
@@ -279,7 +266,6 @@ export const Mascot: React.FC<{
       <Glasses />
       <Brows mood={mood} />
       <Mouth mood={mood} />
-      <Cap tilt={mood === 'sleep' ? -18 : mood === 'celebrate' ? 10 : -8} />
       <ArmsAndProps mood={mood} animate={animate} />
       <Extras mood={mood} />
     </motion.svg>

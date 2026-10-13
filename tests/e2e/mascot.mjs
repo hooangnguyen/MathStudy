@@ -48,29 +48,69 @@ await step('Trang chủ: linh vật nhắc giữ chuỗi ngày học', async () 
   await shot(page, 'mascot-home');
 });
 
-await step('Bài học: làm đúng → linh vật khen, làm sai → linh vật động viên', async () => {
+await step('Bài học: làm đúng → Dino khen, làm sai → Dino động viên; câu sai được làm lại cuối bài', async () => {
   await page.getByRole('button', { name: /Học ngay/ }).click();
-  await page.getByRole('button', { name: 'Kiểm tra' }).waitFor({ timeout: 20000 });
-  const seen = { right: false, wrong: false };
-  for (let i = 0; i < 14 && !(seen.right && seen.wrong); i++) {
-    const input = page.getByPlaceholder('Nhập câu trả lời của bạn...');
-    if (await input.count()) await input.fill(seen.wrong ? '1' : 'không biết');
-    else {
-      // Chọn lần lượt đáp án khác nhau để gặp cả đúng lẫn sai
-      const options = page.locator('button.rounded-\\[2rem\\]');
-      await options.nth(i % (await options.count())).click();
+  await page.getByRole('radiogroup', { name: 'Các đáp án' }).waitFor({ timeout: 20000 });
+  await shot(page, 'lesson-question');
+  const seen = { right: false, wrong: false, retry: false };
+  const answers = new Map();
+  for (let i = 0; i < 40; i++) {
+    if (await page.getByText(/Hoàn hảo!|Xuất sắc!|Làm tốt lắm!|Đã hoàn thành!/).count()) break;
+    if (await page.getByText('Làm lại câu sai').count()) seen.retry = true;
+    const options = page.getByRole('radio');
+    const n = await options.count();
+    const question = (await page.locator('#lesson-question').innerText()).trim();
+    const known = answers.get(question);
+    if (known !== undefined) {
+      // Câu làm lại: chọn đúng đáp án đã thấy ở lần sai trước
+      await options.nth(known).click();
+    } else {
+      // Lượt đầu chọn theo phím tắt 1–4 để gặp cả đúng lẫn sai
+      await page.keyboard.press(String((i % n) + 1));
     }
-    await page.getByRole('button', { name: 'Kiểm tra' }).click();
-    const heading = (await page.locator('h4').first().innerText()).trim();
-    const feedbackMascot = page.locator('h4').first().locator('xpath=../..').getByRole('img', { name: MASCOT });
-    expect(await feedbackMascot.count() === 1, 'phần phản hồi không có linh vật');
+    await page.getByRole('button', { name: /kiểm tra/i }).click();
+    const status = page.getByRole('status');
+    await status.waitFor();
+    const heading = (await status.locator('h4').innerText()).trim();
     if (PRAISE.includes(heading) && !seen.right) { seen.right = true; await shot(page, 'mascot-correct'); }
     else if (ENCOURAGE.includes(heading) && !seen.wrong) { seen.wrong = true; await shot(page, 'mascot-wrong'); }
     else expect(PRAISE.includes(heading) || ENCOURAGE.includes(heading), `lời phản hồi lạ: ${heading}`);
-    await page.getByRole('button', { name: 'Tiếp tục' }).click();
-    await page.waitForTimeout(300);
+    if (ENCOURAGE.includes(heading)) {
+      // Ghi lại vị trí đáp án đúng (ô có dấu tích) để câu làm lại chọn đúng
+      const radios = page.getByRole('radio');
+      for (let k = 0; k < n; k++) if (await radios.nth(k).locator('svg.lucide-check').count()) answers.set(question, k);
+    }
+    await page.keyboard.press('Enter'); // Enter = Tiếp tục
+    await page.waitForTimeout(250);
   }
   expect(seen.right && seen.wrong, `đúng: ${seen.right}, sai: ${seen.wrong}`);
+  expect(seen.retry, 'câu sai không được đưa lại cuối bài');
+});
+
+await step('Hết bài → màn ăn mừng có Dino nhảy múa và các chỉ số; Tiếp tục → server cộng điểm', async () => {
+  await page.getByRole('img', { name: 'Dino nhảy múa ăn mừng' }).waitFor({ timeout: 10000 });
+  await page.waitForTimeout(1500);
+  const text = await page.locator('body').innerText();
+  for (const label of ['ĐIỂM THƯỞNG', 'CHÍNH XÁC', 'THỜI GIAN', 'CHUỖI ĐÚNG']) expect(text.toUpperCase().includes(label), `thiếu ô ${label}`);
+  const percent = Number(/(\d+)%/.exec(text)?.[1]);
+  await shot(page, 'lesson-complete');
+  await page.getByRole('button', { name: /tiếp tục/i }).click();
+  await page.getByText('Giữ chuỗi').waitFor({ timeout: 20000 });
+  let points = 120;
+  for (let i = 0; i < 20 && points === 120; i++) { await page.waitForTimeout(500); points = (await adb.doc(`users/${localId}`).get()).data().points; }
+  expect(points === 120 + percent * 10, `điểm ${points}, mong đợi ${120 + percent * 10} (${percent}%)`);
+});
+
+await step('Thoát giữa bài → hỏi lại; "Học tiếp" ở lại, "Thoát" về trang chủ', async () => {
+  await page.getByRole('button', { name: /Học ngay/ }).click();
+  await page.getByRole('radiogroup', { name: 'Các đáp án' }).waitFor({ timeout: 20000 });
+  await page.getByRole('button', { name: 'Thoát bài học' }).click();
+  await page.getByRole('dialog', { name: 'Dừng bài học' }).waitFor();
+  await page.getByRole('button', { name: /học tiếp/i }).click();
+  expect(await page.getByRole('radiogroup').count() === 1, 'không ở lại bài');
+  await page.getByRole('button', { name: 'Thoát bài học' }).click();
+  await page.getByRole('button', { name: /^thoát$/i }).click();
+  await page.getByText('Giữ chuỗi').waitFor({ timeout: 10000 });
 });
 
 console.log(`\n${pass} passed, ${fail} failed`);

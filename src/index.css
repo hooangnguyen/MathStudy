@@ -427,3 +427,22 @@ math-field {
 @media (prefers-reduced-motion: reduce) {
   .mascot-blink .mascot-eyes { animation: none; }
 }
+
+/* Bài học: rung khi chọn sai, nảy khi đúng */
+@keyframes lesson-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+@keyframes lesson-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.lesson-shake { animation: lesson-shake 0.45s ease-in-out; }
+.lesson-pop { animation: lesson-pop 0.4s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .lesson-shake, .lesson-pop { animation: none; }
+}
