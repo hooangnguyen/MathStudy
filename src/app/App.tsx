@@ -560,11 +560,7 @@ export default function App() {
     };
 
     if (!isAuthReady || isSyncingProfile) {
-      return (
-        <div className="flex h-screen items-center justify-center bg-slate-50">
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full" />
-        </div>
-      );
+      return <LoadingScreen />;
     }
 
     if (!isLoggedIn) {
@@ -633,15 +629,7 @@ export default function App() {
   };
 
   if (!isAuthReady) {
-    return (
-      <div className="h-screen w-screen flex items-center justify-center bg-white">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full"
-        />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!isLoggedIn) {

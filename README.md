@@ -97,6 +97,13 @@ Học sinh quét QR bằng camera điện thoại.
 - **Nhân vật:** mỗi người trong phòng chọn và trang trí một nhân vật (8 con vật × 8 màu × 7 phụ kiện, vẽ bằng SVG trong
   `src/features/rooms/characters.tsx`), lưu ở `duelRooms/{phòng}.playerAvatars.{uid}`. Giáo viên có thể mời người chơi ra khỏi phòng chờ.
 
+## Linh vật
+
+Khủng long con **Dino** (`src/components/mascot/Mascot.tsx`), vẽ bằng SVG, có 7 biểu cảm:
+`happy`, `wave`, `cheer`, `oops`, `think`, `sleep`, `celebrate`. Dùng `<Mascot mood="cheer" />` hoặc
+`<MascotSays mood="wave">Lời thoại</MascotSays>`. Đổi tên ở hằng `MASCOT_NAME`.
+Icon PWA (`public/pwa-*.svg`) được tạo từ linh vật: `npx tsx scripts/build-mascot-icons.tsx`.
+
 ## Chạy bằng Docker
 
 ```bash

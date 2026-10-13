@@ -11,5 +11,6 @@ node tests/e2e/rooms.mjs
 RC=$?
 node tests/e2e/assignment-editor.mjs || RC=1
 node tests/e2e/join-link.mjs || RC=1
+node tests/e2e/mascot.mjs || RC=1
 kill $SRV
 exit $RC

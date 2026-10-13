@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Lock, User, ArrowRight, Chrome, Sparkles, DoorOpen } from 'lucide-react';
 import { auth, googleProvider } from '../../lib/firebase';
+import { Mascot } from '../../components/mascot/Mascot';
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 interface AuthProps {
@@ -91,9 +92,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin, joinCode }) => {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-3 mb-10"
         >
-          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] flex items-center justify-center text-white shadow-xl shadow-indigo-500/20 mb-5">
-            <Sparkles size={32} fill="currentColor" />
-          </div>
+          <Mascot mood="wave" className="w-24 h-24 -ml-2 mb-1" />
           <h1 className="text-4xl font-black tracking-tight text-slate-900">
             {mode === 'login' ? 'Chào mừng trở lại!' : 'Bắt đầu hành trình'}
           </h1>

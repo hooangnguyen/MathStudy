@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { X, ChevronRight, CheckCircle2, AlertCircle, Volume2, HelpCircle, Star, Loader2 } from 'lucide-react';
+import { X, ChevronRight, AlertCircle, Volume2, HelpCircle, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../lib/utils';
+import { Mascot } from '../../components/mascot/Mascot';
+
+// Lời linh vật nói khi làm đúng / sai (đổi theo câu cho đỡ lặp)
+const PRAISE = ['Tuyệt vời!', 'Giỏi quá!', 'Chính xác!', 'Đỉnh luôn!', 'Quá đúng!'];
+const ENCOURAGE = ['Chưa đúng, không sao!', 'Cố lên nhé!', 'Lần sau sẽ đúng thôi!', 'Học từ lỗi sai nào!'];
 import { loadQuestionBank } from './questionBank';
 import { useFirebase } from '../../app/FirebaseProvider';
 import { audioService } from '../../lib/audio';
@@ -164,15 +169,9 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center space-y-4">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="text-primary"
-        >
-          <Loader2 size={40} />
-        </motion.div>
-        <p className="text-slate-500 font-bold text-base animate-pulse">Đang tải câu hỏi...</p>
+      <div className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center gap-2">
+        <Mascot mood="think" className="w-32 h-32" />
+        <p className="text-slate-600 font-bold text-base animate-pulse">Đang tải câu hỏi...</p>
       </div>
     );
   }
@@ -311,15 +310,10 @@ export const LessonView: React.FC<LessonViewProps> = ({ lessonTitle, topic, grad
         <div className="max-w-md mx-auto space-y-4">
           {isChecked && (
             <div className="flex items-center gap-4 mb-4">
-              <div className={cn(
-                "w-12 h-12 rounded-2xl flex items-center justify-center",
-                isCorrect ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"
-              )}>
-                {isCorrect ? <CheckCircle2 size={28} /> : <AlertCircle size={28} />}
-              </div>
-              <div>
+              <Mascot key={currentStep} mood={isCorrect ? 'cheer' : 'oops'} className="w-20 h-20 shrink-0 -my-2" />
+              <div className="min-w-0">
                 <h4 className={cn("font-black text-lg", isCorrect ? "text-emerald-900" : "text-rose-900")}>
-                  {isCorrect ? 'Tuyệt vời!' : 'Chưa chính xác'}
+                  {isCorrect ? PRAISE[currentStep % PRAISE.length] : ENCOURAGE[currentStep % ENCOURAGE.length]}
                 </h4>
                 <div className={cn("text-xs font-medium flex items-center gap-1", isCorrect ? "text-emerald-700" : "text-rose-700")}>
                   {isCorrect ? 'Bạn đã trả lời đúng câu hỏi này.' : (

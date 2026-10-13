@@ -413,4 +413,17 @@ math-field {
         display: none !important;
     }
 }
-
+
+/* Linh vật chớp mắt (xem components/mascot/Mascot.tsx) */
+@keyframes mascot-blink {
+  0%, 94%, 100% { transform: scaleY(1); }
+  97% { transform: scaleY(0.1); }
+}
+.mascot-blink .mascot-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mascot-blink 4.5s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mascot-blink .mascot-eyes { animation: none; }
+}

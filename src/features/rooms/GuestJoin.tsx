@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { signInAnonymously } from 'firebase/auth';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { auth } from '../../lib/firebase';
+import { Mascot } from '../../components/mascot/Mascot';
 import { CharacterPicker } from './CharacterPicker';
 import { FloatingSymbols } from './FloatingSymbols';
 import { loadSavedCharacter, randomCharacter, saveCharacter, type CharacterSpec } from './characters';
@@ -46,7 +47,8 @@ export const GuestJoin: React.FC<{ code: string; onSignIn: () => void }> = ({ co
       <form onSubmit={submit} className="relative z-10 w-full max-w-md mx-auto px-4 py-6 flex-1 flex flex-col justify-center gap-4">
         <div className="text-center text-white">
           <p className="inline-block px-4 py-1.5 rounded-full bg-white/15 text-sm font-bold">Phòng <span className="tracking-widest">{code}</span></p>
-          <h1 className="text-3xl font-black mt-3">Sẵn sàng chơi chưa?</h1>
+          <Mascot mood="cheer" className="w-24 h-24 mx-auto mt-2 -mb-2" />
+          <h1 className="text-3xl font-black">Sẵn sàng chơi chưa?</h1>
           <p className="text-indigo-100 font-medium mt-1">Nhập tên và chọn nhân vật của bạn</p>
         </div>
 
