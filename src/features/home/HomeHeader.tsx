@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bell, Flame, Star } from 'lucide-react';
 import { Avatar } from '../../components/Avatar';
+import { MascotSays } from '../../components/mascot/Mascot';
 
 interface HomeHeaderProps {
   name?: string;
@@ -44,6 +45,12 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ name, avatar, grade, str
           )}
         </button>
       </div>
+
+      <MascotSays mood="wave" mascotClassName="w-24 h-24 -mb-1 -ml-1">
+        {streak > 0
+          ? <>Giữ chuỗi <span className="text-orange-600">{streak} ngày</span> nào! Hôm nay học thêm một bài nhé.</>
+          : <>Chào {firstName}! Mình học một bài thật vui hôm nay nhé?</>}
+      </MascotSays>
 
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-white rounded-2xl border border-orange-100 p-3 flex items-center gap-2.5 shadow-sm">

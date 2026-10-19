@@ -42,6 +42,8 @@ export interface DuelRoom {
     maxPlayers: number;
     currentPlayers: string[]; // array of user IDs
     playerNames: { [uid: string]: string };
+    /** Nhân vật đại diện của từng người ("loài.màu.phụ-kiện", xem features/rooms/characters) */
+    playerAvatars?: { [uid: string]: string };
     participantProgress?: {
         [uid: string]: {
             score: number;
@@ -88,8 +90,13 @@ export interface UserRank {
     avatar?: string;
 }
 
-// Generate random 6-character room code (alphanumeric)
-const generateRoomCode = (): string => randomCode(6);
+// Mã phòng đấu: 6 ký tự chữ-số, luôn có ít nhất 1 chữ cái để không trùng dạng với mã quiz (6 chữ số).
+// Nhờ vậy link /join/<mã> biết ngay là phòng đấu hay phòng quiz.
+const generateRoomCode = (): string => {
+    let code = randomCode(6);
+    while (/^\d+$/.test(code)) code = randomCode(6);
+    return code;
+};
 
 // Generate random 6-digit numeric room code (for quiz)
 export const generateNumericRoomCode = (): string => randomCode(6, '0123456789');
@@ -147,7 +154,7 @@ export const createDuelRoom = async (
  *   rules chặn vượt số người tối đa và chặn vào phòng đã bắt đầu.
  * Ném Error với thông báo tiếng Việt khi không vào được.
  */
-export const joinDuelRoom = async (roomCode: string, userId: string, userName: string): Promise<DuelRoom> => {
+export const joinDuelRoom = async (roomCode: string, userId: string, userName: string, character?: string): Promise<DuelRoom> => {
     const roomsRef = collection(db, 'duelRooms');
     const codeToMatch = /^\d+$/.test(roomCode.trim()) ? roomCode.trim() : roomCode.trim().toUpperCase();
     const snapshot = await getDocs(query(roomsRef, where('code', '==', codeToMatch)));
@@ -169,8 +176,10 @@ export const joinDuelRoom = async (roomCode: string, userId: string, userName: s
     try {
         await updateDoc(doc(db, 'duelRooms', room.id), {
             currentPlayers: arrayUnion(userId),
-            [`playerNames.${userId}`]: userName,
+            // rules giới hạn tên 1–30 ký tự
+            [`playerNames.${userId}`]: userName.trim().slice(0, 30) || 'Người chơi',
             [`lastSeen.${userId}`]: serverTimestamp(),
+            ...(character && { [`playerAvatars.${userId}`]: character }),
             ...(room.maxPlayers === 2 && { guestId: userId, guestName: userName })
         });
     } catch (error: any) {
@@ -183,6 +192,11 @@ export const joinDuelRoom = async (roomCode: string, userId: string, userName: s
 
     const joined = await getDoc(doc(db, 'duelRooms', room.id));
     return joined.data() as DuelRoom;
+};
+
+/** Đổi nhân vật đại diện của mình trong phòng. */
+export const setRoomCharacter = async (roomId: string, userId: string, character: string): Promise<void> => {
+    await updateDoc(doc(db, 'duelRooms', roomId), { [`playerAvatars.${userId}`]: character });
 };
 
 /** Báo mình vẫn còn kết nối trong phòng (gọi định kỳ khi đang ở màn hình phòng). */

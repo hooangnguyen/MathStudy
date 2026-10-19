@@ -19,9 +19,14 @@ export async function requireAuth(req: AuthedRequest, res: Response, next: NextF
   }
   try {
     const decoded = await adminAuth.verifyIdToken(token);
+    // Khách vào phòng quiz bằng tên (đăng nhập ẩn danh) không được dùng các API (AI, chấm điểm, ...)
+    if (decoded.firebase?.sign_in_provider === "anonymous") {
+      return res.status(403).json({ success: false, error: "Bạn cần đăng nhập tài khoản để dùng tính năng này." });
+    }
     req.uid = decoded.uid;
     next();
   } catch {
+    if (res.headersSent) return;
     res.status(401).json({ success: false, error: "Phiên đăng nhập không hợp lệ hoặc đã hết hạn." });
   }
 }

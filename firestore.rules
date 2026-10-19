@@ -4,8 +4,18 @@ service cloud.firestore {
 
     // ---------- Helpers ----------
 
+    // Tài khoản thật (email/Google). Khách vào phòng quiz bằng tên (đăng nhập ẩn danh) KHÔNG tính là đã đăng nhập.
     function isAuthenticated() {
+      return isSignedIn() && !isGuest();
+    }
+
+    // Bất kỳ ai có phiên Firebase, kể cả khách ẩn danh
+    function isSignedIn() {
       return request.auth != null;
+    }
+
+    function isGuest() {
+      return request.auth.token.get('firebase', {}).get('sign_in_provider', '') == 'anonymous';
     }
 
     function uid() {
@@ -218,25 +228,31 @@ service cloud.firestore {
     }
 
     match /duelRooms/{roomId} {
-      allow read: if isAuthenticated();
+      // Khách (ẩn danh) chỉ đọc/vào được phòng Quiz lớp, không tạo phòng
+      allow read: if isSignedIn();
       allow create: if isAuthenticated()
         && incoming().hostId == uid()
         && incoming().currentPlayers == [uid()];
 
-      allow update: if isAuthenticated() && incoming().hostId == existing().hostId && (
-        // Chủ phòng: bắt đầu trận, đặt lại phòng, đổi cài đặt
+      allow update: if isSignedIn() && incoming().hostId == existing().hostId
+        && (!isGuest() || existing().get('quizQuestions', null) != null) && (
+        // Chủ phòng: bắt đầu trận, đặt lại phòng, đổi cài đặt, mời người chơi ra khỏi phòng
         existing().hostId == uid()
-        // Vào phòng: chỉ thêm chính mình, khi phòng còn chờ và chưa đủ người
+        // Vào phòng: chỉ thêm chính mình (tên, nhân vật), khi phòng còn chờ và chưa đủ người
         || (
           existing().status == 'waiting'
           && !(uid() in existing().currentPlayers)
-          && onlyChanges(['currentPlayers', 'playerNames', 'guestId', 'guestName', 'lastSeen'])
+          && onlyChanges(['currentPlayers', 'playerNames', 'playerAvatars', 'guestId', 'guestName', 'lastSeen'])
           && incoming().get('lastSeen', {}).diff(existing().get('lastSeen', {})).affectedKeys().hasOnly([uid()])
+          && incoming().get('playerAvatars', {}).diff(existing().get('playerAvatars', {})).affectedKeys().hasOnly([uid()])
           && incoming().currentPlayers.hasAll(existing().currentPlayers)
           && incoming().currentPlayers.size() == existing().currentPlayers.size() + 1
           && uid() in incoming().currentPlayers
           && incoming().currentPlayers.size() <= existing().maxPlayers
           && incoming().playerNames.diff(existing().playerNames).affectedKeys().hasOnly([uid()])
+          && incoming().playerNames[uid()] is string
+          && incoming().playerNames[uid()].size() >= 1
+          && incoming().playerNames[uid()].size() <= 30
         )
         // Rời phòng: chỉ bỏ chính mình
         || (
@@ -257,6 +273,14 @@ service cloud.firestore {
           uid() in existing().currentPlayers
           && onlyChanges(['lastSeen'])
           && incoming().lastSeen.diff(existing().get('lastSeen', {})).affectedKeys().hasOnly([uid()])
+        )
+        // Đổi nhân vật của chính mình
+        || (
+          uid() in existing().currentPlayers
+          && onlyChanges(['playerAvatars'])
+          && incoming().playerAvatars.diff(existing().get('playerAvatars', {})).affectedKeys().hasOnly([uid()])
+          && incoming().playerAvatars[uid()] is string
+          && incoming().playerAvatars[uid()].size() <= 40
         )
       );
 

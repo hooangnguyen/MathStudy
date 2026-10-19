@@ -54,6 +54,7 @@ function mapDraftToQuizQuestions(draft: DraftAssignmentData, grade: number): Qui
 
 export interface QuizRoomData extends DuelRoom {
   quizQuestions?: string; // JSON string of QuizQuestion[]
+  quizTitle?: string; // tên đề, hiện ở phòng chờ và màn vinh danh
 }
 
 /** Tạo phòng quiz từ bản nháp (chỉ giáo viên) */
@@ -72,10 +73,11 @@ export const createQuizRoom = async (
   const numericCode = await getUnusedRoomCode(generateNumericRoomCode);
   const room = await createDuelRoom(hostId, hostName, 'time', timeLimit, 60, numericCode);
   await updateDoc(doc(db, 'duelRooms', room.id), {
-    quizQuestions: JSON.stringify(questions)
+    quizQuestions: JSON.stringify(questions),
+    quizTitle: draft.title || ''
   });
 
-  return { ...room, quizQuestions: JSON.stringify(questions) } as QuizRoomData;
+  return { ...room, quizQuestions: JSON.stringify(questions), quizTitle: draft.title || '' } as QuizRoomData;
 };
 
 export {

@@ -40,6 +40,8 @@ const env = await initializeTestEnvironment({
 });
 const dbs = {};
 const db = (uid) => (dbs[uid] ??= env.authenticatedContext(uid).firestore());
+// Khách vào phòng quiz bằng tên: phiên đăng nhập ẩn danh
+const guestDb = (uid) => (dbs[`guest:${uid}`] ??= env.authenticatedContext(uid, { firebase: { sign_in_provider: 'anonymous' } }).firestore());
 const admin = async (fn) => {
   let result;
   await env.withSecurityRulesDisabled(async (ctx) => { result = await fn(ctx.firestore()); });
@@ -435,6 +437,45 @@ await t('chủ phòng đặt lại phòng để chơi ván mới', () => assertS
 })));
 await t('KHÔNG phải chủ phòng thì không xoá được phòng', () => assertFails(deleteDoc(doc(db(quizMember.uid), 'duelRooms/quiz'))));
 await t('chủ phòng đóng phòng', () => assertSucceeds(deleteDoc(doc(db(teacher.uid), 'duelRooms/quiz'))));
+
+// ---------- Khách vào phòng quiz bằng tên (không có tài khoản) ----------
+console.log('\nKhách (ẩn danh)');
+
+const guestJoin = (uid, id, extra = {}) => updateDoc(doc(guestDb(uid), `duelRooms/${id}`), {
+  currentPlayers: arrayUnion(uid), [`playerNames.${uid}`]: 'Khách', [`playerAvatars.${uid}`]: 'cat.orange.crown',
+  [`lastSeen.${uid}`]: serverTimestamp(), ...extra,
+});
+await admin((a) => setDoc(doc(a, 'duelRooms/gquiz'), roomDoc('gquiz', teacher, { maxPlayers: 60, code: '654321', quizQuestions: '[]' })));
+await admin((a) => setDoc(doc(a, 'duelRooms/gduo'), roomDoc('gduo', stu)));
+
+await t('khách vào phòng quiz bằng tên + nhân vật', () => assertSucceeds(guestJoin('g1', 'gquiz')));
+await t('khách đọc được phòng quiz', () => assertSucceeds(getDoc(doc(guestDb('g1'), 'duelRooms/gquiz'))));
+await t('KHÔNG vào phòng với tên rỗng', () => assertFails(guestJoin('g2', 'gquiz', { [`playerNames.g2`]: '' })));
+await t('KHÔNG vào phòng với tên quá dài', () => assertFails(guestJoin('g2', 'gquiz', { [`playerNames.g2`]: 'x'.repeat(31) })));
+await t('KHÔNG gán nhân vật cho người khác khi vào phòng', () => assertFails(guestJoin('g2', 'gquiz', { [`playerAvatars.g1`]: 'bear.red.none' })));
+await t('khách đổi nhân vật của mình', () => assertSucceeds(updateDoc(doc(guestDb('g1'), 'duelRooms/gquiz'), { 'playerAvatars.g1': 'frog.green.bow' })));
+await t('học sinh có tài khoản cũng đổi được nhân vật của mình', async () => {
+  await joinRoom(crowd[25], 'gquiz');
+  await assertSucceeds(updateDoc(doc(db(crowd[25].uid), 'duelRooms/gquiz'), { [`playerAvatars.${crowd[25].uid}`]: 'bear.blue.none' }));
+});
+await t('KHÔNG đổi nhân vật của người khác', () => assertFails(updateDoc(doc(guestDb('g1'), 'duelRooms/gquiz'), { [`playerAvatars.${crowd[25].uid}`]: 'x' })));
+await t('khách cập nhật tiến độ của mình', () => assertSucceeds(updateDoc(doc(guestDb('g1'), 'duelRooms/gquiz'), {
+  'participantProgress.g1': { score: 10, progress: 1, finished: false },
+})));
+await t('chủ phòng mời khách ra khỏi phòng', () => assertSucceeds(updateDoc(doc(db(teacher.uid), 'duelRooms/gquiz'), { currentPlayers: arrayRemove('g1') })));
+await t('KHÔNG vào phòng đấu 1v1 khi là khách', () => assertFails(guestJoin('g3', 'gduo')));
+await t('KHÔNG tạo phòng khi là khách', () => assertFails(setDoc(doc(guestDb('g3'), 'duelRooms/gx'), roomDoc('gx', { uid: 'g3' }))));
+await t('KHÔNG đọc hồ sơ người dùng khi là khách', () => assertFails(getDoc(doc(guestDb('g3'), `users/${stu.uid}`))));
+await t('KHÔNG tạo hồ sơ người dùng khi là khách', () => assertFails(setDoc(doc(guestDb('g3'), 'users/g3'), { name: 'Khách', role: 'student' })));
+await t('KHÔNG đọc lớp học khi là khách', () => assertFails(getDoc(doc(guestDb('g3'), `classes/${classId}`))));
+await t('API: khách (token ẩn danh) → 403', async () => {
+  const r = await fetch(`http://${AUTH_HOST}/identitytoolkit.googleapis.com/v1/accounts:signUp?key=fake`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ returnSecureToken: true }),
+  });
+  const { idToken } = await r.json();
+  const res = await api('/api/ai/chat', idToken, { message: 'hi' });
+  expect(res.status === 403, `status ${res.status}`);
+});
 
 // ---------- Kết thúc ----------
 

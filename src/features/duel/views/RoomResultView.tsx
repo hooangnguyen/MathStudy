@@ -5,6 +5,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
 import { cn } from '../../../lib/utils';
 import type { MathDuelController } from '../useMathDuel';
+import { Character } from '../../rooms/characters';
 
 export const RoomResultView: React.FC<{ duel: MathDuelController }> = ({ duel }) => {
   const { userProfile, setState, roomId, roomCode, isHost, roomResults, avatarMap } = duel;
@@ -36,7 +37,7 @@ export const RoomResultView: React.FC<{ duel: MathDuelController }> = ({ duel })
             className="flex flex-col items-center"
           >
             <div className="relative mb-2">
-              <img src={avatarMap[String(roomResults[1].id)] || (roomResults[1].isMe ? userProfile?.avatar : undefined) || roomResults[1].avatar} alt="" className="w-14 h-14 rounded-full border-4 border-slate-300 object-cover bg-slate-200" referrerPolicy="no-referrer" />
+              <Character value={roomResults[1].character} uid={String(roomResults[1].id)} className="w-14 h-14" />
               <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-slate-300 rounded-full flex items-center justify-center text-white font-black text-xs border-2 border-white">2</div>
             </div>
             <div className="w-20 h-24 bg-gradient-to-t from-slate-200 to-slate-100 rounded-t-2xl flex flex-col items-center justify-start pt-4 border-x border-t border-slate-300/50 shadow-inner">
@@ -56,7 +57,7 @@ export const RoomResultView: React.FC<{ duel: MathDuelController }> = ({ duel })
           >
             <div className="relative mb-2">
               <Crown className="absolute -top-6 left-1/2 -translate-x-1/2 text-yellow-500" size={28} />
-              <img src={avatarMap[String(roomResults[0].id)] || (roomResults[0].isMe ? userProfile?.avatar : undefined) || roomResults[0].avatar} alt="" className="w-16 h-16 rounded-full border-4 border-yellow-400 object-cover bg-slate-200" referrerPolicy="no-referrer" />
+              <Character value={roomResults[0].character} uid={String(roomResults[0].id)} className="w-16 h-16" />
               <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-white font-black text-xs border-2 border-white">1</div>
             </div>
             <div className="w-24 h-32 bg-gradient-to-t from-yellow-200 to-yellow-100 rounded-t-2xl flex flex-col items-center justify-start pt-4 border-x border-t border-yellow-300/50 shadow-inner">
@@ -75,7 +76,7 @@ export const RoomResultView: React.FC<{ duel: MathDuelController }> = ({ duel })
             className="flex flex-col items-center"
           >
             <div className="relative mb-2">
-              <img src={avatarMap[String(roomResults[2].id)] || (roomResults[2].isMe ? userProfile?.avatar : undefined) || roomResults[2].avatar} alt="" className="w-14 h-14 rounded-full border-4 border-amber-600 object-cover bg-slate-200" referrerPolicy="no-referrer" />
+              <Character value={roomResults[2].character} uid={String(roomResults[2].id)} className="w-14 h-14" />
               <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-amber-600 rounded-full flex items-center justify-center text-white font-black text-xs border-2 border-white">3</div>
             </div>
             <div className="w-20 h-20 bg-gradient-to-t from-amber-200/50 to-amber-100/50 rounded-t-2xl flex flex-col items-center justify-start pt-4 border-x border-t border-amber-300/50 shadow-inner">
@@ -101,7 +102,7 @@ export const RoomResultView: React.FC<{ duel: MathDuelController }> = ({ duel })
           >
             <div className="flex items-center gap-4">
               <span className="font-black text-slate-400 w-4 text-center">{index + 4}</span>
-              <img src={avatarMap[String(player.id)] || (player.isMe ? userProfile?.avatar : undefined) || player.avatar} alt="" className="w-10 h-10 rounded-full object-cover bg-slate-200" referrerPolicy="no-referrer" />
+              <Character value={player.character} uid={String(player.id)} className="w-10 h-10" />
               <span className={cn("font-bold", player.isMe ? "text-indigo-700" : "text-slate-700")}>
                 {player.name}
               </span>
